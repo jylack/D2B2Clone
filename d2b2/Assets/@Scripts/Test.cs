@@ -7,11 +7,10 @@ public class Test : MonoBehaviour
 {
     private FirebaseAuth auth;
 
-
-
     private async void Start()
     {
-        await FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(t => {
+        await FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(t =>
+        {
             if (t.Result == DependencyStatus.Available)
             {
                 auth = FirebaseAuth.DefaultInstance;
