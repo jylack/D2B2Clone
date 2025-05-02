@@ -20,6 +20,7 @@ public class Manager : MonoBehaviour
 
     public InputManager InputMgr { get; private set; }
     public ResourceManager ResourceMgr { get; private set; }
+    public DatabaseManager DbMgr { get; private set; }
 
 
 
@@ -30,5 +31,8 @@ public class Manager : MonoBehaviour
 
         ResourceMgr = new GameObject(nameof(ResourceManager)).AddComponent<ResourceManager>();
         ResourceMgr.transform.SetParent(Instance.transform);
+
+        DbMgr = new DatabaseManager();
+        DbMgr.Init();
     }
 }
