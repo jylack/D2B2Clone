@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
-public class DatabaseManager
+public class DatabaseManager : MonoBehaviour
 {
     private IDatabase database;
 
@@ -13,6 +14,11 @@ public class DatabaseManager
         database.Init();
     }
 
+    public async UniTask<bool> CheckNickNameExist(string nickName)
+    {
+        return await database.CheckNickNameExist(nickName);
+    }
+    
     public async UniTask Save(string nickName, ScPlayerEntity playerEntity)
     {
         await database.Save(nickName, playerEntity);

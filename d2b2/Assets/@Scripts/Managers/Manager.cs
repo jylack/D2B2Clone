@@ -17,8 +17,9 @@ public class Manager : MonoBehaviour
             return instance;
         }
     }
-
+    
     public InputManager InputMgr { get; private set; }
+    public GameManager GameMgr { get; private set; }
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
 
@@ -26,13 +27,19 @@ public class Manager : MonoBehaviour
 
     private void Init()
     {
-        InputMgr = new GameObject(nameof(InputManager)).AddComponent<InputManager>();
-        InputMgr.transform.SetParent(Instance.transform);
-
-        ResourceMgr = new GameObject(nameof(ResourceManager)).AddComponent<ResourceManager>();
-        ResourceMgr.transform.SetParent(Instance.transform);
-
-        DbMgr = new DatabaseManager();
+        InputMgr = InitSubManager<InputManager>();
+        GameMgr = InitSubManager<GameManager>();
+        ResourceMgr = InitSubManager<ResourceManager>();
+        
+        DbMgr = InitSubManager<DatabaseManager>();
         DbMgr.Init();
+    }
+
+    private TComp InitSubManager<TComp>() where TComp : Component
+    {
+        TComp comp = new GameObject(typeof(TComp).Name).AddComponent<TComp>();
+        comp.transform.SetParent(instance.transform);
+
+        return comp;
     }
 }

@@ -11,6 +11,7 @@ public class UIPlayerTestEntity : MonoBehaviour
 
     public void Remove()
     {
+        print($"{nickName} clicked!");
         Manager.Instance.DbMgr.Remove(nickName).Forget();
         Destroy(gameObject);
     }

@@ -36,10 +36,34 @@ public class FirebaseRealtimeDb : IDatabase
         }
     }
 
+    public async UniTask<bool> CheckNickNameExist(string nickName)
+    {
+        try
+        {
+            DataSnapshot rootSnapshot = await dbRef.Child(RootPath).GetValueAsync();
+
+            foreach (DataSnapshot snapshot in rootSnapshot.Children)
+            {
+                if (snapshot.Key == nickName)
+                    return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+            throw;
+        }
+
+        return false;
+    }
+    
     public async UniTask Save(string nickName, ScPlayerEntity playerEntity)
     {
         try
         {
+            if (string.IsNullOrEmpty(nickName))
+                throw new Exception("nickname is empty.");
+            
             string json = JsonConvert.SerializeObject(playerEntity);
             await dbRef.Child(RootPath).Child(nickName).SetRawJsonValueAsync(json);
         }
@@ -75,9 +99,9 @@ public class FirebaseRealtimeDb : IDatabase
         try
         {
             List<ScPlayerEntity> entities = new();
-            DataSnapshot snapshotParent = await dbRef.Child(RootPath).GetValueAsync();
+            DataSnapshot rootSnapshot = await dbRef.Child(RootPath).GetValueAsync();
             
-            foreach (DataSnapshot snapshot in snapshotParent.Children)
+            foreach (DataSnapshot snapshot in rootSnapshot.Children)
             {
                 string json = snapshot.GetRawJsonValue();
                 ScPlayerEntity entity = JsonConvert.DeserializeObject<ScPlayerEntity>(json);
