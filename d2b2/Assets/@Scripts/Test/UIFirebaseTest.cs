@@ -12,6 +12,7 @@ public class UIFirebaseTest : MonoBehaviour
     public GameObject itemPrefab;
 
 
+    
     private void Start()
     {
         inputField.onValidateInput += OnValidateInput;

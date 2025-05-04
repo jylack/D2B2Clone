@@ -9,8 +9,8 @@ public class Manager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new GameObject(nameof(Manager)).AddComponent<Manager>();
-                instance.Init();
+                var managerPrefab = Resources.Load<GameObject>("Prefabs/Manager");
+                instance = Instantiate(managerPrefab).GetComponent<Manager>();
                 DontDestroyOnLoad(instance.gameObject);
             }
 
@@ -18,14 +18,17 @@ public class Manager : MonoBehaviour
         }
     }
     
+    [SerializeField] private GameObject gameSceneManagerPrefab;
+    
     public InputManager InputMgr { get; private set; }
     public GameManager GameMgr { get; private set; }
+    public GameSceneManager SceneMgr { get; private set; }
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
 
 
-
-    private void Init()
+    
+    private void Awake()
     {
         InputMgr = InitSubManager<InputManager>();
         GameMgr = InitSubManager<GameManager>();
@@ -33,12 +36,20 @@ public class Manager : MonoBehaviour
         
         DbMgr = InitSubManager<DatabaseManager>();
         DbMgr.Init();
+        
+        SceneMgr = Instantiate(gameSceneManagerPrefab).GetComponent<GameSceneManager>();
+        SceneMgr.transform.SetParent(transform);
+        
+        DontDestroyOnLoad(gameObject);
+        // Instance = this;
     }
-
+    
+    
+    
     private TComp InitSubManager<TComp>() where TComp : Component
     {
         TComp comp = new GameObject(typeof(TComp).Name).AddComponent<TComp>();
-        comp.transform.SetParent(instance.transform);
+        comp.transform.SetParent(transform);
 
         return comp;
     }
