@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class FadeSub2Scene : MonoBehaviour
 {
-    private AudioListener listener;
-    
-    
-    
-    private async UniTaskVoid Awake()
+    private async void Awake()
     {
         try
         {
-            Debug.Log($"load {nameof(FadeSub2Scene)}");
-            
-            listener = GameObject.Find("Main Camera").GetComponent<AudioListener>();
-
             await UniTask.Delay(1000);
-        
             Manager.Instance.SceneMgr.OnSceneLoaded();
         }
         catch (Exception ex)
@@ -30,9 +21,6 @@ public class FadeSub2Scene : MonoBehaviour
     
     public void LoadScene()
     {
-        Manager.Instance.SceneMgr.LoadScene("FadeSub1", () =>
-        {
-            Destroy(listener);
-        });
+        Manager.Instance.SceneMgr.LoadScene("FadeSub1");
     }
 }

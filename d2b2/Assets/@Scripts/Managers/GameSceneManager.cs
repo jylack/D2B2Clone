@@ -27,9 +27,9 @@ public class GameSceneManager : MonoBehaviour
 
 
 
-    public void LoadScene(string sceneName, Action fadeoutCallback)
+    public void LoadScene(string sceneName)
     {
-        Load(sceneName, fadeoutCallback).Forget();
+        Load(sceneName).Forget();
     }
 
     public void OnSceneLoaded()
@@ -39,7 +39,7 @@ public class GameSceneManager : MonoBehaviour
 
 
 
-    private async UniTask Load(string sceneName, Action fadeoutCallback)
+    private async UniTask Load(string sceneName)
     {
         if (currentSceneName == sceneName)
             return;
@@ -47,7 +47,12 @@ public class GameSceneManager : MonoBehaviour
         Debug.Log($"load scene: {sceneName}");
 
         await FadeOut();
-        fadeoutCallback?.Invoke();
+        
+        // warning error log 방지
+        var listener = GameObject.Find("Main Camera").GetComponent<AudioListener>();
+        if (listener != null)
+            Destroy(listener);
+        
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
         
         // unload

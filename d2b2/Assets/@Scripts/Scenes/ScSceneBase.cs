@@ -2,9 +2,9 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class FadeSub1Scene : MonoBehaviour
+public abstract class ScSceneBase : ScObjectBase
 {
-    private async void Awake()
+    protected virtual async void Awake()
     {
         try
         {
@@ -16,11 +16,11 @@ public class FadeSub1Scene : MonoBehaviour
             Debug.Log(ex);
         }
     }
-
-
-
-    public void LoadScene()
+    
+    
+    
+    public void LoadScene(string sceneName)
     {
-        Manager.Instance.SceneMgr.LoadScene("FadeSub2");
+        Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 }
