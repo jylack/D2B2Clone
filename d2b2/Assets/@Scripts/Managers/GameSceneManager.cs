@@ -1,5 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,17 +26,44 @@ public class GameSceneManager : MonoBehaviour
 
 
 
+    public void LoadScene(Define.ScScene scene)
+    {
+        string sceneName = GetSceneName(scene);
+        LoadScene(sceneName);
+    }
+
     public void LoadScene(string sceneName)
     {
         Load(sceneName).Forget();
     }
-
+    
     public void OnSceneLoaded()
     {
         isLoaded = true;
     }
 
 
+
+    private static string GetSceneName(Define.ScScene scene)
+    {
+        return scene switch
+        {
+            Define.ScScene.InitSettings                 => "InitSettings",
+            Define.ScScene.TutorialPlayerSettings       => "Tut_PlayerSettings",
+            Define.ScScene.TutorialCharacterSelection   => "Tut_CharacterSelection",
+            Define.ScScene.TutorialPlay                 => "Tut_Play",
+            Define.ScScene.Ch1Login                     => "Ch1_Login",
+            Define.ScScene.Ch1Play                      => "Ch1_Play",
+            Define.ScScene.Ch2Login                     => "Ch2_Login",
+            Define.ScScene.Ch2Play                      => "Ch2_Play",
+            Define.ScScene.Ch3Login                     => "Ch3_Login",
+            Define.ScScene.Ch3Room                      => "Ch3_Room",
+            Define.ScScene.Ch3Play                      => "Ch3_Play",
+            _ => "",
+        };
+    }
+    
+    
 
     private async UniTask Load(string sceneName)
     {

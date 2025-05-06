@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class UITutCharacterSelection : MonoBehaviour
+public class UITutCharacterSelection : UIBase
 {
     public void GoToPlay()
     {
-        Manager.Instance.SceneMgr.LoadScene("Tut_Play");
+        Manager.Instance.SceneMgr.LoadScene(Define.ScScene.TutorialPlay);
     }
 }

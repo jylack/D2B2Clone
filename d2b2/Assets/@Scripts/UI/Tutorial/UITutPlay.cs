@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class UITutPlay : MonoBehaviour
+public class UITutPlay : UIBase
 {
     public void GoToPlayerSettings()
     {
-        Manager.Instance.SceneMgr.LoadScene("Tut_PlayerSettings");
+        Manager.Instance.SceneMgr.LoadScene(Define.ScScene.TutorialPlayerSettings);
     }
 }

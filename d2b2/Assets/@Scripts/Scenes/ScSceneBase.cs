@@ -16,11 +16,4 @@ public abstract class ScSceneBase : ScObjectBase
             Debug.Log(ex);
         }
     }
-    
-    
-    
-    public void LoadScene(string sceneName)
-    {
-        Manager.Instance.SceneMgr.LoadScene(sceneName);
-    }
 }

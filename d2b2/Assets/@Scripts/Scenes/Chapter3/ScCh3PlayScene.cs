@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ScCh3PlayScene : MonoBehaviour
+public class ScCh3PlayScene : ScSceneBase
 {
     
 }

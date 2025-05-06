@@ -10,7 +10,7 @@ public class DatabaseManager : MonoBehaviour
 
     public void Init()
     {
-        database = new FirebaseRealtimeDb();
+        database = new FirebaseRealtimeDatabase();
         database.Init();
     }
 

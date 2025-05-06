@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ScCh1LoginScene : MonoBehaviour
+public class ScCh1LoginScene : ScSceneBase
 {
     
 }
