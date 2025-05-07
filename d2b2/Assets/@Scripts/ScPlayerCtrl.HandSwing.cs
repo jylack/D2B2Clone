@@ -1,16 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public partial class PlayerCtrl : MonoBehaviour
+public partial class ScPlayerCtrl : MonoBehaviour
 {
 
     bool isRightHandMoving;
     bool isLeftHandMoving;
 
+    bool isFrontCheck;
+    bool isBodyCheck;
+
+
     private void InitMoving()
     {
+        isFrontCheck = false;
+        isBodyCheck = false;
+
         isRightHandMoving = false;
         isLeftHandMoving = false;
 
@@ -18,14 +23,28 @@ public partial class PlayerCtrl : MonoBehaviour
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandMoving;
     }
 
+
+
     private void OnLeftHandMoving(Vector3 pos)
     {
+
+        var t1 = "left : " + pos;
+
+        var t2 = _leftHand.IsMoving();
+
+        text.text = t1 + t2;
+
 
     }
 
     private void OnRightHandMoving(Vector3 pos)
     {
 
+        var t1 = "right : " + pos;
+
+        var t2 = _rightHand.IsMoving();
+
+        text.text = t1 + t2;
     }
 
     

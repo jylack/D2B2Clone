@@ -1,9 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public partial class PlayerCtrl : MonoBehaviour
+public partial class ScPlayerCtrl : MonoBehaviour
 {
+    [SerializeField] ScControllerCtrl _rightHand;
+    [SerializeField] ScControllerCtrl _leftHand;
+
+    [SerializeField] TextMeshProUGUI text;
 
     private void Start()
     {
@@ -13,8 +16,8 @@ public partial class PlayerCtrl : MonoBehaviour
         Manager.Instance.InputMgr.OnHeadRotatingPerform += OnHeadRotation;
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandUp;
         Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandUp;
-        
-        
+
+
         InitMoving();
     }
 }

@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public delegate void HandPositionChangedHandler(Vector3 position);
-public partial class PlayerCtrl : MonoBehaviour
+public partial class ScPlayerCtrl : MonoBehaviour
 {
     bool isLeftHandUp;
     bool isRightHandUp;
