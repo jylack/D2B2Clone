@@ -1,0 +1,48 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+public delegate void HandPositionChangedHandler(Vector3 position);
+public partial class PlayerCtrl : MonoBehaviour
+{
+    bool isLeftHandUp;
+    bool isRightHandUp;
+
+    public Transform headTransform; // 머리 위치 기준
+    XRIDefaultInputActions inputActions;
+
+    private void Awake()
+    {
+        inputActions = new XRIDefaultInputActions();
+    }
+    private void Start()
+    {
+        isLeftHandUp = false;
+        isRightHandUp = false;
+
+        inputActions.Enable();
+
+        headTransform = Camera.main.transform;
+
+        Manager.Instance.InputMgr.OnHeadRotatingPerform += OnHeadRotation;
+        Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandMoved;
+        Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandMoved;
+    }
+    private void OnLeftHandMoved(Vector3 handPosition)
+    {
+        float currentHeadY = headTransform.position.y; //  매번 현재 머리 높이 가져오기
+        isLeftHandUp = handPosition.y > currentHeadY;
+        Debug.Log($"[왼손] 손 위치 Y: {handPosition.y:F2}, 머리 Y: {currentHeadY:F2}, 위? {isLeftHandUp}");
+    }
+
+    private void OnRightHandMoved(Vector3 handPosition)
+    {
+        float currentHeadY = headTransform.position.y; //  매번 현재 머리 높이 가져오기
+        isRightHandUp = handPosition.y > currentHeadY;
+        Debug.Log($"[오른손] 손 위치 Y: {handPosition.y:F2}, 머리 Y: {currentHeadY:F2}, 위? {isRightHandUp}");
+    }
+    private void OnHeadRotation(Quaternion rotation)
+    {
+        Quaternion temp = rotation * transform.rotation;
+        Debug.Log("머리 돌리기 : " + temp.y);
+    }
+}
