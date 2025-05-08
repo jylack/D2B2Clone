@@ -22,20 +22,27 @@ public class UIFirebaseTest : MonoBehaviour
     
     public void Save()
     {
+        ScDefine.ScNickNameValidation validation = ScUtils.CheckNickNameValidation(inputField.text);
+
         string nickName = inputField.text.Trim();
         
-        if (string.IsNullOrEmpty(nickName))
+        if (validation == ScDefine.ScNickNameValidation.Empty)
         {
             print("nickname is empty.");
             return;
         }
 
-        if (nickName.Length < 2)
+        if (validation == ScDefine.ScNickNameValidation.LessThan2Char)
         {
             print("nickname length is less than 2.");
             return;
         }
         
+        if (validation == ScDefine.ScNickNameValidation.InCompleteHangul)
+        {
+            print("nickname contains incomplete hangul.");
+            return;
+        }
         
         ScPlayerEntity entity = new ScPlayerEntity
         {

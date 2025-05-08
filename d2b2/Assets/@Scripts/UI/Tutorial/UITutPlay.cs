@@ -4,6 +4,6 @@ public class UITutPlay : UIBase
 {
     public void GoToPlayerSettings()
     {
-        Manager.Instance.SceneMgr.LoadScene(Define.ScScene.TutorialPlayerSettings);
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.TutorialPlayerSettings);
     }
 }

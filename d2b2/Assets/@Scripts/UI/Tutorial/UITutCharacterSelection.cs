@@ -4,6 +4,6 @@ public class UITutCharacterSelection : UIBase
 {
     public void GoToPlay()
     {
-        Manager.Instance.SceneMgr.LoadScene(Define.ScScene.TutorialPlay);
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.TutorialPlay);
     }
 }
