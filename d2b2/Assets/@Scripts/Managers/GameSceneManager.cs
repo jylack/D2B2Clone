@@ -100,7 +100,7 @@ public class GameSceneManager : MonoBehaviour
     {
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-        await canvasGroup.DOFade(1f, duration);
+        await canvasGroup.DOFade(1f, duration).ToUniTask();
     }
 
     private async UniTask FadeIn()
