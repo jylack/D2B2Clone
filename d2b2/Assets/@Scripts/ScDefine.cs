@@ -14,4 +14,12 @@
         Ch3Room,
         Ch3Play,
     }
+
+    public enum ScNickNameValidation
+    {
+        None = 0,
+        Empty,
+        LessThan2Char,
+        InCompleteHangul,
+    }
 }
