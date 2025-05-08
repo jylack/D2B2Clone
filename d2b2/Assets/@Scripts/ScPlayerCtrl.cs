@@ -3,10 +3,7 @@ using UnityEngine;
 
 public partial class ScPlayerCtrl : MonoBehaviour
 {
-    [SerializeField] ScControllerCtrl _rightHand;
-    [SerializeField] ScControllerCtrl _leftHand;
 
-    [SerializeField] TextMeshProUGUI text;
 
     private void Start()
     {
