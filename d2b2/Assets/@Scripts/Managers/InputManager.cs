@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public delegate void OnHeadRotatingPerformHandler(Quaternion rotation);
 public delegate void OnHeadRotatingCancelHandler();
 public delegate void OnHandPositionChangedHandler(Vector3 position);
+public delegate void OnRightHandTriggerPerformHandler();
 
 public class InputManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class InputManager : MonoBehaviour
     public event HandPositionChangedHandler OnLeftHandPositionChanged;
     public event HandPositionChangedHandler OnRightHandPositionChanged;
 
-    XRIDefaultInputActions inputActions;
+    private XRIDefaultInputActions inputActions;
 
 
 
@@ -29,7 +30,23 @@ public class InputManager : MonoBehaviour
         inputActions.XRIHead.Rotation.canceled += Rotation_canceled;
         inputActions.XRILeftHand.Position.performed += LeftHandPosition_performed;
         inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
+        inputActions.XRIRightHandInteraction.Select.performed += Select_performed;
+        inputActions.XRIRightHandInteraction.Select.canceled += Select_canceled;
     }
+
+
+
+    private void Rotation_performed(InputAction.CallbackContext obj)
+    {
+        var rotation = obj.ReadValue<Quaternion>();
+        OnHeadRotatingPerform?.Invoke(rotation);
+    }
+
+    private void Rotation_canceled(InputAction.CallbackContext obj)
+    {
+        OnHeadRotatingCancel?.Invoke();
+    }
+
     private void LeftHandPosition_performed(InputAction.CallbackContext obj)
     {
         Vector3 pos = obj.ReadValue<Vector3>();
@@ -41,14 +58,13 @@ public class InputManager : MonoBehaviour
         OnRightHandPositionChanged?.Invoke(pos);
     }
 
-    private void Rotation_performed(InputAction.CallbackContext obj)
+    private void Select_performed(InputAction.CallbackContext obj)
     {
-        var rotation = obj.ReadValue<Quaternion>();
-        OnHeadRotatingPerform?.Invoke(rotation);
+
     }
 
-    private void Rotation_canceled(InputAction.CallbackContext obj)
+    private void Select_canceled(InputAction.CallbackContext obj)
     {
-        OnHeadRotatingCancel?.Invoke();
+
     }
 }
