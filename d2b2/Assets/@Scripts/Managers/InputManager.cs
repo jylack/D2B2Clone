@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public delegate void OnHeadRotatingPerformHandler(Quaternion rotation);
 public delegate void OnHeadRotatingCancelHandler();
 public delegate void OnHandPositionChangedHandler(Vector3 position);
-public delegate void OnRightHandTriggerPerformHandler();
 
 public class InputManager : MonoBehaviour
 {
@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     public event OnHeadRotatingCancelHandler OnHeadRotatingCancel;
     public event HandPositionChangedHandler OnLeftHandPositionChanged;
     public event HandPositionChangedHandler OnRightHandPositionChanged;
+    public event Action OnTriggerPerform;
+    public event Action OnTriggerCancel;
 
     private XRIDefaultInputActions inputActions;
 
@@ -30,8 +32,8 @@ public class InputManager : MonoBehaviour
         inputActions.XRIHead.Rotation.canceled += Rotation_canceled;
         inputActions.XRILeftHand.Position.performed += LeftHandPosition_performed;
         inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
-        inputActions.XRIRightHandInteraction.Select.performed += Select_performed;
-        inputActions.XRIRightHandInteraction.Select.canceled += Select_canceled;
+        inputActions.XRIRightHandInteraction.Activate.performed += Select_performed;
+        inputActions.XRIRightHandInteraction.Activate.canceled += Select_canceled;
     }
 
 
@@ -52,6 +54,7 @@ public class InputManager : MonoBehaviour
         Vector3 pos = obj.ReadValue<Vector3>();
         OnLeftHandPositionChanged?.Invoke(pos);
     }
+
     private void RightHandPosition_performed(InputAction.CallbackContext obj)
     {
         Vector3 pos = obj.ReadValue<Vector3>();
@@ -60,11 +63,11 @@ public class InputManager : MonoBehaviour
 
     private void Select_performed(InputAction.CallbackContext obj)
     {
-
+        OnTriggerPerform?.Invoke();
     }
 
     private void Select_canceled(InputAction.CallbackContext obj)
     {
-
+        OnTriggerCancel?.Invoke();
     }
 }

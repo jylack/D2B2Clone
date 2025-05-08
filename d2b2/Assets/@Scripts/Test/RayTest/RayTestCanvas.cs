@@ -3,30 +3,52 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RayTestCanvas : MonoBehaviour
 {
+    private RayDetectMan hoveredDetectMan;
+
+
+
     private void Start()
     {
-
+        Manager.Instance.InputMgr.OnTriggerPerform += InputMgr_OnTriggerPerform;
+        Manager.Instance.InputMgr.OnTriggerCancel += InputMgr_OnTriggerCancel;
     }
 
 
 
     public void OnHoverEnter(HoverEnterEventArgs args)
     {
+        print("Hover Enter");
 
+        var tempDetectMan = args.interactableObject.transform.GetComponent<RayDetectMan>();
+
+        if (tempDetectMan != null)
+            tempDetectMan.SetOutlineVisible(true);
+
+        hoveredDetectMan?.SetOutlineVisible(false);
+        hoveredDetectMan = tempDetectMan;
     }
 
     public void OnHoverExit(HoverExitEventArgs args)
     {
-        print("OnHoverExit");
+        print("Hover Exit");
+
+        var tempDetectMan = args.interactableObject.transform.GetComponent<RayDetectMan>();
+
+        if (tempDetectMan != null)
+            tempDetectMan.SetOutlineVisible(false);
+
+        if (hoveredDetectMan == tempDetectMan)
+            hoveredDetectMan = null;
     }
 
-    public void OnSelectEnter(SelectEnterEventArgs args)
+    private void InputMgr_OnTriggerPerform()
     {
-        print("OnSelectEnter");
+        print("trigger on");
+        hoveredDetectMan.DoSomething();
     }
 
-    public void OnSelectExit(SelectExitEventArgs args)
+    private void InputMgr_OnTriggerCancel()
     {
-        print("OnSelectExit");
+        //hoveredDetectMan.DoSomething();
     }
 }
