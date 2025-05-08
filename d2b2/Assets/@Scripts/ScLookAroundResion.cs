@@ -36,6 +36,10 @@ public class ScLookAroundResion : MonoBehaviour
         {
             Debug.Log("scPlayerCtrl.coroutine == null");
         }
+        successText.text = "";
+        angleText.text = "";
+        lookRight.text = "";
+        lookLeft.text = "";
     }
     private void OnTriggerStay(Collider other)
     {
@@ -48,4 +52,5 @@ public class ScLookAroundResion : MonoBehaviour
         lookRight.text = "LookRight : " + scPlayerCtrl.isLookRight;
         lookLeft.text = "LookLeft : " + scPlayerCtrl.isLookLeft;
     }
+    
 }
