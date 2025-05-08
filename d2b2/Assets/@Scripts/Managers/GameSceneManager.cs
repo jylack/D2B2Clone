@@ -26,7 +26,7 @@ public class GameSceneManager : MonoBehaviour
 
 
 
-    public void LoadScene(Define.ScScene scene)
+    public void LoadScene(ScDefine.ScScene scene)
     {
         string sceneName = GetSceneName(scene);
         LoadScene(sceneName);
@@ -44,21 +44,21 @@ public class GameSceneManager : MonoBehaviour
 
 
 
-    private static string GetSceneName(Define.ScScene scene)
+    private static string GetSceneName(ScDefine.ScScene scene)
     {
         return scene switch
         {
-            Define.ScScene.InitSettings                 => "InitSettings",
-            Define.ScScene.TutorialPlayerSettings       => "Tut_PlayerSettings",
-            Define.ScScene.TutorialCharacterSelection   => "Tut_CharacterSelection",
-            Define.ScScene.TutorialPlay                 => "Tut_Play",
-            Define.ScScene.Ch1Login                     => "Ch1_Login",
-            Define.ScScene.Ch1Play                      => "Ch1_Play",
-            Define.ScScene.Ch2Login                     => "Ch2_Login",
-            Define.ScScene.Ch2Play                      => "Ch2_Play",
-            Define.ScScene.Ch3Login                     => "Ch3_Login",
-            Define.ScScene.Ch3Room                      => "Ch3_Room",
-            Define.ScScene.Ch3Play                      => "Ch3_Play",
+            ScDefine.ScScene.InitSettings               => "InitSettings",
+            ScDefine.ScScene.TutorialPlayerSettings     => "Tut_PlayerSettings",
+            ScDefine.ScScene.TutorialCharacterSelection => "Tut_CharacterSelection",
+            ScDefine.ScScene.TutorialPlay               => "Tut_Play",
+            ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
+            ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
+            ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
+            ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
+            ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
+            ScDefine.ScScene.Ch3Room                    => "Ch3_Room",
+            ScDefine.ScScene.Ch3Play                    => "Ch3_Play",
             _ => "",
         };
     }

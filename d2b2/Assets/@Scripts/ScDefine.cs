@@ -1,4 +1,4 @@
-﻿public static class Define
+﻿public static class ScDefine
 {
     public enum ScScene
     {
