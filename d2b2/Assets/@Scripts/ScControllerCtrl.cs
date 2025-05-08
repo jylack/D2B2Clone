@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.ParticleSystemJobs;
 
 public enum ColTag
 {
@@ -15,6 +14,8 @@ public class ScControllerCtrl : MonoBehaviour
 {
     bool isBody;
     bool isFront;
+
+    float swingTime = 0.5f;
 
     private void Init()
     {
@@ -45,11 +46,6 @@ public class ScControllerCtrl : MonoBehaviour
     public bool IsMoving()
     {
         bool isMoving = isBody && isFront;
-        
-        //if (isMoving)
-        //{
-        //    Init();
-        //}
 
         Debug.Log(isMoving);
         return isMoving;
@@ -59,18 +55,26 @@ public class ScControllerCtrl : MonoBehaviour
     {
         isBody = true;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(swingTime);
 
-        isBody = false;
+        if (isFront == false)
+        {
+            isBody = false;
+            yield break;
+        }
     }
 
     IEnumerator IsFront()
     {
         isFront = true;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(swingTime);
 
-        isFront = false;
+        if (isBody == false)
+        {
+            isFront = false;
+            yield break;
+        }
     }
 
 

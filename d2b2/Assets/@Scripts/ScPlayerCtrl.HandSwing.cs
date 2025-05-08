@@ -1,8 +1,16 @@
-using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public partial class ScPlayerCtrl : MonoBehaviour
 {
+    [SerializeField] ScControllerCtrl _rightHand;
+    [SerializeField] ScControllerCtrl _leftHand;
+
+    [SerializeField] TextMeshProUGUI text;
+
+    [SerializeField] float moveSpeed = 1f;
+
+    CharacterController characterController;
 
     bool isRightHandMoving;
     bool isLeftHandMoving;
@@ -13,6 +21,8 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     private void InitMoving()
     {
+        characterController = GetComponent<CharacterController>();
+
         isFrontCheck = false;
         isBodyCheck = false;
 
@@ -27,26 +37,31 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     private void OnLeftHandMoving(Vector3 pos)
     {
+        var isMoving = _leftHand.IsMoving();
 
-        var t1 = "left : " + pos;
+        text.text = "LeftHand : " + _leftHand.IsMoving().ToString();
 
-        var t2 = _leftHand.IsMoving();
-
-        text.text = t1 + t2;
-
-
+        if (isMoving)
+        {
+            Moving();
+        }
     }
 
     private void OnRightHandMoving(Vector3 pos)
     {
+        var isMoving = _rightHand.IsMoving();
 
-        var t1 = "right : " + pos;
+        text.text = "RightHand : " + isMoving.ToString();
 
-        var t2 = _rightHand.IsMoving();
-
-        text.text = t1 + t2;
+        if (isMoving)
+        {
+            Moving();
+        }
     }
 
-    
+    private void Moving()
+    {        
+        characterController.Move(transform.forward * Time.deltaTime * moveSpeed);
+    }
 
 }
