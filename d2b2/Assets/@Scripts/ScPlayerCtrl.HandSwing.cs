@@ -1,67 +1,71 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public partial class ScPlayerCtrl : MonoBehaviour
 {
-    [SerializeField] ScControllerCtrl _rightHand;
-    [SerializeField] ScControllerCtrl _leftHand;
+    [SerializeField] ScControllerCtrl rightHand;
+    [SerializeField] ScControllerCtrl leftHand;
 
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI RightText;
+    [SerializeField] TextMeshProUGUI LeftText;
 
-    [SerializeField] float moveSpeed = 1f;
+    [SerializeField] float moveSpeed;
+    [SerializeField] float swingTime = 0.5f;
 
     CharacterController characterController;
 
     bool isRightHandMoving;
     bool isLeftHandMoving;
 
-    bool isFrontCheck;
-    bool isBodyCheck;
-
+    bool isMoving;
 
     private void InitMoving()
     {
         characterController = GetComponent<CharacterController>();
 
-        isFrontCheck = false;
-        isBodyCheck = false;
+        //isFrontCheck = false;
+        //isBodyCheck = false;
 
         isRightHandMoving = false;
         isLeftHandMoving = false;
 
+        isMoving = false;
+
         Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandMoving;
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandMoving;
+
+        rightHand.Init(swingTime);
+        leftHand.Init(swingTime);
+
     }
 
 
 
     private void OnLeftHandMoving(Vector3 pos)
     {
-        var isMoving = _leftHand.IsMoving();
+        isLeftHandMoving = leftHand.IsMoving;
+        LeftText.text = "Left : " + isLeftHandMoving;
 
-        text.text = "LeftHand : " + _leftHand.IsMoving().ToString();
-
-        if (isMoving)
-        {
+        if (isLeftHandMoving && isMoving == false)
             Moving();
-        }
     }
 
     private void OnRightHandMoving(Vector3 pos)
     {
-        var isMoving = _rightHand.IsMoving();
+        isRightHandMoving = rightHand.IsMoving;
+        RightText.text = "Right : " + isRightHandMoving;
 
-        text.text = "RightHand : " + isMoving.ToString();
-
-        if (isMoving)
-        {
+        if (isRightHandMoving && isMoving == false) 
             Moving();
-        }
     }
+
 
     private void Moving()
-    {        
+    {
         characterController.Move(transform.forward * Time.deltaTime * moveSpeed);
+        isMoving = true;
     }
 
+   
 }
