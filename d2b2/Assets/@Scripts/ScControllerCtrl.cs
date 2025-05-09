@@ -69,6 +69,7 @@ public class ScControllerCtrl : MonoBehaviour
         // 일정 시간 입력이 없으면 다시 플래그 해제
         if (resetRoutine != null)
             StopCoroutine(resetRoutine);
+
         resetRoutine = StartCoroutine(ResetFlags());
     }
 

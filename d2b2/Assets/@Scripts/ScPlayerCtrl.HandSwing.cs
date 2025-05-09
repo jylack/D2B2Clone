@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI RightText;
     [SerializeField] TextMeshProUGUI LeftText;
-    
+
     [Header("이동 설정값")]
     [SerializeField] float moveSpeed;
     [SerializeField] float swingTime = 0.5f;
@@ -21,6 +20,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
     bool isLeftHandMoving;
 
     bool isMoving;
+
 
     private void InitMoving()
     {
@@ -49,8 +49,10 @@ public partial class ScPlayerCtrl : MonoBehaviour
         isLeftHandMoving = leftHand.IsMoving;
         LeftText.text = "Left : " + isLeftHandMoving;
 
-        if (isLeftHandMoving && isMoving == false)
+        if (isLeftHandMoving)
+        {
             Moving();
+        }
     }
 
     private void OnRightHandMoving(Vector3 pos)
@@ -58,16 +60,18 @@ public partial class ScPlayerCtrl : MonoBehaviour
         isRightHandMoving = rightHand.IsMoving;
         RightText.text = "Right : " + isRightHandMoving;
 
-        if (isRightHandMoving && isMoving == false) 
+        if (isRightHandMoving)
+        {
             Moving();
+        }
     }
 
 
     private void Moving()
     {
+
         characterController.Move(transform.forward * Time.deltaTime * moveSpeed);
-        isMoving = true;
     }
 
-   
+
 }
