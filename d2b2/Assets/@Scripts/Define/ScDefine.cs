@@ -1,5 +1,10 @@
 ﻿public static class ScDefine
 {
+    public static ScLayer Layer { get; private set; } = new ScLayer();
+    public static ScInteractionLayer InteractionLayer { get; private set; } = new ScInteractionLayer();
+
+
+
     public enum ScScene
     {
         InitSettings,
@@ -20,6 +25,6 @@
         None = 0,
         Empty,
         LessThan2Char,
-        InCompleteHangul,
+        IncompleteHangul,
     }
 }

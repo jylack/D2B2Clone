@@ -21,8 +21,8 @@ public class RayDetectMan : MonoBehaviour
 
     public void SetOutlineVisible(bool isVisible)
     {
-        print($"SetOutlineVisible: {isVisible}");
-        outline.enabled = isVisible;
+        if (outline != null)
+            outline.enabled = isVisible;
     }
 
     public void DoSomething()

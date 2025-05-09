@@ -33,7 +33,7 @@ public class DatabaseManager : MonoBehaviour
     {
         return await database.LoadAll();
     }
-    
+
     public async UniTask Remove(string nickName)
     {
         await database.Remove(nickName);
