@@ -7,7 +7,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(RecenterView());
+        //StartCoroutine(RecenterView());
         isLeftHandUp = false;
         isRightHandUp = false;
 

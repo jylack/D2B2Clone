@@ -17,8 +17,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
     [SerializeField] public bool isLookRight{ get; private set; }// 왼쪽을 보았는지
     [SerializeField] public bool isLookLeft { get; private set; }// 오른족을 보았는지
     [Header("설정값")]
-    [SerializeField] int lookAroundMaxAngle = 30;
-    [SerializeField] float lookAroundCheckTime =20f;
+    [SerializeField] int lookAroundMaxAngle = 50;
 
 
     public Transform headTransform; // 머리 위치 기준
@@ -37,6 +36,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
         float currentHeadY = headTransform.position.y; //  매번 현재 머리 높이 가져오기
         isRightHandUp = handPosition.y > currentHeadY;
         isHandUp = isRightHandUp;
+        Debug.Log("Camera Y height: " + Camera.main.transform.position.y);
     }
     public IEnumerator ChekLookAround()
     {
@@ -62,10 +62,18 @@ public partial class ScPlayerCtrl : MonoBehaviour
                 isLookRight = true;
                 Debug.Log("오른쪽 봄");
             }
-            else if (currentLookAngle < -lookAroundMaxAngle)
+            else
+            {
+                isLookRight = false;
+            }
+            if (currentLookAngle < -lookAroundMaxAngle)
             {
                 isLookLeft = true;
                 Debug.Log("왼쪽 봄");
+            }
+            else
+            {
+                isLookLeft = false;
             }
 
             if (isLookLeft && isLookRight)
