@@ -4,12 +4,14 @@ using UnityEngine;
 
 public partial class ScPlayerCtrl : MonoBehaviour
 {
+    [Header("이동관련 오브젝트 연결")]
     [SerializeField] ScControllerCtrl rightHand;
     [SerializeField] ScControllerCtrl leftHand;
 
     [SerializeField] TextMeshProUGUI RightText;
     [SerializeField] TextMeshProUGUI LeftText;
-
+    
+    [Header("이동 설정값")]
     [SerializeField] float moveSpeed;
     [SerializeField] float swingTime = 0.5f;
 
