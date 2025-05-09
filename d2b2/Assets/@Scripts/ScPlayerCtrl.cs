@@ -7,10 +7,10 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(RecenterView());
         isLeftHandUp = false;
         isRightHandUp = false;
 
-        Manager.Instance.InputMgr.OnHeadRotatingPerform += OnHeadRotation;
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandUp;
         Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandUp;
 

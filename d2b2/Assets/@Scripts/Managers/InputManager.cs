@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public delegate void OnHeadRotatingPerformHandler(Quaternion rotation);
@@ -11,8 +12,10 @@ public class InputManager : MonoBehaviour
     public event OnHeadRotatingCancelHandler OnHeadRotatingCancel;
     public event HandPositionChangedHandler OnLeftHandPositionChanged;
     public event HandPositionChangedHandler OnRightHandPositionChanged;
+    public event Action OnTriggerPerform;
+    public event Action OnTriggerCancel;
 
-    XRIDefaultInputActions inputActions;
+    private XRIDefaultInputActions inputActions;
 
 
 
@@ -29,17 +32,11 @@ public class InputManager : MonoBehaviour
         inputActions.XRIHead.Rotation.canceled += Rotation_canceled;
         inputActions.XRILeftHand.Position.performed += LeftHandPosition_performed;
         inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
+        inputActions.XRIRightHandInteraction.Activate.performed += Select_performed;
+        inputActions.XRIRightHandInteraction.Activate.canceled += Select_canceled;
     }
-    private void LeftHandPosition_performed(InputAction.CallbackContext obj)
-    {
-        Vector3 pos = obj.ReadValue<Vector3>();
-        OnLeftHandPositionChanged?.Invoke(pos);
-    }
-    private void RightHandPosition_performed(InputAction.CallbackContext obj)
-    {
-        Vector3 pos = obj.ReadValue<Vector3>();
-        OnRightHandPositionChanged?.Invoke(pos);
-    }
+
+
 
     private void Rotation_performed(InputAction.CallbackContext obj)
     {
@@ -50,5 +47,27 @@ public class InputManager : MonoBehaviour
     private void Rotation_canceled(InputAction.CallbackContext obj)
     {
         OnHeadRotatingCancel?.Invoke();
+    }
+
+    private void LeftHandPosition_performed(InputAction.CallbackContext obj)
+    {
+        Vector3 pos = obj.ReadValue<Vector3>();
+        OnLeftHandPositionChanged?.Invoke(pos);
+    }
+
+    private void RightHandPosition_performed(InputAction.CallbackContext obj)
+    {
+        Vector3 pos = obj.ReadValue<Vector3>();
+        OnRightHandPositionChanged?.Invoke(pos);
+    }
+
+    private void Select_performed(InputAction.CallbackContext obj)
+    {
+        OnTriggerPerform?.Invoke();
+    }
+
+    private void Select_canceled(InputAction.CallbackContext obj)
+    {
+        OnTriggerCancel?.Invoke();
     }
 }
