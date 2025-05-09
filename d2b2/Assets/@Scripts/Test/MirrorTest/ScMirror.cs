@@ -16,10 +16,6 @@ public class ScMirror : MonoBehaviour
         Vector3 reflected = Vector3.Reflect(targetDir, transform.forward);
 
         mirrorCamTransform.rotation = Quaternion.LookRotation(reflected, Vector3.up);
-
-        // Player -> Mirror
-        //Vector3 targetDir = playerTransform.position - mirrorCamTransform.position;
-        //mirrorCamTransform.rotation = Quaternion.LookRotation(targetDir, Vector3.up);
     }
 
     private void OnDrawGizmos()
