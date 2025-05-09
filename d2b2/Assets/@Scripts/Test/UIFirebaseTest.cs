@@ -38,7 +38,7 @@ public class UIFirebaseTest : MonoBehaviour
             return;
         }
         
-        if (validation == ScDefine.ScNickNameValidation.InCompleteHangul)
+        if (validation == ScDefine.ScNickNameValidation.IncompleteHangul)
         {
             print("nickname contains incomplete hangul.");
             return;
