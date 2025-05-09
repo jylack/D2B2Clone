@@ -29,4 +29,9 @@ public class ScHandUpResion : MonoBehaviour
         rightHandText.text = "RightHandUp : " + scPlayerCtrl.isRightHandUp;
         leftHandText.text = "LeftHandUp : " + scPlayerCtrl.isLeftHandUp;
     }
+    private void OnTriggerExit(Collider other)
+    {
+        rightHandText.text = "";
+        leftHandText.text = "";
+    }
 }
