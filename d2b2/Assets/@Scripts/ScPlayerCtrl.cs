@@ -3,8 +3,6 @@ using UnityEngine;
 
 public partial class ScPlayerCtrl : MonoBehaviour
 {
-
-
     private void Start()
     {
         //StartCoroutine(RecenterView());
