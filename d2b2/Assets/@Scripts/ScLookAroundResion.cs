@@ -36,7 +36,6 @@ public class ScLookAroundResion : MonoBehaviour
         {
             Debug.Log("scPlayerCtrl.coroutine == null");
         }
-        successText.text = "";
         angleText.text = "";
         lookRight.text = "";
         lookLeft.text = "";
@@ -47,7 +46,6 @@ public class ScLookAroundResion : MonoBehaviour
         {
             isSuccess = true;
         }
-        successText.text = "Success : " + scPlayerCtrl.isLookAround;
         angleText.text = "angle : " + scPlayerCtrl.currentLookAngle;
         lookRight.text = "LookRight : " + scPlayerCtrl.isLookRight;
         lookLeft.text = "LookLeft : " + scPlayerCtrl.isLookLeft;
