@@ -12,6 +12,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     [Header("이동 설정값")]
     [SerializeField] float moveSpeed;
+
     [SerializeField] float swingTime = 0.5f;
 
     CharacterController characterController;
@@ -19,7 +20,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
     bool isRightHandMoving;
     bool isLeftHandMoving;
 
-    bool isMoving;
+
 
 
     private void InitMoving()
@@ -32,13 +33,13 @@ public partial class ScPlayerCtrl : MonoBehaviour
         isRightHandMoving = false;
         isLeftHandMoving = false;
 
-        isMoving = false;
 
         Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandMoving;
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandMoving;
 
         rightHand.Init(swingTime);
         leftHand.Init(swingTime);
+
 
     }
 
@@ -49,10 +50,10 @@ public partial class ScPlayerCtrl : MonoBehaviour
         isLeftHandMoving = leftHand.IsMoving;
         LeftText.text = "Left : " + isLeftHandMoving;
 
-        if (isLeftHandMoving)
-        {
-            Moving();
-        }
+        //if (isLeftHandMoving)
+        //{
+        //    Moving();
+        //}
     }
 
     private void OnRightHandMoving(Vector3 pos)
@@ -60,17 +61,26 @@ public partial class ScPlayerCtrl : MonoBehaviour
         isRightHandMoving = rightHand.IsMoving;
         RightText.text = "Right : " + isRightHandMoving;
 
-        if (isRightHandMoving)
+        //if (isRightHandMoving)
+        //{
+        //    Moving();
+
+        //}
+    }
+
+    private void Update()
+    {
+        if (isRightHandMoving || isLeftHandMoving)
         {
             Moving();
         }
     }
 
-
     private void Moving()
     {
 
         characterController.Move(transform.forward * Time.deltaTime * moveSpeed);
+
     }
 
 
