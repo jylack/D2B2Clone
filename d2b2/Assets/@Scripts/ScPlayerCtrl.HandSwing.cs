@@ -64,7 +64,6 @@ public partial class ScPlayerCtrl : MonoBehaviour
         //if (isRightHandMoving)
         //{
         //    Moving();
-
         //}
     }
 
@@ -78,9 +77,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
     private void Moving()
     {
-
         characterController.Move(transform.forward * Time.deltaTime * moveSpeed);
-
     }
 
 
