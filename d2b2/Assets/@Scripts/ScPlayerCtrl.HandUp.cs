@@ -79,23 +79,6 @@ public partial class ScPlayerCtrl : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator CheckHandUp()
-    {
-        float timer = 0f;
-        isHandUp = false;
-        isLeftHandUp = false;
-        isRightHandUp = false;
-        while (timer < 3f)
-        {
-            if (isHandUp == true)
-            {
-                break;
-            }
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-    }
     IEnumerator RecenterView()
     {
         yield return new WaitForSeconds(2) ; // vr의 값이 들어갔을때 실행되게끔 대기 , null 또는 1초하면 못가져옴
