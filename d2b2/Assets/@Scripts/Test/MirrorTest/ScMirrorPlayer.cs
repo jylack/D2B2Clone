@@ -16,8 +16,8 @@ public class ScMirrorPlayer : MonoBehaviour
 
     private void InputMgr_OnTriggerPerform()
     {
-        Vector3 startPoint = rayInteractor.transform.position;
-        Vector3 dir = rayInteractor.transform.forward;
+        Vector3 startPoint = rayInteractor.attachTransform.position;
+        Vector3 dir = rayInteractor.attachTransform.forward;
         float distance = 5f;
 
         Debug.DrawLine(startPoint, startPoint + (dir * distance), Color.red);
