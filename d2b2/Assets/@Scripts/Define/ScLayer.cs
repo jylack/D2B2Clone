@@ -1,13 +1,13 @@
 ﻿public class ScLayer
 {
-    private const int mirrorIdx = 3;
-    private const int npcIdx = 6;
+    private const int MirrorIdx = 3;
+    private const int NpcIdx = 6;
 
-    public int MirrorIndex { get; private set; } = mirrorIdx;
-    public int NpcIndex { get; private set; } = npcIdx;
+    public int MirrorIndex { get; private set; } = MirrorIdx;
+    public int NpcIndex { get; private set; } = NpcIdx;
 
-    public int MirrorMask { get; private set; } = Pow(mirrorIdx);
-    public int NpcMask { get; private set; } = Pow(npcIdx);
+    public int MirrorMask { get; private set; } = Pow(MirrorIdx);
+    public int NpcMask { get; private set; } = Pow(NpcIdx);
 
 
 

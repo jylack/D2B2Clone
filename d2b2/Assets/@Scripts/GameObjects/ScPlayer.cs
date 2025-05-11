@@ -3,6 +3,7 @@
 public class ScPlayer : ScObjectBase
 {
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private AudioSource audioSource;
     [Header("move")]
     [SerializeField] private float swingThresholdIntervalTime;
     [SerializeField] private float moveSpeed;
@@ -27,6 +28,7 @@ public class ScPlayer : ScObjectBase
     
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         mainCam = Camera.main;
         headTurnThresholdQuaternion = Quaternion.Euler(0f, headTurnThreshold, 0f).y;
 
@@ -72,6 +74,13 @@ public class ScPlayer : ScObjectBase
     }
 
 
+
+    public void PlaySound(AudioClip audioClip)
+    {
+        audioSource.PlayOneShot(audioClip);
+    }
+    
+    
 
     private void UpdateHeadTurn()
     {

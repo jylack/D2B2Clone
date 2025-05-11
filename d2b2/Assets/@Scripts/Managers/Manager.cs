@@ -19,12 +19,14 @@ public class Manager : MonoBehaviour
     }
     
     [SerializeField] private GameObject gameSceneManagerPrefab;
+    [SerializeField] private GameObject soundManagerPrefab;
     
     public InputManager InputMgr { get; private set; }
     public GameManager GameMgr { get; private set; }
     public GameSceneManager SceneMgr { get; private set; }
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
+    public SoundManager SoundMgr { get; private set; }
 
 
     
@@ -39,9 +41,9 @@ public class Manager : MonoBehaviour
         
         SceneMgr = Instantiate(gameSceneManagerPrefab).GetComponent<GameSceneManager>();
         SceneMgr.transform.SetParent(transform);
-        
-        DontDestroyOnLoad(gameObject);
-        // Instance = this;
+
+        SoundMgr = Instantiate(soundManagerPrefab).GetComponent<SoundManager>();
+        SoundMgr.transform.SetParent(transform);
     }
     
     

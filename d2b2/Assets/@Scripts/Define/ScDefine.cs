@@ -1,13 +1,13 @@
 ﻿public static class ScDefine
 {
-    public static ScLayer Layer { get; private set; } = new ScLayer();
-    public static ScInteractionLayer InteractionLayer { get; private set; } = new ScInteractionLayer();
+    public static ScLayer Layer { get; private set; } = new();
+    public static ScInteractionLayer InteractionLayer { get; private set; } = new();
 
 
 
     public enum ScScene
     {
-        InitSettings,
+        InitSettings = 0,
         TutorialPlayerSettings,
         TutorialCharacterSelection,
         TutorialPlay,
@@ -30,7 +30,7 @@
 
     public enum ScHeadTurn
     {
-        None,
+        None = 0,
         Forward,
         Left,
         Right
