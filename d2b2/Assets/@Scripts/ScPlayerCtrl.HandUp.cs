@@ -6,7 +6,7 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
-public delegate void HandPositionChangedHandler(Vector3 position);
+// public delegate void HandPositionChangedHandler(Vector3 position);
 public partial class ScPlayerCtrl : MonoBehaviour
 {
     [SerializeField] public bool isLeftHandUp { get; private set; } // 왼쪽 손을 들었는지
@@ -40,7 +40,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
     }
     public IEnumerator ChekLookAround()
     {
-        Debug.Log("코루틴 시작");
+        // Debug.Log("코루틴 시작");
         float timer = 0f;
         isLookAround = false;
         isLookRight = false;
@@ -48,9 +48,9 @@ public partial class ScPlayerCtrl : MonoBehaviour
 
         while (true)
         {
-            Debug.Log("ㅎㅇ");
-            Debug.DrawRay(transform.position, transform.forward,Color.red,100f);
-            Debug.DrawRay(transform.position, headTransform.forward, Color.green, 100f);
+            // Debug.Log("ㅎㅇ");
+            // Debug.DrawRay(transform.position, transform.forward,Color.red,100f);
+            // Debug.DrawRay(transform.position, headTransform.forward, Color.green, 100f);
             Quaternion relativeRot = Quaternion.Inverse(transform.rotation) * headTransform.rotation;
             currentLookAngle = relativeRot.eulerAngles.y;
             if (currentLookAngle > 180f) currentLookAngle -= 360f; // -180 ~ 180으로 변환
@@ -60,7 +60,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
             if (currentLookAngle > lookAroundMaxAngle)
             {
                 isLookRight = true;
-                Debug.Log("오른쪽 봄");
+                // Debug.Log("오른쪽 봄");
             }
             else
             {
@@ -69,7 +69,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
             if (currentLookAngle < -lookAroundMaxAngle)
             {
                 isLookLeft = true;
-                Debug.Log("왼쪽 봄");
+                // Debug.Log("왼쪽 봄");
             }
             else
             {

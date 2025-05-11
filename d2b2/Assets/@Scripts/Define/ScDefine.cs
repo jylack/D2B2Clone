@@ -27,4 +27,12 @@
         LessThan2Char,
         IncompleteHangul,
     }
+
+    public enum ScHeadTurn
+    {
+        None,
+        Forward,
+        Left,
+        Right
+    }
 }

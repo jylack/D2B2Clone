@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
 public static class ScUtils
 {
     public static ScDefine.ScNickNameValidation CheckNickNameValidation(string nickName)
@@ -34,6 +38,28 @@ public static class ScUtils
         }
 
         return result;
+    }
+    
+    public static List<TComp> GetComponentsInChildrenEx<TComp>(GameObject parent) 
+        where TComp : Component
+    {
+        return parent.GetComponentsInChildren<TComp>(true).ToList();
+    }
+    
+    public static TComp GetComponentInChildrenEx<TComp>(GameObject parent, string name = null) 
+        where TComp : Component
+    {
+        TComp[] comps = parent.GetComponentsInChildren<TComp>(true);
+        if (comps == null)
+            return null;
+    
+        foreach (TComp comp in comps)
+        {
+            if (comp.gameObject.name == name || name == null)
+                return comp;
+        }
+
+        return null;
     }
 
 
