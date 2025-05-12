@@ -26,7 +26,7 @@ public class ScHandUpResion : MonoBehaviour
     private void CheckHandUp(bool ledftHand, bool rightHand)
     {
         Debug.Log("ledftHand : " + ledftHand);
-        if (ledftHand == false)
+        if (ledftHand == false && rightHand == false)
         {
             handUpMissionClear = false;
         }
