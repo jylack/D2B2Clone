@@ -12,10 +12,10 @@ public class ScLookAroundResion : MonoBehaviour
     [SerializeField] TextMeshProUGUI lookLeft;
     [SerializeField] TextMeshProUGUI angleText;
     ScPlayerCtrl scPlayerCtrl;
-    bool isSuccess;
+    //bool isSuccess;
     private void Start()
     {
-        isSuccess = false;
+        //isSuccess = false;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -44,7 +44,7 @@ public class ScLookAroundResion : MonoBehaviour
     {
         if (scPlayerCtrl.isLookAround == true)
         {
-            isSuccess = true;
+            //isSuccess = true;
         }
         angleText.text = "angle : " + scPlayerCtrl.currentLookAngle;
         lookRight.text = "LookRight : " + scPlayerCtrl.isLookRight;

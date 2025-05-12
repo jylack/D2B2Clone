@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ScHandUpResion : MonoBehaviour
 {
-    bool isSuccess;
+    //bool isSuccess;
     ScPlayerCtrl scPlayerCtrl;
     [SerializeField] TextMeshProUGUI rightHandText;
     [SerializeField] TextMeshProUGUI leftHandText;
@@ -24,7 +24,7 @@ public class ScHandUpResion : MonoBehaviour
     {
         if (scPlayerCtrl.isHandUp == true)
         {
-            isSuccess = true;
+           // isSuccess = true;
         }
         rightHandText.text = "RightHandUp : " + scPlayerCtrl.isRightHandUp;
         leftHandText.text = "LeftHandUp : " + scPlayerCtrl.isLeftHandUp;
