@@ -17,6 +17,7 @@ public class ScHandUpResion : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -30,4 +31,5 @@ public class ScHandUpResion : MonoBehaviour
             handUpMissionClear = false;
         }
     }
+    
 }

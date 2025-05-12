@@ -8,7 +8,6 @@ public enum TrafficLightColor
     Green
 }
 
-//신호등 클래스
 public class ScTrafficCtrl : MonoBehaviour
 {
     [Header("오브젝트 연결")]
@@ -33,6 +32,11 @@ public class ScTrafficCtrl : MonoBehaviour
     private float interval = 1f;
 
     [SerializeField] TrafficLightColor CurrentColor;
+
+    public TrafficLightColor GetCurrentColor()
+    {
+        return CurrentColor; 
+    }
 
     Coroutine blinkCor;
 
@@ -92,13 +96,7 @@ public class ScTrafficCtrl : MonoBehaviour
         LimitTime = deltaLimitTime;
         CurrentTime = deltaMaxTime;
 
-        //foreach (var m in m_MeshRenderer.materials)
-        //{
-        //    m.shader = unlitShader;
-        //}
-
         SetColor(CurrentColor);
-
     }
 
     void SetColor(TrafficLightColor color)
@@ -109,7 +107,7 @@ public class ScTrafficCtrl : MonoBehaviour
 
         m_MeshRenderer.material = isRed ? red : green;
 
-        //슬롯 셰이더 교체
+        //셰이더 교체
         m_MeshRenderer.material.shader = litShader;
     }
 
@@ -132,10 +130,8 @@ public class ScTrafficCtrl : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        // 1초(또는 interval) 이상 쌓이면
         if (timer >= interval)
         {
-            //현재 시간 감소
             CurrentTime -= interval;
 
             // 깜빡임 처리
@@ -150,16 +146,9 @@ public class ScTrafficCtrl : MonoBehaviour
                 ChangeColor();
             }
 
-            //tmp에 적용
             timerText.text = CurrentTime.ToString();
 
-
-            // 누적된 시간 초기화
             timer = 0f;
         }
-
-
-
-
     }
 }
