@@ -12,8 +12,12 @@ public class ScRoad : MonoBehaviour
 
     private void Start()
     {
+        gameObject.DestroyAllChildren();
+
+        // 시작점
         GameObject roadStart = Instantiate(roadEdgePrefab, transform);
 
+        // 중간
         if (middleSegmentCount > 0)
         {
             (..middleSegmentCount).ForEach(i =>
@@ -23,13 +27,10 @@ public class ScRoad : MonoBehaviour
             });
         }
 
-        //Vector3 roadEndPos = roadStart.transform.position + (-Vector3.forward * 4 * (middleSegmentCount + 1));
-        //GameObject roadEnd = Instantiate(roadEdgePrefab, roadEndPos, Quaternion.LookRotation(-transform.forward, Vector3.up), transform);
+        // 끝점
         GameObject roadEnd = Instantiate(roadEdgePrefab, transform);
         roadEnd.transform.localPosition = (middleSegmentCount + 1) * RoadLength * -Vector3.forward;
         roadEnd.transform.Rotate(Vector3.up, 180f);
-
-        //roadEnd.transform.Rotate(Vector3.up, 180f);
     }
 
     private void OnDrawGizmos()
@@ -38,7 +39,8 @@ public class ScRoad : MonoBehaviour
         startPos.y += 0.1f;
         startPos += transform.forward * 2;
 
-        Vector3 endPos = startPos + (-transform.forward * (4 * middleSegmentCount + (4 * 2)));
+        float edgeLength = RoadLength * 2;
+        Vector3 endPos = startPos + (-transform.forward * (RoadLength * middleSegmentCount + edgeLength));
 
         Gizmos.color = Color.green;
         Gizmos.DrawLine(startPos, endPos);
