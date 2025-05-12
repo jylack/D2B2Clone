@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public enum TrafficLightColor
@@ -13,22 +12,21 @@ public enum TrafficLightColor
 public class ScTrafficCtrl : MonoBehaviour
 {
     [Header("오브젝트 연결")]
-    [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] MeshRenderer m_MeshRenderer;
-    [SerializeField]Material red, green;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private MeshRenderer m_MeshRenderer;
+    [SerializeField] private Material red, green;
 
-    private Shader defShader, unlitShader;
+    private Shader litShader, unlitShader;
 
     [Header("신호등 세팅")]
 
     [SerializeField] private float MaxTime = 30f;
-    float deltaMaxTime = 0f;
+    private float deltaMaxTime = 0f;
     [SerializeField] private float LimitTime = 7f;
-    float deltaLimitTime = 0f;
+    private float deltaLimitTime = 0f;
 
     [SerializeField] private float blinkInterval = 0.5f;
-    private float blinkTimer = 0f;
-    private bool blinkOn = false;
+    
 
     private float CurrentTime = 0f;
     private float timer = 0f;
@@ -41,10 +39,10 @@ public class ScTrafficCtrl : MonoBehaviour
     private void Start()
     {
         // 2) load URP shaders
-        defShader = Shader.Find("Universal Render Pipeline/Lit");
+        litShader = Shader.Find("Universal Render Pipeline/Lit");
         unlitShader = Shader.Find("Universal Render Pipeline/Unlit");
 
-        if (defShader == null || unlitShader == null)
+        if (litShader == null || unlitShader == null)
             Debug.LogError("Failed to load URP shaders. Check shader names.");
 
 
@@ -56,13 +54,16 @@ public class ScTrafficCtrl : MonoBehaviour
         SetColor(CurrentColor);
     }
 
+    public bool IsBlink()
+    {
+        return blinkCor != null;
+    }
+
     void ChangeColor()
     {
         if (blinkCor != null)
         {
             StopAllCoroutines();
-            //StopCoroutine(blinkCor);
-            //blinkCor = null;
         }
 
         switch (CurrentColor)
@@ -91,10 +92,10 @@ public class ScTrafficCtrl : MonoBehaviour
         LimitTime = deltaLimitTime;
         CurrentTime = deltaMaxTime;
 
-        foreach(var m in m_MeshRenderer.materials)
-        {
-            m.shader = unlitShader;
-        }
+        //foreach (var m in m_MeshRenderer.materials)
+        //{
+        //    m.shader = unlitShader;
+        //}
 
         SetColor(CurrentColor);
 
@@ -102,74 +103,27 @@ public class ScTrafficCtrl : MonoBehaviour
 
     void SetColor(TrafficLightColor color)
     {
-        // 1) TMP 텍스트 색
-        //switch (color)
-        //{
-        //    case TrafficLightColor.Red:
-        //        timerText.color = Color.red;
-        //        color = TrafficLightColor.Red;
-        //        break;
-        //    case TrafficLightColor.Green:
-        //        timerText.color = Color.green;
-        //        color = TrafficLightColor.Green;
-        //        break;
-        //    default:
-        //        break;
+        bool isRed = (color == TrafficLightColor.Red);
 
-        //}        
-        timerText.color = (color == TrafficLightColor.Red) ? Color.red : Color.green;
+        timerText.color = isRed ? Color.red : Color.green;
 
-        // 2) 머티리얼 슬롯 인덱스 매핑
-        //    Red  -> 0
-        //    Green-> 1
-        int highlightIndex = (color == TrafficLightColor.Red) ? 0 : 1;
+        m_MeshRenderer.material = isRed ? red : green;
 
-        // 3) 각 슬롯 셰이더 교체
-        var mats = m_MeshRenderer.materials;
-        mats[highlightIndex].shader = defShader;
-
-        //for (int i = 0; i < mats.Length; i++)
-        //{
-        //    mats[i].shader = (i == highlightIndex)
-        //        ? unlitShader    // 켜질 때
-        //        : defShader;     // 나머지는 끌 때
-        //}
-        m_MeshRenderer.materials = mats;
-
-        //m_MeshRenderer.material = m_MeshRenderer.materials[(int)color];
-
+        //슬롯 셰이더 교체
+        m_MeshRenderer.material.shader = litShader;
     }
-
-    //private void ApplyBlink(bool highlightOn)
-    //{
-    //    var mats = m_MeshRenderer.materials;
-    //    int highlightIndex = (CurrentColor == TrafficLightColor.Red) ? 1 : 0;
-
-    //    for (int i = 0; i < mats.Length; i++)
-    //    {
-    //        if (i == highlightIndex)
-    //            mats[i].shader = highlightOn ? unlitShader : defShader;
-    //        else
-    //            mats[i].shader = defShader;
-    //    }
-
-    //    m_MeshRenderer.materials = mats;
-    //}
 
     IEnumerator ApplyBlink()
     {
-        bool highlightOn = false;
-        //yield return new WaitForSeconds(blinkInterval);
-        
+        bool highlightOff = false;
+
+
         while (true)
         {
-            var mats = m_MeshRenderer.materials;
-            int highlightIndex = (CurrentColor == TrafficLightColor.Red) ? 0 : 1;
+            highlightOff = !highlightOff;
 
-            highlightOn = !highlightOn;
-            
-            mats[highlightIndex].shader = highlightOn ? unlitShader : defShader;
-            
+            m_MeshRenderer.material.shader = highlightOff ? unlitShader : litShader;
+
             yield return new WaitForSeconds(blinkInterval);
         }
     }
