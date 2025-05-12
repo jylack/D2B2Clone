@@ -9,6 +9,7 @@ public class ScPlayer : ScObjectBase
     [SerializeField] private float swingForwardZPosition;
     [SerializeField] private float swingBackwardZPosition;
     [Header("head")]
+    [SerializeField] private Transform xrOriginTrans;
     [SerializeField] private float headTurnThreshold;
 
     private Camera mainCam;
@@ -84,9 +85,11 @@ public class ScPlayer : ScObjectBase
     private void UpdateHeadTurn()
     {
         ScDefine.ScHeadTurn tempHeadTurn = ScDefine.ScHeadTurn.None;
-        float rotationY = mainCam.transform.rotation.y;
-        bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
-        bool lookingRight = rotationY > headTurnThresholdQuaternion;
+        var temp = mainCam.transform.localRotation.eulerAngles.y;
+        float rotationY = temp;
+        if (rotationY > 180f) rotationY -= 360f;
+        bool lookingLeft = rotationY < -headTurnThreshold;
+        bool lookingRight = rotationY > headTurnThreshold;
 
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {

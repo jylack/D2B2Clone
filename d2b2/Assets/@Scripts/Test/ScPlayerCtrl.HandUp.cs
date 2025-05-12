@@ -36,7 +36,7 @@ public partial class ScPlayerCtrl : MonoBehaviour
         float currentHeadY = headTransform.position.y; //  매번 현재 머리 높이 가져오기
         isRightHandUp = handPosition.y > currentHeadY;
         isHandUp = isRightHandUp;
-        Debug.Log("Camera Y height: " + Camera.main.transform.position.y);
+        //Debug.Log("Camera Y height: " + Camera.main.transform.position.y);
     }
     public IEnumerator ChekLookAround()
     {
