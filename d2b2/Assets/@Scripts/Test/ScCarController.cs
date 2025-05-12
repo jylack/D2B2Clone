@@ -28,9 +28,12 @@ public class ScCarController : MonoBehaviour
     {
         isActive = false;
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        gameObject.SetActive(false);
+        if (other.gameObject.layer == ScDefine.Layer.WallIndex)
+        {
+            gameObject.SetActive(false);
+        }
+        
     }
 }
