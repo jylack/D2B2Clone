@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8833626079975955432}
   - component: {fileID: 8833626079975955433}
   - component: {fileID: 3606230357993960705}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 5904417538407209455}
-  audioSource: {fileID: 0}
   swingThresholdIntervalTime: 1
   moveSpeed: 1
   swingForwardZPosition: 0.2
   swingBackwardZPosition: 0.05
+  xrOriginTrans: {fileID: 1177966309702392667}
   headTurnThreshold: 30
 --- !u!82 &3606230357993960705
 AudioSource:
@@ -259,6 +259,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+--- !u!4 &1177966309702392667 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7696548424635294051, guid: 895f6f3c2d334633b5800312285058d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8833626077999594040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4897645565754453249 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
