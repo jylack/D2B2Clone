@@ -111,21 +111,31 @@ public class ScPlayer : ScObjectBase
     
     private void UpdateMove()
     {
-        if (Time.time - leftHandForwardTime <= 0.5f && Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime)
+        // 왼손 체크
+        bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
+        bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
+
+        if (isMoveStart && isValidSwingIntervalTime)
         {
             MoveForward();
+            return;
         }
-        else if (Time.time - rightHandForwardTime <= 0.5f && Mathf.Abs(rightHandForwardTime - rightHandBackwardTime) <= swingThresholdIntervalTime)
+
+        // 오른손 체크
+        isMoveStart = Time.time - rightHandForwardTime <= 0.5f;
+        isValidSwingIntervalTime = Mathf.Abs(rightHandForwardTime - rightHandBackwardTime) <= swingThresholdIntervalTime;
+
+        if (isMoveStart && isValidSwingIntervalTime)
         {
             MoveForward();
+            return;
         }
-        else
+
+        // 이동중지
+        if (isMoving)
         {
-            if (isMoving)
-            {
-                isMoving = false;
-                Manager.Instance.GameMgr.RaisePlayerMovingEvent(false);
-            }
+            isMoving = false;
+            Manager.Instance.GameMgr.RaisePlayerMovingEvent(false);
         }
     }
 
