@@ -7,48 +7,35 @@ using UnityEngine.UI;
 
 public class ScLookAroundResion : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI successText;
-    [SerializeField] TextMeshProUGUI lookRight;
-    [SerializeField] TextMeshProUGUI lookLeft;
-    [SerializeField] TextMeshProUGUI angleText;
-    ScPlayerCtrl scPlayerCtrl;
-    //bool isSuccess;
-    private void Start()
-    {
-        //isSuccess = false;
-    }
+    private bool checkLookLeft;
+    private bool checkLookRight;
+    private bool lookAroundMissionClear;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<ScPlayerCtrl>() == null)
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            return;
+            Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
         }
-            scPlayerCtrl = other.GetComponent<ScPlayerCtrl>();
-            scPlayerCtrl.coroutine = StartCoroutine(scPlayerCtrl.ChekLookAround());
     }
     private void OnTriggerExit(Collider other)
     {
-        if (scPlayerCtrl.coroutine != null)
-        {
-            StopCoroutine(scPlayerCtrl.coroutine);
-        }
-        else
-        {
-            Debug.Log("scPlayerCtrl.coroutine == null");
-        }
-        angleText.text = "";
-        lookRight.text = "";
-        lookLeft.text = "";
+        Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
     }
-    private void OnTriggerStay(Collider other)
+    private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headTurn)
     {
-        if (scPlayerCtrl.isLookAround == true)
+        if (checkLookLeft == true && checkLookRight == true)
         {
-            //isSuccess = true;
+            lookAroundMissionClear = true;
+            Debug.Log("주위 둘러보기 미션 : " + lookAroundMissionClear);
+            return;
         }
-        angleText.text = "angle : " + scPlayerCtrl.currentLookAngle;
-        lookRight.text = "LookRight : " + scPlayerCtrl.isLookRight;
-        lookLeft.text = "LookLeft : " + scPlayerCtrl.isLookLeft;
+        if (headTurn == ScDefine.ScHeadTurn.Left)
+        {
+            checkLookLeft = true;
+        }
+        else if (headTurn == ScDefine.ScHeadTurn.Right && checkLookLeft == true)
+        {
+            checkLookRight = true;
+        }
     }
-    
 }

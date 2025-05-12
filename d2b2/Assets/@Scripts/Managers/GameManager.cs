@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
     public ScPlayer Player { get; private set; }
 
-
+    public bool MoveFlag = true;
 
     public void SetPlayer(ScPlayer player)
     {

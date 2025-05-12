@@ -1,4 +1,6 @@
+using System.Collections;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public enum TrafficLightColor
@@ -13,21 +15,28 @@ public class ScTrafficCtrl : MonoBehaviour
     [Header("오브젝트 연결")]
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] MeshRenderer m_MeshRenderer;
+    [SerializeField]Material red, green;
+
     private Shader defShader, unlitShader;
 
     [Header("신호등 세팅")]
 
-    [SerializeField] float MaxTime = 30f;
-    float deltaMaxTime;
-    [SerializeField] float LimitTime = 7f;
-    float deltaLimitTime;
+    [SerializeField] private float MaxTime = 30f;
+    float deltaMaxTime = 0f;
+    [SerializeField] private float LimitTime = 7f;
+    float deltaLimitTime = 0f;
 
-    float CurrentTime = 0f;
-    float timer = 0f;
-    float interval = 1f;
+    [SerializeField] private float blinkInterval = 0.5f;
+    private float blinkTimer = 0f;
+    private bool blinkOn = false;
+
+    private float CurrentTime = 0f;
+    private float timer = 0f;
+    private float interval = 1f;
 
     [SerializeField] TrafficLightColor CurrentColor;
 
+    Coroutine blinkCor;
 
     private void Start()
     {
@@ -49,6 +58,12 @@ public class ScTrafficCtrl : MonoBehaviour
 
     void ChangeColor()
     {
+        if (blinkCor != null)
+        {
+            StopAllCoroutines();
+            //StopCoroutine(blinkCor);
+            //blinkCor = null;
+        }
 
         switch (CurrentColor)
         {
@@ -76,6 +91,11 @@ public class ScTrafficCtrl : MonoBehaviour
         LimitTime = deltaLimitTime;
         CurrentTime = deltaMaxTime;
 
+        foreach(var m in m_MeshRenderer.materials)
+        {
+            m.shader = unlitShader;
+        }
+
         SetColor(CurrentColor);
 
     }
@@ -102,23 +122,57 @@ public class ScTrafficCtrl : MonoBehaviour
         // 2) 머티리얼 슬롯 인덱스 매핑
         //    Red  -> 0
         //    Green-> 1
-        int highlightIndex = (color == TrafficLightColor.Red) ? 1 : 0;
+        int highlightIndex = (color == TrafficLightColor.Red) ? 0 : 1;
 
         // 3) 각 슬롯 셰이더 교체
         var mats = m_MeshRenderer.materials;
-        for (int i = 0; i < mats.Length; i++)
-        {
-            mats[i].shader = (i == highlightIndex)
-                ? unlitShader    // 켜질 때
-                : defShader;     // 나머지는 끌 때
-        }
+        mats[highlightIndex].shader = defShader;
+
+        //for (int i = 0; i < mats.Length; i++)
+        //{
+        //    mats[i].shader = (i == highlightIndex)
+        //        ? unlitShader    // 켜질 때
+        //        : defShader;     // 나머지는 끌 때
+        //}
         m_MeshRenderer.materials = mats;
 
         //m_MeshRenderer.material = m_MeshRenderer.materials[(int)color];
 
     }
 
+    //private void ApplyBlink(bool highlightOn)
+    //{
+    //    var mats = m_MeshRenderer.materials;
+    //    int highlightIndex = (CurrentColor == TrafficLightColor.Red) ? 1 : 0;
 
+    //    for (int i = 0; i < mats.Length; i++)
+    //    {
+    //        if (i == highlightIndex)
+    //            mats[i].shader = highlightOn ? unlitShader : defShader;
+    //        else
+    //            mats[i].shader = defShader;
+    //    }
+
+    //    m_MeshRenderer.materials = mats;
+    //}
+
+    IEnumerator ApplyBlink()
+    {
+        bool highlightOn = false;
+        //yield return new WaitForSeconds(blinkInterval);
+        
+        while (true)
+        {
+            var mats = m_MeshRenderer.materials;
+            int highlightIndex = (CurrentColor == TrafficLightColor.Red) ? 0 : 1;
+
+            highlightOn = !highlightOn;
+            
+            mats[highlightIndex].shader = highlightOn ? unlitShader : defShader;
+            
+            yield return new WaitForSeconds(blinkInterval);
+        }
+    }
 
     private void Update()
     {
@@ -130,6 +184,11 @@ public class ScTrafficCtrl : MonoBehaviour
             //현재 시간 감소
             CurrentTime -= interval;
 
+            // 깜빡임 처리
+            if (CurrentTime <= LimitTime)
+            {
+                blinkCor = StartCoroutine(ApplyBlink());
+            }
 
             if (CurrentTime <= 0f)
             {
@@ -140,9 +199,13 @@ public class ScTrafficCtrl : MonoBehaviour
             //tmp에 적용
             timerText.text = CurrentTime.ToString();
 
+
             // 누적된 시간 초기화
             timer = 0f;
         }
+
+
+
 
     }
 }
