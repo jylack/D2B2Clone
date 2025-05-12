@@ -3,7 +3,6 @@
 public class ScPlayer : ScObjectBase
 {
     [SerializeField] private CharacterController characterController;
-    [SerializeField] private AudioSource audioSource;
     [Header("move")]
     [SerializeField] private float swingThresholdIntervalTime;
     [SerializeField] private float moveSpeed;
@@ -13,6 +12,7 @@ public class ScPlayer : ScObjectBase
     [SerializeField] private float headTurnThreshold;
     
     private Camera mainCam;
+    private AudioSource audioSource;
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
     private bool isLeftHandUp;
     private bool isRightHandUp;
