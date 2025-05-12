@@ -113,8 +113,6 @@ public class ScPlayer : ScObjectBase
 
     private void UpdateMove()
     {
-        
-
         // 왼손 체크
         bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
         bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
@@ -145,7 +143,8 @@ public class ScPlayer : ScObjectBase
 
     private void MoveForward()
     {
-        if (Manager.Instance.GameMgr.MoveFlag == false) return;
+        if (!Manager.Instance.GameMgr.canMove)
+            return;
 
         characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
 
