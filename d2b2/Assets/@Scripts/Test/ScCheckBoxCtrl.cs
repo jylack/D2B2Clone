@@ -7,15 +7,21 @@ public class ScCheckBoxCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(trafficCtrl == null )
         {
-            if (trafficCtrl != null)
-            {
+            Debug.Log("신호등 연결 안됨");
+            return;
+        }
 
-            }
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+        {
+            Manager.Instance.GameMgr.MoveFlag = false;
+
         }
     }
 
 
 
 }
+
+
