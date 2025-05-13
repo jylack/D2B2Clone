@@ -10,8 +10,9 @@ public class ScSafetyLineCtrl : MonoBehaviour
     Coroutine coroutine = null;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.layer);
-        Debug.Log(ScDefine.Layer.PlayerIndex);
+        Debug.Log(other.gameObject.name);
+        Debug.Log("layer : " + other.gameObject.layer);
+        //Debug.Log(ScDefine.Layer.PlayerIndex);
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
