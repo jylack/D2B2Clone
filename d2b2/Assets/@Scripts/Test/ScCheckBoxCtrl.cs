@@ -3,19 +3,15 @@ using UnityEngine;
 //행동권환 활성화 해줄 클래스
 public class ScCheckBoxCtrl : MonoBehaviour
 {
-    [SerializeField] ScTrafficCtrl trafficCtrl;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        //print($"OnTriggerEnter: {other.gameObject.layer}");
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            if (trafficCtrl != null)
-            {
-
-            }
+            //Manager.Instance.GameMgr.MoveFlag = false;
+            Debug.Log("행동권환");
         }
     }
-
-
-
 }
+
+

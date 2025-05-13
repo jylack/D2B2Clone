@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class ScCarSpawner : MonoBehaviour
+{
+    [SerializeField] GameObject headLightCar;
+    [SerializeField] ScCarController carController;
+    [SerializeField] int createTime = 10;
+
+    public void Start()
+    {
+        headLightCar = Instantiate(headLightCar, transform.position,transform.rotation);
+        carController = headLightCar.GetComponent<ScCarController>();
+        headLightCar.SetActive(false);
+        StartCoroutine(CreateHeadLightCar());
+    }
+    IEnumerator CreateHeadLightCar()
+    {
+        while (true)
+        {
+            headLightCar.transform.position = transform.position;
+            headLightCar.SetActive(true);
+            yield return new WaitUntil(() => carController.isActive == false);
+            yield return new WaitForSeconds(createTime);
+        }
+    }
+}
