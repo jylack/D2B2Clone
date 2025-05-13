@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,14 @@ using UnityEngine.UI;
 public class ScLookAroundProgress : MonoBehaviour
 {
     [SerializeField] private Image progressImage;
+    public Action<float,float> onProgress;
 
-    private void OnEnable()
+    private void Awake()
     {
-        //Manager.Instance.InputMgr.OnRightHandPositionChanged += DrawLookArounProgress;
+        onProgress += DrawLookArounProgress;
     }
-    private void OnDisable()
+    private void DrawLookArounProgress(float time, float maxTime)
     {
-        //Manager.Instance.GameMgr.OnPlayerHeadTurn -= DrawLookArounProgress;
-    }
-    private void DrawLookArounProgress(float headAngle,float maxHeaAngle)
-    {
-        progressImage.fillAmount = Mathf.Clamp01(headAngle / maxHeaAngle);
+        progressImage.fillAmount = Mathf.Clamp01(time / maxTime);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScBlindSpotResion : MonoBehaviour
 {
-    [SerializeField] private bool isEnterBlindSpot;
+    [SerializeField] public bool isEnterBlindSpot { get; private set; }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)

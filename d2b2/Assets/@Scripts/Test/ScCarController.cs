@@ -13,10 +13,14 @@ public class ScCarController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void MoveCar()
+    public void MoveCar()
     {
         rb.velocity = Vector3.forward * carSpeed;
         Debug.Log("차량 속도 " + rb.velocity.z);
+    }
+    public void StopCar()
+    {
+        rb.velocity = Vector3.zero;
     }
     private void OnEnable()
     {
