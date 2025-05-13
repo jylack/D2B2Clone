@@ -10,93 +10,118 @@ public class ScLookAroundRegion : MonoBehaviour
 {
     private bool checkLookLeft;
     private bool checkLookRight;
-    private bool lookAroundMissionClear;
-    [SerializeField] private float maxTime = 10;
-    ScLookAroundProgress lookAroundLeftProgress;
-    ScLookAroundProgress lookAroundRightProgress;
-    Coroutine lookLeftTimeCor;
-    Coroutine lookRightTimeCor;
+    public bool lookAroundMissionClear { get; private set; }
+    [SerializeField] private float completeTime = 1;
+    private ScLookAroundProgress lookAroundLeftProgress;
+    private ScLookAroundProgress lookAroundRightProgress;
+    private Coroutine lookCor;
 
     private void Start()
     {
+        lookAroundMissionClear = false;
         lookAroundLeftProgress = UIPlayerHsy.Instance.GetLookAroundLeftComponent();
         lookAroundRightProgress = UIPlayerHsy.Instance.GetLookAroundRightComponent();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
-        {
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
-        }
-
     }
+
     private void OnTriggerExit(Collider other)
     {
-        Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
-    }
-    private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headTurn)
-    {
-        Debug.Log("headTurn : " + headTurn);
-        if (checkLookLeft == true && checkLookRight == true)
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            lookAroundMissionClear = true;
-            return;
-        }
-        if (headTurn == ScDefine.ScHeadTurn.Left)
-        {
-            UIPlayerHsy.Instance.OnLookAroundLeftProgress();
-            if (lookLeftTimeCor == null)
-            {
-                lookLeftTimeCor = StartCoroutine(CheckHeadLeftStayTime());
-            }
-        }
-        if (headTurn == ScDefine.ScHeadTurn.Right && checkLookLeft == true)
-        {
-            UIPlayerHsy.Instance.OnLookAroundRightProgress();
-            if (lookRightTimeCor == null)
-            {
-                lookRightTimeCor = StartCoroutine(CheckHeadRightStayTime());
-            }
-        }
-        if (headTurn == ScDefine.ScHeadTurn.Forward)
-        {
-            UIPlayerHsy.Instance.OffLookAroundLeftProgress();
-            UIPlayerHsy.Instance.OffLookAroundRightProgress();
-            if(lookLeftTimeCor != null)
-            {
-                StopCoroutine(lookLeftTimeCor);
-                lookLeftTimeCor = null;
-            }
-            if (lookRightTimeCor != null)
-            {
-                StopCoroutine(lookRightTimeCor);
-                lookRightTimeCor = null;
-            }
+            Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
+            StopCurrentCoroutine();
+            OffAllUI();
         }
     }
 
-    IEnumerator CheckHeadLeftStayTime()
+    private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
     {
-        float currentTime = 0f;
-        while (currentTime < maxTime)
+        if (lookAroundMissionClear == true) return;
+        Debug.Log(1);
+        if (headDirection == ScDefine.ScHeadTurn.Left && checkLookLeft == false)
         {
-            currentTime += Time.deltaTime;
-            lookAroundLeftProgress.onProgress?.Invoke(currentTime, maxTime);
-            yield return null;
+            StartLooking(headDirection);
         }
-        checkLookLeft = true;
-        Debug.Log("왼쪽완료");
+        else if (headDirection == ScDefine.ScHeadTurn.Right && checkLookLeft == true && checkLookRight == false)
+        {
+            StartLooking(headDirection);
+        }
+        else if (headDirection == ScDefine.ScHeadTurn.Forward)
+        {
+            StopCurrentCoroutine();
+            //OffAllUI();
+        }
     }
-    IEnumerator CheckHeadRightStayTime()
+
+    private void StartLooking(ScDefine.ScHeadTurn headDirection)
     {
-        float currentTime = 0f;
-        while (currentTime < maxTime)
+        Debug.Log(2);
+        StopCurrentCoroutine();
+        ScLookAroundProgress progress = null;
+        if (headDirection == ScDefine.ScHeadTurn.Left)
         {
-            currentTime += Time.deltaTime;
-            lookAroundRightProgress.onProgress?.Invoke(currentTime, maxTime);
+            UIPlayerHsy.Instance.OnLookAroundLeftProgress();
+            progress = lookAroundLeftProgress;
+        }
+        else if (headDirection == ScDefine.ScHeadTurn.Right)
+        {
+            UIPlayerHsy.Instance.OnLookAroundRightProgress();
+            progress = lookAroundRightProgress;
+        }
+        if (progress != null)
+        {
+            lookCor = StartCoroutine(CheckHeadStayTime(headDirection, progress));
+        }
+    }
+
+    private IEnumerator CheckHeadStayTime(ScDefine.ScHeadTurn headDirection, ScLookAroundProgress progress)
+    {
+        float timer = 0f;
+        while (timer < completeTime)
+        {
+            Debug.Log(3);
+            timer += Time.deltaTime;
+            progress.onProgress?.Invoke(timer, completeTime);
             yield return null;
         }
-        checkLookRight = true;
-        Debug.Log("오른쪽완료");
+
+        if (headDirection == ScDefine.ScHeadTurn.Left)
+        {
+            checkLookLeft = true;
+            Debug.Log("왼쪽 완료");
+        }
+        else
+        {
+            checkLookRight = true;
+            lookAroundMissionClear = true;
+            Debug.Log("오른쪽 완료");
+        }
+
+        lookCor = null;
+
+        if (lookAroundMissionClear)
+        {
+            Debug.Log("미션 성공!");
+            OffAllUI();
+        }
+    }
+
+    private void StopCurrentCoroutine()
+    {
+        if (lookCor != null)
+        {
+            StopCoroutine(lookCor);
+            lookCor = null;
+        }
+    }
+
+    private void OffAllUI()
+    {
+        UIPlayerHsy.Instance.OffLookAroundLeftProgress();
+        UIPlayerHsy.Instance.OffLookAroundRightProgress();
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ScHandUpRegion : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
-    private bool handUpMissionClear;
+    public bool handUpMissionClear { get; private set; }
     ScHandUpProgress handUpProgress;
     Vector3 headPosition;
     private bool isLeftHandUp;

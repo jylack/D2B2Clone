@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ScCarSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject headLightCar;
-    [SerializeField] ScCarController carController;
-    [SerializeField] int createTime = 10;
+    [SerializeField] private GameObject headLightCar;
+    private ScCarController carController;
+    [SerializeField] private int createTime = 10;
 
     public void Start()
     {
