@@ -22,6 +22,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
     {
         CurrentStep = ScChapter1.Instance.CurrentSetp;
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
+        //Debug.Log("이동 구독 시작");
+
 
     }
     private void Update()
@@ -29,10 +31,9 @@ public class ScCrossWalkCtrl : MonoBehaviour
         IsMove.text = isWalk.ToString();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("이동 구독 시작");
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //}
 
     private void OnTriggerStay(Collider other)
     {
