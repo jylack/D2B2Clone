@@ -68,6 +68,7 @@ public class ScTutNameSet : MonoBehaviour
             nickName = name,
             settings = new ScPlayerSettingsEntity()
         };
+        TutorialManager.Instance.playerEntity = entity;
 
         Manager.Instance.DbMgr.Save(name, entity).Forget();
 
@@ -82,7 +83,7 @@ public class ScTutNameSet : MonoBehaviour
         showName.SetActive(true);
 
         nameShowText.text = $"당신의 이름은\n{name} 입니다";
-
+`
         ChangeToSetting().Forget();
     }
 
