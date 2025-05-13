@@ -84,13 +84,11 @@ public class ScPlayer : ScObjectBase
 
     private void UpdateHeadTurn()
     {
-        ScDefine.ScHeadTurn tempHeadTurn = ScDefine.ScHeadTurn.None;
-        var temp = mainCam.transform.localRotation.eulerAngles.y;
-        float rotationY = temp;
-        if (rotationY > 180f) rotationY -= 360f;
-        bool lookingLeft = rotationY < -headTurnThreshold;
-        bool lookingRight = rotationY > headTurnThreshold;
-
+        var tempHeadTurn = ScDefine.ScHeadTurn.None;
+        float rotationY = mainCam.transform.localRotation.y;
+        bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
+        bool lookingRight = rotationY > headTurnThresholdQuaternion;
+        
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {
             tempHeadTurn = ScDefine.ScHeadTurn.Left;
@@ -113,8 +111,6 @@ public class ScPlayer : ScObjectBase
 
     private void UpdateMove()
     {
-        
-
         // 왼손 체크
         bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
         bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
@@ -145,7 +141,8 @@ public class ScPlayer : ScObjectBase
 
     private void MoveForward()
     {
-        if (Manager.Instance.GameMgr.MoveFlag == false) return;
+        if (!Manager.Instance.GameMgr.canMove)
+            return;
 
         characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
 
