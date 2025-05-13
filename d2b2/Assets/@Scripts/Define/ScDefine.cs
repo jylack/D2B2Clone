@@ -35,4 +35,13 @@
         Left,
         Right
     }
+
+    public enum ScGuideCharacter
+    {
+        None = 0,
+        Character1,
+        Character2,
+        Character3,
+        Character4,
+    }
 }
