@@ -142,10 +142,13 @@ public class ScPlayer : ScObjectBase
     private void MoveForward()
     {
         
-        if (!Manager.Instance.GameMgr.canMove)
-            return;
-        Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
-        characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
+        //if (!Manager.Instance.GameMgr.canMove)
+        //    return;
+
+        int move = Manager.Instance.GameMgr.canMove ? 1 : 0;
+
+        //Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
+        characterController.Move(move * moveSpeed * Time.deltaTime * characterController.transform.forward);
 
         if (!isMoving)
         {

@@ -22,7 +22,7 @@ public class ScStepClear : MonoBehaviour
 
             temp.Init(ScChapter1.Instance.CurrentSetp);            
             //other.gameObject.GetComponent<ScRespawn>().NextPos(ScChapter1.Instance.CurrentSetp);
-            Debug.Log("다음스텝으로 넘어갔음.");
+            Debug.Log("다음스텝으로 넘어갔음." + ScChapter1.Instance.CurrentSetp);
             gameObject.SetActive(false);
         }
     }
@@ -30,6 +30,8 @@ public class ScStepClear : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("Chapter1 클리어");
+
+        Debug.Log("Chapter1 클리어 " + ScChapter1.Instance.CurrentSetp);
+        gameObject.SetActive(false);
     }
 }

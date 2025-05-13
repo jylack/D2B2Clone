@@ -52,9 +52,9 @@ public class ScRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("2-1");
+        //Debug.Log("2-1");
         //tel.QueueTeleportRequest(telPos);
-        transform.SetPositionAndRotation(telPos.destinationPosition, transform.rotation);
+        transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
 
         Manager.Instance.GameMgr.canMove = true;
 

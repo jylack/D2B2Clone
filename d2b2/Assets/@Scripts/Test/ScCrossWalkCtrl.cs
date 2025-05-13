@@ -31,16 +31,23 @@ public class ScCrossWalkCtrl : MonoBehaviour
         IsMove.text = isWalk.ToString();
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //}
 
     private void OnTriggerStay(Collider other)
     {
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            
             var temp = other.gameObject.GetComponent<ScRespawn>();
+
+            //»æ¥‹∫∏µµ ¿Ãµø¡ﬂ ª°∞£∫“¿”. or Ω≈»£µÓ ±Ù∫˝¿œ∂ß.
+            if (scTrafficCtrl.GetCurrentColor() == TrafficLightColor.Red ||
+                scTrafficCtrl.IsBlink() == true)
+            {
+                Manager.Instance.GameMgr.canMove = false;
+                temp.Init(CurrentStep);
+                temp.Respawn();
+            }
             
             if (isWalk == false)
             {
@@ -49,12 +56,6 @@ public class ScCrossWalkCtrl : MonoBehaviour
                     coroutine = StartCoroutine(TimeLimit(other));
             }
 
-            //»æ¥‹∫∏µµ ¿Ãµø¡ﬂ ª°∞£∫“¿”.
-            if (scTrafficCtrl.GetCurrentColor() == TrafficLightColor.Red)
-            {
-                temp.Init(CurrentStep);                
-                temp.Respawn();
-            }
             
         }
 
