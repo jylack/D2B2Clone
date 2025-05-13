@@ -10,13 +10,13 @@ public class ScSafetyLineCtrl : MonoBehaviour
     Coroutine coroutine = null;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        Debug.Log("layer : " + other.gameObject.layer);
+        //Debug.Log(other.gameObject.name);
+        //Debug.Log("layer : " + other.gameObject.layer);
         //Debug.Log(ScDefine.Layer.PlayerIndex);
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            Debug.Log("안전선 밟음.");
+           // Debug.Log("안전선 밟음.");
 
             isSafety = true;
 
@@ -33,7 +33,7 @@ public class ScSafetyLineCtrl : MonoBehaviour
         StopAllCoroutines();
         coroutine = null;
 
-        Debug.Log("안전선 벗어남.");
+        //Debug.Log("안전선 벗어남.");
     }
 
     IEnumerator TimeLimit(Collider other)
