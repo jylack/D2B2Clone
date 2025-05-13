@@ -12,8 +12,12 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.layer);
+        Debug.Log(ScDefine.Layer.PlayerIndex);
+
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
     }
+
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("횡단보도 이동중.");

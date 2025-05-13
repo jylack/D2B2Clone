@@ -6,6 +6,9 @@ public class ScStepClear : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.layer);
+        Debug.Log(ScDefine.Layer.PlayerIndex);
+
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             Manager.Instance.GameMgr.CurrentStep++;

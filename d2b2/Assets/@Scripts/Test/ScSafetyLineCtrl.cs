@@ -10,6 +10,9 @@ public class ScSafetyLineCtrl : MonoBehaviour
     Coroutine coroutine = null;
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.layer);
+        Debug.Log(ScDefine.Layer.PlayerIndex);
+
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             Debug.Log("안전선 밟음.");
