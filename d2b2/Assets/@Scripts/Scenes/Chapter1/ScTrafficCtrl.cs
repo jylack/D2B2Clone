@@ -51,7 +51,7 @@ public class ScTrafficCtrl : MonoBehaviour
         if (litShader == null || unlitShader == null)
             Debug.LogError("Failed to load URP shaders. Check shader names.");
 
-        LimitTime = (MaxTime / 4f) * 1f;
+        LimitTime = (MaxTime / 4f);
 
         deltaMaxTime = MaxTime;
         deltaLimitTime = LimitTime;
