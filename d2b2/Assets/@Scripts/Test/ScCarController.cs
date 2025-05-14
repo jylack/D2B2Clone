@@ -15,7 +15,7 @@ public class ScCarController : MonoBehaviour
 
     public void MoveCar()
     {
-        rb.velocity = Vector3.forward * carSpeed;
+        rb.velocity = transform.right * carSpeed;
         Debug.Log("차량 속도 " + rb.velocity.z);
     }
     public void StopCar()
