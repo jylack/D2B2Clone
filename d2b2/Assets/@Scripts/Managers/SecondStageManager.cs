@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class SecondStageManager : MonoBehaviour
 {
-    public static SecondStageManager instance;
+    public static SecondStageManager Instance { get; private set; }
+    public bool lookAroundRegionClear;
+    public bool handUpRegionClear;
 
     private void Awake()
     {
-        if (instance== null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
+    }
+    private void Start()
+    {
+        ResetSecondStage();
     }
 
     public void ResetSecondStage()
     {
-
+        lookAroundRegionClear = false;
+        handUpRegionClear = false;
     }
 
 }

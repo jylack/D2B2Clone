@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,22 +13,36 @@ public class UIPlayerHsy : MonoBehaviour
 {
     public static UIPlayerHsy Instance { get; private set; }
 
-    [SerializeField] private GameObject lookAroundLeftProgress;
-    [SerializeField] private GameObject lookAroundRightProgress;
+    [SerializeField] private GameObject lookAroundLeftProgressUi;
+    [SerializeField] private GameObject lookAroundRightProgressUi;
     [SerializeField] private GameObject handUpProgressUI;
+    [SerializeField] private Image handUpProgress;
+    [SerializeField] private Image lookAroundLeftProgress;
+    [SerializeField] private Image lookAroundRightProgress;
+    [SerializeField] public TextMeshProUGUI handUpText;
 
     private void Awake()
     {
         Instance = this;
     }
-
-    public ScLookAroundProgress GetLookAroundLeftComponent()
+    public void DrawLookArounProgress(float time, float maxTime, ScDefine.ScHeadTurn headDirection)
     {
-       return lookAroundLeftProgress.GetComponent<ScLookAroundProgress>();
+        Debug.Log("headDirection : " + headDirection);
+        Debug.Log("maxTime : " + maxTime);
+        Debug.Log("time : " + time);
+        if (headDirection == ScDefine.ScHeadTurn.Left)
+        {
+            lookAroundLeftProgress.fillAmount = Mathf.Clamp01(time / maxTime);
+        }
+        else if (headDirection == ScDefine.ScHeadTurn.Right)
+        {
+            lookAroundRightProgress.fillAmount = Mathf.Clamp01(time / maxTime);
+        }
     }
-    public ScLookAroundProgress GetLookAroundRightComponent()
+    public void DrawHandUpProgress(float headY, float handY, float maxHandupDistance)
     {
-        return lookAroundRightProgress.GetComponent<ScLookAroundProgress>();
+        var HeadHandDistance = handY - headY;
+        handUpProgress.fillAmount = Mathf.InverseLerp(-maxHandupDistance, maxHandupDistance, HeadHandDistance);
     }
     public ScHandUpProgress GetHandUpComponent()
     {
@@ -35,11 +50,11 @@ public class UIPlayerHsy : MonoBehaviour
     }
     public void OnLookAroundLeftProgress()
     {
-        lookAroundLeftProgress.SetActive(true);
+        lookAroundLeftProgressUi.SetActive(true);
     }
     public void OnLookAroundRightProgress()
     {
-        lookAroundRightProgress.SetActive(true);
+        lookAroundRightProgressUi.SetActive(true);
     }
     public void OnHandUpProgressUI()
     {
@@ -47,16 +62,15 @@ public class UIPlayerHsy : MonoBehaviour
     }
     public void OffLookAroundLeftProgress()
     {
-        lookAroundLeftProgress.SetActive(false);
+        lookAroundLeftProgressUi.SetActive(false);
     }
     public void OffLookAroundRightProgress()
     {
-        lookAroundRightProgress.SetActive(false);
+        lookAroundRightProgressUi.SetActive(false);
     }
     public void OffHandUpProgressUI()
     {
         handUpProgressUI.SetActive(false);
     }
-
 
 }

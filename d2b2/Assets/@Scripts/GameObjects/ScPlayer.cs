@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class ScPlayer : ScObjectBase
 {
@@ -25,6 +27,16 @@ public class ScPlayer : ScObjectBase
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
 
+    private bool inHandUpRegion;
+    private bool lookLeftClear;
+    private bool lookRightClear;
+    public bool handUpMissionClear { get; set; }
+    public bool lookAroundMissionClear { get; set; }
+    private Coroutine lookAroundCor;
+    [SerializeField] private float maxHandupDistance;
+    [SerializeField] private float lookAroundComplateTime;
+
+
 
     private void Awake()
     {
@@ -33,8 +45,8 @@ public class ScPlayer : ScObjectBase
         headTurnThresholdQuaternion = Quaternion.Euler(0f, headTurnThreshold, 0f).y;
 
         Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
-        Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandPositionChanged;
-        Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandPositionChanged;
+        //Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandPositionChanged;
+        //Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandPositionChanged;
     }
 
     private void Start()
@@ -44,15 +56,18 @@ public class ScPlayer : ScObjectBase
 
     private void Update()
     {
-        UpdateHeadTurn();
+        if (inHandUpRegion == true)
+        {
+            UpdateHeadTurn();
+        }
         UpdateMove();
     }
 
     private void OnDestroy()
     {
         Manager.Instance.InputMgr.OnHeadPositionChanged -= OnHeadPositionChanged;
-        Manager.Instance.InputMgr.OnLeftHandPositionChanged -= OnLeftHandPositionChanged;
-        Manager.Instance.InputMgr.OnRightHandPositionChanged -= OnRightHandPositionChanged;
+        //Manager.Instance.InputMgr.OnLeftHandPositionChanged -= OnLeftHandPositionChanged;
+        //Manager.Instance.InputMgr.OnRightHandPositionChanged -= OnRightHandPositionChanged;
     }
 
     private void OnDrawGizmos()
@@ -73,13 +88,52 @@ public class ScPlayer : ScObjectBase
         Gizmos.DrawLine(backwardLeft, backwardRight);
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == ScDefine.Layer.HandUpCheckResionIndex) // 손들기 감지 지역이라면
+        {
+            if (SecondStageManager.Instance.handUpRegionClear == true)
+            {
+                return;
+            }
+            handUpMissionClear = true;
+            Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandPositionChanged;
+            Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
+            UIPlayerHsy.Instance.OnHandUpProgressUI();
+        }
+        else if (other.gameObject.layer == ScDefine.Layer.LookAroundCheckResionIndex) // 고개 돌리기 감지 지역이라면
+        {
+            if (SecondStageManager.Instance.lookAroundRegionClear == true)
+            {
+                return;
+            }
+            Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
+            inHandUpRegion = true;
+            lookLeftClear = false;
+            lookRightClear = false;
+            lookAroundMissionClear = false;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == ScDefine.Layer.HandUpCheckResionIndex) // 손들기 감지 지역이라면
+        {
+            Manager.Instance.InputMgr.OnLeftHandPositionChanged -= OnLeftHandPositionChanged;
+            Manager.Instance.InputMgr.OnHeadPositionChanged -= OnHeadPositionChanged;
+            UIPlayerHsy.Instance.OffHandUpProgressUI();
+            UIPlayerHsy.Instance.handUpText.text = "";
+        }
+        else if (other.gameObject.layer == ScDefine.Layer.LookAroundCheckResionIndex) // 고개 돌리기 감지 지역이라면
+        {
+            Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
+            inHandUpRegion = false;
+        }
+    }
 
     public void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
     }
-
 
 
     private void UpdateHeadTurn()
@@ -88,7 +142,6 @@ public class ScPlayer : ScObjectBase
         float rotationY = mainCam.transform.localRotation.y;
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
-
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {
             tempHeadTurn = ScDefine.ScHeadTurn.Left;
@@ -107,6 +160,75 @@ public class ScPlayer : ScObjectBase
             headTurn = tempHeadTurn;
             Manager.Instance.GameMgr.RaisePlayerHeadTurnEvent(headTurn);
         }
+    }
+    private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
+    {
+        if (lookAroundMissionClear == true) return;
+        if (headDirection == ScDefine.ScHeadTurn.Left && lookLeftClear == false)
+        {
+            UIPlayerHsy.Instance.OnLookAroundLeftProgress();
+            lookAroundCor = StartCoroutine(CheckHeadStayTime(headDirection));
+        }
+        else if (headDirection == ScDefine.ScHeadTurn.Right && lookLeftClear == true && lookRightClear == false)
+        {
+            UIPlayerHsy.Instance.OnLookAroundRightProgress();
+            lookAroundCor = StartCoroutine(CheckHeadStayTime(headDirection));
+        }
+        else if (headDirection == ScDefine.ScHeadTurn.Forward)
+        {
+            StopCurrentCoroutine();
+            if (lookLeftClear == false)
+            {
+                UIPlayerHsy.Instance.OffLookAroundLeftProgress();
+            }
+            if (lookRightClear == false)
+            {
+                UIPlayerHsy.Instance.OffLookAroundRightProgress();
+            }
+        }
+    }
+    private IEnumerator CheckHeadStayTime(ScDefine.ScHeadTurn headDirection)
+    {
+        float timer = 0f;
+        while (timer < lookAroundComplateTime)
+        {
+            timer += Time.deltaTime;
+            UIPlayerHsy.Instance.DrawLookArounProgress(timer, lookAroundComplateTime, headDirection);
+            yield return null;
+        }
+
+        if (headDirection == ScDefine.ScHeadTurn.Left)
+        {
+            lookLeftClear = true;
+            Debug.Log("왼쪽 완료");
+        }
+        else
+        {
+            lookRightClear = true;
+            lookAroundMissionClear = true;
+            Debug.Log("오른쪽 완료");
+        }
+
+        lookAroundCor = null;
+
+        if (lookAroundMissionClear)
+        {
+            Debug.Log("미션 성공!");
+            OffAllUI();
+        }
+    }
+    private void StopCurrentCoroutine()
+    {
+        if (lookAroundCor != null)
+        {
+            StopCoroutine(lookAroundCor);
+            lookAroundCor = null;
+        }
+    }
+    private void OffAllUI()
+    {
+        UIPlayerHsy.Instance.OffLookAroundLeftProgress();
+        UIPlayerHsy.Instance.OffLookAroundRightProgress();
     }
 
     private void UpdateMove()
@@ -142,14 +264,12 @@ public class ScPlayer : ScObjectBase
     private void MoveForward()
     {
 
-
         //if (!Manager.Instance.GameMgr.canMove)
         //    return;
 
         int move = Manager.Instance.GameMgr.canMove ? 1 : 0;
 
-        //Debug.Log("moveFor : " + Manager.Instance.GameMgr.canMove);        
-
+        //Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
         characterController.Move(move * moveSpeed * Time.deltaTime * characterController.transform.forward);
 
         if (!isMoving)
@@ -168,10 +288,16 @@ public class ScPlayer : ScObjectBase
     private void OnLeftHandPositionChanged(Vector3 pos)
     {
         bool leftHandUp = pos.y > headPosition.y;
+        UIPlayerHsy.Instance.DrawHandUpProgress(headPosition.y,pos.y,maxHandupDistance);
+        UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
         if (leftHandUp != isLeftHandUp)
         {
             isLeftHandUp = leftHandUp;
             Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp);
+        }
+        if (isLeftHandUp == false)
+        {
+            handUpMissionClear = false;
         }
 
         if (pos.y < headPosition.y)
