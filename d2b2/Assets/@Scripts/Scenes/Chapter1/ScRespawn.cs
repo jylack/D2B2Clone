@@ -11,6 +11,8 @@ public class ScRespawn : MonoBehaviour
     TeleportationProvider tel;
     TeleportRequest telPos;
     //Vector3 telPos = new Vector3();
+    private CharacterController characterController;
+    public CharacterController CharacterController => characterController;
 
     public int SpawnCount => spawnPoint.Length;
 
@@ -23,6 +25,7 @@ public class ScRespawn : MonoBehaviour
         ////Find 할때 현재 오브젝트의 자식들 중에서부터 찾아야함
         tel = transform.Find("Locomotion System/Teleportation").GetComponent<TeleportationProvider>();
 
+        characterController = GetComponent<CharacterController>();
         
         Init(_currentStep);
         Respawn();
@@ -55,7 +58,12 @@ public class ScRespawn : MonoBehaviour
     {
         //Debug.Log("2-1");
         //tel.QueueTeleportRequest(telPos);
+        
+        characterController.enabled = false;
+
         transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
+
+        characterController.enabled = true;
 
         Manager.Instance.GameMgr.canMove = true;
 
