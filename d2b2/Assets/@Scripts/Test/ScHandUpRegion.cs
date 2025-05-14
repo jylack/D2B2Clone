@@ -11,8 +11,7 @@ public class ScHandUpRegion : MonoBehaviour
     public bool handUpMissionClear { get; private set; }
     private ScHandUpProgress handUpProgress;
     private Vector3 headPosition;
-    private bool isLeftHandUp;
-    private bool isRightHandUp;
+    public bool isLeftHandUp { get; private set; }
     private void Start()
     {
         handUpProgress = UIPlayerHsy.Instance.GetHandUpComponent();
@@ -34,22 +33,25 @@ public class ScHandUpRegion : MonoBehaviour
             Manager.Instance.InputMgr.OnLeftHandPositionChanged -= CheckLeftHandUp;
             Manager.Instance.InputMgr.OnHeadPositionChanged -= OnHeadPositionChanged;
             UIPlayerHsy.Instance.OffHandUpProgressUI();
+            if (isLeftHandUp == true)
+            {
+                handUpMissionClear = true;
+            }
         }
     }
     private void OnHeadPositionChanged(Vector3 pos)
     {
-        Debug.Log("È÷È÷È÷22");
         headPosition = pos;
     }
 
     private void CheckLeftHandUp(Vector3 handPos)
     {
-        bool leftHandUp = handPos.y > headPosition.y;
-        if (leftHandUp == false)
+        isLeftHandUp = handPos.y > headPosition.y;
+        if (isLeftHandUp == false)
         {
             handUpMissionClear = false;
         }
-        textMeshProUGUI.text = leftHandUp.ToString();
+        textMeshProUGUI.text = isLeftHandUp.ToString();
         handUpProgress.onProgress?.Invoke(headPosition.y, handPos.y);
     }
 
