@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class ScHandUpRegion : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
     public bool handUpMissionClear { get; private set; }
-    ScHandUpProgress handUpProgress;
-    Vector3 headPosition;
+    private ScHandUpProgress handUpProgress;
+    private Vector3 headPosition;
     private bool isLeftHandUp;
     private bool isRightHandUp;
     private void Start()
@@ -45,6 +45,10 @@ public class ScHandUpRegion : MonoBehaviour
     private void CheckLeftHandUp(Vector3 handPos)
     {
         bool leftHandUp = handPos.y > headPosition.y;
+        if (leftHandUp == false)
+        {
+            handUpMissionClear = false;
+        }
         textMeshProUGUI.text = leftHandUp.ToString();
         handUpProgress.onProgress?.Invoke(headPosition.y, handPos.y);
     }
