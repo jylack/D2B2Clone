@@ -14,4 +14,9 @@ public class SecondStageManager : MonoBehaviour
         }
     }
 
+    public void ResetSecondStage()
+    {
+
+    }
+
 }

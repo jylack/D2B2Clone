@@ -20,7 +20,12 @@ public class ScLookAroundRegion : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+        {
+            checkLookLeft = false;
+            checkLookRight = false;
+            lookAroundMissionClear = false ;
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
+        }
     }
 
     private void OnTriggerExit(Collider other)
