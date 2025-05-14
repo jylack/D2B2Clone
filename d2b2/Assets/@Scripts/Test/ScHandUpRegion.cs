@@ -16,43 +16,43 @@ public class ScHandUpRegion : MonoBehaviour
     {
         handUpProgress = UIPlayerHsy.Instance.GetHandUpComponent();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
-        {
-            Manager.Instance.InputMgr.OnLeftHandPositionChanged += CheckLeftHandUp;
-            Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
-            UIPlayerHsy.Instance.OnHandUpProgressUI();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
-        {
-            Manager.Instance.InputMgr.OnLeftHandPositionChanged -= CheckLeftHandUp;
-            Manager.Instance.InputMgr.OnHeadPositionChanged -= OnHeadPositionChanged;
-            UIPlayerHsy.Instance.OffHandUpProgressUI();
-            if (isLeftHandUp == true)
-            {
-                handUpMissionClear = true;
-            }
-        }
-    }
-    private void OnHeadPositionChanged(Vector3 pos)
-    {
-        headPosition = pos;
-    }
-
-    private void CheckLeftHandUp(Vector3 handPos)
-    {
-        isLeftHandUp = handPos.y > headPosition.y;
-        if (isLeftHandUp == false)
-        {
-            handUpMissionClear = false;
-        }
-        textMeshProUGUI.text = isLeftHandUp.ToString();
-        handUpProgress.onProgress?.Invoke(headPosition.y, handPos.y);
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+    //    {
+    //        Manager.Instance.InputMgr.OnLeftHandPositionChanged += CheckLeftHandUp;
+    //        Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
+    //        UIPlayerHsy.Instance.OnHandUpProgressUI();
+    //    }
+    //}
+    //
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+    //    {
+    //        Manager.Instance.InputMgr.OnLeftHandPositionChanged -= CheckLeftHandUp;
+    //        Manager.Instance.InputMgr.OnHeadPositionChanged -= OnHeadPositionChanged;
+    //        UIPlayerHsy.Instance.OffHandUpProgressUI();
+    //        if (isLeftHandUp == true)
+    //        {
+    //            handUpMissionClear = true;
+    //        }
+    //    }
+    //}
+    //private void OnHeadPositionChanged(Vector3 pos)
+    //{
+    //    headPosition = pos;
+    //}
+    //
+    //private void CheckLeftHandUp(Vector3 handPos)
+    //{
+    //    isLeftHandUp = handPos.y > headPosition.y;
+    //    if (isLeftHandUp == false)
+    //    {
+    //        handUpMissionClear = false;
+    //    }
+    //    textMeshProUGUI.text = isLeftHandUp.ToString();
+    //    handUpProgress.onProgress?.Invoke(headPosition.y, handPos.y);
+    //}
 
 }

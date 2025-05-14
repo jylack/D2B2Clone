@@ -5,12 +5,16 @@
     private const int PlayerIdx = 7;
     private const int WallIdx = 8;
     private const int CarIdx = 9;
+    private const int HandUpCheckResionIdx = 10;
+    private const int LookAroundCheckResionIdx = 11;
 
     public int MirrorIndex { get; private set; }    = MirrorIdx;
     public int NpcIndex { get; private set; }       = NpcIdx;
     public int PlayerIndex { get; private set; }    = PlayerIdx;
     public int WallIndex { get; private set; } = WallIdx;    
     public int CarIndex { get; private set; } = CarIdx;
+    public int HandUpCheckResionIndex { get; private set; } = HandUpCheckResionIdx;
+    public int LookAroundCheckResionIndex { get; private set; } = LookAroundCheckResionIdx;
 
 
     public int MirrorMask { get; private set; } = Pow(MirrorIdx);
