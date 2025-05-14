@@ -147,7 +147,8 @@ public class ScPlayer : ScObjectBase
 
         int move = Manager.Instance.GameMgr.canMove ? 1 : 0;
 
-        //Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
+        //Debug.Log("moveFor : " + Manager.Instance.GameMgr.canMove);        
+
         characterController.Move(move * moveSpeed * Time.deltaTime * characterController.transform.forward);
 
         if (!isMoving)

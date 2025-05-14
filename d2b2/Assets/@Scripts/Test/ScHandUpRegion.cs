@@ -38,7 +38,7 @@ public class ScHandUpRegion : MonoBehaviour
     }
     private void OnHeadPositionChanged(Vector3 pos)
     {
-        Debug.Log("히히히22");
+        //Debug.Log("히히히22");
         headPosition = pos;
     }
 

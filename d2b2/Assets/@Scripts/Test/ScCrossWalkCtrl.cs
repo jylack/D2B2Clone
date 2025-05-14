@@ -44,6 +44,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             if (scTrafficCtrl.GetCurrentColor() == TrafficLightColor.Red ||
                 scTrafficCtrl.IsBlink() == true)
             {
+                Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;
                 temp.Init(CurrentStep);
                 temp.Respawn();

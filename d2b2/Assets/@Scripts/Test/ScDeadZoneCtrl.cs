@@ -21,6 +21,7 @@ public class ScDeadZoneCtrl : MonoBehaviour
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            Debug.Log("can2");
             Manager.Instance.GameMgr.canMove = false;
             other.gameObject.GetComponent<ScRespawn>().Respawn();
         }
