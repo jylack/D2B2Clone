@@ -20,6 +20,7 @@ public class ScCarTrafficArea : MonoBehaviour
             if (scTrafficCtrl.CurrentColor == TrafficLightColor.Green)
             {
                 other.gameObject.GetComponent<ScCarController>().StopCar();
+                Debug.Log("IsBlink : " + scTrafficCtrl.IsBlink);
             }
         }
     }
@@ -31,6 +32,11 @@ public class ScCarTrafficArea : MonoBehaviour
             if (scTrafficCtrl.CurrentColor == TrafficLightColor.Red)
             {
                 other.gameObject.GetComponent<ScCarController>().MoveCar();
+            }
+
+            if (scTrafficCtrl.IsBlink)
+            {
+                other.gameObject.GetComponent<ScCarController>().StopCar();
             }
         }
     }

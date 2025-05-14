@@ -40,7 +40,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
             //»æ¥‹∫∏µµ ¿Ãµø¡ﬂ ª°∞£∫“¿”. or Ω≈»£µÓ ±Ù∫˝¿œ∂ß.
             if (scTrafficCtrl.CurrentColor == TrafficLightColor.Red ||
-                scTrafficCtrl.IsBlink() == true)
+                scTrafficCtrl.IsBlink == true)
             {
                 //Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;

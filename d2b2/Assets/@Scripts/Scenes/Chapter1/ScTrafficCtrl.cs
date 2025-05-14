@@ -21,15 +21,19 @@ public class ScTrafficCtrl : MonoBehaviour
 
     [SerializeField] private float MaxTime = 30f;
     private float deltaMaxTime = 0f;
-    private float LimitTime ;
+    private float LimitTime;
     private float deltaLimitTime = 0f;
 
     [SerializeField] private float blinkInterval = 0.5f;
-    
+
 
     private float CurrentTime = 0f;
     private float timer = 0f;
     private float interval = 1f;
+
+    private bool isBlink;
+    public bool IsBlink => isBlink;
+
 
     [SerializeField] private TrafficLightColor currentColor;
     public TrafficLightColor CurrentColor => currentColor;
@@ -56,15 +60,12 @@ public class ScTrafficCtrl : MonoBehaviour
         deltaMaxTime = MaxTime;
         deltaLimitTime = LimitTime;
         CurrentTime = deltaMaxTime;
-
+        isBlink = false;
 
         SetColor(CurrentColor);
     }
 
-    public bool IsBlink()
-    {
-        return blinkCor != null;
-    }
+
 
     void ChangeColor()
     {
@@ -125,7 +126,6 @@ public class ScTrafficCtrl : MonoBehaviour
             highlightOff = !highlightOff;
 
             m_MeshRenderer.material.shader = highlightOff ? unlitShader : litShader;
-
             yield return new WaitForSeconds(blinkInterval);
         }
     }
@@ -142,11 +142,14 @@ public class ScTrafficCtrl : MonoBehaviour
             if (CurrentTime <= LimitTime)
             {
                 blinkCor = StartCoroutine(ApplyBlink());
+                isBlink = true;
+
             }
 
             if (CurrentTime <= 0f)
             {
                 CurrentTime = 0f;
+                isBlink = false;
                 ChangeColor();
             }
 
