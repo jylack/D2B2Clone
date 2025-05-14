@@ -44,10 +44,6 @@ public class UIPlayerHsy : MonoBehaviour
         var HeadHandDistance = handY - headY;
         handUpProgress.fillAmount = Mathf.InverseLerp(-maxHandupDistance, maxHandupDistance, HeadHandDistance);
     }
-    public ScHandUpProgress GetHandUpComponent()
-    {
-        return handUpProgressUI.GetComponent<ScHandUpProgress>();
-    }
     public void OnLookAroundLeftProgress()
     {
         lookAroundLeftProgressUi.SetActive(true);
