@@ -18,20 +18,20 @@ public class ScCheckBoxCtrl : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
-    }
+    //private void FixedUpdate()
+    //{
+    //    Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
+    //}
 
     private IEnumerator AllCheck()
     {
-        Debug.Log("여기 체킹후 또오면안됨.");        
+        //Debug.Log("여기 체킹후 또오면안됨.");        
         Manager.Instance.GameMgr.canMove = false;
 
         yield return new WaitUntil(() =>
-        Look.lookAroundMissionClear && Hand.handUpMissionClear);
+        Look.lookAroundMissionClear && Hand.isLeftHandUp);
 
-        Debug.Log("체크 완료");
+        //Debug.Log("체크 완료");
         Manager.Instance.GameMgr.canMove = true;
 
     }

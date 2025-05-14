@@ -41,6 +41,7 @@ public class ScRespawn : MonoBehaviour
     }
     public void SetPos(Transform spawn)
     {
+        Debug.Log(spawn.name);
         //telPos = spawn.position;
         telPos = new TeleportRequest()
         {

@@ -88,7 +88,7 @@ public class ScPlayer : ScObjectBase
         float rotationY = mainCam.transform.localRotation.y;
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
-        
+
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {
             tempHeadTurn = ScDefine.ScHeadTurn.Left;
@@ -141,7 +141,8 @@ public class ScPlayer : ScObjectBase
 
     private void MoveForward()
     {
-        
+
+
         //if (!Manager.Instance.GameMgr.canMove)
         //    return;
 

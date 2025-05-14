@@ -12,7 +12,6 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI IsMove;
 
-    int CurrentStep = 0;
 
     bool isWalk = false;
 
@@ -20,7 +19,6 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     private void Start()
     {
-        CurrentStep = ScChapter1.Instance.CurrentSetp;
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
         //Debug.Log("이동 구독 시작");
 
@@ -41,12 +39,12 @@ public class ScCrossWalkCtrl : MonoBehaviour
             var temp = other.gameObject.GetComponent<ScRespawn>();
 
             //횡단보도 이동중 빨간불임. or 신호등 깜빡일때.
-            if (scTrafficCtrl.GetCurrentColor() == TrafficLightColor.Red ||
+            if (scTrafficCtrl.CurrentColor == TrafficLightColor.Red ||
                 scTrafficCtrl.IsBlink() == true)
             {
-                Debug.Log("can1");
+                //Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;
-                temp.Init(CurrentStep);
+                temp.Init(ScChapter1.Instance.CurrentSetp);
                 temp.Respawn();
             }
             
@@ -76,7 +74,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
         if (isWalk == false)
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
-            temp.Init(CurrentStep);
+            temp.Init(ScChapter1.Instance.CurrentSetp);
             temp.Respawn();
 
             coroutine = null;

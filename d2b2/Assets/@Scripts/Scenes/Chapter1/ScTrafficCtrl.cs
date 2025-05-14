@@ -21,7 +21,7 @@ public class ScTrafficCtrl : MonoBehaviour
 
     [SerializeField] private float MaxTime = 30f;
     private float deltaMaxTime = 0f;
-    [SerializeField] private float LimitTime = 7f;
+    private float LimitTime ;
     private float deltaLimitTime = 0f;
 
     [SerializeField] private float blinkInterval = 0.5f;
@@ -31,14 +31,16 @@ public class ScTrafficCtrl : MonoBehaviour
     private float timer = 0f;
     private float interval = 1f;
 
-    [SerializeField] TrafficLightColor CurrentColor;
+    [SerializeField] private TrafficLightColor currentColor;
+    public TrafficLightColor CurrentColor => currentColor;
 
-    public TrafficLightColor GetCurrentColor()
-    {
-        return CurrentColor; 
-    }
+    private Coroutine blinkCor;
 
-    Coroutine blinkCor;
+    //public TrafficLightColor GetCurrentColor()
+    //{
+    //    return CurrentColor; 
+    //}
+
 
     private void Start()
     {
@@ -49,6 +51,7 @@ public class ScTrafficCtrl : MonoBehaviour
         if (litShader == null || unlitShader == null)
             Debug.LogError("Failed to load URP shaders. Check shader names.");
 
+        LimitTime = (MaxTime / 4f) * 1f;
 
         deltaMaxTime = MaxTime;
         deltaLimitTime = LimitTime;
@@ -67,17 +70,18 @@ public class ScTrafficCtrl : MonoBehaviour
     {
         if (blinkCor != null)
         {
+            blinkCor = null;
             StopAllCoroutines();
         }
 
-        switch (CurrentColor)
+        switch (currentColor)
         {
             case TrafficLightColor.Red:
-                CurrentColor = TrafficLightColor.Green;
+                currentColor = TrafficLightColor.Green;
                 break;
 
             case TrafficLightColor.Green:
-                CurrentColor = TrafficLightColor.Red;
+                currentColor = TrafficLightColor.Red;
 
                 break;
             default:
