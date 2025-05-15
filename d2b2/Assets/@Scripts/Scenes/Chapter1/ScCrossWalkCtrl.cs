@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Data.Common;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScCrossWalkCtrl : MonoBehaviour
@@ -35,7 +33,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            
+
             var temp = other.gameObject.GetComponent<ScRespawn>();
 
             //횡단보도 이동중 빨간불임. or 신호등 깜빡일때.
@@ -47,18 +45,14 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 temp.Init(ScChapter1.Instance.CurrentSetp);
                 temp.Respawn();
             }
-            
+
             if (isWalk == false)
             {
                 //움직임 멈췄을때 타임리미트 돌리고 그 시간뒤까지 움직임이없으면 원위치
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
             }
-
-            
         }
-
-   
     }
 
     private void OnDisable()
@@ -70,7 +64,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     IEnumerator TimeLimit(Collider other)
     {
         yield return new WaitForSeconds(limitTime);
-        
+
         if (isWalk == false)
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
@@ -83,7 +77,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     }
 
     private void OnPlayerMoving(bool isMoving)
-    {        
+    {
         isWalk = isMoving;
     }
 }

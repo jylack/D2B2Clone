@@ -57,11 +57,11 @@ public class ScRespawn : MonoBehaviour
     public void Respawn()
     {
         //Debug.Log("2-1");
-        //tel.QueueTeleportRequest(telPos);
         
         characterController.enabled = false;
 
-        transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
+        tel.QueueTeleportRequest(telPos);
+        //transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
 
         characterController.enabled = true;
 
