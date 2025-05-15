@@ -1,20 +1,23 @@
 ﻿using System;
+using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public delegate void OnHeadPositionChangedHandler(Vector3 position);
 public delegate void OnHandPositionChangedHandler(Vector3 position);
+public delegate void OnLeftStickMoveHandler(bool stickMoving);
 
 public class InputManager : MonoBehaviour
 {
     public event OnHeadPositionChangedHandler OnHeadPositionChanged;
     public event OnHandPositionChangedHandler OnLeftHandPositionChanged;
     public event OnHandPositionChangedHandler OnRightHandPositionChanged;
+    public event OnLeftStickMoveHandler OnLeftStickMove;
+
     public event Action OnTriggerPerform;
     public event Action OnTriggerCancel;
 
     private XRIDefaultInputActions inputActions;
-
 
 
     private void Awake()
@@ -31,9 +34,21 @@ public class InputManager : MonoBehaviour
         inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
         inputActions.XRIRightHandInteraction.Activate.performed += Select_performed;
         inputActions.XRIRightHandInteraction.Activate.canceled += Select_canceled;
+
+        inputActions.XRILeftHandLocomotion.Move.performed += LeftStickMove_performed;
+        inputActions.XRILeftHandLocomotion.Move.canceled += LeftStickMove_canceled;
     }
 
+    private void LeftStickMove_performed(InputAction.CallbackContext obj)
+    {
+        bool stickMoving = obj.ReadValue<Vector2>().sqrMagnitude > 0f;
+        OnLeftStickMove?.Invoke(stickMoving);
+    }
 
+    private void LeftStickMove_canceled(InputAction.CallbackContext obj)
+    {
+        OnLeftStickMove?.Invoke(false);
+    }
 
     private void HeadPosition_performed(InputAction.CallbackContext obj)
     {

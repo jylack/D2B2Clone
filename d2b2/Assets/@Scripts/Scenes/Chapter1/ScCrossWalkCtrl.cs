@@ -22,7 +22,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     {
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
         //Debug.Log("이동 구독 시작");
-
+        Manager.Instance.InputMgr.OnLeftStickMove += OnLeftStickMove;
 
     }
     private void Update()
@@ -79,6 +79,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     private void OnDisable()
     {
         Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
+        Manager.Instance.InputMgr.OnLeftStickMove -= OnLeftStickMove;
     }
 
 
@@ -101,5 +102,11 @@ public class ScCrossWalkCtrl : MonoBehaviour
     private void OnPlayerMoving(bool isMoving)
     {
         isWalk = isMoving;
+    }
+
+    private void OnLeftStickMove(bool isStick)
+    {
+        Debug.Log("스틱 움직임 : " + isStick);
+        isWalk = isStick;
     }
 }
