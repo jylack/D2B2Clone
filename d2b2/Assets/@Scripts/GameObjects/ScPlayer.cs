@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting.InputSystem;
+﻿using Unity.VisualScripting;
+using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -18,6 +19,7 @@ public class ScPlayer : ScObjectBase
     [Header("head")]
     [SerializeField] private Transform xrOriginTrans;
     [SerializeField] private float headTurnThreshold;
+    [SerializeField] private float maxHandHeight;
 
     private AudioSource audioSource;
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
@@ -114,7 +116,6 @@ public class ScPlayer : ScObjectBase
         float rotationY = mainCam.transform.localRotation.y;
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
-
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {
             tempHeadTurn = ScDefine.ScHeadTurn.Left;
@@ -206,11 +207,9 @@ public class ScPlayer : ScObjectBase
     private void OnLeftHandPositionChanged(Vector3 pos)
     {
         bool leftHandUp = pos.y > headPosition.y;
-        if (leftHandUp != isLeftHandUp)
-        {
-            isLeftHandUp = leftHandUp;
-            Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp);
-        }
+        float temp = pos.y - headPosition.y;
+        float distance = Mathf.InverseLerp(-maxHandHeight, maxHandHeight, temp);
+        Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp, distance);
 
         if (pos.y < headPosition.y)
         {
@@ -227,7 +226,7 @@ public class ScPlayer : ScObjectBase
         if (rightHandUp != isRightHandUp)
         {
             isRightHandUp = rightHandUp;
-            Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp);
+            //Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp, distance);
         }
 
         if (pos.y < headPosition.y)

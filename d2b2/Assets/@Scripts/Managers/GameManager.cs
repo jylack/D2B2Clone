@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public delegate void OnPlayerHeadTurnHandler(ScDefine.ScHeadTurn headTurn);
-public delegate void OnPlayerHandsUpHandler(bool leftHandUp, bool rightHandUp);
+public delegate void OnPlayerHandsUpHandler(bool leftHandUp, bool rightHandUp, float distance);
 public delegate void OnPlayerMovingHandler(bool isMoving);
 
 public class GameManager : MonoBehaviour
@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
         OnPlayerHeadTurn?.Invoke(headTurn);
     }
 
-    public void RaisePlayerHandsUpEvent(bool isLeftHandUp, bool isRightHandUp)
+    public void RaisePlayerHandsUpEvent(bool isLeftHandUp, bool isRightHandUp,float distance)
     {
-        OnPlayerHandsUp?.Invoke(isLeftHandUp, isRightHandUp);
+        OnPlayerHandsUp?.Invoke(isLeftHandUp, isRightHandUp, distance);
     }
 
     public void RaisePlayerMovingEvent(bool isMoving)

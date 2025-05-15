@@ -39,10 +39,10 @@ public class UIPlayerHsy : MonoBehaviour
             lookAroundRightProgress.fillAmount = Mathf.Clamp01(time / maxTime);
         }
     }
-    public void DrawHandUpProgress(float headY, float handY, float maxHandupDistance)
+    public void DrawHandUpProgress(float distance)
     {
-        var HeadHandDistance = handY - headY;
-        handUpProgress.fillAmount = Mathf.InverseLerp(-maxHandupDistance, maxHandupDistance, HeadHandDistance);
+        handUpProgress.fillAmount = distance;
+
     }
     public void OnLookAroundLeftProgress()
     {

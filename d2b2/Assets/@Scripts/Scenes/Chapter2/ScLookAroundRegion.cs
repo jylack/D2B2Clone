@@ -17,6 +17,7 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            Debug.Log("´êÀ½");
             checkLookLeft = false;
             checkLookRight = false;
             lookAroundMissionClear = false ;
@@ -28,16 +29,14 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            Debug.Log("³ª°¨");
             Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
             StopCurrentCoroutine();
             OffAllUI();
         }
     }
-
     private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
     {
-        if (lookAroundMissionClear == true) return;
-        Debug.Log(1);
         if (headDirection == ScDefine.ScHeadTurn.Left && checkLookLeft == false)
         {
             UIPlayerHsy.Instance.OnLookAroundLeftProgress();
@@ -65,6 +64,7 @@ public class ScLookAroundRegion : MonoBehaviour
 
     private IEnumerator CheckHeadStayTime(ScDefine.ScHeadTurn headDirection)
     {
+        Debug.Log(33333333333);
         float timer = 0f;
         while (timer < completeTime)
         {

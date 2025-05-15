@@ -16,7 +16,7 @@ public class ScCarController : MonoBehaviour
     public void MoveCar()
     {
         rb.velocity = transform.right * carSpeed;
-        //Debug.Log("차량 속도 " + rb.velocity.z);
+        Debug.Log("차량 속도 " + rb.velocity.z);
     }
     public void StopCar()
     {
@@ -24,7 +24,7 @@ public class ScCarController : MonoBehaviour
     }
     private void OnEnable()
     {
-        //Debug.Log("차량 이동 시작");
+        Debug.Log("차량 이동 시작");
         isActive = true;
         MoveCar();
     }

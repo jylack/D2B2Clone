@@ -15,6 +15,7 @@
         Ch1Play,
         Ch2Login,
         Ch2Play,
+        Ch2BlindSpot,
         Ch3Login,
         Ch3Room,
         Ch3Play,
