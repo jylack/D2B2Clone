@@ -11,17 +11,17 @@ public class ScCarSpawner : MonoBehaviour
 
     public void Start()
     {
-        headLightCar = Instantiate(headLightCar, transform.position,transform.rotation);
-        carController = headLightCar.GetComponent<ScCarController>();
-        headLightCar.SetActive(false);
+        var tempCar = Instantiate(headLightCar, transform.position, transform.rotation);
+        carController = tempCar.GetComponent<ScCarController>();
+        carController.gameObject.SetActive(false);
         StartCoroutine(CreateHeadLightCar());
     }
     IEnumerator CreateHeadLightCar()
     {
         while (true)
         {
-            headLightCar.transform.position = transform.position;
-            headLightCar.SetActive(true);
+            carController.gameObject.transform.position = transform.position;
+            carController.gameObject.SetActive(true);
             yield return new WaitUntil(() => carController.isActive == false);
             yield return new WaitForSeconds(createTime);
         }

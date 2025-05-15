@@ -16,6 +16,7 @@ public class ScHandUpRegion : MonoBehaviour
     private void Start()
     {
         handDownTime = 2;
+        isLeftHandUp =false;
         handUpMissionClear = true;
     }
     private void OnTriggerEnter(Collider other)
@@ -36,12 +37,15 @@ public class ScHandUpRegion : MonoBehaviour
     }
     public void HandUpMission(bool leftHandUp, bool rightHandUp, float distance)
     {
+        Debug.Log("1 : " + leftHandUp);
+        Debug.Log("2 : " + isLeftHandUp);
         if (leftHandUp != isLeftHandUp || inFirstHandUpResion == true)
         {
             inFirstHandUpResion = false;
             isLeftHandUp = leftHandUp;
-            if (isLeftHandUp == false)
+            if (isLeftHandUp == true)
             {
+                Debug.Log("Ω√¿€");
                 handDownCor = StartCoroutine(HandDownCoolDown());
             }
             else

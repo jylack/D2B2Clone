@@ -7,6 +7,7 @@ public class ScLookAroundRegion : MonoBehaviour
     private bool checkLookRight;
     public bool lookAroundMissionClear { get; private set; }
     [SerializeField] private float completeTime = 1;
+    [SerializeField] private string missionFaildMessage;
     private Coroutine lookCor;
 
     private void Start()
@@ -17,10 +18,8 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            Debug.Log("´êÀ½");
             checkLookLeft = false;
             checkLookRight = false;
-            lookAroundMissionClear = false ;
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
         }
     }
@@ -29,10 +28,13 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            Debug.Log("³ª°¨");
             Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
             StopCurrentCoroutine();
             OffAllUI();
+            if (lookAroundMissionClear == false)
+            {
+                UIPlayerHsy.Instance.explanationText.text = missionFaildMessage;
+            }
         }
     }
     private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
@@ -64,7 +66,6 @@ public class ScLookAroundRegion : MonoBehaviour
 
     private IEnumerator CheckHeadStayTime(ScDefine.ScHeadTurn headDirection)
     {
-        Debug.Log(33333333333);
         float timer = 0f;
         while (timer < completeTime)
         {
