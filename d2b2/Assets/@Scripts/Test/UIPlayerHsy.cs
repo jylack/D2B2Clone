@@ -27,9 +27,9 @@ public class UIPlayerHsy : MonoBehaviour
     }
     public void DrawLookArounProgress(float time, float maxTime, ScDefine.ScHeadTurn headDirection)
     {
-        Debug.Log("headDirection : " + headDirection);
-        Debug.Log("maxTime : " + maxTime);
-        Debug.Log("time : " + time);
+        //Debug.Log("headDirection : " + headDirection);
+        //Debug.Log("maxTime : " + maxTime);
+        //Debug.Log("time : " + time);
         if (headDirection == ScDefine.ScHeadTurn.Left)
         {
             lookAroundLeftProgress.fillAmount = Mathf.Clamp01(time / maxTime);

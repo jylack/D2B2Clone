@@ -9,31 +9,28 @@ public class ScCheckBoxCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //print($"OnTriggerEnter: {other.gameObject.layer}");
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             Debug.Log("행동권환 제한 됨");
-            StartCoroutine(AllCheck());
-
+            StartCoroutine(AllCheck(other));
         }
     }
 
-    //private void FixedUpdate()
-    //{
-    //    Debug.Log("move : " + Manager.Instance.GameMgr.canMove);
-    //}
 
-    private IEnumerator AllCheck()
+    private IEnumerator AllCheck(Collider other)
     {
+        var prov = other.gameObject.GetComponent<ScRespawn>().PlayerTrans.GetComponent<ScPlayer>().MovePorv;
+
         //Debug.Log("여기 체킹후 또오면안됨.");        
         Manager.Instance.GameMgr.canMove = false;
+        prov.enabled = false;
 
         yield return new WaitUntil(() =>
         Look.lookAroundMissionClear && Hand.isLeftHandUp);
 
         //Debug.Log("체크 완료");
         Manager.Instance.GameMgr.canMove = true;
-
+        prov.enabled = true;
     }
 }
 
