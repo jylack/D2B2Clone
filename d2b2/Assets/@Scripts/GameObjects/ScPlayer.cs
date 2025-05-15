@@ -207,7 +207,7 @@ public class ScPlayer : ScObjectBase
         bool leftHandUp = pos.y > headPosition.y;
         float temp = pos.y - headPosition.y;
         float distance = Mathf.InverseLerp(-maxHandHeight, maxHandHeight, temp);
-        Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp, distance);
+        Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(leftHandUp, isRightHandUp, distance);
 
         if (pos.y < headPosition.y)
         {

@@ -20,6 +20,8 @@ public class UIPlayerHsy : MonoBehaviour
     [SerializeField] private Image lookAroundLeftProgress;
     [SerializeField] private Image lookAroundRightProgress;
     [SerializeField] public TextMeshProUGUI handUpText;
+    [SerializeField] public Image explanationUI;
+    [SerializeField] public TextMeshProUGUI explanationText;
 
     private void Awake()
     {

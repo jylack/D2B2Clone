@@ -27,4 +27,14 @@ public static class Extension
     {
         return ScUtils.GetComponentsInChildrenEx<TComp>(parent);
     }
+
+    public static TComp GetComponentInParentEx<TComp>(this GameObject obj, string name) where TComp : Component
+    {
+        return ScUtils.GetComponentInParentEx<TComp>(obj, name);
+    }
+
+    public static bool CheckIsDestroyed(this GameObject obj)
+    {
+        return ScUtils.IsDestroyed(obj);
+    }
 }

@@ -40,14 +40,12 @@ public static class ScUtils
         return result;
     }
     
-    public static List<TComp> GetComponentsInChildrenEx<TComp>(GameObject parent) 
-        where TComp : Component
+    public static List<TComp> GetComponentsInChildrenEx<TComp>(GameObject parent) where TComp : Component
     {
         return parent.GetComponentsInChildren<TComp>(true).ToList();
     }
     
-    public static TComp GetComponentInChildrenEx<TComp>(GameObject parent, string name = null) 
-        where TComp : Component
+    public static TComp GetComponentInChildrenEx<TComp>(GameObject parent, string name = null) where TComp : Component
     {
         TComp[] comps = parent.GetComponentsInChildren<TComp>(true);
         if (comps == null)
@@ -60,6 +58,26 @@ public static class ScUtils
         }
 
         return null;
+    }
+
+    public static TComp GetComponentInParentEx<TComp>(GameObject obj, string name) where TComp : Component
+    {
+        TComp[] comps = obj.GetComponentsInParent<TComp>(true);
+        if (comps?.Length > 0)
+        {
+            foreach (TComp comp in comps)
+            {
+                if (comp.gameObject.name == name)
+                    return comp;
+            }
+        }
+
+        return default;
+    }
+
+    public static bool IsDestroyed(GameObject obj)
+    {
+        return obj == null || !ReferenceEquals(obj, null);
     }
 
 
