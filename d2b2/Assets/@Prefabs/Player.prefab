@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9400416f9f584ad2b765f2d1abe3bf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 544826205319987714}
   characterController: {fileID: 5904417538407209455}
   swingThresholdIntervalTime: 1
   moveSpeed: 1
@@ -54,7 +55,6 @@ MonoBehaviour:
   swingBackwardZPosition: 0.05
   xrOriginTrans: {fileID: 1177966309702392667}
   headTurnThreshold: 30
-  lookAroundComplateTime: 0
 --- !u!82 &3606230357993960705
 AudioSource:
   m_ObjectHideFlags: 0
@@ -265,6 +265,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+--- !u!20 &544826205319987714 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8833626077999594040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1177966309702392667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7696548424635294051, guid: 895f6f3c2d334633b5800312285058d2,
