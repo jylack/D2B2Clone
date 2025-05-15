@@ -22,11 +22,11 @@ public class ScNotifyFairy : MonoBehaviour
         transform.LookAt(player.transform);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
-        if(startHeight + floatingRange >= transform.position.y)
+        if(startHeight + floatingRange <= transform.position.y)
         {
             direction = -1;
         }
-        else if(startHeight - floatingRange <= transform.position.y)
+        else if(startHeight - floatingRange >= transform.position.y)
         {
             direction = 1;
         }
