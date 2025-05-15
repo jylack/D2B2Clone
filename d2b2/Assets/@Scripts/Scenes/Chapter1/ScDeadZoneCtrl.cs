@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+//무단횡단
 public class ScDeadZoneCtrl : MonoBehaviour
 {
 
@@ -12,8 +14,9 @@ public class ScDeadZoneCtrl : MonoBehaviour
         {
             Manager.Instance.GameMgr.canMove = false;
 
-            other.gameObject.GetComponent<ScRespawn>().Respawn();
- 
+            Debug.Log("Dead");
+            //안전가이드 무단횡단
+            other.gameObject.GetComponent<ScRespawn>().Respawn(true); 
         }
     }
 

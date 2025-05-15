@@ -13,6 +13,8 @@
         TutorialPlay,
         Ch1Login,
         Ch1Play,
+        Ch1LRCheck,
+        Ch1HRexp,
         Ch2Login,
         Ch2Play,
         Ch2BlindSpot,

@@ -70,6 +70,8 @@ public class ScPlayer : ScObjectBase
     {
         UpdateHeadTurn();
         UpdateMove();
+
+
     }
 
     private void OnDestroy()
@@ -178,16 +180,12 @@ public class ScPlayer : ScObjectBase
 
     private void MoveForward()
     {
-
-
         //if (!Manager.Instance.GameMgr.canMove)
         //    return;
 
         int move = Manager.Instance.GameMgr.canMove ? 1 : 0;
         //moveProv.moveSpeed = move;
         //Debug.Log("moveFor : " + Manager.Instance.GameMgr.canMove);        
-
-
 
         characterController.Move(move * moveSpeed * Time.deltaTime * characterController.transform.forward);
 

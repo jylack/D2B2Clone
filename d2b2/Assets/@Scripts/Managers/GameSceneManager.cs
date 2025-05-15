@@ -65,6 +65,9 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.TutorialPlay               => "Tut_Play",
             ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
+            ScDefine.ScScene.Ch1LRCheck                 => "SafetyGuide_LeftRightCheck",
+            ScDefine.ScScene.Ch1HRexp                   => "SafetyGuide_HandRaiseExperience",
+
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
             ScDefine.ScScene.Ch2BlindSpot                    => "BlindSpotExperienceGuide",

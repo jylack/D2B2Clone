@@ -10,6 +10,9 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI IsMove;
 
+    [SerializeField] private ScHandUpRegion Hand;
+
+
 
     bool isWalk = false;
 
@@ -27,6 +30,18 @@ public class ScCrossWalkCtrl : MonoBehaviour
         IsMove.text = isWalk.ToString();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+        {
+            if (ScChapter1.Instance.lookAroundMissionClear == false)
+            {
+                Debug.Log("CrossWNoLook");
+                //안전가이드 좌우확인 호출할예정
+                other.gameObject.GetComponent<ScRespawn>().Respawn(false);
+            }
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -43,14 +58,20 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 //Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;
                 temp.Init(ScChapter1.Instance.CurrentSetp);
-                temp.Respawn();
+                Debug.Log("Blink");
+                temp.Respawn(true);
+
+                //신호등 안전가이드 호출
             }
 
-            if (isWalk == false)
+            if (isWalk == false || Hand.isLeftHandUp == false)
             {
+
+                Debug.Log(Hand.isLeftHandUp);
                 //움직임 멈췄을때 타임리미트 돌리고 그 시간뒤까지 움직임이없으면 원위치
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
+                //
             }
         }
     }
@@ -69,7 +90,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
             temp.Init(ScChapter1.Instance.CurrentSetp);
-            temp.Respawn();
+            Debug.Log("Time");
+            temp.Respawn(true);
 
             coroutine = null;
             yield break;

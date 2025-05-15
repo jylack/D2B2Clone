@@ -9,7 +9,9 @@ public class ScChapter1 : MonoBehaviour
 
     public static ScChapter1 Instance => instance;
 
-    public int CurrentSetp = 0;
+    public int CurrentSetp { get; private set; }
+
+    public bool lookAroundMissionClear = false;
 
     private void Awake()
     {
@@ -18,6 +20,7 @@ public class ScChapter1 : MonoBehaviour
     }
     private void Start()
     {
+        CurrentSetp = 0;
         StartCoroutine(ImgStart());
     }
 
