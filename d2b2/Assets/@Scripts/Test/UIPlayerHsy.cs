@@ -27,9 +27,9 @@ public class UIPlayerHsy : MonoBehaviour
     }
     public void DrawLookArounProgress(float time, float maxTime, ScDefine.ScHeadTurn headDirection)
     {
-        Debug.Log("headDirection : " + headDirection);
-        Debug.Log("maxTime : " + maxTime);
-        Debug.Log("time : " + time);
+        //Debug.Log("headDirection : " + headDirection);
+        //Debug.Log("maxTime : " + maxTime);
+        //Debug.Log("time : " + time);
         if (headDirection == ScDefine.ScHeadTurn.Left)
         {
             lookAroundLeftProgress.fillAmount = Mathf.Clamp01(time / maxTime);
@@ -39,10 +39,10 @@ public class UIPlayerHsy : MonoBehaviour
             lookAroundRightProgress.fillAmount = Mathf.Clamp01(time / maxTime);
         }
     }
-    public void DrawHandUpProgress(float headY, float handY, float maxHandupDistance)
+    public void DrawHandUpProgress(float distance)
     {
-        var HeadHandDistance = handY - headY;
-        handUpProgress.fillAmount = Mathf.InverseLerp(-maxHandupDistance, maxHandupDistance, HeadHandDistance);
+        handUpProgress.fillAmount = distance;
+
     }
     public void OnLookAroundLeftProgress()
     {

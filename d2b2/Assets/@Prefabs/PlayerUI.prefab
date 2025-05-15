@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2953779918007466204}
-  - component: {fileID: 2953779918007466205}
   m_Layer: 5
   m_Name: HandUpProgress
   m_TagString: Untagged
@@ -41,20 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1, y: 0}
   m_SizeDelta: {x: 1, y: 4}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &2953779918007466205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2953779918007466179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f8ffb2eed27444481c3334345285a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progress: {fileID: 2953779919866967499}
-  maxDistance: 1
 --- !u!1 &2953779918253902525
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,9 +309,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3e1ac4cd222404485a2191d6d6a4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAroundLeftProgress: {fileID: 2953779918561706156}
-  lookAroundRightProgress: {fileID: 2953779919410761076}
+  lookAroundLeftProgressUi: {fileID: 2953779918561706156}
+  lookAroundRightProgressUi: {fileID: 2953779919410761076}
   handUpProgressUI: {fileID: 2953779918007466179}
+  handUpProgress: {fileID: 2953779919866967499}
+  lookAroundLeftProgress: {fileID: 2953779919135888272}
+  lookAroundRightProgress: {fileID: 2953779918634320655}
+  handUpText: {fileID: 2953779919345301180}
 --- !u!1 &2953779918561706156
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +325,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2953779918561706157}
-  - component: {fileID: 2953779918561706158}
   m_Layer: 5
   m_Name: LookLeftProgress
   m_TagString: Untagged
@@ -366,19 +354,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3, y: 0}
   m_SizeDelta: {x: 1, y: 5}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &2953779918561706158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2953779918561706156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33dc16d21fccef64eb7a70bd7111a00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressImage: {fileID: 2953779919135888272}
 --- !u!1 &2953779918634320653
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2953779918984468974}
   - component: {fileID: 2953779918984468973}
-  - component: {fileID: 2953779918984468972}
   - component: {fileID: 2953779918984468947}
   m_Layer: 0
   m_Name: UiCamera
@@ -608,14 +582,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2953779918984468972
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2953779918984468946}
-  m_Enabled: 1
 --- !u!114 &2953779918984468947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,7 +911,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2953779919410761077}
-  - component: {fileID: 2953779919410761078}
   m_Layer: 5
   m_Name: LookRightProgress
   m_TagString: Untagged
@@ -975,19 +940,6 @@ RectTransform:
   m_AnchoredPosition: {x: -3, y: 0}
   m_SizeDelta: {x: 1, y: 5}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &2953779919410761078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2953779919410761076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33dc16d21fccef64eb7a70bd7111a00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressImage: {fileID: 2953779918634320655}
 --- !u!1 &2953779919866967497
 GameObject:
   m_ObjectHideFlags: 0

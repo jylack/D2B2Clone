@@ -24,7 +24,7 @@ public class UIPlayerTest : MonoBehaviour
         lookingText.text = headTurn.ToString();
     }
     
-    private void OnPlayerHandsUp(bool leftHandUp, bool rightHandUp)
+    private void OnPlayerHandsUp(bool leftHandUp, bool rightHandUp,float distance)
     {
         leftUpText.color = leftHandUp ? Color.blue : Color.gray;
         rightUpText.color = rightHandUp ? Color.blue : Color.gray;

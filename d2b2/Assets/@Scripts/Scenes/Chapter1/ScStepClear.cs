@@ -6,12 +6,11 @@ public class ScStepClear : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.gameObject.layer);
-        //Debug.Log(ScDefine.Layer.PlayerIndex);
-
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            ScChapter1.Instance.CurrentSetp++;
+            //ScChapter1.Instance.CurrentSetp++;
+            ScChapter1.Instance.NextStep();
+
             var temp = other.gameObject.GetComponent<ScRespawn>();
 
             if (ScChapter1.Instance.CurrentSetp >= temp.SpawnCount)
@@ -30,7 +29,6 @@ public class ScStepClear : MonoBehaviour
 
     private void EndGame()
     {
-
         Debug.Log("Chapter1 Å¬¸®¾î " + ScChapter1.Instance.CurrentSetp);
         gameObject.SetActive(false);
     }

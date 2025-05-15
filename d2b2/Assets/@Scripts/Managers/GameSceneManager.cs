@@ -11,6 +11,7 @@ public class GameSceneManager : MonoBehaviour
     
     private bool isLoaded;
     private string currentSceneName;
+    private string prevSceneName;
     
     
     
@@ -42,7 +43,17 @@ public class GameSceneManager : MonoBehaviour
         isLoaded = true;
     }
 
-
+    public void LoadPreviousScene()
+    {
+        if (!string.IsNullOrEmpty(prevSceneName))
+        {
+            LoadScene(prevSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("이전 씬 정보가 없습니다.");
+        }
+    }
 
     private static string GetSceneName(ScDefine.ScScene scene)
     {
@@ -56,6 +67,7 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
+            ScDefine.ScScene.Ch2BlindSpot                    => "BlindSpotExperienceGuide",
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",
             ScDefine.ScScene.Ch3Play                    => "Ch3_Play",
@@ -80,7 +92,7 @@ public class GameSceneManager : MonoBehaviour
             Destroy(listener);
         
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
-        
+        prevSceneName = currentSceneName;
         // unload
         if (!string.IsNullOrEmpty(currentSceneName))
             await SceneManager.UnloadSceneAsync(currentSceneName);

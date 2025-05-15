@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using Unity.VisualScripting.InputSystem;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScPlayer : ScObjectBase
 {
     [SerializeField] private Camera mainCam;
     [SerializeField] private CharacterController characterController;
     [Header("move")]
+    [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
+    public ActionBasedContinuousMoveProvider MovePorv => moveProv;
+
     [SerializeField] private float swingThresholdIntervalTime;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float swingForwardZPosition;
@@ -12,6 +19,7 @@ public class ScPlayer : ScObjectBase
     [Header("head")]
     [SerializeField] private Transform xrOriginTrans;
     [SerializeField] private float headTurnThreshold;
+    [SerializeField] private float maxHandHeight;
 
     private AudioSource audioSource;
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
@@ -25,6 +33,11 @@ public class ScPlayer : ScObjectBase
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
 
+    private bool stickMoving;
+    private System.Action<InputAction.CallbackContext> OnStickPerformed;
+    private System.Action<InputAction.CallbackContext> OnStickCanceled;
+    private InputAction act;
+
 
     private void Awake()
     {
@@ -34,7 +47,19 @@ public class ScPlayer : ScObjectBase
         Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandPositionChanged;
         Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandPositionChanged;
+
+        OnStickPerformed = ctx => 
+            stickMoving = ctx.ReadValue<Vector2>().sqrMagnitude > 0f;
+        OnStickCanceled = ctx => 
+            stickMoving = false;
+
+        act = moveProv.leftHandMoveAction.action;
+        act.performed += OnStickPerformed;
+        act.canceled += OnStickCanceled;
+
+        moveProv.forwardSource = characterController.transform;
     }
+
 
     private void Start()
     {
@@ -52,6 +77,10 @@ public class ScPlayer : ScObjectBase
         Manager.Instance.InputMgr.OnHeadPositionChanged -= OnHeadPositionChanged;
         Manager.Instance.InputMgr.OnLeftHandPositionChanged -= OnLeftHandPositionChanged;
         Manager.Instance.InputMgr.OnRightHandPositionChanged -= OnRightHandPositionChanged;
+
+        
+        act.performed -= OnStickPerformed;
+        act.canceled -= OnStickCanceled;
     }
 
     private void OnDrawGizmos()
@@ -87,7 +116,6 @@ public class ScPlayer : ScObjectBase
         float rotationY = mainCam.transform.localRotation.y;
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
-
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {
             tempHeadTurn = ScDefine.ScHeadTurn.Left;
@@ -110,6 +138,13 @@ public class ScPlayer : ScObjectBase
 
     private void UpdateMove()
     {
+
+        if (stickMoving)
+        {
+            Manager.Instance.GameMgr.canMove = true;
+            return;
+        }
+
         // 왼손 체크
         bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
         bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
@@ -130,6 +165,9 @@ public class ScPlayer : ScObjectBase
             return;
         }
 
+  
+        
+
         // 이동중지
         if (isMoving)
         {
@@ -146,8 +184,10 @@ public class ScPlayer : ScObjectBase
         //    return;
 
         int move = Manager.Instance.GameMgr.canMove ? 1 : 0;
-
+        //moveProv.moveSpeed = move;
         //Debug.Log("moveFor : " + Manager.Instance.GameMgr.canMove);        
+
+
 
         characterController.Move(move * moveSpeed * Time.deltaTime * characterController.transform.forward);
 
@@ -167,11 +207,9 @@ public class ScPlayer : ScObjectBase
     private void OnLeftHandPositionChanged(Vector3 pos)
     {
         bool leftHandUp = pos.y > headPosition.y;
-        if (leftHandUp != isLeftHandUp)
-        {
-            isLeftHandUp = leftHandUp;
-            Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp);
-        }
+        float temp = pos.y - headPosition.y;
+        float distance = Mathf.InverseLerp(-maxHandHeight, maxHandHeight, temp);
+        Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp, distance);
 
         if (pos.y < headPosition.y)
         {
@@ -188,7 +226,7 @@ public class ScPlayer : ScObjectBase
         if (rightHandUp != isRightHandUp)
         {
             isRightHandUp = rightHandUp;
-            Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp);
+            //Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp, distance);
         }
 
         if (pos.y < headPosition.y)
