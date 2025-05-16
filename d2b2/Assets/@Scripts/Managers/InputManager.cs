@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +19,7 @@ public class InputManager : MonoBehaviour
     private XRIDefaultInputActions inputActions;
 
 
+
     private void Awake()
     {
         inputActions = new XRIDefaultInputActions();
@@ -38,6 +38,8 @@ public class InputManager : MonoBehaviour
         inputActions.XRILeftHandLocomotion.Move.performed += LeftStickMove_performed;
         inputActions.XRILeftHandLocomotion.Move.canceled += LeftStickMove_canceled;
     }
+
+
 
     private void LeftStickMove_performed(InputAction.CallbackContext obj)
     {

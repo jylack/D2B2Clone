@@ -63,6 +63,7 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.TutorialPlayerSettings     => "Tut_PlayerSettings",
             ScDefine.ScScene.TutorialCharacterSelection => "Tut_CharacterSelection",
             ScDefine.ScScene.TutorialPlay               => "Tut_Play",
+
             ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
             ScDefine.ScScene.Ch1LRCheck                 => "SafetyGuide_LeftRightCheck",
@@ -70,7 +71,8 @@ public class GameSceneManager : MonoBehaviour
 
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
-            ScDefine.ScScene.Ch2BlindSpot                    => "BlindSpotExperienceGuide",
+            ScDefine.ScScene.Ch2BlindSpot               => "BlindSpotExperienceGuide",
+
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",
             ScDefine.ScScene.Ch3Play                    => "Ch3_Play",

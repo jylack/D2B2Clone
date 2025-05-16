@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public bool canMove = true;
 
+
+
     public void SetPlayer(ScPlayer player)
     {
         Player = player;
