@@ -66,12 +66,10 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
             if (isWalk == false || Hand.isLeftHandUp == false)
             {
-
                 Debug.Log(Hand.isLeftHandUp);
                 //움직임 멈췄을때 타임리미트 돌리고 그 시간뒤까지 움직임이없으면 원위치
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
-                //
             }
         }
     }
@@ -81,13 +79,13 @@ public class ScCrossWalkCtrl : MonoBehaviour
         Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
         Manager.Instance.InputMgr.OnLeftStickMove -= OnLeftStickMove;
     }
-
+    
 
     IEnumerator TimeLimit(Collider other)
     {
         yield return new WaitForSeconds(limitTime);
 
-        if (isWalk == false)
+        if (isWalk == false || Hand.isLeftHandUp == false)
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
             temp.Init(ScChapter1.Instance.CurrentSetp);

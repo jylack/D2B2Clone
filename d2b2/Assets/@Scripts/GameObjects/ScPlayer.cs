@@ -7,7 +7,6 @@ public class ScPlayer : ScObjectBase
     [SerializeField] private CharacterController characterController;
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
-
     [SerializeField] private float swingThresholdIntervalTime;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float swingForwardZPosition;
@@ -39,7 +38,7 @@ public class ScPlayer : ScObjectBase
         Manager.Instance.InputMgr.OnLeftHandPositionChanged += OnLeftHandPositionChanged;
         Manager.Instance.InputMgr.OnRightHandPositionChanged += OnRightHandPositionChanged;
         Manager.Instance.InputMgr.OnLeftStickMove += OnLeftStickMove;
-
+        //스틱 이동 방향이 헤드따라가는걸 XrOrigin 기준으로 바꿈
         moveProv.forwardSource = characterController.transform;
     }
 

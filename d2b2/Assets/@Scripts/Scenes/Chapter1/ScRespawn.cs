@@ -63,10 +63,6 @@ public class ScRespawn : MonoBehaviour
 
         Manager.Instance.GameMgr.canMove = true;
 
-        //if (moveScene)
-        //{
-        //    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Login);
-        //}
     }
 
 }
