@@ -5,10 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerUiType
-{
-    LookLeft,LookRight,HandUp
-}
 public class UIPlayerHsy : MonoBehaviour
 {
     public static UIPlayerHsy Instance { get; private set; }
@@ -69,6 +65,10 @@ public class UIPlayerHsy : MonoBehaviour
     public void OffHandUpProgressUI()
     {
         handUpProgressUI.SetActive(false);
+    }
+    public void ChangeText(string text)
+    {
+        explanationText.text = text;
     }
 
 }

@@ -7,12 +7,13 @@ public class ScLookAroundRegion : MonoBehaviour
     private bool checkLookRight;
     public bool lookAroundMissionClear { get; private set; }
     [SerializeField] private float completeTime = 1;
-    [SerializeField] private string missionFaildMessage;
+    private string missionFaildMessage;
     private Coroutine lookCor;
 
     private void Start()
     {
-        lookAroundMissionClear = false;
+        lookAroundMissionClear =false;
+        missionFaildMessage = "고개 돌리기 미션 실패";
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -28,13 +29,7 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
-            StopCurrentCoroutine();
-            OffAllUI();
-            if (lookAroundMissionClear == false)
-            {
-                UIPlayerHsy.Instance.explanationText.text = missionFaildMessage;
-            }
+            ExitMissionRegion();
         }
     }
     private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
@@ -108,5 +103,12 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         UIPlayerHsy.Instance.OffLookAroundLeftProgress();
         UIPlayerHsy.Instance.OffLookAroundRightProgress();
+    }
+
+    public void ExitMissionRegion()
+    {
+        Manager.Instance.GameMgr.OnPlayerHeadTurn -= CheckPlayerHeadTurn;
+        StopCurrentCoroutine();
+        OffAllUI();
     }
 }

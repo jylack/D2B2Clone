@@ -6,9 +6,9 @@ public class ScGoalPointHsy : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.layer == )
-        //{
-        //
-        //}
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+        {
+            SecondStageManager.Instance.SecondStageClear();
+        }
     }
 }
