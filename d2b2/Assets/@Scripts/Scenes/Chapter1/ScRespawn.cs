@@ -7,6 +7,7 @@ public class ScRespawn : MonoBehaviour
 
     [Header("스폰 위치")]
     [SerializeField] private Transform[] spawnPoint;
+    [SerializeField] private GameObject Npc;
 
     private ScPlayer Player;
 

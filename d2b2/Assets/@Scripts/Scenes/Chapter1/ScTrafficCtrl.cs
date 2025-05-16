@@ -40,11 +40,6 @@ public class ScTrafficCtrl : MonoBehaviour
 
     private Coroutine blinkCor;
 
-    //public TrafficLightColor GetCurrentColor()
-    //{
-    //    return CurrentColor; 
-    //}
-
 
     private void Start()
     {
@@ -90,6 +85,7 @@ public class ScTrafficCtrl : MonoBehaviour
 
         }
 
+        ScChapter1.Instance.NpcCheck();
 
         Init();
     }
