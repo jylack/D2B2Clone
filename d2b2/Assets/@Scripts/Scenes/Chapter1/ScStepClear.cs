@@ -11,7 +11,6 @@ public class ScStepClear : MonoBehaviour
             //ScChapter1.Instance.CurrentSetp++;
             ScChapter1.Instance.NextStep();
 
-
             if (ScChapter1.Instance.CurrentSetp >= ScRespawn.Instance.SpawnCount)
             {
                 EndGame();
