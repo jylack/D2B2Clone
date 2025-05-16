@@ -83,7 +83,7 @@ public class ScCarSpawner2 : ScObjectBase
         }
         catch (Exception ex)
         {
-            Debug.LogError(ex.Message);
+            Debug.LogException(ex);
         }
     }
 

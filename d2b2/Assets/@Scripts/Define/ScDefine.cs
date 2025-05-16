@@ -47,4 +47,11 @@
         Character3,
         Character4,
     }
+
+    public enum ScTrafficLightType
+    {
+        None = 0,
+        Red,
+        Green,
+    }
 }
