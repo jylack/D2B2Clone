@@ -3,29 +3,33 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScRespawn : MonoBehaviour
 {
+    private static ScRespawn instance;
+
     [Header("스폰 위치")]
     [SerializeField] private Transform[] spawnPoint;
-    private Transform playerTrans;
-    public Transform PlayerTrans => playerTrans;
+
+    private ScPlayer Player;
+
     private int _currentStep = 0;
 
+    public static ScRespawn Instance => instance;
 
-    //TeleportationProvider tel;
+
     TeleportRequest telPos;
-    private CharacterController characterController;
-    public CharacterController CharacterController => characterController;
+
 
     public int SpawnCount => spawnPoint.Length;
 
+    private void Awake()
+    {
+        if(Instance == null)
+            instance = this;
+    }
+
     private void Start()
     {
+        Player = GameObject.Find("Player").GetComponent<ScPlayer>();
         _currentStep = ScChapter1.Instance.CurrentSetp;
-        playerTrans = GameObject.Find("Player").transform;
-        ////XR Interaction Setup/XR Origin (XR Rig)/
-        ////Find 할때 현재 오브젝트의 자식들 중에서부터 찾아야함
-        //tel = transform.Find("Locomotion System/Teleportation").GetComponent<TeleportationProvider>();
-
-        characterController = GetComponent<CharacterController>();
 
         Init(_currentStep);
         Respawn(false);
@@ -51,22 +55,18 @@ public class ScRespawn : MonoBehaviour
 
     public void Respawn(bool moveScene)
     {
-        characterController.enabled = false;
+        Player.CharacterController.enabled = false;
+        //player
+        Player.transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
+        //xrOrigin
+        Player.CharacterController.transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
 
-        playerTrans.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
-        transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
-        //tel.QueueTeleportRequest(telPos);
-        
         ScChapter1.Instance.lookAroundMissionClear = false;
 
-        characterController.enabled = true;
+        Player.CharacterController.enabled = true;
 
         Manager.Instance.GameMgr.canMove = true;
 
-        //if (moveScene)
-        //{
-        //    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Login);
-        //}
     }
 
 }

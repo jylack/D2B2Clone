@@ -11,15 +11,14 @@ public class ScStepClear : MonoBehaviour
             //ScChapter1.Instance.CurrentSetp++;
             ScChapter1.Instance.NextStep();
 
-            var temp = other.gameObject.GetComponent<ScRespawn>();
 
-            if (ScChapter1.Instance.CurrentSetp >= temp.SpawnCount)
+            if (ScChapter1.Instance.CurrentSetp >= ScRespawn.Instance.SpawnCount)
             {
                 EndGame();
                 return;
-            }    
+            }
 
-            temp.Init(ScChapter1.Instance.CurrentSetp);            
+            ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);            
             //other.gameObject.GetComponent<ScRespawn>().NextPos(ScChapter1.Instance.CurrentSetp);
             Debug.Log("¥Ÿ¿ΩΩ∫≈‹¿∏∑Œ ≥—æÓ∞¨¿Ω." + ScChapter1.Instance.CurrentSetp);
             gameObject.SetActive(false);

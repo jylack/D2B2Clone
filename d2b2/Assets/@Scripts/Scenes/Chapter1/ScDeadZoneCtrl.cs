@@ -16,7 +16,8 @@ public class ScDeadZoneCtrl : MonoBehaviour
 
             Debug.Log("Dead");
             //안전가이드 무단횡단
-            other.gameObject.GetComponent<ScRespawn>().Respawn(true); 
+            //other.gameObject.GetComponent<ScRespawn>().Respawn(true); 
+            ScRespawn.Instance.Respawn(true);
         }
     }
 

@@ -38,7 +38,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
             {
                 Debug.Log("CrossWNoLook");
                 //안전가이드 좌우확인 호출할예정
-                other.gameObject.GetComponent<ScRespawn>().Respawn(false);
+                ScRespawn.Instance.Respawn(false);
+                //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
             }
         }
     }
@@ -57,21 +58,21 @@ public class ScCrossWalkCtrl : MonoBehaviour
             {
                 //Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;
-                temp.Init(ScChapter1.Instance.CurrentSetp);
+                ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
+                //temp.Init(ScChapter1.Instance.CurrentSetp);
                 Debug.Log("Blink");
-                temp.Respawn(true);
+                ScRespawn.Instance.Respawn(true);
+                //temp.Respawn(true);
 
                 //신호등 안전가이드 호출
             }
 
             if (isWalk == false || Hand.isLeftHandUp == false)
             {
-
                 Debug.Log(Hand.isLeftHandUp);
                 //움직임 멈췄을때 타임리미트 돌리고 그 시간뒤까지 움직임이없으면 원위치
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
-                //
             }
         }
     }
@@ -81,19 +82,20 @@ public class ScCrossWalkCtrl : MonoBehaviour
         Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
         Manager.Instance.InputMgr.OnLeftStickMove -= OnLeftStickMove;
     }
-
+    
 
     IEnumerator TimeLimit(Collider other)
     {
         yield return new WaitForSeconds(limitTime);
 
-        if (isWalk == false)
+        if (isWalk == false || Hand.isLeftHandUp == false)
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
-            temp.Init(ScChapter1.Instance.CurrentSetp);
+            ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
+            //temp.Init(ScChapter1.Instance.CurrentSetp);
             Debug.Log("Time");
-            temp.Respawn(true);
-
+            //temp.Respawn(true);
+            ScRespawn.Instance.Respawn(true);
             coroutine = null;
             yield break;
         }
