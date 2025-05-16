@@ -1,23 +1,35 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveTutorialManager : MonoBehaviour
 {
-    [SerializeField] GameObject guideObject;
-    [SerializeField] GameObject[] guides;
+    [SerializeField] ScGuideInstance guide;
     [SerializeField] ScNotifyFairy notifyFairy;
     [SerializeField] GameObject walkObjs;
     [SerializeField] GameObject lookAroundObjs;
     [SerializeField] ScLookAroundRegion lookAround;
     void Start()
     {
-        Instantiate(guides[(int)TutorialManager.Instance.playerEntity.guideCharacter - 1], guideObject.transform);
+        guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
     }
 
     public void WalkSuccess()
     {
         walkObjs.SetActive(false);
         lookAroundObjs.SetActive(true);
+        CheckLookAroundComplete().Forget();
+    }
+
+    public void LookAroundSuccess()
+    {
+        Manager.Instance.SceneMgr.LoadScene("CrosswalkTutorial");
+    }
+
+    private async UniTaskVoid CheckLookAroundComplete()
+    {
+        await UniTask.WaitUntil(() => lookAround.lookAroundMissionClear);
+        LookAroundSuccess();
     }
  }
