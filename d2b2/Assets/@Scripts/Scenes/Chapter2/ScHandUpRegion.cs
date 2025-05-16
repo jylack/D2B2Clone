@@ -13,14 +13,17 @@ public class ScHandUpRegion : MonoBehaviour
     private Coroutine handDownCor;
     [SerializeField] private float handDownTime;
     private bool inFirstHandUpResion;
+    public bool inHandUpRegion { get; private set; }
+
     private void Start()
     {
         handDownTime = 2;
         isLeftHandUp =false;
-        handUpMissionClear = true;
     }
     private void OnTriggerEnter(Collider other)
     {
+        inHandUpRegion = true;
+        handUpMissionClear = true;
         inFirstHandUpResion = true;
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
@@ -30,20 +33,23 @@ public class ScHandUpRegion : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        inHandUpRegion = false;
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             ExitHandUpRegion();
         }
+        if (handUpMissionClear == true)
+        {
+            // 미션 성공 ui
+        }
     }
     public void HandUpMission(bool leftHandUp, bool rightHandUp, float distance)
     {
-        Debug.Log("1 : " + leftHandUp);
-        Debug.Log("2 : " + isLeftHandUp);
         if (leftHandUp != isLeftHandUp || inFirstHandUpResion == true)
         {
             inFirstHandUpResion = false;
             isLeftHandUp = leftHandUp;
-            if (isLeftHandUp == true)
+            if (isLeftHandUp == false)
             {
                 Debug.Log("시작");
                 handDownCor = StartCoroutine(HandDownCoolDown());
@@ -62,7 +68,6 @@ public class ScHandUpRegion : MonoBehaviour
     }
     IEnumerator HandDownCoolDown()
     {
-        Debug.Log("시작");
         float timer = 0;
         while (timer < handDownTime)
         {
@@ -77,9 +82,6 @@ public class ScHandUpRegion : MonoBehaviour
     {
         UIPlayerHsy.Instance.OffHandUpProgressUI();
         Manager.Instance.GameMgr.OnPlayerHandsUp -= HandUpMission;
-        if (handUpMissionClear == true)
-        {
-            // 미션 성공 ui
-        }
+        
     }
 }
