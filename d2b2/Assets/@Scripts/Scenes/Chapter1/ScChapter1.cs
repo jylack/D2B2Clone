@@ -6,7 +6,6 @@ public class ScChapter1 : MonoBehaviour
     private static ScChapter1 instance;
     [SerializeField] private GameObject[] img;
     [SerializeField] private float ImgViewTime = 2f;
-
     public static ScChapter1 Instance => instance;
 
     public int CurrentSetp { get; private set; }

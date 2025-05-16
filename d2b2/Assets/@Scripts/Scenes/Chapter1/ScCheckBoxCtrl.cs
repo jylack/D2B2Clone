@@ -13,7 +13,8 @@ public class ScCheckBoxCtrl : MonoBehaviour
             if(Look.lookAroundMissionClear == false)
             {
                 Debug.Log("checkbox");
-                other.gameObject.GetComponent<ScRespawn>().Respawn(false);
+                ScRespawn.Instance.Respawn(false);
+                //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
             }
             else
             {

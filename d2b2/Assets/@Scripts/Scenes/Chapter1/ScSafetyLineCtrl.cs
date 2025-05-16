@@ -44,7 +44,8 @@ public class ScSafetyLineCtrl : MonoBehaviour
         if (isSafety)
         {
             Debug.Log("safe");
-            other.gameObject.GetComponent<ScRespawn>().Respawn(true);
+            //other.gameObject.GetComponent<ScRespawn>().Respawn(true);
+            ScRespawn.Instance.Respawn(true); 
         }
     }
 }

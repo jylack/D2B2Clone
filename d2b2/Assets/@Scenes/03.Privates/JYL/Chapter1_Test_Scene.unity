@@ -452,6 +452,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91467557}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &104878988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104878990}
+  - component: {fileID: 104878989}
+  m_Layer: 0
+  m_Name: PlayerRespawnCtrl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &104878989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104878988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82adc8b626e3014f86399fd61ed8aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint:
+  - {fileID: 1352182929}
+  - {fileID: 1930474366}
+  Player: {fileID: 0}
+--- !u!4 &104878990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104878988}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &162374611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1715,7 +1763,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152659105}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e82adc8b626e3014f86399fd61ed8aff, type: 3}
   m_Name: 
@@ -1723,6 +1771,7 @@ MonoBehaviour:
   spawnPoint:
   - {fileID: 1352182929}
   - {fileID: 1930474366}
+  Player: {fileID: 0}
 --- !u!114 &1214059531 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3067886146188699073, guid: debd1a6bfacfb724985793512542a235,
@@ -2999,6 +3048,7 @@ MonoBehaviour:
   - {fileID: 1123153966}
   - {fileID: 1429250964}
   ImgViewTime: 1
+  respawn: {fileID: 104878989}
   lookAroundMissionClear: 0
 --- !u!4 &1963078048
 Transform:

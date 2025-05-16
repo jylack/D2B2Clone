@@ -16,6 +16,7 @@ public class ScPlayer : ScObjectBase
     [SerializeField] private float headTurnThreshold;
     [SerializeField] private float maxHandHeight;
 
+    public CharacterController CharacterController => characterController;
     private AudioSource audioSource;
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
     private bool isLeftHandUp;
