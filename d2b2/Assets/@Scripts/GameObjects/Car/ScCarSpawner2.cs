@@ -95,6 +95,6 @@ public class ScCarSpawner2 : ScObjectBase
 
         Instantiate(carPrefab, transform)
             .GetComponent<ScCar>()
-            .Init(moveSpeed, direction);
+            .Init(moveSpeed, direction, distance);
     }
 }

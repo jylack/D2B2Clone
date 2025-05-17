@@ -10,6 +10,8 @@ public class ScCar : ScObjectBase
     private Vector3 dir = Vector3.forward;
     private float moveSpeed;
     private Rigidbody rb;
+    private Vector3 originPosition;
+    private float destinationDistance;
 
 
 
@@ -17,6 +19,7 @@ public class ScCar : ScObjectBase
     {
         rb = GetComponent<Rigidbody>();
         gameObject.name = $"Car_{numbering++}";
+        originPosition = transform.position;
     }
 
     private void Start()
@@ -26,6 +29,12 @@ public class ScCar : ScObjectBase
 
     private void FixedUpdate()
     {
+        if (Mathf.Abs((transform.position - originPosition).magnitude) > destinationDistance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         RaycastHit[] hitInfos = Physics.BoxCastAll(GetBoxcastPosition(), boxCastSize / 2, transform.forward, transform.rotation, 0f);
 
         if (hitInfos.Length > 0)
@@ -52,10 +61,11 @@ public class ScCar : ScObjectBase
 
 
 
-    public void Init(float speed, Vector3 direction)
+    public void Init(float speed, Vector3 direction, float destDistance)
     {
         moveSpeed = speed;
         dir = direction;
+        destinationDistance = destDistance;
     }
 
 
