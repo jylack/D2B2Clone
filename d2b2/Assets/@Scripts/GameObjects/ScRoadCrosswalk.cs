@@ -2,17 +2,27 @@ using UnityEngine;
 
 public class ScRoadCrosswalk : MonoBehaviour
 {
-    [SerializeField] private Collider coll;
+    [SerializeField] private Collider entireCollider;
+    [SerializeField] private Collider rightLaneCollider;
 
 
+    
+    public void OnGreenLightActivatedBefore()
+    {
+        if (rightLaneCollider != null)
+            rightLaneCollider.enabled = true;
+    }
+    
+    public void OnGreenLightActivated()
+    {
+        entireCollider.enabled = true;
+    }
 
     public void OnRedLightActivated()
     {
-        coll.enabled = false;
-    }
-
-    public void OnGreenLightActivated()
-    {
-        coll.enabled = true;
+        entireCollider.enabled = false;
+        
+        if (rightLaneCollider != null)
+            rightLaneCollider.enabled = false;
     }
 }

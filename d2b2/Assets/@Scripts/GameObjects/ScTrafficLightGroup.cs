@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class ScTrafficLightGroup
 {
     [LabelText("group")]
-    public List<ScTrafficLight> items = new List<ScTrafficLight>();
+    public List<ScTrafficLight> items = new();
 
 
 
@@ -15,7 +15,7 @@ public class ScTrafficLightGroup
         if (items?.Count > 0)
         {
             foreach (ScTrafficLight trafficLight in items)
-                trafficLight.SetLight(lightType);
+                trafficLight.SetColor(lightType);
         }
     }
 

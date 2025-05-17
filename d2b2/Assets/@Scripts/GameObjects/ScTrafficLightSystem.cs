@@ -2,24 +2,25 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScTrafficLightSystem : ScObjectBase
 {
-    private const float intersectionAreaHeight = 5f;
+    private const float IntersectionAreaHeight = 5f;
 
-    [SerializeField] private int intervalTime = 1000;
+    [SerializeField] private int timeBeforeColorChange = 2000;
     [SerializeField] private int greenDuration = 6000;
     [SerializeField] private int blinkIntervalTime = 500;
     [SerializeField] private float intersectionAreaSize = 16f;
 
     [SerializeField]
     [TableList(AlwaysExpanded = true, ShowIndexLabels = true)]
-    private List<ScTrafficLightGroup> trafficLightGroups = new List<ScTrafficLightGroup>();
+    private List<ScTrafficLightGroup> trafficLightGroups = new();
 
     private int nextTargetIndex;
     private ScTrafficLightGroup currentTrafficLightGroup;
-    private Vector3 areaSize => new Vector3(intersectionAreaSize, intersectionAreaHeight, intersectionAreaSize);
+    private Vector3 AreaSize => new (intersectionAreaSize, IntersectionAreaHeight, intersectionAreaSize);
 
 
 
@@ -34,11 +35,11 @@ public class ScTrafficLightSystem : ScObjectBase
         Run().Forget();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position, areaSize);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawWireCube(transform.position, AreaSize);
+    // }
 
 
 
@@ -52,32 +53,35 @@ public class ScTrafficLightSystem : ScObjectBase
                 currentTrafficLightGroup?.SetLight(ScDefine.ScTrafficLightType.Red);
 
                 // 변경 간격
-                await UniTask.Delay(intervalTime, cancellationToken: base.DestroyToken);
+                // await UniTask.Delay(intervalTime, cancellationToken: base.DestroyToken);
 
                 // 사거리에 차 있는지 체크
-                while (true)
-                {
-                    Collider[] cars = Physics.OverlapBox(transform.position, areaSize / 2, Quaternion.identity, ScDefine.Layer.CarMask);
-
-                    if (cars.Length > 0)
-                        await UniTask.Delay(100, cancellationToken: base.DestroyToken);
-                    else
-                        break;
-
-                    print("car exists.");
-                }
+                // while (true)
+                // {
+                //     Collider[] cars = Physics.OverlapBox(transform.position, AreaSize / 2, Quaternion.identity, ScDefine.Layer.CarMask);
+                //
+                //     if (cars.Length > 0)
+                //         await UniTask.Delay(100, cancellationToken: base.DestroyToken);
+                //     else
+                //         break;
+                //
+                //     print("car exists.");
+                // }
 
                 // 다음 신호등 그룹
                 currentTrafficLightGroup = trafficLightGroups[nextTargetIndex];
                 currentTrafficLightGroup.SetLight(ScDefine.ScTrafficLightType.Green);
-
+                
                 nextTargetIndex = ++nextTargetIndex % trafficLightGroups.Count;
+                
+                WaitThenRaiseGreenBeforeEvent().Forget();
+                
+                int blinkBeforeTime = greenDuration * 3 / 4;
+                await UniTask.Delay(blinkBeforeTime, cancellationToken: base.DestroyToken);
 
-                int waitTime = greenDuration * 3 / 4;
-                await UniTask.Delay(waitTime, cancellationToken: base.DestroyToken);
-
-                int elapsedTime = waitTime;
-
+                int elapsedTime = blinkBeforeTime;
+                
+                // 녹색불 점멸
                 while (elapsedTime < greenDuration)
                 {
                     currentTrafficLightGroup.InvertColor();
@@ -94,5 +98,13 @@ public class ScTrafficLightSystem : ScObjectBase
         {
             Debug.LogException(ex);
         }
+    }
+
+    private async UniTask WaitThenRaiseGreenBeforeEvent()
+    {
+        await UniTask.Delay(greenDuration - timeBeforeColorChange, cancellationToken: base.DestroyToken);
+
+        foreach (ScTrafficLight trafficLight in trafficLightGroups[nextTargetIndex].items)
+            trafficLight.Ready();
     }
 }

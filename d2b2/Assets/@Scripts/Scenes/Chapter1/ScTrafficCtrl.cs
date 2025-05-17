@@ -10,14 +10,14 @@ public enum TrafficLightColor
 
 public class ScTrafficCtrl : MonoBehaviour
 {
-    [Header("¿ÀºêÁ§Æ® ¿¬°á")]
+    [Header("ì˜¤ë¸Œì íŠ¸ ì—°ê²°")]
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private MeshRenderer m_MeshRenderer;
     [SerializeField] private Material red, green;
 
     private Shader litShader, unlitShader;
 
-    [Header("½ÅÈ£µî ¼¼ÆÃ")]
+    [Header("ì‹ í˜¸ë“± ì„¸íŒ…")]
 
     [SerializeField] private float MaxTime = 30f;
     private float deltaMaxTime = 0f;
@@ -108,7 +108,7 @@ public class ScTrafficCtrl : MonoBehaviour
 
         m_MeshRenderer.material = isRed ? red : green;
 
-        //¼ÎÀÌ´õ ±³Ã¼
+        //ì…°ì´ë” êµì²´
         m_MeshRenderer.material.shader = litShader;
     }
 
@@ -134,7 +134,7 @@ public class ScTrafficCtrl : MonoBehaviour
         {
             CurrentTime -= interval;
 
-            // ±ôºıÀÓ Ã³¸®
+            // ê¹œë¹¡ì„ ì²˜ë¦¬
             if (CurrentTime <= LimitTime)
             {
                 blinkCor = StartCoroutine(ApplyBlink());

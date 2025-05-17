@@ -7,9 +7,10 @@ public class ScTrafficLight : MonoBehaviour
     [SerializeField] private MeshRenderer greenMeshRenderer;
     [SerializeField] private Material redOnMaterial;
     [SerializeField] private Material greenOnMaterial;
-    [SerializeField] private UnityEvent OnRedLightActivated;
-    [SerializeField] private UnityEvent OnGreenLightActivated;
-
+    [SerializeField] private UnityEvent onGreenLightActivatedBefore;
+    [SerializeField] private UnityEvent onGreenLightActivated;
+    [SerializeField] private UnityEvent onRedLightActivated;
+    
     private Material redOffMaterial;
     private Material greenOffMaterial;
     private ScDefine.ScTrafficLightType lightType;
@@ -24,7 +25,12 @@ public class ScTrafficLight : MonoBehaviour
 
 
 
-    public void SetLight(ScDefine.ScTrafficLightType light)
+    public void Ready()
+    {
+        onGreenLightActivatedBefore?.Invoke();
+    }
+
+    public void SetColor(ScDefine.ScTrafficLightType light)
     {
         lightType = light;
 
@@ -33,12 +39,12 @@ public class ScTrafficLight : MonoBehaviour
             case ScDefine.ScTrafficLightType.Red:
                 redMeshRenderer.material    = redOnMaterial;
                 greenMeshRenderer.material  = greenOffMaterial;
-                OnRedLightActivated?.Invoke();
+                onRedLightActivated?.Invoke();
                 break;
             case ScDefine.ScTrafficLightType.Green:
                 redMeshRenderer.material    = redOffMaterial;
                 greenMeshRenderer.material  = greenOnMaterial;
-                OnGreenLightActivated?.Invoke();
+                onGreenLightActivated?.Invoke();
                 break;
             default:
                 redMeshRenderer.material    = redOffMaterial;
