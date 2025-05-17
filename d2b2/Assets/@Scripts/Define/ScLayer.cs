@@ -13,7 +13,7 @@
     public int PlayerIndex { get; private set; }    = PlayerIdx;
     public int WallIndex { get; private set; }      = WallIdx;    
     public int CarIndex { get; private set; }       = CarIdx;
-    public int HandUpCheckResionIndex { get; private set; } = HandUpCheckResionIdx;
+    public int HandUpCheckResionIndex { get; private set; }     = HandUpCheckResionIdx;
     public int LookAroundCheckResionIndex { get; private set; } = LookAroundCheckResionIdx;
 
     public int MirrorMask { get; private set; } = Pow(MirrorIdx);

@@ -85,7 +85,7 @@ public class GameSceneManager : MonoBehaviour
         if (currentSceneName == sceneName)
             return;
         
-        Debug.Log($"load scene: {sceneName}");
+        Debug.Log($"load scene -> {sceneName}");
 
         await FadeOut();
         
@@ -95,8 +95,9 @@ public class GameSceneManager : MonoBehaviour
             Destroy(listener);
         
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
-        prevSceneName = currentSceneName;
+        
         // unload
+        prevSceneName = currentSceneName;
         if (!string.IsNullOrEmpty(currentSceneName))
             await SceneManager.UnloadSceneAsync(currentSceneName);
 

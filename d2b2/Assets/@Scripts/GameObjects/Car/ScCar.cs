@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScCar : ScObjectBase
 {
-    private static int numbering = 0;
+    private static int numbering;
 
     [SerializeField] private Vector3 boxcastCenterDistance;
     [SerializeField] private Vector3 boxCastSize = Vector3.one;
