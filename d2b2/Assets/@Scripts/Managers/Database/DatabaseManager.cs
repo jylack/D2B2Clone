@@ -8,10 +8,10 @@ public class DatabaseManager : MonoBehaviour
 
 
 
-    public void Init()
+    public async UniTask Init()
     {
         database = new FirebaseRealtimeDatabase();
-        database.Init();
+        await database.Init();
     }
 
     public async UniTask<bool> CheckNickNameExist(string nickName)

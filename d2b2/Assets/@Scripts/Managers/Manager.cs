@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
@@ -9,9 +10,16 @@ public class Manager : MonoBehaviour
         {
             if (instance == null)
             {
-                var managerPrefab = Resources.Load<GameObject>("Prefabs/Manager");
-                instance = Instantiate(managerPrefab).GetComponent<Manager>();
-                DontDestroyOnLoad(instance.gameObject);
+                try
+                {
+                    var managerPrefab = Resources.Load<GameObject>("Prefabs/Manager");
+                    instance = Instantiate(managerPrefab).GetComponent<Manager>();
+                    DontDestroyOnLoad(instance.gameObject);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
             }
 
             return instance;
@@ -30,20 +38,27 @@ public class Manager : MonoBehaviour
 
 
     
-    private void Awake()
+    private async void Awake()
     {
-        InputMgr = InitSubManager<InputManager>();
-        GameMgr = InitSubManager<GameManager>();
-        ResourceMgr = InitSubManager<ResourceManager>();
+        try
+        {
+            InputMgr = InitSubManager<InputManager>();
+            GameMgr = InitSubManager<GameManager>();
+            ResourceMgr = InitSubManager<ResourceManager>();
         
-        DbMgr = InitSubManager<DatabaseManager>();
-        DbMgr.Init();
-        
-        SceneMgr = Instantiate(gameSceneManagerPrefab).GetComponent<GameSceneManager>();
-        SceneMgr.transform.SetParent(transform);
-
-        SoundMgr = Instantiate(soundManagerPrefab).GetComponent<SoundManager>();
-        SoundMgr.transform.SetParent(transform);
+            DbMgr = InitSubManager<DatabaseManager>();
+            await DbMgr.Init();
+            
+            SceneMgr = Instantiate(gameSceneManagerPrefab).GetComponent<GameSceneManager>();
+            SceneMgr.transform.SetParent(transform);
+            
+            SoundMgr = Instantiate(soundManagerPrefab).GetComponent<SoundManager>();
+            SoundMgr.transform.SetParent(transform);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
     
     

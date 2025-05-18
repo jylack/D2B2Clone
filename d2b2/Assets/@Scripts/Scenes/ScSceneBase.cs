@@ -8,12 +8,16 @@ public abstract class ScSceneBase : ScObjectBase
     {
         try
         {
-            await UniTask.Delay(1000);
+            await UniTask.Delay(1000, cancellationToken: base.DestroyToken);
             Manager.Instance.SceneMgr.OnSceneLoaded();
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
         }
         catch (Exception ex)
         {
-            Debug.Log(ex);
+            Debug.LogException(ex);
         }
     }
 }

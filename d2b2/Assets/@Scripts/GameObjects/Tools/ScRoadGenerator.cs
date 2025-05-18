@@ -29,11 +29,11 @@ public class ScRoadGenerator : ScObjectBase
             while (transform.childCount > 0)
                 DestroyImmediate(transform.GetChild(0).gameObject);
 
-            // Ω√¿€¡°
+            // ÏãúÏûëÏ†ê
             GameObject roadStart = InstantiateRoadEdge(transform);
             roadStart.transform.Rotate(Vector3.up, 180f);
 
-            // ¡ﬂ∞£
+            // Ï§ëÍ∞Ñ
             if (segmentCount > 0)
             {
                 (..segmentCount).ForEach(i =>
@@ -43,7 +43,7 @@ public class ScRoadGenerator : ScObjectBase
                 });
             }
 
-            // ≥°¡°
+            // ÎÅùÏ†ê
             GameObject roadEnd = InstantiateRoadEdge(transform);
             roadEnd.transform.localPosition = (segmentCount + 1) * ModelSize * Vector3.forward;
         };

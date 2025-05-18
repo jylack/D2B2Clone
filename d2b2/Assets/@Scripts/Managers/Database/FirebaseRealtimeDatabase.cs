@@ -14,11 +14,11 @@ public class FirebaseRealtimeDatabase : IDatabase
     
     
     
-    public void Init()
+    public async UniTask Init()
     {
         try
         {
-            DependencyStatus result = FirebaseApp.CheckAndFixDependenciesAsync().GetAwaiter().GetResult();
+            DependencyStatus result = await FirebaseApp.CheckAndFixDependenciesAsync();
             if (result == DependencyStatus.Available)
             {
                 dbRef = FirebaseDatabase.DefaultInstance.RootReference;
