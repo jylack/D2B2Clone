@@ -20,13 +20,15 @@ public class ScCharacterTest : ScObjectBase
     {
         try
         {
-            bool flag = false;
+            const int max = 4;
+            int flag = 0;
 
             while (true)
             {
-                flag = !flag;
-                animator.SetInteger(Animator.StringToHash("State"), flag ? 1 : 0);
-                await UniTask.Delay(5000);
+                animator.SetInteger(Animator.StringToHash("State"), flag);
+                await UniTask.Delay(3000);
+
+                flag = ++flag % max;
             }
         }
         catch (OperationCanceledException ex)
