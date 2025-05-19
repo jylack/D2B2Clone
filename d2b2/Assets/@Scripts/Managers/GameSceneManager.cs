@@ -66,20 +66,21 @@ public class GameSceneManager : MonoBehaviour
 
             ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
-            ScDefine.ScScene.Sg01_SafetyLine            => "Sg01_SafetyLine",
-            ScDefine.ScScene.Sg04_TrafficBlink          => "Sg04_TrafficBlink",
-            ScDefine.ScScene.Sg05_Jaywalking            => "Sg05_Jaywalking",
-
+            
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
-            ScDefine.ScScene.Sg06_BlindSpot => "Sg06_BlindSpotExperience",
-            ScDefine.ScScene.Sg02_LookAround => "Sg02_LookAround",
-            ScDefine.ScScene.Sg03_HandUp => "Sg03_HandUp",
-            ScDefine.ScScene.Sg07_GsCarPrediction => "Sg07_CarPrediction",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",
             ScDefine.ScScene.Ch3Play                    => "Ch3_Play",
+            
+            ScDefine.ScScene.Sg01_SafetyLine            => "Sg01_SafetyLine",
+            ScDefine.ScScene.Sg02_LookAround            => "Sg02_LookAround",
+            ScDefine.ScScene.Sg03_HandUp                => "Sg03_HandUp",
+            ScDefine.ScScene.Sg04_TrafficBlink          => "Sg04_TrafficBlink",
+            ScDefine.ScScene.Sg05_Jaywalking            => "Sg05_Jaywalking",
+            ScDefine.ScScene.Sg06_BlindSpot             => "Sg06_BlindSpotExperience",
+            ScDefine.ScScene.Sg07_GsCarPrediction       => "Sg07_CarPrediction",
             _ => "",
         };
     }

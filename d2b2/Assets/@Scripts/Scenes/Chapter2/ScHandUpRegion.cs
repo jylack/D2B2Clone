@@ -45,7 +45,7 @@ public class ScHandUpRegion : MonoBehaviour
         }
         if (handUpMissionClear == true)
         {
-            // ¹Ì¼Ç ¼º°ø ui
+            // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ui
         }
     }
     public void StopCurrentCor()
@@ -63,12 +63,12 @@ public class ScHandUpRegion : MonoBehaviour
             isLeftHandUp = leftHandUp;
             if (isLeftHandUp == false)
             {
-                Debug.Log("¼Õ ³»¸²");
+                Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                 handDownCor = StartCoroutine(HandDownCoolDown());
             }
             else
             {
-                Debug.Log("¼Õ µë");
+                Debug.Log("ï¿½ï¿½ ï¿½ï¿½");
                 StopCurrentCor();
             }
             UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
@@ -83,7 +83,7 @@ public class ScHandUpRegion : MonoBehaviour
             timer += Time.deltaTime;
             yield return null; 
         }
-        // ¹Ì¼Ç ½ÇÆÐ
+        // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         handUpMissionClear = false;
         ExitHandUpRegion();
         handUpFailEvent.Invoke();

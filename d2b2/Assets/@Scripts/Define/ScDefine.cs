@@ -22,11 +22,11 @@
         LookAroundGuide,
         HandUpGuide,
         Sg01_SafetyLine,
+        Sg02_LookAround,
+        Sg03_HandUp,
         Sg04_TrafficBlink,
         Sg05_Jaywalking,
         Sg06_BlindSpot,
-        Sg02_LookAround,
-        Sg03_HandUp,
         Sg07_GsCarPrediction
     }
 
@@ -46,6 +46,13 @@
         Right
     }
 
+    public enum ScHandSide
+    {
+        None = 0,
+        Left,
+        Right
+    }
+    
     public enum ScGuideCharacter
     {
         None = 0,
@@ -60,5 +67,15 @@
         None = 0,
         Red,
         Green,
+    }
+
+    public enum ScNpcAnimState
+    {
+        Idle = 0,
+        Walking,
+        Running,
+        LookAround,
+        StandingUsingPhone,
+        WalkingUsingPhone,
     }
 }

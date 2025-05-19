@@ -13,7 +13,7 @@ public class ScBlindSpotRegion : MonoBehaviour
         {
             if (dangerZoneType == DangerZoneType.BlindSpot)
             {
-                // ¾ÈÀü°¡ÀÌµå
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg06_BlindSpot);
             }
             else if (dangerZoneType == DangerZoneType.HeadLightCar)

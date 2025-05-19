@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-//¹«´ÜÈ¾´Ü
+//ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½
 public class ScDeadZoneCtrl : MonoBehaviour
 {
 
@@ -15,7 +15,7 @@ public class ScDeadZoneCtrl : MonoBehaviour
             Manager.Instance.GameMgr.canMove = false;
 
             Debug.Log("Dead");
-            //¾ÈÀü°¡ÀÌµå ¹«´ÜÈ¾´Ü
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½
             //other.gameObject.GetComponent<ScRespawn>().Respawn(true); 
             ScRespawn.Instance.Respawn(true);
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);

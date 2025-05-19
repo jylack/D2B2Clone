@@ -21,7 +21,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     private void Start()
     {
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
-        //Debug.Log("ÀÌµ¿ ±¸µ¶ ½ÃÀÛ");
+        //Debug.Log("ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         Manager.Instance.InputMgr.OnLeftStickMove += OnLeftStickMove;
 
     }
@@ -37,7 +37,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             if (ScChapter1.Instance.lookAroundMissionClear == false)
             {
                 Debug.Log("CrossWNoLook");
-                //¾ÈÀü°¡ÀÌµå ÁÂ¿ìÈ®ÀÎ È£ÃâÇÒ¿¹Á¤
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Â¿ï¿½È®ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ò¿ï¿½ï¿½ï¿½
                 ScRespawn.Instance.Respawn(false);
                 //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
             }
@@ -52,7 +52,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
             var temp = other.gameObject.GetComponent<ScRespawn>();
 
-            //È¾´Üº¸µµ ÀÌµ¿Áß »¡°£ºÒÀÓ. or ½ÅÈ£µî ±ôºýÀÏ¶§.
+            //È¾ï¿½Üºï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. or ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½.
             //if (scTrafficCtrl.CurrentColor == TrafficLightColor.Red ||
             //    scTrafficCtrl.IsBlink == true)
             if(isColorRed || isBlink)
@@ -66,7 +66,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
                 //temp.Respawn(true);
 
-                //½ÅÈ£µî ¾ÈÀü°¡ÀÌµå È£Ãâ
+                //ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ È£ï¿½ï¿½
                 if(isBlink)
                 {
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
@@ -85,7 +85,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             if (isWalk == false || Hand.isLeftHandUp == false)
             {
                 Debug.Log(Hand.isLeftHandUp);
-                //¿òÁ÷ÀÓ ¸ØÃèÀ»¶§ Å¸ÀÓ¸®¹ÌÆ® µ¹¸®°í ±× ½Ã°£µÚ±îÁö ¿òÁ÷ÀÓÀÌ¾øÀ¸¸é ¿øÀ§Ä¡
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ó¸ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
             }
@@ -124,7 +124,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     private void OnLeftStickMove(bool isStick)
     {
-        Debug.Log("½ºÆ½ ¿òÁ÷ÀÓ : " + isStick);
+        Debug.Log("ï¿½ï¿½Æ½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : " + isStick);
         isWalk = isStick;
     }
 

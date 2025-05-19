@@ -16,7 +16,7 @@ public class ScSafetyLineCtrl : MonoBehaviour
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-           // Debug.Log("¾ÈÀü¼± ¹âÀ½.");
+           // Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.");
 
             isSafety = true;
 
@@ -33,7 +33,7 @@ public class ScSafetyLineCtrl : MonoBehaviour
         StopAllCoroutines();
         coroutine = null;
 
-        //Debug.Log("¾ÈÀü¼± ¹þ¾î³².");
+        //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³².");
     }
 
     IEnumerator TimeLimit(Collider other)

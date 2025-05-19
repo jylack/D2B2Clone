@@ -8,7 +8,6 @@ public class ScCharacterTest : ScObjectBase
 
 
 
-
     private void Start()
     {
         Run().Forget();
@@ -20,14 +19,18 @@ public class ScCharacterTest : ScObjectBase
     {
         try
         {
-            const int max = 4;
+            const int max = 5;
             int flag = 0;
 
             while (true)
             {
                 animator.SetInteger(Animator.StringToHash("State"), flag);
-                await UniTask.Delay(3000);
-
+                
+                if (flag == 3)
+                    await UniTask.Delay(5000);
+                else
+                    await UniTask.Delay(3000);
+                
                 flag = ++flag % max;
             }
         }
