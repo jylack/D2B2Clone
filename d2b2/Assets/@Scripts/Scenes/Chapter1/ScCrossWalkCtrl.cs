@@ -5,14 +5,14 @@ using UnityEngine;
 public class ScCrossWalkCtrl : MonoBehaviour
 {
     [SerializeField] private float limitTime = 1f;
-
-    [SerializeField] private ScTrafficCtrl scTrafficCtrl;
-
+    //[SerializeField] private ScTrafficCtrl scTrafficCtrl;
     [SerializeField] private TextMeshProUGUI IsMove;
-
     [SerializeField] private ScHandUpRegion Hand;
 
 
+
+    bool isColorRed = false;
+    bool isBlink = false;   
 
     bool isWalk = false;
 
@@ -53,8 +53,9 @@ public class ScCrossWalkCtrl : MonoBehaviour
             var temp = other.gameObject.GetComponent<ScRespawn>();
 
             //»æ¥‹∫∏µµ ¿Ãµø¡ﬂ ª°∞£∫“¿”. or Ω≈»£µÓ ±Ù∫˝¿œ∂ß.
-            if (scTrafficCtrl.CurrentColor == TrafficLightColor.Red ||
-                scTrafficCtrl.IsBlink == true)
+            //if (scTrafficCtrl.CurrentColor == TrafficLightColor.Red ||
+            //    scTrafficCtrl.IsBlink == true)
+            if(isColorRed || isBlink)
             {
                 //Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;
@@ -110,5 +111,22 @@ public class ScCrossWalkCtrl : MonoBehaviour
     {
         Debug.Log("Ω∫∆Ω øÚ¡˜¿” : " + isStick);
         isWalk = isStick;
+    }
+
+    public void OnRed()
+    {
+        isColorRed = true;          
+        isBlink = false;
+    }
+
+    public void OnBlink()
+    {
+        isBlink = true;
+    }
+
+    public void OnGrean()
+    {
+        isColorRed = false;
+        isBlink = false;
     }
 }

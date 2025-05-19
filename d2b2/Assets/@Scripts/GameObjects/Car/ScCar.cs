@@ -53,11 +53,16 @@ public class ScCar : ScObjectBase
     }
 
     // Boxcast 범위 확인용
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(GetBoxcastPosition(), boxCastSize);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(GetBoxcastPosition(), boxCastSize);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+    }
 
 
 

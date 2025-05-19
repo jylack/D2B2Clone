@@ -6,7 +6,7 @@ public class ScChapter1 : MonoBehaviour
     private static ScChapter1 instance;
     [SerializeField] private GameObject[] arrowImg;
     [SerializeField] private float ImgViewTime = 2f;
-    [SerializeField] private ScTrafficCtrl[] traffic;
+    //[SerializeField] private ScTrafficCtrl[] traffic;
     [SerializeField] private ScNpcCtrl npc;
 
     public static ScChapter1 Instance => instance;
@@ -34,17 +34,12 @@ public class ScChapter1 : MonoBehaviour
 
         if (npc.gameObject.activeSelf == false)
         {
-            if (traffic[0].CurrentColor == TrafficLightColor.Green)
-            {
+            //if (traffic[0].CurrentColor == TrafficLightColor.Green)
+            //{
                 npc.gameObject.SetActive(true);
-                npc.NpcMove();
-            }
+                npc.NpcMove(); 
+            //}
         }
-    }
-
-    public TrafficLightColor TrafficColor(int index)
-    {
-        return traffic[index].CurrentColor;
     }
 
     public void NextStep()
