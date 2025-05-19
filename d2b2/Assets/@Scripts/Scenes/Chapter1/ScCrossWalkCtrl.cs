@@ -40,6 +40,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Â¿ï¿½È®ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ò¿ï¿½ï¿½ï¿½
                 ScRespawn.Instance.Respawn(false);
                 //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
+                Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
             }
         }
     }
@@ -69,14 +70,14 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 //ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ È£ï¿½ï¿½
                 if(isBlink)
                 {
-                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     Debug.Log("Blink");
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     return;
                 }
                 if (isColorRed)
                 {
-                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
                     Debug.Log("Red");
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
                     return;
                 }
                 
@@ -111,7 +112,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
             Debug.Log("Time");
             //temp.Respawn(true);
             ScRespawn.Instance.Respawn(true);
-            //Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.HandUpGuide);
+            //ÀÌµ¿ Áß°£¿¡ ¸ØÃã
+            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
             coroutine = null;
             yield break;
         }

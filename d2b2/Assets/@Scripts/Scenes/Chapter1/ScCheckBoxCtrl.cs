@@ -1,5 +1,3 @@
-using FIMSpace.FTools;
-using System.Collections;
 using UnityEngine;
 
 //행동권환 활성화 해줄 클래스
@@ -9,19 +7,11 @@ public class ScCheckBoxCtrl : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            if(Look.lookAroundMissionClear == false)
-            {
-                Debug.Log("checkbox");
-                ScRespawn.Instance.Respawn(false);
-                //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
-                //Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.LookAroundGuide);
-            }
-            else
-            {
-                ScChapter1.Instance.lookAroundMissionClear = Look.lookAroundMissionClear;
-            }
+
+            ScChapter1.Instance.lookAroundMissionClear = Look.lookAroundMissionClear;
+
         }
     }
 

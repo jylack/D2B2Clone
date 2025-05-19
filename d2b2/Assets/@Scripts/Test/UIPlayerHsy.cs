@@ -61,6 +61,10 @@ public class UIPlayerHsy : MonoBehaviour
     }
     public void OffHandUpProgressUI()
     {
+        if (handUpProgressUI == null)
+        {
+            return;
+        }
         handUpProgressUI.SetActive(false);
     }
     public void ChangeText(string text)

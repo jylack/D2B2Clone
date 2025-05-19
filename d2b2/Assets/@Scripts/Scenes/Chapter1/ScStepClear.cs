@@ -28,6 +28,7 @@ public class ScStepClear : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("Chapter1 Å¬¸®¾î " + ScChapter1.Instance.CurrentSetp);
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Login);
         gameObject.SetActive(false);
     }
 }
