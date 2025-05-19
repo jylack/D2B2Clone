@@ -24,7 +24,11 @@
         SG01_SafetyLine,
         SG04_TrafficBlink,
         SG05_RedLightViolation,
-        SG06_Jaywalking
+        SG06_Jaywalking,
+        Sg06_BlindSpot,
+        Sg02_LookAround,
+        Sg03_HandUp,
+        Sg07_GsCarPrediction
     }
 
     public enum ScNickNameValidation

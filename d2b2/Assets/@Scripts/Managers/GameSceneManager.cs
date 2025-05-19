@@ -73,9 +73,10 @@ public class GameSceneManager : MonoBehaviour
 
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
-            ScDefine.ScScene.Ch2BlindSpot               => "BlindSpotExperienceGuide",
-            ScDefine.ScScene.LookAroundGuide               => "LookAroundGuide",
-            ScDefine.ScScene.HandUpGuide             => "HandUpGuide",
+            ScDefine.ScScene.Sg06_BlindSpot => "Sg06_BlindSpotExperience",
+            ScDefine.ScScene.Sg02_LookAround => "Sg02_LookAround",
+            ScDefine.ScScene.Sg03_HandUp => "Sg03_HandUp",
+            ScDefine.ScScene.Sg07_GsCarPrediction => "Sg07_CarPrediction",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",

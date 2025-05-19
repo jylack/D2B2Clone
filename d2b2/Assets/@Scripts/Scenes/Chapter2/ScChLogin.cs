@@ -1,12 +1,12 @@
-ï»¿using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UICh2Login : UIBase
+public class ScChLogin : MonoBehaviour
 {
-    //public void GoToPlay()
-    //{
-    //    base.LoadScene(ScDefine.ScScene.Ch2Play);
-    //}
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
     [SerializeField] private TMP_Text successText;
@@ -21,19 +21,19 @@ public class UICh2Login : UIBase
 
         if (validation == ScDefine.ScNickNameValidation.Empty)
         {
-            SetErrorMessage("ì…ë ¥ì¹¸ì´ ë¹„ì—ˆìŠµë‹ˆë‹¤");
+            SetErrorMessage("ÀÔ·ÂÄ­ÀÌ ºñ¾ú½À´Ï´Ù");
             return;
         }
 
         if (validation == ScDefine.ScNickNameValidation.LessThan2Char)
         {
-            SetErrorMessage("ì´ë¦„ì˜ ê¸¸ì´ê°€ 2ë³´ë‹¤ ì§§ìŠµë‹ˆë‹¤");
+            SetErrorMessage("ÀÌ¸§ÀÇ ±æÀÌ°¡ 2º¸´Ù Âª½À´Ï´Ù");
             return;
         }
 
         if (validation == ScDefine.ScNickNameValidation.IncompleteHangul)
         {
-            SetErrorMessage("í•œê¸€ë¡œë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”");
+            SetErrorMessage("ÇÑ±Û·Î¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä");
             return;
         }
         CheckName();
@@ -54,26 +54,21 @@ public class UICh2Login : UIBase
         if (check == true)
         {
             var temp = await Manager.Instance.DbMgr.Load(nameInput.text);
-            Manager.Instance.nickName = temp.nickName;
-            Debug.Log(temp.nickName);
-            return; 
-        }
-        else
-        {
-            SetErrorMessage("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤");
+            return;
         }
     }
 
     public void LoadSecondStage()
     {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch2Play);
+
     }
     public void LoadFirstStage()
     {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Play);
+
+
     }
     public void LoadThirdStage()
     {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch3Play);
+
     }
 }

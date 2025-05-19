@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 
 public class ScCh2Check : MonoBehaviour
@@ -14,13 +15,14 @@ public class ScCh2Check : MonoBehaviour
                 UIPlayerHsy.Instance.explanationUI.gameObject.SetActive(true);
                 UIPlayerHsy.Instance.explanationText.text = "LookAroundFail";
                 StartCoroutine(WaitExplanationMessage());
-                // 씬이동 - 고개 돌리기
             }
+            check.ExitMissionRegion();
         }
     }
     IEnumerator WaitExplanationMessage()
     {
         yield return new WaitForSeconds(2);
         UIPlayerHsy.Instance.explanationUI.gameObject.SetActive(false);
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
     }
 }

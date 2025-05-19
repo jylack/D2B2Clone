@@ -35,6 +35,7 @@ public class Manager : MonoBehaviour
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
     public SoundManager SoundMgr { get; private set; }
+    public string nickName { get; set; }
 
 
     
@@ -60,9 +61,6 @@ public class Manager : MonoBehaviour
             Debug.LogException(ex);
         }
     }
-    
-    
-    
     private TComp InitSubManager<TComp>() where TComp : Component
     {
         TComp comp = new GameObject(typeof(TComp).Name).AddComponent<TComp>();

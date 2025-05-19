@@ -23,25 +23,36 @@ public class ScHandUpRegion : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        inHandUpRegion = true;
-        handUpMissionClear = true;
-        inFirstHandUpRegion = true;
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            inHandUpRegion = true;
+            handUpMissionClear = true;
+            inFirstHandUpRegion = true;
             UIPlayerHsy.Instance.OnHandUpProgressUI();
             Manager.Instance.GameMgr.OnPlayerHandsUp += HandUpMission;
         }
     }
+    private void OnDestroy()
+    {
+        ExitHandUpRegion();
+    }
     private void OnTriggerExit(Collider other)
     {
-        inHandUpRegion = false;
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            inHandUpRegion = false;
             ExitHandUpRegion();
         }
         if (handUpMissionClear == true)
         {
             // 미션 성공 ui
+        }
+    }
+    public void StopCurrentCor()
+    {
+        if (handDownCor != null)
+        {
+            StopCoroutine(handDownCor);
         }
     }
     public void HandUpMission(bool leftHandUp, bool rightHandUp, float distance)
@@ -52,16 +63,13 @@ public class ScHandUpRegion : MonoBehaviour
             isLeftHandUp = leftHandUp;
             if (isLeftHandUp == false)
             {
-                Debug.Log("시작");
+                Debug.Log("손 내림");
                 handDownCor = StartCoroutine(HandDownCoolDown());
             }
             else
             {
-                Debug.Log("끝");
-                if (handDownCor != null)
-                {
-                    StopCoroutine(handDownCor);
-                }
+                Debug.Log("손 듬");
+                StopCurrentCor();
             }
             UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
         }
@@ -77,18 +85,17 @@ public class ScHandUpRegion : MonoBehaviour
         }
         // 미션 실패
         handUpMissionClear = false;
-        if (handUpMissionClear == false)
-        {
-            handUpFailEvent.Invoke();
-        }
+        ExitHandUpRegion();
+        handUpFailEvent.Invoke();
     }
     public void ExitHandUpRegion()
     {
+        StopCurrentCor();
         UIPlayerHsy.Instance.OffHandUpProgressUI();
         Manager.Instance.GameMgr.OnPlayerHandsUp -= HandUpMission;
     }
     public void ShowHandUpGuide()
     {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.HandUpGuide);
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg03_HandUp);
     }
 }

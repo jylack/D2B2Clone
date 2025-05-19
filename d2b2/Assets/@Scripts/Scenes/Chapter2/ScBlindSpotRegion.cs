@@ -14,11 +14,11 @@ public class ScBlindSpotRegion : MonoBehaviour
             if (dangerZoneType == DangerZoneType.BlindSpot)
             {
                 // 안전가이드
-                Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch2BlindSpot);
+                Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg06_BlindSpot);
             }
             else if (dangerZoneType == DangerZoneType.HeadLightCar)
             {
-                // 안전가이드
+                Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg07_GsCarPrediction);
             }
         }
     }

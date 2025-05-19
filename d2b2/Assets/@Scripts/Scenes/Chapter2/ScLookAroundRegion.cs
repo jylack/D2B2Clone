@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScLookAroundRegion : MonoBehaviour
@@ -31,6 +32,10 @@ public class ScLookAroundRegion : MonoBehaviour
         {
             ExitMissionRegion();
         }
+    }
+    private void OnDestroy()
+    {
+        ExitMissionRegion();
     }
     private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
     {
@@ -101,8 +106,11 @@ public class ScLookAroundRegion : MonoBehaviour
 
     private void OffAllUI()
     {
-        UIPlayerHsy.Instance.OffLookAroundLeftProgress();
-        UIPlayerHsy.Instance.OffLookAroundRightProgress();
+        if (UIPlayerHsy.Instance != null)
+        {
+            UIPlayerHsy.Instance.OffLookAroundLeftProgress();
+            UIPlayerHsy.Instance.OffLookAroundRightProgress();
+        }
     }
 
     public void ExitMissionRegion()
