@@ -15,6 +15,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
                 Debug.Log("checkbox");
                 ScRespawn.Instance.Respawn(false);
                 //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
+
             }
             else
             {

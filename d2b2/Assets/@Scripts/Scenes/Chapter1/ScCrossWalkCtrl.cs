@@ -61,8 +61,9 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 Manager.Instance.GameMgr.canMove = false;
                 ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
                 //temp.Init(ScChapter1.Instance.CurrentSetp);
-                Debug.Log("Blink");
+                //Debug.Log("Blink");
                 ScRespawn.Instance.Respawn(true);
+
                 //temp.Respawn(true);
 
                 //신호등 안전가이드 호출

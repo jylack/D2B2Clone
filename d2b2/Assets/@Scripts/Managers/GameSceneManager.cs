@@ -66,6 +66,10 @@ public class GameSceneManager : MonoBehaviour
 
             ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
+            ScDefine.ScScene.SG01_SafetyLine            => "SG01_SafetyLine",
+            ScDefine.ScScene.SG04_TrafficBlink          => "SG04_TrafficBlink",
+            ScDefine.ScScene.SG05_RedLightViolation     => "SG05_RedLightViolation",
+            ScDefine.ScScene.SG06_Jaywalking            => "SG06_Jaywalking",
 
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",

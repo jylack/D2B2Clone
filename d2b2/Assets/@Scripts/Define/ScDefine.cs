@@ -20,7 +20,11 @@
         Ch3Room,
         Ch3Play,
         LookAroundGuide,
-        HandUpGuide
+        HandUpGuide,
+        SG01_SafetyLine,
+        SG04_TrafficBlink,
+        SG05_RedLightViolation,
+        SG06_Jaywalking
     }
 
     public enum ScNickNameValidation
