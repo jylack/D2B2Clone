@@ -19,6 +19,8 @@
         Ch3Login,
         Ch3Room,
         Ch3Play,
+        LookAroundGuide,
+        HandUpGuide
     }
 
     public enum ScNickNameValidation

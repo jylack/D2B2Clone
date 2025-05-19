@@ -70,6 +70,8 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
             ScDefine.ScScene.Ch2BlindSpot               => "BlindSpotExperienceGuide",
+            ScDefine.ScScene.LookAroundGuide               => "LookAroundGuide",
+            ScDefine.ScScene.HandUpGuide             => "HandUpGuide",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",

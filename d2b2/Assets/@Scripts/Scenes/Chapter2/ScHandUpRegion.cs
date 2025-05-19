@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun.Demo.PunBasics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ScHandUpRegion : MonoBehaviour
@@ -12,7 +12,8 @@ public class ScHandUpRegion : MonoBehaviour
     public bool isLeftHandUp { get; private set; }
     private Coroutine handDownCor;
     [SerializeField] private float handDownTime;
-    private bool inFirstHandUpResion;
+    [SerializeField] private UnityEvent handUpFailEvent;
+    private bool inFirstHandUpRegion;
     public bool inHandUpRegion { get; private set; }
 
     private void Start()
@@ -24,7 +25,7 @@ public class ScHandUpRegion : MonoBehaviour
     {
         inHandUpRegion = true;
         handUpMissionClear = true;
-        inFirstHandUpResion = true;
+        inFirstHandUpRegion = true;
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             UIPlayerHsy.Instance.OnHandUpProgressUI();
@@ -45,9 +46,9 @@ public class ScHandUpRegion : MonoBehaviour
     }
     public void HandUpMission(bool leftHandUp, bool rightHandUp, float distance)
     {
-        if (leftHandUp != isLeftHandUp || inFirstHandUpResion == true)
+        if (leftHandUp != isLeftHandUp || inFirstHandUpRegion == true)
         {
-            inFirstHandUpResion = false;
+            inFirstHandUpRegion = false;
             isLeftHandUp = leftHandUp;
             if (isLeftHandUp == false)
             {
@@ -75,13 +76,19 @@ public class ScHandUpRegion : MonoBehaviour
             yield return null; 
         }
         // 미션 실패
-        Debug.Log("_____________ : " + handUpMissionClear);
         handUpMissionClear = false;
+        if (handUpMissionClear == false)
+        {
+            handUpFailEvent.Invoke();
+        }
     }
     public void ExitHandUpRegion()
     {
         UIPlayerHsy.Instance.OffHandUpProgressUI();
         Manager.Instance.GameMgr.OnPlayerHandsUp -= HandUpMission;
-        
+    }
+    public void ShowHandUpGuide()
+    {
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.HandUpGuide);
     }
 }
