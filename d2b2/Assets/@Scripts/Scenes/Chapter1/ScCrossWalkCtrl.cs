@@ -40,6 +40,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 //안전가이드 좌우확인 호출할예정
                 ScRespawn.Instance.Respawn(false);
                 //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
+                Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
             }
         }
     }
@@ -69,14 +70,14 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 //신호등 안전가이드 호출
                 if(isBlink)
                 {
-                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     Debug.Log("Blink");
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     return;
                 }
                 if (isColorRed)
                 {
-                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
                     Debug.Log("Red");
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
                     return;
                 }
                 
@@ -111,7 +112,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
             Debug.Log("Time");
             //temp.Respawn(true);
             ScRespawn.Instance.Respawn(true);
-            //Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.HandUpGuide);
+            //이동 중간에 멈춤
+            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
             coroutine = null;
             yield break;
         }

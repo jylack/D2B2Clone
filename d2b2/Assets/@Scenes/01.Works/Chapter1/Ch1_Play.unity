@@ -2198,6 +2198,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrafficLightSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 68565469203473060, guid: 4c7c50d314853ee41a88dd921b369497,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 68565469203473062, guid: 4c7c50d314853ee41a88dd921b369497,
         type: 3}
       propertyPath: m_RootOrder
@@ -2379,7 +2384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: e0342efa40751e44f9765ccb8fb92dab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0010003448
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: e0342efa40751e44f9765ccb8fb92dab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5539,6 +5544,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SafetyLIne 2-1
       objectReference: {fileID: 0}
+    - target: {fileID: 4528040932091462782, guid: 5489c1dacb2a8a04f867b1eeefc6edb4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5489c1dacb2a8a04f867b1eeefc6edb4, type: 3}
 --- !u!4 &1732570204 stripped
@@ -5572,7 +5582,7 @@ PrefabInstance:
     - target: {fileID: 2564262196026792248, guid: e3f32536d7b28e441b8120ee834136a6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 2564262196026792248, guid: e3f32536d7b28e441b8120ee834136a6,
         type: 3}
@@ -5619,10 +5629,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2564262196026792254, guid: e3f32536d7b28e441b8120ee834136a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2564262196026792255, guid: e3f32536d7b28e441b8120ee834136a6,
         type: 3}
       propertyPath: distance
       value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564262196026792255, guid: e3f32536d7b28e441b8120ee834136a6,
+        type: 3}
+      propertyPath: startDelay
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2564262196026792255, guid: e3f32536d7b28e441b8120ee834136a6,
         type: 3}
@@ -5633,6 +5653,16 @@ PrefabInstance:
         type: 3}
       propertyPath: direction.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564262196026792255, guid: e3f32536d7b28e441b8120ee834136a6,
+        type: 3}
+      propertyPath: showGizmoLine
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564262196026792255, guid: e3f32536d7b28e441b8120ee834136a6,
+        type: 3}
+      propertyPath: minSpawnIntervalTime
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 2564262196026792255, guid: e3f32536d7b28e441b8120ee834136a6,
         type: 3}
