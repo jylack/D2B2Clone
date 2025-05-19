@@ -67,6 +67,19 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 //temp.Respawn(true);
 
                 //신호등 안전가이드 호출
+                if(isBlink)
+                {
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
+                    Debug.Log("Blink");
+                    return;
+                }
+                if (isColorRed)
+                {
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
+                    Debug.Log("Red");
+                    return;
+                }
+                
             }
 
             if (isWalk == false || Hand.isLeftHandUp == false)
@@ -98,6 +111,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             Debug.Log("Time");
             //temp.Respawn(true);
             ScRespawn.Instance.Respawn(true);
+            //Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.HandUpGuide);
             coroutine = null;
             yield break;
         }

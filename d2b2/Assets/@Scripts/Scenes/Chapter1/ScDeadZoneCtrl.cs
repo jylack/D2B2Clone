@@ -18,6 +18,7 @@ public class ScDeadZoneCtrl : MonoBehaviour
             //안전가이드 무단횡단
             //other.gameObject.GetComponent<ScRespawn>().Respawn(true); 
             ScRespawn.Instance.Respawn(true);
+            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
         }
     }
 }

@@ -1,3 +1,4 @@
+using FIMSpace.FTools;
 using System.Collections;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
                 Debug.Log("checkbox");
                 ScRespawn.Instance.Respawn(false);
                 //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
-
+                //Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.LookAroundGuide);
             }
             else
             {
