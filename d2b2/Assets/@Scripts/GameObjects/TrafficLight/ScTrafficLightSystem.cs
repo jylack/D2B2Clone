@@ -41,6 +41,16 @@ public class ScTrafficLightSystem : ScObjectBase
     //     Gizmos.DrawWireCube(transform.position, AreaSize);
     // }
 
+    public void OnCrosswalkEnter()
+    {
+        print("OnCrosswalkEnter");
+    }
+
+    public void OnCrosswalkExited()
+    {
+        print("OnCrosswalkExited");
+    }
+
 
 
     private async UniTask Run()

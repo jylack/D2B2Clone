@@ -2517,6 +2517,18 @@ PrefabInstance:
       objectReference: {fileID: 573905332}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c7c50d314853ee41a88dd921b369497, type: 3}
+--- !u!114 &506501543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 68565469203473113, guid: 4c7c50d314853ee41a88dd921b369497,
+    type: 3}
+  m_PrefabInstance: {fileID: 506501542}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6e367775a5f3994aafa44c61ab6b2d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &573905330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9773,6 +9785,76 @@ PrefabInstance:
       propertyPath: rightLaneCollider
       value: 
       objectReference: {fileID: 2099764893}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 506501543}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 506501543}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCrosswalkExited
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCrosswalkEnter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScTrafficLightSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScTrafficLightSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287275915317921523, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: OnCrosswalkEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
 --- !u!4 &2099764891 stripped
