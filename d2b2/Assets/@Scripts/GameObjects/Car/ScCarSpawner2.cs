@@ -16,8 +16,9 @@ public class ScCarSpawner2 : ScObjectBase
     [SerializeField] private bool showGizmoLine = true;
     [SerializeField] private float distance = 10f;
     [SerializeField] private Vector3 direction;
+    [SerializeField] private GameObject[] ignoreGameObjects;
     [SerializeField] private GameObject[] carPrefabs;
-
+    
 
 
     private async void Start()
@@ -95,6 +96,6 @@ public class ScCarSpawner2 : ScObjectBase
 
         Instantiate(carPrefab, transform)
             .GetComponent<ScCar>()
-            .Init(moveSpeed, direction, distance);
+            .Init(moveSpeed, direction, distance, ignoreGameObjects);
     }
 }
