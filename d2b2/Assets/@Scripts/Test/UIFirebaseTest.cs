@@ -13,10 +13,10 @@ public class UIFirebaseTest : MonoBehaviour
 
 
     
-    private void Start()
-    {
-        inputField.onValidateInput += OnValidateInput;
-    }
+    //private void Start()
+    //{
+    //    inputField.onValidateInput += OnValidateInput;
+    //}
 
     
     
@@ -99,11 +99,11 @@ public class UIFirebaseTest : MonoBehaviour
 
 
 
-    private char OnValidateInput(string text, int charIndex, char addedChar)
-    {
-        if (char.IsWhiteSpace(addedChar))
-            return '\0';
+    //private char OnValidateInput(string text, int charIndex, char addedChar)
+    //{
+    //    if (char.IsWhiteSpace(addedChar))
+    //        return '\0';
 
-        return addedChar;
-    }
+    //    return addedChar;
+    //}
 }

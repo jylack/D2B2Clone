@@ -51,50 +51,50 @@ public class ScCharacter : MonoBehaviour
 
 
     // 테스트 코드 ===========================================================================
-    private void Start()
-    {
-        Run().Forget();
-    }
+    //private void Start()
+    //{
+    //    Run().Forget();
+    //}
 
-    private async UniTask Run()
-    {
-        try
-        {
-            //const int max = 5;
-            //int flag = 0;
+    //private async UniTask Run()
+    //{
+    //    try
+    //    {
+    //        //const int max = 5;
+    //        //int flag = 0;
 
-            //while (true)
-            //{
-            //    SetAnimation((ScDefine.ScNpcAnimState)flag);
+    //        //while (true)
+    //        //{
+    //        //    SetAnimation((ScDefine.ScNpcAnimState)flag);
 
-            //    if (flag == 3)
-            //        await UniTask.Delay(5000);
-            //    else
-            //        await UniTask.Delay(3000);
+    //        //    if (flag == 3)
+    //        //        await UniTask.Delay(5000);
+    //        //    else
+    //        //        await UniTask.Delay(3000);
 
-            //    flag = ++flag % max;
-            //}
+    //        //    flag = ++flag % max;
+    //        //}
 
-            int handSide = 0;
-            SetAnimation(ScDefine.ScNpcAnimState.Walking);
+    //        int handSide = 0;
+    //        SetAnimation(ScDefine.ScNpcAnimState.Walking);
 
-            while (true)
-            {
-                print(handSide);
-                SetRaiseHandAnimation((ScDefine.ScHandSide)handSide);
-                handSide = ++handSide % 3;
+    //        while (true)
+    //        {
+    //            print(handSide);
+    //            SetRaiseHandAnimation((ScDefine.ScHandSide)handSide);
+    //            handSide = ++handSide % 3;
                 
-                await UniTask.Delay(3000);
-            }
-        }
-        catch (OperationCanceledException ex)
-        {
-            Debug.Log(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogException(ex);
-        }
-    }
+    //            await UniTask.Delay(3000);
+    //        }
+    //    }
+    //    catch (OperationCanceledException ex)
+    //    {
+    //        Debug.Log(ex.Message);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogException(ex);
+    //    }
+    //}
     // 테스트 코드 ===========================================================================
 }
