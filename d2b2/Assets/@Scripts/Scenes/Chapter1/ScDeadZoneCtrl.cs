@@ -12,7 +12,7 @@ public class ScDeadZoneCtrl : MonoBehaviour
         {
             Manager.Instance.GameMgr.canMove = false;
 
-            Debug.Log("DeadZone-Sg05_Jaywalking");
+            //Debug.Log("DeadZone-Sg05_Jaywalking");
             ScRespawn.Instance.Respawn(true);
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
         }

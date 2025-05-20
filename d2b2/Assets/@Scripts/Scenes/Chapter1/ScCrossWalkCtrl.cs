@@ -35,7 +35,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
         {
             if (ScChapter1.Instance.lookAroundMissionClear == false)
             {
-                Debug.Log("CrossWNoLook-Sg02_LookAround");
+                //Debug.Log("CrossWNoLook-Sg02_LookAround");
                 ScRespawn.Instance.Respawn(false);
                 //other.gameObject.GetComponent<ScRespawn>().Respawn(false);
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
@@ -66,13 +66,13 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
                 if(isBlink)
                 {
-                    Debug.Log("Blink-Sg04_TrafficBlink");
+                    //Debug.Log("Blink-Sg04_TrafficBlink");
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     return;
                 }
                 if (isColorRed)
                 {
-                    Debug.Log("Red-Sg05_Jaywalking");
+                    //Debug.Log("Red-Sg05_Jaywalking");
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
                     return;
                 }
@@ -103,7 +103,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
             ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
-            Debug.Log("TimeLimit-Sg05_Jaywalking");
+            //Debug.Log("TimeLimit-Sg05_Jaywalking");
             ScRespawn.Instance.Respawn(true);
             //¿Ãµø ¡ﬂ∞£ø° ∏ÿ√„
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
@@ -119,7 +119,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     private void OnLeftStickMove(bool isStick)
     {
-        Debug.Log("Stick Moving : " + isStick);
+        //Debug.Log("Stick Moving : " + isStick);
         isWalk = isStick;
     }
 
