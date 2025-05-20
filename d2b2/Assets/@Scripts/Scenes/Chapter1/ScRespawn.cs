@@ -33,7 +33,7 @@ public class ScRespawn : MonoBehaviour
         _currentStep = ScChapter1.CurrentSetp;
 
         Init(_currentStep);
-        Respawn(false);
+        Respawn();
     }
 
 
@@ -54,7 +54,7 @@ public class ScRespawn : MonoBehaviour
         };
     }
 
-    public void Respawn(bool moveScene)
+    public void Respawn()
     {
         Player.CharacterController.enabled = false;
         //player

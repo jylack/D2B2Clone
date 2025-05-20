@@ -35,7 +35,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
         {
             if (ScChapter1.Instance.lookAroundMissionClear == false)
             {
-                ScRespawn.Instance.Respawn(false);
+                ScRespawn.Instance.Respawn();
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
             }
         }
@@ -52,7 +52,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             if(isColorRed || isBlink)
             {
                 ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
-                ScRespawn.Instance.Respawn(true);
+                ScRespawn.Instance.Respawn();
 
                 if(isBlink)
                 {
@@ -92,7 +92,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             //Debug.Log("Hand.isLeftHandUp : " + Hand.isLeftHandUp);
             var temp = other.gameObject.GetComponent<ScRespawn>();
             ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
-            ScRespawn.Instance.Respawn(true);
+            ScRespawn.Instance.Respawn();
             //¿Ãµø ¡ﬂ∞£ø° ∏ÿ√„
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
             coroutine = null;
@@ -119,6 +119,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     public void OnBlink()
     {
         isBlink = true;
+        Debug.Log("OnBlink");   
     }
 
     public void OnGrean()
