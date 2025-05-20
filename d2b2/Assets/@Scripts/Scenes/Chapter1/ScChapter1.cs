@@ -2,10 +2,10 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 
-public static class Ch1_Step
-{
-    public static int CurrentSetp = 0;
-}
+//public static class Ch1_Step
+//{
+//    public static int CurrentSetp = 0;
+//}
 
 public class ScChapter1 : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class ScChapter1 : MonoBehaviour
     [SerializeField] private ScChapter1_NpcMoveController npc;
 
     public static ScChapter1 Instance => instance;
-
+    public static int CurrentSetp = 0;
     //public int CurrentSetp { get; private set; } = 0;
     //public ScNpcCtrl Npc => npc;
 
@@ -47,9 +47,9 @@ public class ScChapter1 : MonoBehaviour
 
     public async UniTask NextStep()
     {
-        Ch1_Step.CurrentSetp++;
+        CurrentSetp++;
 
-        if (Ch1_Step.CurrentSetp < arrowImg.Length)
+        if (CurrentSetp < arrowImg.Length)
         {
             await ArrowImageView();
         }
@@ -58,26 +58,13 @@ public class ScChapter1 : MonoBehaviour
 
     private async UniTask ArrowImageView()
     {
-        arrowImg[Ch1_Step.CurrentSetp].SetActive(true);
-        Manager.Instance.GameMgr.canMove = false;
+        arrowImg[CurrentSetp].SetActive(true);
+        
 
         await UniTask.Delay(ImgViewTime);
 
-        arrowImg[Ch1_Step.CurrentSetp].SetActive(false);
-        Manager.Instance.GameMgr.canMove = true;
+        arrowImg[CurrentSetp].SetActive(false);
+        
     }
-
-    //private IEnumerator ImgStart()
-    //{
-    //    arrowImg[CurrentSetp].SetActive(true);
-    //    Manager.Instance.GameMgr.canMove = false;
-
-    //    yield return new WaitForSeconds(ImgViewTime);
-
-    //    arrowImg[CurrentSetp].SetActive(false);
-    //    Manager.Instance.GameMgr.canMove = true;
-
-    //}
-
 
 }

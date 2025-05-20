@@ -60,7 +60,7 @@ public class UIChLogin : UIBase
 
             if (nextSceneType == ScDefine.ScScene.Ch1Play)
             {
-                Ch1_Step.CurrentSetp = 0;
+                ScChapter1.CurrentSetp = 0;
             }
 
             base.LoadScene(nextSceneType);
