@@ -1,5 +1,3 @@
-using Cysharp.Threading.Tasks.Triggers;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScStepClear : MonoBehaviour
@@ -18,8 +16,7 @@ public class ScStepClear : MonoBehaviour
                 return;
             }
 
-            ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);            
-            //other.gameObject.GetComponent<ScRespawn>().NextPos(ScChapter1.Instance.CurrentSetp);
+            ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
             Debug.Log("¥Ÿ¿ΩΩ∫≈‹¿∏∑Œ ≥—æÓ∞¨¿Ω." + ScChapter1.Instance.CurrentSetp);
             gameObject.SetActive(false);
         }
