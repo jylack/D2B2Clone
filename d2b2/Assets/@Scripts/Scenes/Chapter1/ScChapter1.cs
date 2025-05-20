@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 
@@ -49,6 +50,16 @@ public class ScChapter1 : MonoBehaviour
         {
             StartCoroutine(ImgStart());
         }
+
+    }
+
+    private async UniTask ArrowImageView()
+    {
+        arrowImg[CurrentSetp].SetActive(true);
+        Manager.Instance.GameMgr.canMove = false;
+        await UniTask.Delay((int)(ImgViewTime * 1000));
+        arrowImg[CurrentSetp].SetActive(false);
+        Manager.Instance.GameMgr.canMove = true;
     }
 
     private IEnumerator ImgStart()
