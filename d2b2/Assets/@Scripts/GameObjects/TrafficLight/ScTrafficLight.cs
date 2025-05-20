@@ -10,7 +10,8 @@ public class ScTrafficLight : MonoBehaviour
     [SerializeField] private UnityEvent onGreenLightActivatedBefore;
     [SerializeField] private UnityEvent onGreenLightActivated;
     [SerializeField] private UnityEvent onRedLightActivated;
-    
+    [SerializeField] private UnityEvent onBeginGreenLightBlink;
+
     private Material redOffMaterial;
     private Material greenOffMaterial;
     private ScDefine.ScTrafficLightType lightType;
@@ -65,5 +66,10 @@ public class ScTrafficLight : MonoBehaviour
             lightType = ScDefine.ScTrafficLightType.Green;
             greenMeshRenderer.material = greenOnMaterial;
         }
+    }
+
+    public void StartGreenLightBlink()
+    {
+        onBeginGreenLightBlink?.Invoke();
     }
 }
