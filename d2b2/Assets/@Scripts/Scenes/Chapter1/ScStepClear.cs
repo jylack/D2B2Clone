@@ -1,15 +1,16 @@
 using Cysharp.Threading.Tasks.Triggers;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScStepClear : MonoBehaviour
 {
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             //ScChapter1.Instance.CurrentSetp++;
-            ScChapter1.Instance.NextStep();
+            await ScChapter1.Instance.NextStep();
 
             if (ScChapter1.Instance.CurrentSetp >= ScRespawn.Instance.SpawnCount)
             {
