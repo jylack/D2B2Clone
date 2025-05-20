@@ -1,10 +1,8 @@
-﻿using Unity.XR.CoreUtils;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScPlayer : ScObjectBase
 {
-    //[SerializeField] private XROrigin xrOrigin;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
     [Header("move")]
@@ -19,6 +17,7 @@ public class ScPlayer : ScObjectBase
     [SerializeField] private float maxHandHeight;
 
     public CharacterController CharacterController => characterController;
+
     private AudioSource audioSource;
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
     private bool isLeftHandUp;
@@ -50,7 +49,6 @@ public class ScPlayer : ScObjectBase
     private void Start()
     {
         Manager.Instance.GameMgr.SetPlayer(this);
-        //ResetCamera();
     }
 
     private void Update()
@@ -167,23 +165,6 @@ public class ScPlayer : ScObjectBase
 
         isMoving = true;
 
-    }
-
-    public void ResetCamera()
-    {
-        // HMD의 초기 로컬 포지션과 회전 가져오기
-        //if (xrOrigin.Camera != null)
-        //{
-        //    //Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
-        //    //Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
-
-        //    // 카메라가 위치한 지점 기준으로 XR Origin을 반대로 이동시켜 중앙 정렬
-        //    xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
-        //}
-
-        // 또는 HMD 위치를 기준으로 강제로 위치를 조정하고 싶다면:
-        //xrOrigin.transform.position = Vector3.zero;
-        //xrOrigin.transform.rotation = Quaternion.identity;
     }
 
     // event
