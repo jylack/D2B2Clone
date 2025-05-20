@@ -10,12 +10,9 @@ public class UICh2Login : UIBase
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
     [SerializeField] private TMP_Text successText;
+    [SerializeField] private ScDefine.ScScene nextSceneType;
 
-    public void ClickLoginBtn()
-    {
-
-    }
-    public void CheckNameValid()
+    public void OnClickLoginButton()
     {
         ScDefine.ScNickNameValidation validation = ScUtils.CheckNickNameValidation(nameInput.text);
 
@@ -36,44 +33,31 @@ public class UICh2Login : UIBase
             SetErrorMessage("한글로만 입력해주세요");
             return;
         }
-        CheckName();
+        LoadNicknameData();
     }
     private void SetErrorMessage(string msg)
     {
         successText.text = "";
-        errorText.text = msg;
+        errorText.text = "faild : " +  msg;
     }
     private void SetSuccessMessage(string msg)
     {
         errorText.text = "";
-        successText.text = msg;
+        successText.text = "success : " +  msg  + " 님";
     }
-    private async void CheckName()
+    private async void LoadNicknameData()
     {
-        bool check = await Manager.Instance.DbMgr.CheckNickNameExist(nameInput.text);
-        if (check == true)
+        var temp = await Manager.Instance.DbMgr.Load(nameInput.text);
+        if (temp == null)
         {
-            var temp = await Manager.Instance.DbMgr.Load(nameInput.text);
-            Manager.Instance.nickName = temp.nickName;
-            Debug.Log(temp.nickName);
-            return; 
+            SetErrorMessage("존재하지 않는 아이디입니다");
+            return;
         }
         else
         {
-            SetErrorMessage("존재하지 않는 아이디입니다");
+            Manager.Instance.NickName = temp.nickName;
+            SetSuccessMessage(temp.nickName);
+            base.LoadScene(nextSceneType);
         }
-    }
-
-    public void LoadSecondStage()
-    {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch2Play);
-    }
-    public void LoadFirstStage()
-    {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Play);
-    }
-    public void LoadThirdStage()
-    {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch3Play);
     }
 }

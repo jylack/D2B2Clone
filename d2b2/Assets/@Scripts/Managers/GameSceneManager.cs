@@ -68,7 +68,7 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
             
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
-            ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
+            ScDefine.ScScene.Ch2Play                    => "SecondStage",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",

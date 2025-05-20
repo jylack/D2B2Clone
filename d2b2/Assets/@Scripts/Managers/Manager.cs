@@ -35,7 +35,7 @@ public class Manager : MonoBehaviour
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
     public SoundManager SoundMgr { get; private set; }
-    public string nickName { get; set; }
+    [SerializeField] public string NickName { get; set; }
 
 
     
