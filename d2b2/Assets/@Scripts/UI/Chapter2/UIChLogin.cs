@@ -55,7 +55,7 @@ public class UIChLogin : UIBase
         }
         else
         {
-            Manager.Instance.NickName = temp.nickName;
+            Manager.Instance.GameMgr.SetNickname(temp.nickName);
             SetSuccessMessage(temp.nickName);
 
             if (nextSceneType == ScDefine.ScScene.Ch1Play)

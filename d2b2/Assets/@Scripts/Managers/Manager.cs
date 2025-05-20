@@ -35,8 +35,7 @@ public class Manager : MonoBehaviour
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
     public SoundManager SoundMgr { get; private set; }
-    [SerializeField] public string NickName { get; set; }
-
+    
 
     
     private async void Awake()
