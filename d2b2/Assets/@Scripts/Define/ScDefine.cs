@@ -45,13 +45,6 @@
         Left,
         Right
     }
-
-    public enum ScHandSide
-    {
-        None = 0,
-        Left,
-        Right
-    }
     
     public enum ScGuideCharacter
     {
