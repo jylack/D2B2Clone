@@ -1,12 +1,14 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScChapter1 : MonoBehaviour
 {
     private static ScChapter1 instance;
     [SerializeField] private GameObject[] arrowImg;
-    [SerializeField] private float ImgViewTime = 2f;
+    //[SerializeField] private float ImgViewTime = 2f;
+    [SerializeField] private int ImgViewTime = 2000;
     //[SerializeField] private ScTrafficCtrl[] traffic;
     [SerializeField] private ScChapter1_NpcMoveController npc;
 
@@ -23,10 +25,12 @@ public class ScChapter1 : MonoBehaviour
             instance = this;
     }
 
-    private void Start()
+    private async void Start()
     {
         CurrentSetp = 0;
-        StartCoroutine(ImgStart());
+        //StartCoroutine(ImgStart());
+
+        await ArrowImageView();
     }
 
     public void NpcCheck()
@@ -42,13 +46,14 @@ public class ScChapter1 : MonoBehaviour
         }
     }
 
-    public void NextStep()
+    public async UniTask NextStep()
     {
         CurrentSetp++;
 
         if (CurrentSetp < arrowImg.Length)
         {
-            StartCoroutine(ImgStart());
+            //StartCoroutine(ImgStart());
+            await ArrowImageView();
         }
 
     }
@@ -57,22 +62,24 @@ public class ScChapter1 : MonoBehaviour
     {
         arrowImg[CurrentSetp].SetActive(true);
         Manager.Instance.GameMgr.canMove = false;
-        await UniTask.Delay((int)(ImgViewTime * 1000));
+
+        await UniTask.Delay(ImgViewTime);
+
         arrowImg[CurrentSetp].SetActive(false);
         Manager.Instance.GameMgr.canMove = true;
     }
 
-    private IEnumerator ImgStart()
-    {
-        arrowImg[CurrentSetp].SetActive(true);
-        Manager.Instance.GameMgr.canMove = false;
+    //private IEnumerator ImgStart()
+    //{
+    //    arrowImg[CurrentSetp].SetActive(true);
+    //    Manager.Instance.GameMgr.canMove = false;
 
-        yield return new WaitForSeconds(ImgViewTime);
+    //    yield return new WaitForSeconds(ImgViewTime);
 
-        arrowImg[CurrentSetp].SetActive(false);
-        Manager.Instance.GameMgr.canMove = true;
+    //    arrowImg[CurrentSetp].SetActive(false);
+    //    Manager.Instance.GameMgr.canMove = true;
 
-    }
+    //}
 
 
 }
