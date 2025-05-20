@@ -13,13 +13,13 @@ public class ScLookAroundRegion : MonoBehaviour
 
     private void Start()
     {
-        lookAroundMissionClear =false;
         missionFaildMessage = "고개 돌리기 미션 실패";
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            lookAroundMissionClear = false;
             checkLookLeft = false;
             checkLookRight = false;
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;

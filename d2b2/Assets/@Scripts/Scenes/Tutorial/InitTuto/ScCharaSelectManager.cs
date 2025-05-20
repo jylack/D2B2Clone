@@ -8,6 +8,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class ScCharaSelectManager : MonoBehaviour
 {
     [SerializeField] GameObject ConfirmPopUp;
+    [SerializeField] string sceneName;
     ScTutCharacter hover;
     ScTutCharacter selectCharacter;
 
@@ -69,7 +70,7 @@ public class ScCharaSelectManager : MonoBehaviour
         TutorialManager.Instance.playerEntity.guideCharacter = selectCharacter.GetCharaId();
         Manager.Instance.DbMgr.Save(TutorialManager.Instance.playerEntity.nickName, TutorialManager.Instance.playerEntity).Forget();
         ConfirmPopUp.SetActive(false);
-        Manager.Instance.SceneMgr.LoadScene("MoveTutorial");
+        Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 
     public void CancelSelect()

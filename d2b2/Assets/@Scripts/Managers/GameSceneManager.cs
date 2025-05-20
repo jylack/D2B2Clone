@@ -60,15 +60,15 @@ public class GameSceneManager : MonoBehaviour
         return scene switch
         {
             ScDefine.ScScene.InitSettings               => "InitSettings",
-            ScDefine.ScScene.TutorialPlayerSettings     => "Tut_PlayerSettings",
-            ScDefine.ScScene.TutorialCharacterSelection => "Tut_CharacterSelection",
-            ScDefine.ScScene.TutorialPlay               => "Tut_Play",
+            ScDefine.ScScene.TutorialInitial            => "Tut_Init",
+            ScDefine.ScScene.TutorialMove               => "Tut_Move",
+            ScDefine.ScScene.TutorialCrosswalk          => "Tut_Cross",
 
             ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
             
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
-            ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
+            ScDefine.ScScene.Ch2Play                    => "SecondStage",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Room",

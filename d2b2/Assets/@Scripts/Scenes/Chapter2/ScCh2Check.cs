@@ -16,6 +16,10 @@ public class ScCh2Check : MonoBehaviour
                 UIPlayerHsy.Instance.explanationText.text = "LookAroundFail";
                 StartCoroutine(WaitExplanationMessage());
             }
+            else
+            {
+                check.gameObject.SetActive(false);
+            }
             check.ExitMissionRegion();
         }
     }

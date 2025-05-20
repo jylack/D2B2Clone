@@ -4,7 +4,7 @@ public class UIInitSettings : UIBase
 {
     public void GoToTutorial()
     {
-        base.LoadScene(ScDefine.ScScene.TutorialPlayerSettings);
+        base.LoadScene(ScDefine.ScScene.TutorialInitial);
     }
     
     public void GoToChapter1()
