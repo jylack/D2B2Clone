@@ -180,8 +180,8 @@ public class ScPlayer : ScObjectBase
         }
 
         // 또는 HMD 위치를 기준으로 강제로 위치를 조정하고 싶다면:
-        xrOrigin.transform.position = Vector3.zero;
-        xrOrigin.transform.rotation = Quaternion.identity;
+        //xrOrigin.transform.position = Vector3.zero;
+        //xrOrigin.transform.rotation = Quaternion.identity;
     }
 
     // event
