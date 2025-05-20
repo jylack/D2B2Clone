@@ -10,6 +10,7 @@ public class MoveTutorialManager : MonoBehaviour
     [SerializeField] GameObject walkObjs;
     [SerializeField] GameObject lookAroundObjs;
     [SerializeField] ScLookAroundRegion lookAround;
+    [SerializeField] string sceneName;
     void Start()
     {
         guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
@@ -24,7 +25,7 @@ public class MoveTutorialManager : MonoBehaviour
 
     public void LookAroundSuccess()
     {
-        Manager.Instance.SceneMgr.LoadScene("CrosswalkTutorial");
+        Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 
     private async UniTaskVoid CheckLookAroundComplete()

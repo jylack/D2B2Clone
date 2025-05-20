@@ -8,9 +8,9 @@
     public enum ScScene
     {
         InitSettings = 0,
-        TutorialPlayerSettings,
-        TutorialCharacterSelection,
-        TutorialPlay,
+        TutorialInitial,
+        TutorialMove,
+        TutorialCrosswalk,
         Ch1Login,
         Ch1Play,        
         Ch2Login,
