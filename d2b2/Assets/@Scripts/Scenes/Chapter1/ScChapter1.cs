@@ -1,6 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScChapter1 : MonoBehaviour
@@ -14,7 +12,7 @@ public class ScChapter1 : MonoBehaviour
 
     public static ScChapter1 Instance => instance;
 
-    public int CurrentSetp { get; private set; }
+    public int CurrentSetp { get; private set; } = 0;
     //public ScNpcCtrl Npc => npc;
 
     public bool lookAroundMissionClear = false;
@@ -27,9 +25,8 @@ public class ScChapter1 : MonoBehaviour
 
     private async void Start()
     {
-        CurrentSetp = 0;
         //StartCoroutine(ImgStart());
-
+        Debug.Log(CurrentSetp);
         await ArrowImageView();
     }
 
@@ -39,10 +36,7 @@ public class ScChapter1 : MonoBehaviour
 
         if (npc.gameObject.activeSelf == false)
         {
-            //if (traffic[0].CurrentColor == TrafficLightColor.Green)
-            //{
-                npc.gameObject.SetActive(true);
-            //}
+            npc.gameObject.SetActive(true);
         }
     }
 
