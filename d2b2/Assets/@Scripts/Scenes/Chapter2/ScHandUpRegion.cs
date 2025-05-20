@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class ScHandUpRegion : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
     public bool handUpMissionClear { get; private set; }
     public bool isLeftHandUp { get; private set; }
     private Coroutine handDownCor;
@@ -45,7 +44,6 @@ public class ScHandUpRegion : MonoBehaviour
         }
         if (handUpMissionClear == true)
         {
-            // �̼� ���� ui
         }
     }
     public void StopCurrentCor()
@@ -63,12 +61,10 @@ public class ScHandUpRegion : MonoBehaviour
             isLeftHandUp = leftHandUp;
             if (isLeftHandUp == false)
             {
-                Debug.Log("�� ����");
                 handDownCor = StartCoroutine(HandDownCoolDown());
             }
             else
             {
-                Debug.Log("�� ��");
                 StopCurrentCor();
             }
             UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
@@ -83,15 +79,16 @@ public class ScHandUpRegion : MonoBehaviour
             timer += Time.deltaTime;
             yield return null; 
         }
-        // �̼� ����
         handUpMissionClear = false;
-        ExitHandUpRegion();
         handUpFailEvent.Invoke();
     }
     public void ExitHandUpRegion()
     {
         StopCurrentCor();
-        UIPlayerHsy.Instance.OffHandUpProgressUI();
+        if (UIPlayerHsy.Instance != null)
+        {
+            UIPlayerHsy.Instance.OffHandUpProgressUI();
+        }
         Manager.Instance.GameMgr.OnPlayerHandsUp -= HandUpMission;
     }
     public void ShowHandUpGuide()

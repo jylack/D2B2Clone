@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ScCar : ScObjectBase
@@ -12,6 +13,7 @@ public class ScCar : ScObjectBase
     private Rigidbody rb;
     private Vector3 originPosition;
     private float destinationDistance;
+    private HashSet<GameObject> ignoreGameObjects;
 
 
 
@@ -44,6 +46,9 @@ public class ScCar : ScObjectBase
                 if (hitInfo.collider.gameObject == gameObject)
                     continue;
 
+                if (ignoreGameObjects?.Contains(hitInfo.collider.gameObject) ?? false)
+                    continue;
+
                 rb.velocity = Vector3.zero;
                 return;
             }
@@ -66,11 +71,14 @@ public class ScCar : ScObjectBase
 
 
 
-    public void Init(float speed, Vector3 direction, float destDistance)
+    public void Init(float speed, Vector3 direction, float destDistance, GameObject[] ignoreGameObjs)
     {
         moveSpeed = speed;
         dir = direction;
         destinationDistance = destDistance;
+
+        if (ignoreGameObjs?.Length > 0)
+            ignoreGameObjects = new HashSet<GameObject>(ignoreGameObjs);
     }
 
 
