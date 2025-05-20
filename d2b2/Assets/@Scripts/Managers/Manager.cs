@@ -61,6 +61,16 @@ public class Manager : MonoBehaviour
             Debug.LogException(ex);
         }
     }
+
+
+
+    public void Init()
+    {
+        Debug.Log("manager initialized.");
+    }
+
+
+
     private TComp InitSubManager<TComp>() where TComp : Component
     {
         TComp comp = new GameObject(typeof(TComp).Name).AddComponent<TComp>();

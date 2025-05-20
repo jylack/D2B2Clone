@@ -4,6 +4,6 @@ public class ScInitSettingsScene : ScSceneBase
 {
     protected override void Awake()
     {
-
+        Manager.Instance.Init();
     }
 }
