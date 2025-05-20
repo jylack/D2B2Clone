@@ -85,6 +85,6 @@ public static class ScUtils
     private static bool CheckInCompleteHangul(char ch)
     {
         return (ch >= 0x3131 && ch <= 0x314E) ||    // 모음
-            (ch >= 0x314F && ch <= 0x3163);         // 자음
+               (ch >= 0x314F && ch <= 0x3163);      // 자음
     }
 }
