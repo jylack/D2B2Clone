@@ -56,7 +56,6 @@ public class ScPlayer : ScObjectBase
         UpdateHeadTurn();
         UpdateMove();
 
-        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
     }
 
     private void OnDestroy()
@@ -129,6 +128,8 @@ public class ScPlayer : ScObjectBase
         if (isleftStickMove)
         {
             isMoving = true;
+            Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
+
             return;
         }
 
@@ -155,15 +156,10 @@ public class ScPlayer : ScObjectBase
 
     private void MoveForward()
     {
-        //if (!Manager.Instance.GameMgr.canMove)
-        //    return;
-
-        //moveProv.moveSpeed = move;
-        //Debug.Log("moveFor : " + Manager.Instance.GameMgr.canMove);        
-
         characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
 
         isMoving = true;
+        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
 
     }
 

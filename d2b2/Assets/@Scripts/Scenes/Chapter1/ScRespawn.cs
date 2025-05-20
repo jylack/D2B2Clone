@@ -30,7 +30,7 @@ public class ScRespawn : MonoBehaviour
     private void Start()
     {
         Player = GameObject.Find("Player").GetComponent<ScPlayer>();
-        _currentStep = Ch1_Step.CurrentSetp;
+        _currentStep = ScChapter1.CurrentSetp;
 
         Init(_currentStep);
         Respawn(false);
@@ -66,7 +66,6 @@ public class ScRespawn : MonoBehaviour
 
         Player.CharacterController.enabled = true;
 
-        Manager.Instance.GameMgr.canMove = true;
 
     }
 
