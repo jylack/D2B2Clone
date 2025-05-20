@@ -49,7 +49,7 @@ public class ScPlayer : ScObjectBase
     private void Start()
     {
         Manager.Instance.GameMgr.SetPlayer(this);
-        ResetCamera();
+        //ResetCamera();
     }
 
     private void Update()
@@ -172,8 +172,8 @@ public class ScPlayer : ScObjectBase
         // HMD의 초기 로컬 포지션과 회전 가져오기
         if (xrOrigin.Camera != null)
         {
-            Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
-            Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
+            //Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
+            //Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
 
             // 카메라가 위치한 지점 기준으로 XR Origin을 반대로 이동시켜 중앙 정렬
             xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
