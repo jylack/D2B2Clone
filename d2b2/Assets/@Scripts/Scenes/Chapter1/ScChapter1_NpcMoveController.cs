@@ -6,19 +6,27 @@ public class ScChapter1_NpcMoveController : MonoBehaviour
     [SerializeField] private float moveTime = 5f;
     [SerializeField] private Transform targetTrans;
 
-    ScNpc npc;
+    ScCharacter npc;
 
-    private void Start()
+    private void Awake()
     {
-        npc = GetComponent<ScNpc>();
+        npc = GetComponent<ScCharacter>();
+        npc.SetAnimation(ScDefine.ScNpcAnimState.Running);
     }
 
-    public void NpcMove()
+    private void OnEnable()
     {
-        npc.SetAnimation(ScDefine.ScNpcAnimState.Running);
+        NpcMove();
+    }
+
+    private void NpcMove()
+    {
         transform.DOMove(targetTrans.position, moveTime).OnComplete(() =>
             {
-                npc.SetRaiseHandAnimation(ScDefine.ScHandSide.Right);
+                //Debug.Log("NpcMove End");
+                npc.SetAnimation(ScDefine.ScNpcAnimState.Idle);
+                //핸드업 애니메이션 
+                //npc.SetRaiseHandAnimation(ScDefine.ScHandSide.Right);
             });
 
     }

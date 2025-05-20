@@ -37,7 +37,6 @@ public class ScChapter1 : MonoBehaviour
             //if (traffic[0].CurrentColor == TrafficLightColor.Green)
             //{
                 npc.gameObject.SetActive(true);
-                npc.NpcMove(); 
             //}
         }
     }
