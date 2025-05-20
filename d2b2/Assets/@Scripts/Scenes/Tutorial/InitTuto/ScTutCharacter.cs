@@ -32,6 +32,11 @@ public class ScTutCharacter : MonoBehaviour
         }
     }
 
+    public void SetOutlineColor(Color color)
+    {
+        outline.OutlineColor = color;
+    }
+
     public void WalkForward(ScCharaSelectManager selectManager)
     {
         StartCoroutine(DoWalkForward(selectManager));
@@ -55,7 +60,6 @@ public class ScTutCharacter : MonoBehaviour
             }
         }
         //animator.SetBool("Walk", false); 걷기 애니메이션 종료
-        Debug.Log("나오나");
         selectManager.OpenConfirmPopUp();
     }
 

@@ -61,6 +61,10 @@ public class ScTutNameSet : MonoBehaviour
             SetErrorMessage("이미 있는 이름입니다.\n다른 이름을 입력해주세요");
             return;
         }
+    }
+
+    public void SaveName()
+    {
 
         string name = nameInput.text.Trim();
         ScPlayerEntity entity = new ScPlayerEntity

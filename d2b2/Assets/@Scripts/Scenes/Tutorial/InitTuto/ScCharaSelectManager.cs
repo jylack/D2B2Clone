@@ -29,7 +29,10 @@ public class ScCharaSelectManager : MonoBehaviour
             var tempDetectMan = args.interactableObject.transform.GetComponent<ScTutCharacter>();
 
             if (tempDetectMan != null)
+            {
                 tempDetectMan.SetOutline(true);
+                tempDetectMan.SetOutlineColor(Color.yellow);
+            }
 
             hover?.SetOutline(false);
             hover = tempDetectMan;
@@ -55,13 +58,13 @@ public class ScCharaSelectManager : MonoBehaviour
         {
             selectCharacter = hover;
             print("trigger on");
+            selectCharacter.SetOutlineColor(Color.red);
             selectCharacter.WalkForward(this);
         }
     }
 
     public void OpenConfirmPopUp()
     {
-        Debug.Log("나오쇼");
         ConfirmPopUp.SetActive(true);
     }
 
