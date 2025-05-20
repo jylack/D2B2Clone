@@ -57,7 +57,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             {
                 //Debug.Log("can1");
                 Manager.Instance.GameMgr.canMove = false;
-                ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
+                ScRespawn.Instance.Init(Ch1_Step.CurrentSetp);
                 //temp.Init(ScChapter1.Instance.CurrentSetp);
                 //Debug.Log("Blink");
                 ScRespawn.Instance.Respawn(true);
@@ -102,7 +102,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
         if (isWalk == false || Hand.isLeftHandUp == false)
         {
             var temp = other.gameObject.GetComponent<ScRespawn>();
-            ScRespawn.Instance.Init(ScChapter1.Instance.CurrentSetp);
+            ScRespawn.Instance.Init(Ch1_Step.CurrentSetp);
             //Debug.Log("TimeLimit-Sg05_Jaywalking");
             ScRespawn.Instance.Respawn(true);
             //¿Ãµø ¡ﬂ∞£ø° ∏ÿ√„
