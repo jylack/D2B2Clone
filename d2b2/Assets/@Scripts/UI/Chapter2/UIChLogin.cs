@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class UICh2Login : UIBase
+public class UIChLogin : UIBase
 {
     //public void GoToPlay()
     //{
