@@ -1,15 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-public delegate void OnHeadRotatingPerformHandler(Quaternion rotation);
-public delegate void OnHeadRotatingCancelHandler();
+public delegate void OnHeadPositionChangedHandler(Vector3 position);
+public delegate void OnHandPositionChangedHandler(Vector3 position);
+public delegate void OnLeftStickMoveHandler(bool stickMoving);
 
 public class InputManager : MonoBehaviour
 {
-    public event OnHeadRotatingPerformHandler OnHeadRotatingPerform;
-    public event OnHeadRotatingCancelHandler OnHeadRotatingCancel;
+    public event OnHeadPositionChangedHandler OnHeadPositionChanged;
+    public event OnHandPositionChangedHandler OnLeftHandPositionChanged;
+    public event OnHandPositionChangedHandler OnRightHandPositionChanged;
+    public event OnLeftStickMoveHandler OnLeftStickMove;
 
-    XRIDefaultInputActions inputActions;
+    public event Action OnTriggerPerform;
+    public event Action OnTriggerCancel;
+
+    private XRIDefaultInputActions inputActions;
 
 
 
@@ -22,20 +29,54 @@ public class InputManager : MonoBehaviour
     {
         inputActions.Enable();
 
-        inputActions.XRIHead.Rotation.performed += Rotation_performed;
-        inputActions.XRIHead.Rotation.canceled += Rotation_canceled;
+        inputActions.XRIHead.Position.performed += HeadPosition_performed;
+        inputActions.XRILeftHand.Position.performed += LeftHandPosition_performed;
+        inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
+        inputActions.XRIRightHandInteraction.Activate.performed += Select_performed;
+        inputActions.XRIRightHandInteraction.Activate.canceled += Select_canceled;
+
+        inputActions.XRILeftHandLocomotion.Move.performed += LeftStickMove_performed;
+        inputActions.XRILeftHandLocomotion.Move.canceled += LeftStickMove_canceled;
     }
 
+
+
+    private void LeftStickMove_performed(InputAction.CallbackContext obj)
+    {
+        bool stickMoving = obj.ReadValue<Vector2>().sqrMagnitude > 0f;
+        OnLeftStickMove?.Invoke(stickMoving);
+    }
+
+    private void LeftStickMove_canceled(InputAction.CallbackContext obj)
+    {
+        OnLeftStickMove?.Invoke(false);
+    }
+
+    private void HeadPosition_performed(InputAction.CallbackContext obj)
+    {
+        Vector3 pos = obj.ReadValue<Vector3>();
+        OnHeadPositionChanged?.Invoke(pos);
+    }
     
-
-    private void Rotation_performed(InputAction.CallbackContext obj)
+    private void LeftHandPosition_performed(InputAction.CallbackContext obj)
     {
-        var rotation = obj.ReadValue<Quaternion>();
-        OnHeadRotatingPerform?.Invoke(rotation);
+        Vector3 pos = obj.ReadValue<Vector3>();
+        OnLeftHandPositionChanged?.Invoke(pos);
     }
 
-    private void Rotation_canceled(InputAction.CallbackContext obj)
+    private void RightHandPosition_performed(InputAction.CallbackContext obj)
     {
-        OnHeadRotatingCancel?.Invoke();
+        Vector3 pos = obj.ReadValue<Vector3>();
+        OnRightHandPositionChanged?.Invoke(pos);
+    }
+
+    private void Select_performed(InputAction.CallbackContext obj)
+    {
+        OnTriggerPerform?.Invoke();
+    }
+
+    private void Select_canceled(InputAction.CallbackContext obj)
+    {
+        OnTriggerCancel?.Invoke();
     }
 }

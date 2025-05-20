@@ -1,7 +1,8 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public abstract class ScObjectBase : MonoBehaviour
 {
-    protected virtual void Awake() { }
-    protected virtual void Start() { }
+    protected CancellationToken DestroyToken => this.GetCancellationTokenOnDestroy();
 }

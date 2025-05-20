@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
@@ -9,26 +10,72 @@ public class Manager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new GameObject(nameof(Manager)).AddComponent<Manager>();
-                instance.Init();
-                DontDestroyOnLoad(instance.gameObject);
+                try
+                {
+                    var managerPrefab = Resources.Load<GameObject>("Prefabs/Manager");
+                    instance = Instantiate(managerPrefab).GetComponent<Manager>();
+                    DontDestroyOnLoad(instance.gameObject);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
             }
 
             return instance;
         }
     }
-
+    
+    [SerializeField] private GameObject gameSceneManagerPrefab;
+    [SerializeField] private GameObject soundManagerPrefab;
+    
     public InputManager InputMgr { get; private set; }
+    public GameManager GameMgr { get; private set; }
+    public GameSceneManager SceneMgr { get; private set; }
     public ResourceManager ResourceMgr { get; private set; }
+    public DatabaseManager DbMgr { get; private set; }
+    public SoundManager SoundMgr { get; private set; }
+    [SerializeField] public string NickName { get; set; }
 
 
-
-    private void Init()
+    
+    private async void Awake()
     {
-        InputMgr = new GameObject(nameof(InputManager)).AddComponent<InputManager>();
-        InputMgr.transform.SetParent(Instance.transform);
+        try
+        {
+            InputMgr = InitSubManager<InputManager>();
+            GameMgr = InitSubManager<GameManager>();
+            ResourceMgr = InitSubManager<ResourceManager>();
+        
+            DbMgr = InitSubManager<DatabaseManager>();
+            await DbMgr.Init();
+            
+            SceneMgr = Instantiate(gameSceneManagerPrefab).GetComponent<GameSceneManager>();
+            SceneMgr.transform.SetParent(transform);
+            
+            SoundMgr = Instantiate(soundManagerPrefab).GetComponent<SoundManager>();
+            SoundMgr.transform.SetParent(transform);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
 
-        ResourceMgr = new GameObject(nameof(ResourceManager)).AddComponent<ResourceManager>();
-        ResourceMgr.transform.SetParent(Instance.transform);
+
+
+    public void Init()
+    {
+        Debug.Log("manager initialized.");
+    }
+
+
+
+    private TComp InitSubManager<TComp>() where TComp : Component
+    {
+        TComp comp = new GameObject(typeof(TComp).Name).AddComponent<TComp>();
+        comp.transform.SetParent(transform);
+
+        return comp;
     }
 }
