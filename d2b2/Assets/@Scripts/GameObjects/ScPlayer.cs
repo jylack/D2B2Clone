@@ -4,7 +4,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScPlayer : ScObjectBase
 {
-    [SerializeField] private XROrigin xrOrigin;
+    //[SerializeField] private XROrigin xrOrigin;
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
@@ -99,7 +100,8 @@ public class ScPlayer : ScObjectBase
     private void UpdateHeadTurn()
     {
         var tempHeadTurn = ScDefine.ScHeadTurn.None;
-        float rotationY = xrOrigin.Camera.transform.localRotation.y;
+        //float rotationY = xrOrigin.Camera.transform.localRotation.y;
+        float rotationY = mainCamera.transform.localRotation.y;
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
@@ -170,14 +172,14 @@ public class ScPlayer : ScObjectBase
     public void ResetCamera()
     {
         // HMD의 초기 로컬 포지션과 회전 가져오기
-        if (xrOrigin.Camera != null)
-        {
-            //Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
-            //Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
+        //if (xrOrigin.Camera != null)
+        //{
+        //    //Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
+        //    //Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
 
-            // 카메라가 위치한 지점 기준으로 XR Origin을 반대로 이동시켜 중앙 정렬
-            xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
-        }
+        //    // 카메라가 위치한 지점 기준으로 XR Origin을 반대로 이동시켜 중앙 정렬
+        //    xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
+        //}
 
         // 또는 HMD 위치를 기준으로 강제로 위치를 조정하고 싶다면:
         //xrOrigin.transform.position = Vector3.zero;
