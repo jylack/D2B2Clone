@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Unity.XR.CoreUtils;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScPlayer : ScObjectBase
 {
-    [SerializeField] private Camera mainCam;
+    [SerializeField] private XROrigin xrOrigin;
     [SerializeField] private CharacterController characterController;
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
@@ -30,6 +31,8 @@ public class ScPlayer : ScObjectBase
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
 
+
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -43,10 +46,10 @@ public class ScPlayer : ScObjectBase
         moveProv.forwardSource = characterController.transform;
     }
 
-
     private void Start()
     {
         Manager.Instance.GameMgr.SetPlayer(this);
+        ResetCamera();
     }
 
     private void Update()
@@ -96,7 +99,7 @@ public class ScPlayer : ScObjectBase
     private void UpdateHeadTurn()
     {
         var tempHeadTurn = ScDefine.ScHeadTurn.None;
-        float rotationY = mainCam.transform.localRotation.y;
+        float rotationY = xrOrigin.Camera.transform.localRotation.y;
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
@@ -162,6 +165,23 @@ public class ScPlayer : ScObjectBase
 
         isMoving = true;
 
+    }
+
+    public void ResetCamera()
+    {
+        // HMD의 초기 로컬 포지션과 회전 가져오기
+        if (xrOrigin.Camera != null)
+        {
+            Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
+            Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
+
+            // 카메라가 위치한 지점 기준으로 XR Origin을 반대로 이동시켜 중앙 정렬
+            xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
+        }
+
+        // 또는 HMD 위치를 기준으로 강제로 위치를 조정하고 싶다면:
+        xrOrigin.transform.position = Vector3.zero;
+        xrOrigin.transform.rotation = Quaternion.identity;
     }
 
     // event
