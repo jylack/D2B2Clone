@@ -2,7 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class ScNpc : MonoBehaviour
+public class ScCharacter : MonoBehaviour
 {
     private static int AnimStateHash { get; } = Animator.StringToHash("State");
     
@@ -27,42 +27,46 @@ public class ScNpc : MonoBehaviour
         
         // set raise hand animation
     }
-    
-    
-    
+
+
+
+
+
+
+
     // 테스트 코드 ===========================================================================
-    // private void Start()
-    // {
-    //     Run().Forget();
-    // }
-    //
-    // private async UniTask Run()
-    // {
-    //     try
-    //     {
-    //         const int max = 5;
-    //         int flag = 0;
-    //
-    //         while (true)
-    //         {
-    //             SetAnimation((ScDefine.ScNpcAnimState)flag);
-    //             
-    //             if (flag == 3)
-    //                 await UniTask.Delay(5000);
-    //             else
-    //                 await UniTask.Delay(3000);
-    //             
-    //             flag = ++flag % max;
-    //         }
-    //     }
-    //     catch (OperationCanceledException ex)
-    //     {
-    //         Debug.Log(ex.Message);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         Debug.LogException(ex);
-    //     }
-    // }
+    //private void Start()
+    //{
+    //    Run().Forget();
+    //}
+
+    //private async UniTask Run()
+    //{
+    //    try
+    //    {
+    //        const int max = 5;
+    //        int flag = 0;
+
+    //        while (true)
+    //        {
+    //            SetAnimation((ScDefine.ScNpcAnimState)flag);
+
+    //            if (flag == 3)
+    //                await UniTask.Delay(5000);
+    //            else
+    //                await UniTask.Delay(3000);
+
+    //            flag = ++flag % max;
+    //        }
+    //    }
+    //    catch (OperationCanceledException ex)
+    //    {
+    //        Debug.Log(ex.Message);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogException(ex);
+    //    }
+    //}
     // 테스트 코드 ===========================================================================
 }
