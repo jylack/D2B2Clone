@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveTutorialManager : MonoBehaviour
 {
-    [SerializeField] ScGuideInstance guide;
+    [SerializeField] ScGuide guide;
     [SerializeField] ScNotifyFairy notifyFairy;
     [SerializeField] GameObject walkObjs;
     [SerializeField] GameObject lookAroundObjs;
