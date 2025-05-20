@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEditor.Rendering;
 
 public class ScHandUpGuide : ScSceneBase
 {
@@ -12,6 +13,11 @@ public class ScHandUpGuide : ScSceneBase
     [SerializeField] GameObject truck;
     [SerializeField] List<string> npcTextList;
     [SerializeField] TextMeshPro guideNpcContextTxt;
+    public static ScHandUpGuide tetst;
+    private void Awake()
+    {
+        tetst = this;   
+    }
     private void Start()
     {
         //npcTextList.Add("괜찮아. 누구나 실수할 수 있는 거야.");
@@ -78,6 +84,13 @@ public class ScHandUpGuide : ScSceneBase
             Debug.Log("ㅇㅇ : " + i);
             guideNpcContextTxt.text = npcTextList[i];
             yield return new WaitForSeconds(3);
+        }
+    }
+    public void ShowDialogue(int index)
+    {
+        if (index >= 0 && index < npcTextList.Count)
+        {
+            guideNpcContextTxt.text = npcTextList[index];
         }
     }
 }
