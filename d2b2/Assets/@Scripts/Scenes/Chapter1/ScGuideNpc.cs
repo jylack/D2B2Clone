@@ -1,6 +1,9 @@
 using DG.Tweening;
+using Photon.Pun.Demo.Cockpit;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 
@@ -39,9 +42,8 @@ public class ScGuideNpc : MonoBehaviour
         var pos = transform.position;
         targetPos = pos + (transform.forward * moveDir);
 
-        transform.DOMove(targetPos, moveTime).OnComplete(
-            () => Debug.Log(targetPos)).Complete();
-        //(7.05, 0.00, 4.70)
+        transform.DOMove(targetPos, moveTime);
+
         StartCoroutine(talking());
     }
 
