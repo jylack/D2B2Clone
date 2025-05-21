@@ -7,7 +7,7 @@ public class TestHsy : MonoBehaviour, INotificationReceiver
     {
         if (notification is ScDialogueSignalAsset signal)
         {
-            ScHandUpGuide.tetst.ShowDialogue(signal.dialogueKey);
+            //ScHandUpGuide.tetst.ShowDialogue(signal.dialogueKey);
         }
     }
 }

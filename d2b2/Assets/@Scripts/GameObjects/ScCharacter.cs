@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using System;
 using UnityEngine;
 
@@ -12,9 +14,10 @@ public class ScCharacter : MonoBehaviour
     [SerializeField] private Animator animator;
 
     private bool isRaisingHand;
-    
+    private Tweener handTween;
 
-    
+
+
     public void SetAnimation(ScDefine.ScNpcAnimState animState)
     {
         animator.SetInteger(AnimStateHash, (int)animState);
@@ -28,8 +31,9 @@ public class ScCharacter : MonoBehaviour
             
             float curWeight = animator.GetLayerWeight(HandSideLayerIndex);
             float targetWeight = raisingHand ? 1 : 0;
-            
-            DOTween.To(
+
+            handTween?.Kill();
+            handTween = DOTween.To(
                     () => curWeight,
                     w => animator.SetLayerWeight(HandSideLayerIndex, w),
                     targetWeight,

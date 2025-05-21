@@ -2,8 +2,17 @@
 
 public class ScInitSettingsScene : ScSceneBase
 {
+    private static bool firstInit = true;
     protected override void Awake()
     {
-        Manager.Instance.Init();
+        if (firstInit == true)
+        {
+            Manager.Instance.Init();
+            firstInit = false;
+        }
+        else
+        {
+            base.Awake();
+        }
     }
 }
