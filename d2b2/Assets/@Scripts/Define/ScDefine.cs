@@ -48,8 +48,7 @@
     
     public enum ScGuideCharacter
     {
-        None = 0,
-        Character1,
+        Character1 = 0,
         Character2,
         Character3,
         Character4,

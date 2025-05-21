@@ -5,17 +5,18 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScPhotonInitializer : MonoBehaviourPunCallbacks
+public class ScPlayerPhotonService : MonoBehaviourPunCallbacks
 {
-    private const int maxPlayers = 6;
-
+    [SerializeField] private GameObject[] characterPrefabs;
+    
     private Dictionary<int, GameObject> playerListEntries;
 
 
 
     private void Start()
     {
-        string playerName = Manager.Instance.GameMgr.NicknName;
+        // string playerName = Manager.Instance.GameMgr.NickName;
+        string playerName = "Test";
 
         if (!string.IsNullOrEmpty(playerName))
         {
@@ -43,7 +44,7 @@ public class ScPhotonInitializer : MonoBehaviourPunCallbacks
         WriteDebugLog("CreateRoom...");
 
         string roomName = "Room " + Random.Range(1000, 10000);
-        RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
+        RoomOptions options = new RoomOptions { MaxPlayers = ScCh3Define.MaxPlayerCount };
         PhotonNetwork.CreateRoom(roomName, options, null);
     }
 
@@ -54,25 +55,41 @@ public class ScPhotonInitializer : MonoBehaviourPunCallbacks
         if (playerListEntries == null)
             playerListEntries = new Dictionary<int, GameObject>();
 
-        //foreach (Player p in PhotonNetwork.PlayerList)
-        //{
-        //    if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out object isPlayerReady))
-        //    {
-        //        entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
-        //    }
+        int posX = 0;
+        
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.CustomProperties.TryGetValue(ScCh3Define.PhotonCustomPropKeys.CHARACTER_TYPE, out object characterTypeObj))
+            {
+                int idx = (int)characterTypeObj % characterPrefabs.Length;
+                GameObject prefab = characterPrefabs[idx];
+                GameObject character = Instantiate(prefab);
+                
+                Vector3 pos = character.transform.position;
+                pos.x = posX;
+                character.transform.position = pos;
 
-        //    playerListEntries.Add(p.ActorNumber, entry);
-        //}
+                posX += 2;
+            }
+        }
 
         Hashtable props = new()
         {
-            { AsteroidsGame.PLAYER_LOADED_LEVEL, false }
+            { ScCh3Define.PhotonCustomPropKeys.PLAYER_LOADED_LEVEL, false }
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 
 
+    
+    private void StartGame()
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+
+        PhotonNetwork.LoadLevel("DemoAsteroids-GameScene");
+    }
 
     private void WriteDebugLog(string msg)
     {
