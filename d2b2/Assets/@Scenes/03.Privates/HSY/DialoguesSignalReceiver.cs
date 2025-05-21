@@ -8,10 +8,11 @@ public class DialoguesSignalReceiver : MonoBehaviour, INotificationReceiver
 {
     public void OnNotify(Playable origin, INotification notification, object context)
     {
-        if (notification is ScDialogueSignalAsset signal)
+        Debug.Log("Received Signal Type: " + notification.GetType().Name);
+        if (notification is DialogueMarker signal)
         {
             Debug.Log("signal.dialogueIndex : " + signal.dialogueIndex);
-            ScHandUpGuide.Instance.ShowDialogue(signal.dialogueIndex);
+            ScHandUpGuide.tetst.ShowDialogue(signal.dialogueIndex);
         }
     }
 }

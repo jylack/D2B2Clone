@@ -13,10 +13,10 @@ public class ScHandUpGuide : ScSceneBase
     [SerializeField] GameObject truck;
     [SerializeField] List<string> npcTextList;
     [SerializeField] TextMeshProUGUI guideNpcContextTxt;
-    public static ScHandUpGuide Instance { get; private set; }
+    public static ScHandUpGuide tetst;
     protected override void Awake()
     {
-        Instance = this;
+        tetst = this;  
         base.Awake();
     }
     private void Start()
@@ -39,13 +39,7 @@ public class ScHandUpGuide : ScSceneBase
         npcTextList.Add("그럼 차에 있는 사람들도 금방 알아볼 수 있어서 안전하게 건널 수 있어!");
         npcTextList.Add("어때? 이제 어떻게 하면 좋은지 알겠지?");
         npcTextList.Add("다시 한번 도로로 돌아가서 다시 도전하자!");
-        //
-        //yield return new WaitForSeconds(1);
-        //StartCoroutine(StartHandUpGuide());
-        //StartHandUpGuide();
-    }
-    void Update()
-    {
+
     }
     IEnumerator StartHandUpGuide()
     {
