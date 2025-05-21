@@ -9,5 +9,6 @@ public class ScLoadPreviousScene : MonoBehaviour
     private void Start()
     {
         btn.onClick.AddListener(() => Manager.Instance.SceneMgr.LoadPreviousScene());
+
     }
 }

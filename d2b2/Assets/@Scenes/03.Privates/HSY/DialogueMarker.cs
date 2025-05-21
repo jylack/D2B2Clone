@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[CreateAssetMenu(menuName = "Timeline/Dialogue Signal")]
-public class ScDialogueSignalAsset : SignalAsset
+public class DialogueMarker : Marker,INotification
 {
     public int dialogueIndex;
+    public PropertyName id => new PropertyName();
 }
