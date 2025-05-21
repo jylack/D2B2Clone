@@ -8,7 +8,7 @@ using UnityEngine;
 public class CrosswalkTutorialManager : MonoBehaviour
 {
     [SerializeField] GameObject clearMessage;
-    [SerializeField] ScGuideInstance guide;
+    [SerializeField] ScGuide guide;
     [SerializeField] ScHandUpRegion handUp;
     [SerializeField] XROrigin playerXR;
     [SerializeField] Transform player;

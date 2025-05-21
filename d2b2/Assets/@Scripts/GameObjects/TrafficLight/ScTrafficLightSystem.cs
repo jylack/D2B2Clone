@@ -90,7 +90,9 @@ public class ScTrafficLightSystem : ScObjectBase
                 await UniTask.Delay(blinkBeforeTime, cancellationToken: base.DestroyToken);
 
                 int elapsedTime = blinkBeforeTime;
-                
+
+                currentTrafficLightGroup.StartGreenLightBlink();
+
                 // ³ì»öºÒ Á¡¸ê
                 while (elapsedTime < greenDuration)
                 {

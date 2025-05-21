@@ -6,4 +6,9 @@ public class UICh3Room : UIBase
     {
         base.LoadScene(ScDefine.ScScene.Ch3Play);
     }
+
+    public void GoToBack()
+    {
+        base.LoadScene(ScDefine.ScScene.Ch3Login);
+    }
 }

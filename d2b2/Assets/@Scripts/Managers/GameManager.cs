@@ -9,16 +9,18 @@ public class GameManager : MonoBehaviour
     public event OnPlayerHeadTurnHandler OnPlayerHeadTurn;
     public event OnPlayerHandsUpHandler OnPlayerHandsUp;
     public event OnPlayerMovingHandler OnPlayerMoving;
-    
+
     public ScPlayer Player { get; private set; }
-
-    public bool canMove = true;
-
-
+    public string NicknName { get; private set; }
 
     public void SetPlayer(ScPlayer player)
     {
         Player = player;
+    }
+
+    public void SetNickName(string nickname)
+    {
+        NicknName = nickname;
     }
 
     public void RaisePlayerHeadTurnEvent(ScDefine.ScHeadTurn headTurn)

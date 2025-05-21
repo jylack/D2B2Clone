@@ -27,4 +27,13 @@ public class ScTrafficLightGroup
                 trafficLight.InvertColor();
         }
     }
+
+    public void StartGreenLightBlink()
+    {
+        if (items?.Count > 0)
+        {
+            foreach (ScTrafficLight trafficLight in items)
+                trafficLight.StartGreenLightBlink();
+        }
+    }
 }
