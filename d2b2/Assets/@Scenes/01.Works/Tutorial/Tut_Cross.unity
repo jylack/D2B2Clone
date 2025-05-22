@@ -683,7 +683,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 215760748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3b384b1e799264483d584d7a32ec9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 39de4d2389e02404c96cdd302d0218a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &215760750
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f5e44875db3e342a2dbebe3701fb38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  guide: {fileID: 0}
   playerTransform: {fileID: 356675303}
   dest: {fileID: 1769330677}
   walkSpeed: 3
@@ -1073,6 +1073,11 @@ PrefabInstance:
       propertyPath: moveProv
       value: 
       objectReference: {fileID: 356675302}
+    - target: {fileID: 8833626079975955433, guid: bc3fd8240cea2c2468a7f2a00e393390,
+        type: 3}
+      propertyPath: maxHandHeight
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8833626079975955435, guid: bc3fd8240cea2c2468a7f2a00e393390,
         type: 3}
       propertyPath: m_Name
