@@ -61,6 +61,7 @@ public class ScTutNameSet : MonoBehaviour
             SetErrorMessage("이미 있는 이름입니다.\n다른 이름을 입력해주세요");
             return;
         }
+        SaveName();
     }
 
     public void SaveName()
