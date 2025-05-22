@@ -5,6 +5,7 @@ public class ScPlayer : ScObjectBase
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private AudioSource audioSource;
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
     [SerializeField] private float swingThresholdIntervalTime;
@@ -18,7 +19,6 @@ public class ScPlayer : ScObjectBase
 
     public CharacterController CharacterController => characterController;
 
-    private AudioSource audioSource;
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
     private bool isLeftHandUp;
     private bool isRightHandUp;
@@ -35,7 +35,6 @@ public class ScPlayer : ScObjectBase
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         headTurnThresholdQuaternion = Quaternion.Euler(0f, headTurnThreshold, 0f).y;
 
         Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
