@@ -16,6 +16,10 @@ public class ScLoadPreviousScene : MonoBehaviour
             RetryBtn.onClick.AddListener(() =>
                 RestartTimeline());
         }
+        else
+        {
+            Debug.LogError("director를 Timeline이 적용된 오브젝트랑 연결해 주십시오!");
+        }
     }
 
 

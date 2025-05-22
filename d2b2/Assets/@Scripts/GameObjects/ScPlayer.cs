@@ -52,9 +52,9 @@ public class ScPlayer : ScObjectBase
 
     private void Update()
     {
+        //Debug.Log("1");
         UpdateHeadTurn();
         UpdateMove();
-
     }
 
     private void OnDestroy()
@@ -118,10 +118,13 @@ public class ScPlayer : ScObjectBase
             headTurn = tempHeadTurn;
             Manager.Instance.GameMgr.RaisePlayerHeadTurnEvent(headTurn);
         }
+
     }
 
     private void UpdateMove()
     {
+        //Debug.Log("2");
+
         isMoving = false;
 
         if (isleftStickMove)
@@ -131,13 +134,17 @@ public class ScPlayer : ScObjectBase
 
             return;
         }
+        //Debug.Log($"LeftForward: {leftHandForwardTime}, Backward: {leftHandBackwardTime}, Time: {Time.time}");
 
         // 왼손 체크
         bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
         bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
+        //Debug.Log("isMoveStart : " + isMoveStart);
+        //Debug.Log("isValidSwingIntervalTime : " + isValidSwingIntervalTime);
 
         if (isMoveStart && isValidSwingIntervalTime)
         {
+
             MoveForward();
             return;
         }
@@ -151,12 +158,15 @@ public class ScPlayer : ScObjectBase
             MoveForward();
             return;
         }
+
+
     }
 
     private void MoveForward()
     {
         characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
 
+        Debug.Log("isMoving : " + isMoving);
         isMoving = true;
         Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
 
