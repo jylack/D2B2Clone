@@ -166,7 +166,7 @@ public class ScPlayer : ScObjectBase
     {
         characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
 
-        Debug.Log("isMoving : " + isMoving);
+        //Debug.Log("isMoving : " + isMoving);
         isMoving = true;
         Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
 
