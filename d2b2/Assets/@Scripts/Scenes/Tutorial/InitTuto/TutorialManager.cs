@@ -6,6 +6,7 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private GameObject nameMenu;
     [SerializeField] private GameObject settingMenu;
+    [SerializeField] private GameObject noticeMenu;
     [SerializeField] private GameObject charaSelectMenu;
     [SerializeField] private GameObject characters;
     public ScPlayerEntity playerEntity;
@@ -34,11 +35,12 @@ public class TutorialManager : MonoBehaviour
     public void EndSetting()
     {
         settingMenu.SetActive(false);
-        OpenCharaSelect();
+        noticeMenu.SetActive(true);
     }
 
     public void OpenCharaSelect()
     {
+        noticeMenu.SetActive(false);
         charaSelectMenu.SetActive(true);
         characters.SetActive(true);
     }
