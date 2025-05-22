@@ -1,17 +1,11 @@
-using DG.Tweening;
-using Photon.Pun.Demo.Cockpit;
+using Cysharp.Threading.Tasks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 
-public class ScGuideNpc : MonoBehaviour
+public class ScSg1_SafetyGuideCanvas : MonoBehaviour
 {
-    private Vector3 targetPos;
-    [SerializeField] private float moveTime = 5f;
-    [SerializeField] private float moveDir = 10f;
     [SerializeField] private TextMeshProUGUI TalkBox;
     [SerializeField] private float TalkDeliay = 1f;
 
@@ -34,33 +28,23 @@ public class ScGuideNpc : MonoBehaviour
         TalkArr.Add("어때? 이제 어떻게 하면 좋은지 알겠지?");
         TalkArr.Add("다시 한번 도로로 돌아가서 다시 도전하자!");
 
-        NpcMove();
+        NpcTalkStart().Forget();
     }
 
-    public void NpcMove()
+    public async UniTask NpcTalkStart()
     {
-        var pos = transform.position;
-        targetPos = pos + (transform.forward * moveDir);
-
-        transform.DOMove(targetPos, moveTime);
-
-        StartCoroutine(talking());
+        await talking();
     }
 
-    private IEnumerator talking()
+    private async UniTask talking()
     {
-        yield return new WaitForSeconds(moveTime);
-
         while (index < TalkArr.Count)
         {
-            yield return new WaitForSeconds(TalkDeliay);
-            NextTalk();
+            TalkBox.text = TalkArr[index];
+            index++;
+
+            await UniTask.Delay(TimeSpan.FromSeconds(TalkDeliay));
         }
     }
 
-    private void NextTalk()
-    {
-        TalkBox.text = TalkArr[index];
-        index++;
-    }
 }
