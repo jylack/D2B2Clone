@@ -19,6 +19,7 @@ namespace Timeline.Samples
 
         [Tooltip("The text to display")]
         public string text = "";
+        public string key = "";
     }
 }
 
