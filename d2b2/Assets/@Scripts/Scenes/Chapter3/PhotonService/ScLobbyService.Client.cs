@@ -32,11 +32,14 @@ public partial class ScLobbyService
         if (!isVrPlayerInit && PhotonNetwork.LocalPlayer.ActorNumber == playerEntity.actorNumber)
         {
             isVrPlayerInit = true;
-
-            vrPlayer.position = CalcPosition(playerEntity.positionIndex, 6f);
+            
+            Vector3 pos = CalcPosition(playerEntity.positionIndex, 6f);
+            pos.y = 1f;
+            vrPlayer.position = pos;
             vrPlayer.LookAt(Vector3.zero);
 
             Vector3 targetPos = 2 * uiLobby.transform.position - vrPlayer.position;
+            targetPos.y = uiLobby.transform.position.y;
             uiLobby.transform.LookAt(targetPos);
         }
 
@@ -57,7 +60,7 @@ public partial class ScLobbyService
     {
         ScLeftPlayerEntity leftPlayerEntity = JsonConvert.DeserializeObject<ScLeftPlayerEntity>(json);
         actorNumbersForPosition = leftPlayerEntity.actorNumbersForPosition;
-
+        
         if (playerDict.Remove(leftPlayerEntity.actorNumber, out ScLobbyPlayer player))
         {
             Destroy(player.gameObject);

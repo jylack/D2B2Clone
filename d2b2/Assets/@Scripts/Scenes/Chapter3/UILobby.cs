@@ -34,6 +34,15 @@ public class UILobby : UIBase
         countdownCts?.Cancel();
     }
 
+    public void OnStartButtonClicked()
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+
+        string sceneName = Manager.Instance.SceneMgr.GetSceneName(ScDefine.ScScene.Ch3Play);
+        PhotonNetwork.LoadLevel(sceneName);
+    }
+    
     public void OnExitButtonClicked()
     {
         if (PhotonNetwork.IsMasterClient)

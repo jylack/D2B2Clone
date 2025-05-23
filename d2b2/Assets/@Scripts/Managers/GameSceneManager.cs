@@ -28,8 +28,8 @@ public class GameSceneManager : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
-
-
+    
+    
     public void LoadScene(ScDefine.ScScene scene)
     {
         string sceneName = GetSceneName(scene);
@@ -57,8 +57,8 @@ public class GameSceneManager : MonoBehaviour
             Debug.LogWarning("이전 씬 정보가 없습니다.");
         }
     }
-
-    private static string GetSceneName(ScDefine.ScScene scene)
+    
+    public string GetSceneName(ScDefine.ScScene scene)
     {
         return scene switch
         {
@@ -87,7 +87,7 @@ public class GameSceneManager : MonoBehaviour
             _ => "",
         };
     }
-    
+
     
 
     private async UniTask Load(string sceneName)

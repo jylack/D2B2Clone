@@ -10,7 +10,7 @@ public partial class ScLobbyService
     {
         if (!PhotonNetwork.IsMasterClient)
             return false;
-
+        
         int actorIndex = GetFirstActorIndexExceptMe();
         if (actorIndex < 0)
             return false;
@@ -26,13 +26,13 @@ public partial class ScLobbyService
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
-
+        
         int posIndex = GetPositionIndex(otherPlayer.ActorNumber);
         actorNumbersForPosition[posIndex] = 0;
 
         ScLeftPlayerEntity leftPlayerEntity = new(otherPlayer.ActorNumber, actorNumbersForPosition);
         string json = JsonConvert.SerializeObject(leftPlayerEntity);
-
+        
         Broadcast(nameof(OnPlayerLeft), json);
     }
 

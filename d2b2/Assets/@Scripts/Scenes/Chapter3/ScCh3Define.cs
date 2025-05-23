@@ -5,5 +5,4 @@
     public const string PROP_KEY_LEVEL_LOADED       = "LevelLoaded";
 
     public const int MaxPlayerCount = 6; 
-    public static ScCh3PhotonCustomPropertyKey PhotonCustomPropKeys { get; private set; } = new();
 }

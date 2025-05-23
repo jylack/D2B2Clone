@@ -1,7 +1,8 @@
 using Photon.Pun;
 using System.Collections.Generic;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public partial class ScLobbyService : MonoBehaviourPunCallbacks
 {
@@ -35,21 +36,8 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
         TryConnect(Manager.Instance.GameMgr.NickName);
     }
 
-
-
-    public void TryConnect(string nickName)
-    {
-        if (!string.IsNullOrEmpty(nickName))
-        {
-            PhotonNetwork.LocalPlayer.NickName = nickName;
-            PhotonNetwork.ConnectUsingSettings();
-        }
-        else
-        {
-            Debug.LogError("Player Name is invalid.");
-        }
-    }
-
+    
+    
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
@@ -70,7 +58,20 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
     }
 
 
-
+    
+    private void TryConnect(string nickName)
+    {
+        if (!string.IsNullOrEmpty(nickName))
+        {
+            PhotonNetwork.LocalPlayer.NickName = nickName;
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        else
+        {
+            Debug.LogError("Player Name is invalid.");
+        }
+    }
+    
     private int GetFirstActorIndexExceptMe()
     {
         for (int i = 0; i < actorNumbersForPosition.Length; i++)
@@ -82,7 +83,7 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
 
         return -1;
     }
-
+    
     private void AddNewPlayer(ScLobbyPlayerEntity playerEntity)
     {
         ScLobbyPlayer player = Instantiate(lobbyPlayerPrefab, playerParent).GetComponent<ScLobbyPlayer>();
@@ -104,7 +105,7 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
 
         return entities;
     }
-
+    
     private int GetEmptyPositionIndex()
     {
         for (int i = 0; i < actorNumbersForPosition.Length; i++)
