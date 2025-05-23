@@ -11,16 +11,21 @@ public class GameManager : MonoBehaviour
     public event OnPlayerMovingHandler OnPlayerMoving;
 
     public ScPlayer Player { get; private set; }
-    public string NickName { get; private set; }
+    public string NickName => playerEntity.nickName;
+    public ScDefine.ScGuideCharacter GuideCharacterType => playerEntity.guideCharacter;
+
+    private ScPlayerEntity playerEntity;
+
+
 
     public void SetPlayer(ScPlayer player)
     {
         Player = player;
     }
 
-    public void SetNickName(string nickname)
+    public void SetCurrentPlayerInfo(ScPlayerEntity playerInfo)
     {
-        NickName = nickname;
+        playerEntity = playerInfo;
     }
 
     public void RaisePlayerHeadTurnEvent(ScDefine.ScHeadTurn headTurn)

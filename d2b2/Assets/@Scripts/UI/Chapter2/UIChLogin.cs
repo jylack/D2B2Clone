@@ -47,16 +47,16 @@ public class UIChLogin : UIBase
     }
     private async void LoadNicknameData()
     {
-        var temp = await Manager.Instance.DbMgr.Load(nameInput.text);
-        if (temp == null)
+        ScPlayerEntity playerEntity = await Manager.Instance.DbMgr.Load(nameInput.text);
+        if (playerEntity == null)
         {
             SetErrorMessage("존재하지 않는 아이디입니다");
             return;
         }
         else
         {
-            Manager.Instance.GameMgr.SetNickName(temp.nickName);
-            SetSuccessMessage(temp.nickName);
+            Manager.Instance.GameMgr.SetCurrentPlayerInfo(playerEntity);
+            SetSuccessMessage(playerEntity.nickName);
 
             if (nextSceneType == ScDefine.ScScene.Ch1Play)
             {
