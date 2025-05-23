@@ -2,9 +2,11 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
+    [SerializeField] private Image bg;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float duration = 0.15f;
     [SerializeField] private string emptySceneName = "";
@@ -17,6 +19,7 @@ public class GameSceneManager : MonoBehaviour
     
     private void Awake()
     {
+        bg.enabled = true;
         Scene activeScene = SceneManager.GetActiveScene();
         currentSceneName = activeScene.name;
 

@@ -18,6 +18,9 @@ public class UILobby : UIBase
 
     public void RestartCountdown()
     {
+        countdownCts?.Cancel();
+        countdownCts = null;
+
         seconds = maxSeconds;
         SetCountdown(seconds);
         countdownText.gameObject.SetActive(true);
@@ -35,15 +38,13 @@ public class UILobby : UIBase
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            ScLobbyService.Instance.TransferMasterTo();
+            if (!ScLobbyService.Instance.TransferMasterTo())
+                ScLobbyService.Instance.LeaveRoom();
         }
         else
         {
             ScLobbyService.Instance.LeaveRoom();
         }
-
-        //foreach (Transform child in playerParent.transform)
-        //    Destroy(child.gameObject);
 
         Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch3Login);
     }
@@ -57,17 +58,22 @@ public class UILobby : UIBase
 
     private async UniTask StartCountdown()
     {
+        countdownCts?.Cancel();
+        countdownCts?.Dispose();
         countdownCts = new CancellationTokenSource();
         var linkedcts = CancellationTokenSource.CreateLinkedTokenSource(countdownCts.Token, base.DestroyToken);
 
         while (seconds > 0)
         {
-            await UniTask.Delay(1000, cancellationToken: linkedcts.Token);
+            await UniTask.WaitForSeconds(1, cancellationToken: linkedcts.Token);
 
-            if (countdownCts.IsCancellationRequested)
+            if (linkedcts.IsCancellationRequested)
                 return;
 
             SetCountdown(--seconds);
         }
+
+        countdownCts?.Dispose();
+        countdownCts = null;
     }
 }

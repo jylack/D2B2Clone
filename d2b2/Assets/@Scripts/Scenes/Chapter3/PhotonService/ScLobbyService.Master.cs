@@ -6,21 +6,20 @@ using System.Collections.Generic;
 
 public partial class ScLobbyService
 {
-    public void TransferMasterTo()
+    public bool TransferMasterTo()
     {
         if (!PhotonNetwork.IsMasterClient)
-            return;
+            return false;
 
         int actorIndex = GetFirstActorIndexExceptMe();
         if (actorIndex < 0)
-            return;
+            return false;
 
-        isOldMaster = true;
         Player player = PhotonNetwork.CurrentRoom.GetPlayer(actorNumbersForPosition[actorIndex]);
         PhotonNetwork.SetMasterClient(player);
 
-        playerDict.Clear();
-        actorNumbersForPosition = new int[6];
+        LeaveRoom();
+        return true;
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
