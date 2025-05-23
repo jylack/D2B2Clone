@@ -22,17 +22,6 @@ public partial class ScLobbyService
         Photon.RPC(nameof(OnJoinedRoom_Server), RpcTarget.MasterClient, sendJson);
     }
 
-    public override void OnLeftRoom()
-    {
-        PhotonNetwork.Disconnect();
-    }
-
-    public override void OnMasterClientSwitched(Player newMasterClient)
-    {
-        if (isOldMaster)
-            PhotonNetwork.LeaveRoom();
-    }
-
 
 
     [PunRPC]
@@ -40,11 +29,11 @@ public partial class ScLobbyService
     {
         ScLobbyPlayerEntity playerEntity = JsonConvert.DeserializeObject<ScLobbyPlayerEntity>(json);
 
-        if (!isVrPlayerInit)
+        if (!isVrPlayerInit && PhotonNetwork.LocalPlayer.ActorNumber == playerEntity.actorNumber)
         {
             isVrPlayerInit = true;
 
-            vrPlayer.position = CalcPosition(playerEntity.positionIndex, 8f);
+            vrPlayer.position = CalcPosition(playerEntity.positionIndex, 6f);
             vrPlayer.LookAt(Vector3.zero);
 
             Vector3 targetPos = 2 * uiLobby.transform.position - vrPlayer.position;

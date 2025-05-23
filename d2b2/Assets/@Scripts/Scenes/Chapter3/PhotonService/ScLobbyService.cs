@@ -19,7 +19,6 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
     private Dictionary<int, ScLobbyPlayer> playerDict = new();
     private int[] actorNumbersForPosition = new int[6];
     private bool isVrPlayerInit;
-    private bool isOldMaster;
 
 
 
@@ -54,9 +53,7 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-
-        playerDict.Clear();
-        actorNumbersForPosition = new int[6];
+        PhotonNetwork.Disconnect();
     }
 
     public override void OnConnectedToMaster()
@@ -66,7 +63,7 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
 
 
 
-    private static Vector3 CalcPosition(int index, float distance = 6f)
+    private static Vector3 CalcPosition(int index, float distance = 5f)
     {
         const float angle = 360f / MaxPlayerCount;
         return Quaternion.Euler(0f, angle * index, 0f) * Vector3.right * distance;
