@@ -91,7 +91,7 @@ public class ScTrafficLightSystem : ScObjectBase
 
                 int elapsedTime = blinkBeforeTime;
 
-                currentTrafficLightGroup.StartGreenLightBlink();
+                currentTrafficLightGroup.OnStartGreenLightBlink();
 
                 // ³ì»öºÒ Á¡¸ê
                 while (elapsedTime < greenDuration)

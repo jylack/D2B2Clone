@@ -28,12 +28,12 @@ public class ScTrafficLightGroup
         }
     }
 
-    public void StartGreenLightBlink()
+    public void OnStartGreenLightBlink()
     {
         if (items?.Count > 0)
         {
             foreach (ScTrafficLight trafficLight in items)
-                trafficLight.StartGreenLightBlink();
+                trafficLight.OnStartGreenBlink();
         }
     }
 }
