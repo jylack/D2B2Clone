@@ -8,7 +8,6 @@ public class ScGoalPointHsy : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            SecondStageManager.Instance.SecondStageClear();
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch2Login);
                 
         }

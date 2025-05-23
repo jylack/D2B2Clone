@@ -8,13 +8,8 @@ public class ScLookAroundRegion : MonoBehaviour
     private bool checkLookRight;
     public bool lookAroundMissionClear { get; private set; }
     [SerializeField] private float completeTime = 1;
-    private string missionFaildMessage;
     private Coroutine lookCor;
 
-    private void Start()
-    {
-        missionFaildMessage = "고개 돌리기 미션 실패";
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
