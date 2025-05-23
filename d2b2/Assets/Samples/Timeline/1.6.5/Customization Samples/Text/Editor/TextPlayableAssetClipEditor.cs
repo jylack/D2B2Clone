@@ -15,8 +15,8 @@ namespace Timeline.Samples
         public override void OnClipChanged(TimelineClip clip)
         {
             var textPlayableasset = clip.asset as TextPlayableAsset;
-            if (textPlayableasset != null && !string.IsNullOrEmpty(textPlayableasset.template.text))
-                clip.displayName = textPlayableasset.template.text;
+            //if (textPlayableasset != null && !string.IsNullOrEmpty(textPlayableasset.template.text))
+            //    clip.displayName = textPlayableasset.template.text;
         }
     }
 }

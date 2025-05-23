@@ -18,7 +18,6 @@ namespace Timeline.Samples
         public int fontSize = 14;
 
         [Tooltip("The text to display")]
-        public string text = "";
         public string key = "";
     }
 }

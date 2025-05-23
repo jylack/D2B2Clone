@@ -44,7 +44,7 @@ namespace Timeline.Samples
                 // use the text with the highest weight
                 if (inputWeight > greatestWeight)
                 {
-                    text = input.text;
+                    text = "æ»≥Á«œººø‰";
                     greatestWeight = inputWeight;
                 }
             }
