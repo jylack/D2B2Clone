@@ -41,12 +41,15 @@ public partial class ScLobbyService
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        if (!CheckIsReady(changedProps))
+        if (!changedProps.TryGetValue(ScCh3Define.PROP_KEY_IS_READY, out object isReady))
+            return;
+
+        if (!(bool)isReady)
         {
             Broadcast(nameof(OnCountdownStateChanged), false);
             return;
         }
-
+        
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             if (!CheckIsReady(player.CustomProperties))
@@ -59,6 +62,27 @@ public partial class ScLobbyService
         Broadcast(nameof(OnCountdownStateChanged), true);
     }
 
+    
+    
+    private static bool CheckIsReady(Hashtable props)
+    {
+        if (props.TryGetValue(ScCh3Define.PROP_KEY_IS_READY, out object isReady))
+        {
+            if (!(bool)isReady)
+            {
+                // ScCh3Define.PROP_KEY_IS_READY == false
+                return false;
+            }
+        }
+        else
+        {
+            // ScCh3Define.PROP_KEY_IS_READY 키 없음
+            return false;
+        }
+
+        return true;
+    }
+    
 
 
     [PunRPC]
@@ -66,7 +90,7 @@ public partial class ScLobbyService
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
-
+        
         ScLobbyPlayerEntity playerEntity = JsonConvert.DeserializeObject<ScLobbyPlayerEntity>(json);
 
         // response: 방금 접속한 유저 -> 모든 유저 정보 전달
@@ -85,26 +109,7 @@ public partial class ScLobbyService
         string sendJson = JsonConvert.SerializeObject(playerEntity);
         Broadcast(nameof(OnAddNewPlayer), sendJson);
     }
-
-    private bool CheckIsReady(Hashtable props)
-    {
-        if (props.TryGetValue(ScCh3Define.PROP_KEY_IS_READY, out object isReady))
-        {
-            if (!(bool)isReady)
-            {
-                // ScCh3Define.PROP_KEY_IS_READY == false
-                return false;
-            }
-        }
-        else
-        {
-            // ScCh3Define.PROP_KEY_IS_READY 키 없음
-            return false;
-        }
-
-        return true;
-    }
-
+    
     private void Broadcast(string methodName, params object[] parameters)
     {
         Photon.RPC(methodName, RpcTarget.AllViaServer, parameters);

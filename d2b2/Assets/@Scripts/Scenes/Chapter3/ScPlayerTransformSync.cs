@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
 {
+    [Header("Player")]
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject otherPlayer;
     [SerializeField] private Transform playerLController;
     [SerializeField] private Transform playerRController;
+    [Header("Other Player")]
+    [SerializeField] private GameObject otherPlayer;
     [SerializeField] private Transform otherLController;
     [SerializeField] private Transform otherRController;
 
@@ -24,11 +26,11 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             player.SetActive(true);
-            otherPlayer.SetActive(false);
+            Destroy(otherPlayer);
         }
         else
         {
-            player.SetActive(false);
+            Destroy(player);
             otherPlayer.SetActive(true);
         }
     }
@@ -37,10 +39,17 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
     {
         if (!photonView.IsMine)
         {
-            otherLController.position = Vector3.Lerp(otherLController.position, playerLPosition, Time.deltaTime * lerpSpeed);
-            otherLController.rotation = Quaternion.Lerp(otherLController.rotation, playerLRotation, Time.deltaTime * lerpSpeed);
-            otherRController.position = Vector3.Lerp(otherRController.position, playerRPosition, Time.deltaTime * lerpSpeed);
-            otherRController.rotation = Quaternion.Lerp(otherRController.rotation, playerRRotation, Time.deltaTime * lerpSpeed);
+            if (otherLController != null)
+            {
+                otherLController.position = Vector3.Lerp(otherLController.position, playerLPosition, Time.deltaTime * lerpSpeed);
+                otherLController.rotation = Quaternion.Lerp(otherLController.rotation, playerLRotation, Time.deltaTime * lerpSpeed);    
+            }
+
+            if (otherRController != null)
+            {
+                otherRController.position = Vector3.Lerp(otherRController.position, playerRPosition, Time.deltaTime * lerpSpeed);
+                otherRController.rotation = Quaternion.Lerp(otherRController.rotation, playerRRotation, Time.deltaTime * lerpSpeed);    
+            }
         }
     }
 

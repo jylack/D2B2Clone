@@ -22,13 +22,21 @@ public class ScLobbyPlayer : ScObjectBase
         character.transform.localRotation = Quaternion.identity;
 
         nickNameText.text = NickName;
-
-        Hashtable props = new()
+        
+        if (PhotonNetwork.LocalPlayer.ActorNumber == ActorNumber)
         {
-            { ScCh3Define.PROP_KEY_IS_READY, true }
-        };
+            PhotonNetwork.AutomaticallySyncScene = true;
+            
+            Hashtable props = new()
+            {
+                { ScCh3Define.PROP_KEY_IS_READY, true },
+                { ScCh3Define.PROP_KEY_PLAYER_INDEX, PositionIndex }
+            };
 
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        
+            Debug.Log($"PositionIndex: {PositionIndex}");
+        }
     }
 
 

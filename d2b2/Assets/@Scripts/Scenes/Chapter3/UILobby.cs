@@ -70,13 +70,13 @@ public class UILobby : UIBase
         countdownCts?.Cancel();
         countdownCts?.Dispose();
         countdownCts = new CancellationTokenSource();
-        var linkedcts = CancellationTokenSource.CreateLinkedTokenSource(countdownCts.Token, base.DestroyToken);
+        var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(countdownCts.Token, base.DestroyToken);
 
         while (seconds > 0)
         {
-            await UniTask.WaitForSeconds(1, cancellationToken: linkedcts.Token);
+            await UniTask.WaitForSeconds(1, cancellationToken: linkedCts.Token);
 
-            if (linkedcts.IsCancellationRequested)
+            if (linkedCts.IsCancellationRequested)
                 return;
 
             SetCountdown(--seconds);
