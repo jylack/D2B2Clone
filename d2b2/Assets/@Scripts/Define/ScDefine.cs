@@ -25,9 +25,11 @@
         Sg02_LookAround,
         Sg03_HandUp,
         Sg04_TrafficBlink,
-        Sg05_Jaywalking,
+        Sg05_SafeWalk, 
         Sg06_BlindSpot,
-        Sg07_GsCarPrediction
+        Sg07_GsCarPrediction,
+        Sg08_Jaywalking,
+
     }
 
     public enum ScNickNameValidation

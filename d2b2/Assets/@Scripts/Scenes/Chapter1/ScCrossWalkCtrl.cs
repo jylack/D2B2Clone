@@ -61,7 +61,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 }
                 if (isColorRed)
                 {
-                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
+                    Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg08_Jaywalking);
                     return;
                 }
                 
@@ -94,7 +94,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
             ScRespawn.Instance.Respawn();
             //¿Ãµø ¡ﬂ∞£ø° ∏ÿ√„
-            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
+            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_SafeWalk);
             coroutine = null;
             yield break;
         }

@@ -81,9 +81,10 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.Sg02_LookAround            => "Sg02_LookAround",
             ScDefine.ScScene.Sg03_HandUp                => "Sg03_HandUp",
             ScDefine.ScScene.Sg04_TrafficBlink          => "Sg04_TrafficBlink",
-            ScDefine.ScScene.Sg05_Jaywalking            => "Sg05_Jaywalking",
+            ScDefine.ScScene.Sg05_SafeWalk              => "Sg05_SafeWalk",
             ScDefine.ScScene.Sg06_BlindSpot             => "Sg06_BlindSpotExperience",
             ScDefine.ScScene.Sg07_GsCarPrediction       => "Sg07_CarPrediction",
+            ScDefine.ScScene.Sg08_Jaywalking            => "Sg08_Jaywalking",
             _ => "",
         };
     }

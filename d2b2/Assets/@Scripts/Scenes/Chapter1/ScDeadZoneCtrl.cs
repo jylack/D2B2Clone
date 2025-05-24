@@ -11,7 +11,7 @@ public class ScDeadZoneCtrl : MonoBehaviour
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             ScRespawn.Instance.Respawn();
-            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_Jaywalking);
+            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg08_Jaywalking);
         }
     }
 }
