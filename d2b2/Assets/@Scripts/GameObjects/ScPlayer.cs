@@ -23,7 +23,7 @@ public class ScPlayer : ScObjectBase
     private bool isLeftHandUp;
     private bool isRightHandUp;
     private bool isMoving;
-    private bool isleftStickMove;
+    private bool isLeftStickMove;
     private float leftHandForwardTime;
     private float leftHandBackwardTime;
     private float rightHandForwardTime;
@@ -123,43 +123,43 @@ public class ScPlayer : ScObjectBase
 
     private void UpdateMove()
     {
-        //Debug.Log("2");
-
         isMoving = false;
 
-        if (isleftStickMove)
+        if (isLeftStickMove)
         {
             isMoving = true;
             Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
 
             return;
         }
-        //Debug.Log($"LeftForward: {leftHandForwardTime}, Backward: {leftHandBackwardTime}, Time: {Time.time}");
 
+        bool isMoveStart;
+        bool isValidSwingIntervalTime;
+        
         // 왼손 체크
-        bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
-        bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
-        //Debug.Log("isMoveStart : " + isMoveStart);
-        //Debug.Log("isValidSwingIntervalTime : " + isValidSwingIntervalTime);
-
-        if (isMoveStart && isValidSwingIntervalTime)
+        if (leftHandForwardTime > 0 && leftHandBackwardTime > 0)
         {
+            isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
+            isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
 
-            MoveForward();
-            return;
+            if (isMoveStart && isValidSwingIntervalTime)
+            {
+                MoveForward();
+                return;
+            }
         }
 
         // 오른손 체크
-        isMoveStart = Time.time - rightHandForwardTime <= 0.5f;
-        isValidSwingIntervalTime = Mathf.Abs(rightHandForwardTime - rightHandBackwardTime) <= swingThresholdIntervalTime;
-
-        if (isMoveStart && isValidSwingIntervalTime)
+        if (rightHandForwardTime > 0 && rightHandBackwardTime > 0)
         {
-            MoveForward();
-            return;
+            isMoveStart = Time.time - rightHandForwardTime <= 0.5f;
+            isValidSwingIntervalTime = Mathf.Abs(rightHandForwardTime - rightHandBackwardTime) <= swingThresholdIntervalTime;
+
+            if (isMoveStart && isValidSwingIntervalTime)
+            {
+                MoveForward();
+            }
         }
-
-
     }
 
     private void MoveForward()
@@ -214,6 +214,6 @@ public class ScPlayer : ScObjectBase
 
     private void OnLeftStickMove(bool isStick)
     {
-        isleftStickMove = isStick;
+        isLeftStickMove = isStick;
     }
 }
