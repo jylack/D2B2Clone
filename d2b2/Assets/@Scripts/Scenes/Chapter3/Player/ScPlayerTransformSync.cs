@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
 {
+    [SerializeField] private GameObject mainCamera;
     [Header("Player")]
     [SerializeField] private GameObject player;
     [SerializeField] private Transform playerLController;
@@ -12,6 +13,11 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
     [SerializeField] private Transform otherLController;
     [SerializeField] private Transform otherRController;
 
+    private Vector3 masterHeadPosition;
+    private Quaternion masterHeadRotation;
+    private GameObject head;
+    private Vector3 headPosition;
+    private Quaternion headRotation;
     private Vector3 playerLPosition;
     private Quaternion playerLRotation;
     private Vector3 playerRPosition;
@@ -30,15 +36,41 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            object[] data = photonView.InstantiationData;
+            ScDefine.ScGuideCharacter characterType = (ScDefine.ScGuideCharacter)data[0];
+            GameObject prefab = Manager.Instance.ResourceMgr.GetCharacterHeadPrefab(characterType);
+            
+            head = Instantiate(prefab, otherPlayer.transform);
+            head.transform.localPosition = Vector3.zero;
+            head.transform.localRotation = Quaternion.identity;
+
+            otherLController.localScale = 1.5f * Vector3.one;
+            otherRController.localScale = 1.5f * Vector3.one;
+            
             Destroy(player);
             otherPlayer.SetActive(true);
         }
+        
+        GameObject playerParent = GameObject.Find("Players");
+        if (playerParent != null)
+            transform.SetParent(playerParent.transform);
     }
 
     private void Update()
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine)
         {
+            masterHeadPosition = mainCamera.transform.position;
+            masterHeadRotation = mainCamera.transform.rotation;
+        }
+        else
+        {
+            if (head != null)
+            {
+                head.transform.position = Vector3.Lerp(head.transform.position, headPosition, Time.deltaTime * lerpSpeed);
+                head.transform.rotation = Quaternion.Lerp(head.transform.rotation, headRotation, Time.deltaTime * lerpSpeed);
+            }
+            
             if (otherLController != null)
             {
                 otherLController.position = Vector3.Lerp(otherLController.position, playerLPosition, Time.deltaTime * lerpSpeed);
@@ -52,13 +84,15 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
             }
         }
     }
+    
+    
 
-    
-    
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
+            stream.SendNext(masterHeadPosition);
+            stream.SendNext(masterHeadRotation);
             stream.SendNext(playerLController.position);
             stream.SendNext(playerLController.rotation);
             stream.SendNext(playerRController.position);
@@ -66,6 +100,8 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            headPosition = (Vector3)stream.ReceiveNext();
+            headRotation = (Quaternion)stream.ReceiveNext();
             playerLPosition = (Vector3)stream.ReceiveNext();
             playerLRotation = (Quaternion)stream.ReceiveNext();
             playerRPosition = (Vector3)stream.ReceiveNext();

@@ -3,12 +3,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public delegate void OnHeadPositionChangedHandler(Vector3 position);
+public delegate void OnHeadRotationChangedHandler(Quaternion rotation);
 public delegate void OnHandPositionChangedHandler(Vector3 position);
 public delegate void OnLeftStickMoveHandler(bool stickMoving);
 
 public class InputManager : MonoBehaviour
 {
     public event OnHeadPositionChangedHandler OnHeadPositionChanged;
+    public event OnHeadRotationChangedHandler OnHeadRotationChanged;
     public event OnHandPositionChangedHandler OnLeftHandPositionChanged;
     public event OnHandPositionChangedHandler OnRightHandPositionChanged;
     public event OnLeftStickMoveHandler OnLeftStickMove;
@@ -30,6 +32,7 @@ public class InputManager : MonoBehaviour
         inputActions.Enable();
 
         inputActions.XRIHead.Position.performed += HeadPosition_performed;
+        inputActions.XRIHead.Rotation.performed += HeadRotation_performed;
         inputActions.XRILeftHand.Position.performed += LeftHandPosition_performed;
         inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
         inputActions.XRIRightHandInteraction.Activate.performed += Select_performed;
@@ -39,7 +42,7 @@ public class InputManager : MonoBehaviour
         inputActions.XRILeftHandLocomotion.Move.canceled += LeftStickMove_canceled;
     }
 
-
+    
 
     private void LeftStickMove_performed(InputAction.CallbackContext obj)
     {
@@ -56,6 +59,12 @@ public class InputManager : MonoBehaviour
     {
         Vector3 pos = obj.ReadValue<Vector3>();
         OnHeadPositionChanged?.Invoke(pos);
+    }
+    
+    private void HeadRotation_performed(InputAction.CallbackContext obj)
+    {
+        Quaternion rotation = obj.ReadValue<Quaternion>();
+        OnHeadRotationChanged?.Invoke(rotation);
     }
     
     private void LeftHandPosition_performed(InputAction.CallbackContext obj)

@@ -17,7 +17,8 @@ public class ScLobbyPlayer : ScObjectBase
 
     private void Start()
     {
-        GameObject character = Instantiate(characterPrefabs[(int)GuideCharacterType], transform);
+        GameObject prefab = Manager.Instance.ResourceMgr.GetCharacterPrefab(GuideCharacterType);
+        GameObject character = Instantiate(prefab, transform);
         character.transform.localPosition = Vector3.zero;
         character.transform.localRotation = Quaternion.identity;
 
@@ -30,12 +31,11 @@ public class ScLobbyPlayer : ScObjectBase
             Hashtable props = new()
             {
                 { ScCh3Define.PROP_KEY_IS_READY, true },
-                { ScCh3Define.PROP_KEY_PLAYER_INDEX, PositionIndex }
+                { ScCh3Define.PROP_KEY_PLAYER_INDEX, PositionIndex },
+                { ScCh3Define.PROP_KEY_CHARACTER_TYPE, GuideCharacterType }
             };
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-        
-            Debug.Log($"PositionIndex: {PositionIndex}");
         }
     }
 

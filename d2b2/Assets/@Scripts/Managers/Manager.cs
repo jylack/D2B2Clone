@@ -28,6 +28,7 @@ public class Manager : MonoBehaviour
     
     [SerializeField] private GameObject gameSceneManagerPrefab;
     [SerializeField] private GameObject soundManagerPrefab;
+    [SerializeField] private GameObject resourceManagerPrefab;
     
     public InputManager InputMgr { get; private set; }
     public GameManager GameMgr { get; private set; }
@@ -35,7 +36,6 @@ public class Manager : MonoBehaviour
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
     public SoundManager SoundMgr { get; private set; }
-    [SerializeField] public string NickName { get; set; }
 
 
     
@@ -45,10 +45,12 @@ public class Manager : MonoBehaviour
         {
             InputMgr = InitSubManager<InputManager>();
             GameMgr = InitSubManager<GameManager>();
-            ResourceMgr = InitSubManager<ResourceManager>();
         
             DbMgr = InitSubManager<DatabaseManager>();
             await DbMgr.Init();
+            
+            ResourceMgr = Instantiate(resourceManagerPrefab).GetComponent<ResourceManager>();
+            ResourceMgr.transform.SetParent(transform);
             
             SceneMgr = Instantiate(gameSceneManagerPrefab).GetComponent<GameSceneManager>();
             SceneMgr.transform.SetParent(transform);

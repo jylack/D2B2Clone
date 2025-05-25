@@ -26,7 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9132171649109009631}
   - {fileID: 8941580747354969432}
@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3292123350378157938
 Transform:
   m_ObjectHideFlags: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d2335984fe4ff4a9d64c7461b1a5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 3035536317903085669}
   player: {fileID: 6284949903354558858}
   playerLController: {fileID: 3035536318486790148}
   playerRController: {fileID: 3035536317740089573}
@@ -191,6 +192,11 @@ PrefabInstance:
     - target: {fileID: 4593699310548108908, guid: bc3fd8240cea2c2468a7f2a00e393390,
         type: 3}
       propertyPath: m_Cameras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904417537268337674, guid: bc3fd8240cea2c2468a7f2a00e393390,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8833626079975955432, guid: bc3fd8240cea2c2468a7f2a00e393390,
@@ -263,6 +269,12 @@ PrefabInstance:
 --- !u!4 &3035536317740089573 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 544826205492683396, guid: bc3fd8240cea2c2468a7f2a00e393390,
+    type: 3}
+  m_PrefabInstance: {fileID: 3292123350427837025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3035536317903085669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 544826205319987716, guid: bc3fd8240cea2c2468a7f2a00e393390,
     type: 3}
   m_PrefabInstance: {fileID: 3292123350427837025}
   m_PrefabAsset: {fileID: 0}
