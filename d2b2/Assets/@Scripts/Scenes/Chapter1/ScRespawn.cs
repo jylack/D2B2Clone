@@ -56,6 +56,12 @@ public class ScRespawn : MonoBehaviour
 
     public void Respawn()
     {
+        if(telPos.destinationPosition == Vector3.zero)
+        {
+            Debug.LogError("텔레포트 위치가 설정되지 않았습니다.");
+            return;
+        }
+
         Player.CharacterController.enabled = false;
         //player
         Player.transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
