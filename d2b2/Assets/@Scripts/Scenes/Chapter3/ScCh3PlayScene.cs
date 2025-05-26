@@ -9,8 +9,6 @@ public class ScCh3PlayScene : ScSceneBase
 
     private void Start()
     {
-        Manager.Instance.GameMgr.SetCurrentMoveSpeed(0);
-
         int posIndex = 0;
         ScDefine.ScGuideCharacter characterType = ScDefine.ScGuideCharacter.Character1;
 
