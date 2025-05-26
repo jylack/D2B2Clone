@@ -7,10 +7,15 @@ using UnityEngine.UI;
 
 public class ScSettingSlider : MonoBehaviour
 {
-    [SerializeField] string stringFormat = "F0";
-    [SerializeField] Slider slider;
+    [SerializeField] private string stringFormat = "F0";
+    public Slider slider;
     [SerializeField] TMP_Text valueText;
     public Action<float> OnValueChanged;
+    [HideInInspector] public bool displayString;
+    [HideInInspector] public bool multiply;
+    [HideInInspector] public float multiplyValue;
+    [HideInInspector] public string[] displayNames;
+    //public List<string> displayNames;
 
     public float Value
     {
@@ -26,7 +31,7 @@ public class ScSettingSlider : MonoBehaviour
     public void ChangeValue()
     {
         Value = slider.value;
-        valueText.text = (slider.value * 100).ToString(stringFormat);
+        valueText.text = (slider.value * multiplyValue).ToString(stringFormat);
         OnValueChanged?.Invoke(Value);
     }
 }
