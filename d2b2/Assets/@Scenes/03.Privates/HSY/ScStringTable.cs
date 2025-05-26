@@ -123,9 +123,20 @@ public class ScStringTable : MonoBehaviour
         { "Sg7_Carprediction_10", "봐봐, 이 친구는 그냥 나가지 않고 먼저 멈춰서 좌우를 확인했지?" },
         { "Sg7_Carprediction_11", "앞이 안 보이는 곳에서는, 항상 먼저 멈추고 확인하는 거야. 알겠지?" },
         { "Sg7_Carprediction_12", "어때? 이제 어떻게 하면 좋은지 알겠지?" },
-        { "Sg7_Carprediction_13", "다시 한번 도로로 돌아가서 다시 도전하자!" }
+        { "Sg7_Carprediction_13", "다시 한번 도로로 돌아가서 다시 도전하자!" },
 
-
+        { "Str_Announce_Chapter1_1", "이제 미션을 시작해볼까?\r\n\r\n여기 체크리스트를 봐줘!  \r\n앞으로 해야 할 일이 순서대로 적혀 있어!\r\n\r\n내가 같이 가면서 하나씩 알려줄게!" },
+        { "Str_Announce_Chapter1_2", "앞에 보이는 노란선을 봐봐.  \r\n그 선 앞에서 멈춰서 신호를 기다려야 해!\r\n\r\n초록불이 켜질 때까지,  \r\n여기에서 조용히 기다려보자!" },
+        { "Str_Announce_Chapter1_3", "초록불이 켜졌어!\r\n\r\n먼저 좌우가 안전한지 확인해야 해!  \r\n튜토리얼에서 연습했던 거, 떠올려봐~\r\n\r\n그럼 우선~ 왼쪽부터 살펴보자!" },
+        { "Str_Announce_Chapter1_4", "잘했어! 왼쪽은 확인 완료!\r\n\r\n이제 반대쪽, 오른쪽도 살펴보자!" },
+        { "Str_Announce_Chapter1_5", "이제 내가 건너요~ 하고  \r\n운전자에게 알려줄 차례야!\r\n\r\n왼손을 머리 위로 번쩍!  \r\n손을 들고 천천히 길을 건너자!" },
+        { "Str_Announce_Chapter1_6", "최고야! 다음 건널목으로 가보자~!" },
+        { "Str_Announce_Chapter1_7", "조금 아쉬웠지만 괜찮아!\r\n\r\n다시 도전하면 돼!  \r\n이번엔 더 잘할 수 있을 거야!" },
+        { "Str_Announce_Chapter1_8", "이제 혼자서도 할 수 있겠지?\r\n\r\n신호에 맞춰 조심조심~  \r\n방금 배운 대로 해보자!\r\n\r\n혹시 무슨 일이 생기면,  \r\n내가 바로 도와줄 테니까 걱정 마! 화이팅!" },
+        { "Str_Announce_Chapter1_9", "안녕~ 잘 왔어! 여기는 횡단보도를 안전하게 건너는 방법을 배우는 곳이야! 앞에 보이는 표시된 길까지  하나씩 차근차근~ 같이 배워보자!" },
+        { "Str_Announce_Chapter1_10", "진짜~ 최고야! " },
+        { "Str_Announce_Chapter1_11", "안전 보행 미션 완료!\r\n\r\n이제 진짜 도로에서도  \r\n스스로 잘 건널 수 있겠는걸?\r\n\r\n좋아~ 다음 학습으로 떠나볼까?" },
+        
 
     };
 }

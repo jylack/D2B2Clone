@@ -258,12 +258,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10278964}
   m_CullTransparentMesh: 1
---- !u!20 &65529035 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 544826205319987714, guid: bc3fd8240cea2c2468a7f2a00e393390,
-    type: 3}
-  m_PrefabInstance: {fileID: 518439171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &174747286
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,41 +703,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 544826205319987714, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 3071
-      objectReference: {fileID: 0}
-    - target: {fileID: 1177966309702392664, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2379285796392995442, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2379285796392995452, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 2379285796392995452, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3606230357993960705, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4593699310548108908, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_Cameras.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4593699310548108908, guid: bc3fd8240cea2c2468a7f2a00e393390,
         type: 3}
       propertyPath: m_Cameras.Array.data[0]
@@ -804,40 +763,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8833626079975955433, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 65529035}
-    - target: {fileID: 8833626079975955433, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: moveProv
-      value: 
-      objectReference: {fileID: 1898871841}
-    - target: {fileID: 8833626079975955433, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8833626079975955433, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 65529035}
-    - target: {fileID: 8833626079975955433, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: maxHandHeight
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8833626079975955435, guid: bc3fd8240cea2c2468a7f2a00e393390,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8833626079975955435, guid: bc3fd8240cea2c2468a7f2a00e393390,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3fd8240cea2c2468a7f2a00e393390, type: 3}
@@ -3332,18 +3261,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1898871841 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 408861497163100340, guid: bc3fd8240cea2c2468a7f2a00e393390,
-    type: 3}
-  m_PrefabInstance: {fileID: 518439171}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1919424950 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 193646, guid: 19c00265a4f7b43489bdceefa77c2092,
