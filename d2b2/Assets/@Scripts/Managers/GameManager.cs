@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         playerEntity = playerInfo;
     }
 
-    public void SetCurrentMoveSpeed(float speed)
+    public void SetCurrentPlayerMoveSpeed(float speed)
     {
         GameObject moveObj = GameObject.Find("Move");
         if (moveObj != null)

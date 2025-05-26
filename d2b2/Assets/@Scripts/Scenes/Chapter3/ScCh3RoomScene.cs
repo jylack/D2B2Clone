@@ -2,6 +2,6 @@
 {
     private void Start()
     {
-        Manager.Instance.GameMgr.SetCurrentMoveSpeed(0);
+        Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
     }
 }
