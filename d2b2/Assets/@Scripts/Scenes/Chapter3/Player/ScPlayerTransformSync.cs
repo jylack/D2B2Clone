@@ -33,6 +33,8 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
         {
             player.SetActive(true);
             Destroy(otherPlayer);
+
+            Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         }
         else
         {
