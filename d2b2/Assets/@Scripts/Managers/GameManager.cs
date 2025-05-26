@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public delegate void OnPlayerHeadTurnHandler(ScDefine.ScHeadTurn headTurn);
 public delegate void OnPlayerHandsUpHandler(bool leftHandUp, bool rightHandUp, float distance);
@@ -26,6 +27,15 @@ public class GameManager : MonoBehaviour
     public void SetCurrentPlayerInfo(ScPlayerEntity playerInfo)
     {
         playerEntity = playerInfo;
+    }
+
+    public void SetCurrentMoveSpeed(float speed)
+    {
+        GameObject moveObj = GameObject.Find("Move");
+        if (moveObj != null)
+            moveObj.GetComponent<DynamicMoveProvider>().moveSpeed = speed;
+        else
+            Debug.Log("Move Object not found.");
     }
 
     public void RaisePlayerHeadTurnEvent(ScDefine.ScHeadTurn headTurn)

@@ -10,6 +10,7 @@ public class UILobby : UIBase
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private int maxSeconds = 10;
     [SerializeField] private GameObject playerParent;
+    [SerializeField] private GameObject startButton;
 
     private int seconds;
     private CancellationTokenSource countdownCts;
@@ -56,6 +57,11 @@ public class UILobby : UIBase
         }
 
         Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch3Login);
+    }
+
+    public void OnMasterChanged(bool isMaster)
+    {
+        startButton.SetActive(isMaster);
     }
 
 

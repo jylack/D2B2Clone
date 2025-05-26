@@ -469,7 +469,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &352022511
 MonoBehaviour:
@@ -488,6 +488,21 @@ MonoBehaviour:
   playerParent: {fileID: 1381777762}
   lobbyPlayerPrefab: {fileID: 3452371819628095915, guid: 9e65c4da8d4809c4a8d3548823cc0337,
     type: 3}
+  masterChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 801668912}
+        m_TargetAssemblyTypeName: UILobby, Assembly-CSharp
+        m_MethodName: OnMasterChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &352022512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,7 +760,7 @@ RectTransform:
   - {fileID: 1185875112}
   - {fileID: 1994412086}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -768,6 +783,7 @@ MonoBehaviour:
   countdownText: {fileID: 310749014}
   maxSeconds: 10
   playerParent: {fileID: 1381777761}
+  startButton: {fileID: 1185875111}
 --- !u!114 &801668913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,7 +1034,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185875111
 GameObject:
@@ -1038,7 +1054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1185875112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1298,7 +1314,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1994412085
 GameObject:
@@ -1469,7 +1485,7 @@ PrefabInstance:
     - target: {fileID: 8833626079975955432, guid: bc3fd8240cea2c2468a7f2a00e393390,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8833626079975955432, guid: bc3fd8240cea2c2468a7f2a00e393390,
         type: 3}

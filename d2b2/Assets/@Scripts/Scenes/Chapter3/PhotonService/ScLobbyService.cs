@@ -1,8 +1,7 @@
 using Photon.Pun;
 using System.Collections.Generic;
-using Photon.Pun.UtilityScripts;
-using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Events;
 
 public partial class ScLobbyService : MonoBehaviourPunCallbacks
 {
@@ -14,6 +13,7 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
     [SerializeField] private UILobby uiLobby;
     [SerializeField] private Transform playerParent;
     [SerializeField] private GameObject lobbyPlayerPrefab;
+    [SerializeField] private UnityEvent<bool> masterChanged;
 
     public PhotonView Photon { get; private set; }
 
