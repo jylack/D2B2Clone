@@ -42,7 +42,7 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
             totalWeight += inputWeight;
             if (inputWeight > greatestWeight)
             {
-                if (ScTextHsy.DialogueMap.TryGetValue(input.key, out string value))
+                if (ScStringTable.DialogueMap.TryGetValue(input.key, out string value))
                 {
                     text = value;
                 }
