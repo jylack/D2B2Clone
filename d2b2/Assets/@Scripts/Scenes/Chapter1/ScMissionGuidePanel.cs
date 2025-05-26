@@ -11,10 +11,10 @@ public class ScMissionGuidePanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(var mission in ScStringTable.DialogueMap)
-        {
-            missionText.Add(mission.Value);
-        }
+        //foreach(var mission in ScStringTable.DialogueMap)
+        //{
+        //    missionText.Add(mission.Value);
+        //}
 
         
 

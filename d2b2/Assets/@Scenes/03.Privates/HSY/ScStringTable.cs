@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-public class ScStringTable : MonoBehaviour
+public class ScStringTable
 {
     public static Dictionary<string, string> DialogueMap = new Dictionary<string, string>()
     {
@@ -136,7 +139,7 @@ public class ScStringTable : MonoBehaviour
         { "Str_Announce_Chapter1_9", "안녕~ 잘 왔어! 여기는 횡단보도를 안전하게 건너는 방법을 배우는 곳이야! 앞에 보이는 표시된 길까지  하나씩 차근차근~ 같이 배워보자!" },
         { "Str_Announce_Chapter1_10", "진짜~ 최고야! " },
         { "Str_Announce_Chapter1_11", "안전 보행 미션 완료!\r\n\r\n이제 진짜 도로에서도  \r\n스스로 잘 건널 수 있겠는걸?\r\n\r\n좋아~ 다음 학습으로 떠나볼까?" },
-        
+
 
     };
 }
