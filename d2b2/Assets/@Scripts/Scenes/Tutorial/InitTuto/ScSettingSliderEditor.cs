@@ -39,6 +39,10 @@ public class ScSettingSliderEditor : Editor
 
         EditorGUILayout.LabelField("Display Values", EditorStyles.boldLabel);
         ++EditorGUI.indentLevel;
+
+        EditorGUILayout.LabelField("Following Letter");
+        settingSlider.followingLetter = EditorGUILayout.TextArea(settingSlider.followingLetter);
+
         EditorGUILayout.LabelField("Do Multiply Value");
         settingSlider.multiply = EditorGUILayout.Toggle(settingSlider.multiply);
         if (settingSlider.multiply)
@@ -56,11 +60,14 @@ public class ScSettingSliderEditor : Editor
             EditorGUILayout.LabelField("String Display");
             settingSlider.displayString = EditorGUILayout.Toggle(settingSlider.displayString);
 
-            EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("displayNames"), true);
-            if(EditorGUI.EndChangeCheck())
+            if(settingSlider.displayString)
             {
-                serializedObject.ApplyModifiedProperties();
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("displayNames"), true);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                }
             }
         }
         else
