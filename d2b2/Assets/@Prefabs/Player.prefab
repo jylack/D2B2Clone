@@ -51,7 +51,6 @@ MonoBehaviour:
   audioSource: {fileID: 5751002466511076052}
   moveProv: {fileID: 408861497163100340}
   swingThresholdIntervalTime: 1
-  moveSpeed: 1
   swingForwardZPosition: 0.2
   swingBackwardZPosition: 0.05
   xrOriginTrans: {fileID: 1177966309702392667}
@@ -64,6 +63,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8833626079975955432}
     m_Modifications:
+    - target: {fileID: 3711799367079663623, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_SmoothTurnEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_RootOrder
