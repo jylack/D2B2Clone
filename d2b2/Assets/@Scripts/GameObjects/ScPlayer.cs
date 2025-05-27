@@ -9,7 +9,6 @@ public class ScPlayer : ScObjectBase
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
     [SerializeField] private float swingThresholdIntervalTime;
-    [SerializeField] private float moveSpeed;
     [SerializeField] private float swingForwardZPosition;
     [SerializeField] private float swingBackwardZPosition;
     [Header("head")]
@@ -164,7 +163,7 @@ public class ScPlayer : ScObjectBase
 
     private void MoveForward()
     {
-        characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
+        characterController.Move(moveProv.moveSpeed * Time.deltaTime * characterController.transform.forward);
 
         //Debug.Log("isMoving : " + isMoving);
         isMoving = true;
