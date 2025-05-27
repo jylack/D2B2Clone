@@ -14,6 +14,7 @@ public class ScMirror : MonoBehaviour
 
         // Mirror -> Target
         Vector3 reflected = Vector3.Reflect(targetDir, transform.forward);
+        //Vector3 reflected = -targetDir + mirrorCamTransform.forward;
 
         mirrorCamTransform.rotation = Quaternion.LookRotation(reflected, Vector3.up);
     }
