@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RayDetectMan : MonoBehaviour
 {
-    [SerializeField] private TMP_Text countText;
+    //[SerializeField] private TMP_Text countText;
 
     private Outline outline;
     private int count;
@@ -14,7 +14,7 @@ public class RayDetectMan : MonoBehaviour
     {
         outline = GetComponent<Outline>();
         outline.enabled = false;
-        countText.text = count.ToString();
+        //countText.text = count.ToString();
     }
 
 
@@ -27,6 +27,6 @@ public class RayDetectMan : MonoBehaviour
 
     public void DoSomething()
     {
-        countText.text = (++count).ToString();
+        //countText.text = (++count).ToString();
     }
 }
