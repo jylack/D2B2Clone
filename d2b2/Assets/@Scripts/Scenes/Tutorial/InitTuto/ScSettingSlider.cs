@@ -14,12 +14,19 @@ public class ScSettingSlider : MonoBehaviour
     [HideInInspector] public bool displayString;
     [HideInInspector] public bool multiply;
     [HideInInspector] public float multiplyValue;
+    [HideInInspector] public string followingLetter;
     [HideInInspector] public string[] displayNames;
     //public List<string> displayNames;
+
 
     public float Value
     {
         get; private set;
+    }
+
+    private void Start()
+    {
+        ChangeValue();
     }
 
     public void SetSliderValue(float value)
@@ -31,7 +38,7 @@ public class ScSettingSlider : MonoBehaviour
     public void ChangeValue()
     {
         Value = slider.value;
-        valueText.text = (slider.value * multiplyValue).ToString(stringFormat);
+        valueText.text = (slider.value * multiplyValue).ToString(stringFormat) + followingLetter;
         OnValueChanged?.Invoke(Value);
     }
 }
