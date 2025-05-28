@@ -15,7 +15,7 @@ public class ScMissionBoxTextCheck : MonoBehaviour
     private TextMeshProUGUI tmp;
     private bool isCheck;
 
-    void Start()
+    private void Awake()
     {
         tmp = GetComponent<TextMeshProUGUI>();
         isCheck = false;
@@ -57,7 +57,7 @@ public class ScMissionBoxTextCheck : MonoBehaviour
         }
     }
 
-    private void SetTypeChange(MissionBoxTextCheckType type)
+    public void SetTypeChange(MissionBoxTextCheckType type)
     {
         if (tmp != null)
         {

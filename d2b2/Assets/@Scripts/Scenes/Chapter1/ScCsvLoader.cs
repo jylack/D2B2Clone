@@ -17,8 +17,8 @@ public class ScCsvLoader : MonoBehaviour
         {
             if (row.TryGetValue("ID", out string key) && row.TryGetValue("Str", out string value))
             {
-                ScStringTable.DialogueMap.Add(key, value);
                 //Debug.Log($"Key: {key}, Value: {value}");
+                ScStringTable.DialogueMap.Add(key, value);
             }
         }
         
