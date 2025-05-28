@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScMissionGuidePanel : MonoBehaviour
@@ -9,9 +11,14 @@ public class ScMissionGuidePanel : MonoBehaviour
     private Dictionary<string, string> missionText = new Dictionary<string, string>();
 
     // Start is called before the first frame update
-    void Start()
+    private async UniTask Start()
     {
-        foreach (var dir in ScStringTable.DialogueMap)
+        if(Manager.Instance)
+        {
+            await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
+        }
+
+        foreach (var dir in Manager.Instance.LanguageMgr.DialogueMap)
         {
             string[] parts = dir.Key.Split('_');
 
@@ -33,6 +40,7 @@ public class ScMissionGuidePanel : MonoBehaviour
         {
             MissionPrebs = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
             MissionPrebs.GetComponent<ScMissionBoxTextCheck>().SetMissionText(mission.Value, MissionBoxTextCheckType.Base);
+            MissionPrebs.name = mission.Key;
             missionTexts.Add(MissionPrebs.GetComponent<ScMissionBoxTextCheck>());
         }
 

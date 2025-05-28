@@ -11,7 +11,7 @@ public enum MissionBoxTextCheckType
 
 public class ScMissionBoxTextCheck : MonoBehaviour
 {
-    [SerializeField] private MissionBoxTextCheckType checkType;
+    private MissionBoxTextCheckType checkType;
     private TextMeshProUGUI tmp;
     private bool isCheck;
 

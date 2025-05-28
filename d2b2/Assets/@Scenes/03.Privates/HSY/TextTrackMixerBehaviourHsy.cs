@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using Timeline.Samples;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.ProBuilder.MeshOperations;
-using UnityEngine.Timeline;
 
 public class TextTrackMixerBehaviourHsy : PlayableBehaviour
 {
@@ -31,6 +27,24 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
         float greatestWeight = 0f;
         string text = m_DefaultText;
 
+        Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
+
+        ScCsvLoader csvLoader = new ScCsvLoader();
+
+        string textPath = System.IO.File.ReadAllText(Application.dataPath + "/@Scenes/03.Privates/JYL/StringTable.csv", System.Text.Encoding.UTF8);
+
+
+        var textList = csvLoader.LoadFromText(textPath);
+
+        foreach (var row in textList)
+        {
+            if (row.TryGetValue("ID", out string key) && row.TryGetValue("Str", out string value))
+            {
+                dialogueMap.Add(key, value);
+            }
+        }
+
+
         for (int i = 0; i < inputCount; i++)
         {
             float inputWeight = playable.GetInputWeight(i);
@@ -42,7 +56,7 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
             totalWeight += inputWeight;
             if (inputWeight > greatestWeight)
             {
-                if (ScStringTable.DialogueMap.TryGetValue(input.key, out string value))
+                if (dialogueMap.TryGetValue(input.key, out string value))
                 {
                     text = value;
                 }
