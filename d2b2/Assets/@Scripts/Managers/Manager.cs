@@ -36,9 +36,11 @@ public class Manager : MonoBehaviour
     public ResourceManager ResourceMgr { get; private set; }
     public DatabaseManager DbMgr { get; private set; }
     public SoundManager SoundMgr { get; private set; }
+    public LanguageManager LanguageMgr { get; private set; }
 
 
-    
+
+
     private async void Awake()
     {
         try
@@ -57,6 +59,8 @@ public class Manager : MonoBehaviour
             
             SoundMgr = Instantiate(soundManagerPrefab).GetComponent<SoundManager>();
             SoundMgr.transform.SetParent(transform);
+
+            LanguageMgr = InitSubManager<LanguageManager>();
         }
         catch (Exception ex)
         {

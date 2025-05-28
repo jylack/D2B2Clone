@@ -1,38 +1,53 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using TMPro;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScMissionGuidePanel : MonoBehaviour
 {
-    [SerializeField] private List<string> missionText;
-
-    
+    //[SerializeField] private List<string> missionText;
+    private List<ScMissionBoxTextCheck> missionTexts = new List<ScMissionBoxTextCheck>();
+    private GameObject MissionPrebs;
+    private Dictionary<string, string> missionText = new Dictionary<string, string>();
 
     // Start is called before the first frame update
-    void Start()
+    private async UniTask Start()
     {
-        //foreach(var mission in ScStringTable.DialogueMap)
-        //{
-        //    missionText.Add(mission.Value);
-        //}
+        if(Manager.Instance)
+        {
+            await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
+        }
 
-        
+        foreach (var dir in Manager.Instance.LanguageMgr.DialogueMap)
+        {
+            string[] parts = dir.Key.Split('_');
 
-            
+            if (parts.Length > 2)
+            {
+                if (parts[0] == "Ch1" && parts[1] == "MissionText")
+                {
+                    if (parts[2] == "0")
+                    {
+                        missionText.Add(dir.Key, dir.Value);
+                        continue;
+                    }
+                    missionText.Add(dir.Key, parts[2] + ". " + dir.Value);                    
+                }
+            }
+        }
 
-        //if(panelText == null || panelText.Count == 0)
-        //{
-        //    Debug.LogError("Panel text is not set or empty.");
-        //    return;
-        //}
-        //panelText[0].fontStyle = FontStyles.Bold;
-        //panelText[0].color = Color.white;
+        foreach (var mission in missionText)
+        {
+            MissionPrebs = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
+            MissionPrebs.GetComponent<ScMissionBoxTextCheck>().SetMissionText(mission.Value, MissionBoxTextCheckType.Base);
+            MissionPrebs.name = mission.Key;
+            missionTexts.Add(MissionPrebs.GetComponent<ScMissionBoxTextCheck>());
+        }
 
-        //for (int i = 1; i < panelText.Count; i++)
-        //{
-        //    panelText[i].color = Color.red;
-        //}
+        missionTexts[0].SetTypeChange(MissionBoxTextCheckType.Title);
+
     }
 
-   
+    //여기서 좌우확인 멈추기 등등 이벤트 등록해서 사용함될듯?
+
 }

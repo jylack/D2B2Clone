@@ -51,7 +51,6 @@ public class ScPlayer : ScObjectBase
 
     private void Update()
     {
-        //Debug.Log("1");
         UpdateHeadTurn();
         UpdateMove();
     }

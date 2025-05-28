@@ -2,16 +2,15 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ScCSVWriter : MonoBehaviour
+public class ScCSVWriter 
 {
-
-    private void Start()
+    public void Init(Dictionary<string, string> data)
     {
         // CSV 파일로 저장
-        SaveDictionaryToCSV(ScStringTable.DialogueMap, Application.dataPath + "/@Scenes/03.Privates/JYL/DialogueMap.csv");
+        SaveDictionaryToCSV(data, Application.dataPath + "/@Scenes/03.Privates/JYL/DialogueMap.csv");
     }
 
-    public static void SaveDictionaryToCSV(Dictionary<string, string> data, string filePath)
+    public void SaveDictionaryToCSV(Dictionary<string, string> data, string filePath)
     {
         // 1. CSV 파일 스트림을 생성합니다.
         using (StreamWriter writer = new StreamWriter(filePath))
