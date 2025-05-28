@@ -25,28 +25,28 @@ public class ScCh3Npc : MonoBehaviour
 
     private void Start()
     {
-        if (pathObjects?.Length > 0)
-            destinationSetter.target = GetNextDestination();
+        //if (pathObjects?.Length > 0)
+        //    destinationSetter.target = GetNextDestination();
 
-        //InvokeRepeating(nameof(MoveToRandomPosition), 1f, 5f);
+        InvokeRepeating(nameof(MoveToRandomPosition), 1f, 5f);
     }
 
     private void Update()
     {
-        if (isManualMove)
-        {
-            Vector3 diff = destination - source;
+        //if (isManualMove)
+        //{
+        //    Vector3 diff = destination - source;
 
-            if (diff.magnitude < 0.1f)
-            {
-                StartPathFinding();
-                hasArrived = false;
-                return;
-            }
+        //    if (diff.magnitude < 0.1f)
+        //    {
+        //        StartPathFinding();
+        //        hasArrived = false;
+        //        return;
+        //    }
 
-            Vector3 dir = diff.normalized;
-            transform.position = dir * 5f * Time.deltaTime;
-        }
+        //    Vector3 dir = diff.normalized;
+        //    transform.position = dir * 5f * Time.deltaTime;
+        //}
         //else if (!hasArrived && ai.reachedEndOfPath && !ai.pathPending)
         //{
         //    hasArrived = true;
@@ -55,29 +55,35 @@ public class ScCh3Npc : MonoBehaviour
         //}
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Vector3.zero, 20f);
+    }
+
 
 
     public void StopPathFinding()
     {
-        source = transform.position;
-        ai.canMove = false;
-        ai.canSearch = false;
+        //source = transform.position;
+        //ai.canMove = false;
+        //ai.canSearch = false;
 
-        typeof(RichAI).GetMethod("ClearPath", BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(ai, null);
+        //typeof(RichAI).GetMethod("ClearPath", BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(ai, null);
 
-        ai.Teleport(source, true);
+        //ai.Teleport(source, true);
 
-        destination = GetNextDestination().position;
-        isManualMove = true;
+        //destination = GetNextDestination().position;
+        //isManualMove = true;
 
-        hasArrived = true;
+        //hasArrived = true;
     }
 
     public void StartPathFinding()
     {
-        ai.Teleport(transform.position);
-        ai.canMove = true;
-        ai.canSearch = true;
+        //ai.Teleport(transform.position);
+        //ai.canMove = true;
+        //ai.canSearch = true;
     }
 
 
@@ -89,7 +95,7 @@ public class ScCh3Npc : MonoBehaviour
 
     private void MoveToRandomPosition()
     {
-        Vector3 randomOffset = Random.insideUnitSphere * 10f;
+        Vector3 randomOffset = Random.insideUnitSphere * 20f;
         randomOffset.y = 0f;
 
         Vector3 randomPos = transform.position + randomOffset;
