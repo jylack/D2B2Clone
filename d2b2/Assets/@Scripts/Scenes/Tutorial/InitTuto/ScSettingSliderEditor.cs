@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ScSettingSlider))]
+//[CustomEditor(typeof(ScSettingSlider))]
 public class ScSettingSliderEditor : Editor
 {
-    public override void OnInspectorGUI()
+    /*public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+        serializedObject.Update();
+        EditorGUI.BeginChangeCheck();
         EditorGUILayout.Space(20f);
 
         ScSettingSlider settingSlider = (ScSettingSlider)target;
@@ -19,20 +21,27 @@ public class ScSettingSliderEditor : Editor
         settingSlider.slider.wholeNumbers = EditorGUILayout.Toggle(settingSlider.slider.wholeNumbers);
 
         EditorGUILayout.LabelField("Min Value");
-        settingSlider.slider.minValue = EditorGUILayout.FloatField(settingSlider.slider.minValue);
+        Debug.Log("a " + settingSlider.slider.minValue);
+        float temp = EditorGUILayout.FloatField(settingSlider.slider.minValue);
 
-        EditorGUI.BeginChangeCheck();
+        if (temp > 0)
+        {
+            settingSlider.slider.minValue = temp;
+        }
+
+        if (temp == 0)
+        {
+            Debug.Log("");
+        }
+
         EditorGUILayout.LabelField("Max Value");
         settingSlider.slider.maxValue = EditorGUILayout.FloatField(settingSlider.slider.maxValue);
-        if (EditorGUI.EndChangeCheck())
+        var tempArr = settingSlider.displayNames;
+        settingSlider.displayNames = new string[(int)settingSlider.slider.maxValue];
+        //settingSlider.displayNames = new List<string>((int)settingSlider.slider.maxValue);
+        for (int i = 0; i < tempArr.Length && i < (int)settingSlider.slider.maxValue; i++)
         {
-            var tempArr = settingSlider.displayNames;
-            settingSlider.displayNames = new string[(int)settingSlider.slider.maxValue];
-            //settingSlider.displayNames = new List<string>((int)settingSlider.slider.maxValue);
-            for(int i = 0; i < tempArr.Length && i < (int)settingSlider.slider.maxValue; i++)
-            {
-                settingSlider.displayNames[i] = tempArr[i];
-            }
+            settingSlider.displayNames[i] = tempArr[i];
         }
         --EditorGUI.indentLevel;
         EditorGUILayout.Space();
@@ -60,14 +69,9 @@ public class ScSettingSliderEditor : Editor
             EditorGUILayout.LabelField("String Display");
             settingSlider.displayString = EditorGUILayout.Toggle(settingSlider.displayString);
 
-            if(settingSlider.displayString)
+            if (settingSlider.displayString)
             {
-                EditorGUI.BeginChangeCheck();
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("displayNames"), true);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    serializedObject.ApplyModifiedProperties();
-                }
             }
         }
         else
@@ -76,7 +80,10 @@ public class ScSettingSliderEditor : Editor
         }
         --EditorGUI.indentLevel;
         EditorGUILayout.Space();
-
+        if (EditorGUI.EndChangeCheck())
+        {
+            serializedObject.ApplyModifiedProperties();
+        }
         //EditorGUI.BeginChangeCheck();
-    }
+    }*/
 }

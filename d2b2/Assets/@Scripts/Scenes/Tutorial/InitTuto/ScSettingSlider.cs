@@ -9,13 +9,13 @@ public class ScSettingSlider : MonoBehaviour
 {
     [SerializeField] private string stringFormat = "F0";
     public Slider slider;
+
     [SerializeField] TMP_Text valueText;
     public Action<float> OnValueChanged;
-    [HideInInspector] public bool displayString;
-    [HideInInspector] public bool multiply;
-    [HideInInspector] public float multiplyValue;
-    [HideInInspector] public string followingLetter;
-    [HideInInspector] public string[] displayNames;
+    [SerializeField] private bool displayString;
+    [SerializeField] private float multiplyValue;
+    [SerializeField] private string followingLetter;
+    [SerializeField] private string[] displayNames;
     //public List<string> displayNames;
 
 
@@ -23,9 +23,9 @@ public class ScSettingSlider : MonoBehaviour
     {
         get; private set;
     }
-
-    private void Start()
+    private void Awake()
     {
+        Value = slider.value;
         ChangeValue();
     }
 
@@ -38,7 +38,15 @@ public class ScSettingSlider : MonoBehaviour
     public void ChangeValue()
     {
         Value = slider.value;
-        valueText.text = (slider.value * multiplyValue).ToString(stringFormat) + followingLetter;
+        Debug.Log("V " + Value);
+        if(displayString)
+        {
+            valueText.text = displayNames[(int)Value];
+        }
+        else
+        {
+            valueText.text = (slider.value * multiplyValue).ToString(stringFormat) + followingLetter;
+        }
         OnValueChanged?.Invoke(Value);
     }
 }
