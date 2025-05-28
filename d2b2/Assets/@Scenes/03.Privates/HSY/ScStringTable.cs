@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class ScStringTable
 {
-    
+    //public static Dictionary<string, string> DialogueMap = new Dictionary<string, string>();
 }

@@ -5,11 +5,8 @@ using UnityEngine;
 public class LanguageManager : MonoBehaviour
 {
 
-    //private Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
     private ScCsvLoader csvLoader = new ScCsvLoader();
-
     private Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
-
     public Dictionary<string, string> DialogueMap => dialogueMap;    
 
     private void Start()

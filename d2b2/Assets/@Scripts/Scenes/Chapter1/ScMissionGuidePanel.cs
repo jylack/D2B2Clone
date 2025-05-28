@@ -9,8 +9,6 @@ public class ScMissionGuidePanel : MonoBehaviour
     private List<ScMissionBoxTextCheck> missionTexts = new List<ScMissionBoxTextCheck>();
     private GameObject MissionPrebs;
     private Dictionary<string, string> missionText = new Dictionary<string, string>();
-
-    // Start is called before the first frame update
     private async UniTask Start()
     {
         if(Manager.Instance)

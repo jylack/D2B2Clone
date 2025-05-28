@@ -9,9 +9,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-
             ScChapter1.Instance.lookAroundMissionClear = Look.lookAroundMissionClear;
-
         }
     }
 
