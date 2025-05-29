@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 //[CustomEditor(typeof(ScSettingSlider))]
-public class ScSettingSliderEditor : Editor
+public class ScSettingSliderEditor// : Editor
 {
     /*public override void OnInspectorGUI()
     {
@@ -12,7 +12,7 @@ public class ScSettingSliderEditor : Editor
         serializedObject.Update();
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.Space(20f);
-
+        
         ScSettingSlider settingSlider = (ScSettingSlider)target;
 
         EditorGUILayout.LabelField("Slider Values", EditorStyles.boldLabel);

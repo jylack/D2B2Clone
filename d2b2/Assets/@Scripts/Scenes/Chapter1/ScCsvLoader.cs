@@ -5,21 +5,23 @@ using System.Text;
 using UnityEngine;
 
 public class ScCsvLoader 
-{    
-    public Dictionary<string, string> Init()
+{
+    private const string KeyId = "Id";
+    private const string KeyText = "Text";
+
+
+
+    public Dictionary<string, string> Init(string path)
     {
-        Dictionary<string, string> dic = new Dictionary<string, string>();
+        Dictionary<string, string> dic = new();
 
-        string text = System.IO.File.ReadAllText(Application.dataPath + "/@Scenes/03.Privates/JYL/StringTable.csv", System.Text.Encoding.UTF8);
+        string text = File.ReadAllText(Path.Combine(Application.dataPath, path), Encoding.UTF8);
+        List<Dictionary<string, string>> textList = LoadFromText(text);
 
-        var textList = LoadFromText(text);
-
-        foreach (var row in textList)
+        foreach (Dictionary<string, string> row in textList)
         {
-            if (row.TryGetValue("ID", out string key) && row.TryGetValue("Str", out string value))
-            {
+            if (row.TryGetValue(KeyId, out string key) && row.TryGetValue(KeyText, out string value))
                 dic.Add(key, value);
-            }
         }
 
         return dic;

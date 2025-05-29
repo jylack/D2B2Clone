@@ -99,7 +99,7 @@ public partial class ScLobbyService
         List<ScLobbyPlayerEntity> playerEntities = GetAllPlayerEntities();
         string respJson = JsonConvert.SerializeObject(playerEntities);
 
-        Photon.RPC(nameof(OnJoinedRoom_ServerResponse), sender, respJson);
+        photonView.RPC(nameof(OnJoinedRoom_ServerResponse), sender, respJson);
 
         // send all: 모든 유저 -> 방금 접속한 유저 정보 전달
         int emptyPosIdx = GetEmptyPositionIndex();
@@ -112,6 +112,6 @@ public partial class ScLobbyService
     
     private void Broadcast(string methodName, params object[] parameters)
     {
-        Photon.RPC(methodName, RpcTarget.AllViaServer, parameters);
+        photonView.RPC(methodName, RpcTarget.AllViaServer, parameters);
     }
 }
