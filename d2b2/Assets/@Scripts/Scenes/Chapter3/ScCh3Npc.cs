@@ -13,7 +13,7 @@ public class ScCh3Npc : MonoBehaviour
     private bool isManualMove;
     private Vector3 source;
     private Vector3 destination;
-    private float moveSpeed = 2f;
+    //private float moveSpeed = 2f;
 
 
 
