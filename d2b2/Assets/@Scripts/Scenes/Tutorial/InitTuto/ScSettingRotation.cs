@@ -41,11 +41,13 @@ public class ScSettingRotation : MonoBehaviour
             case 1:
                 snapRot.gameObject.SetActive(true);
                 continuousRot.gameObject.SetActive(false);
+                abcm.smoothTurnEnabled = false;
                 SnapAmountChange();
                 break;
             case 2:
                 snapRot.gameObject.SetActive(false);
                 continuousRot.gameObject.SetActive(true);
+                abcm.smoothTurnEnabled = true;
                 ContinousAmountChange();
                 break;
         }
@@ -58,6 +60,6 @@ public class ScSettingRotation : MonoBehaviour
     }
     public void ContinousAmountChange()
     {
-        cont.turnSpeed = continuousRot.Value;
+        cont.turnSpeed = continuousRot.Value * 10;
     }
 }
