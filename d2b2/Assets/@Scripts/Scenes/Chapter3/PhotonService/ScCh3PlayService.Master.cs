@@ -17,11 +17,10 @@ public partial class ScCh3PlayService
 
         photonView.Broadcast(nameof(OnAllClientLoaded));
     }
-
-
-
-    [PunRPC]
-    private void OnUpdateTrafficLights_Master()
+    
+    
+    
+    public void SendUpdateTrafficLightsToAll()
     {
         photonView.Broadcast(nameof(OnUpdateTrafficLights));
     }

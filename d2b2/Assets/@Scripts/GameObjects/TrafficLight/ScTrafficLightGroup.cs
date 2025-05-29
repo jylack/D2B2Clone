@@ -15,7 +15,7 @@ public class ScTrafficLightGroup
         if (items?.Count > 0)
         {
             foreach (ScTrafficLight trafficLight in items)
-                trafficLight.SetColor(lightType);
+                trafficLight?.SetColor(lightType);
         }
     }
 
@@ -24,7 +24,7 @@ public class ScTrafficLightGroup
         if (items?.Count > 0)
         {
             foreach (ScTrafficLight trafficLight in items)
-                trafficLight.InvertColor();
+                trafficLight?.InvertColor();
         }
     }
 
@@ -33,7 +33,7 @@ public class ScTrafficLightGroup
         if (items?.Count > 0)
         {
             foreach (ScTrafficLight trafficLight in items)
-                trafficLight.OnStartGreenBlink();
+                trafficLight?.OnStartGreenBlink();
         }
     }
 }

@@ -67,7 +67,7 @@ public class ScTrafficLightSystem : ScObjectBase
             WaitThenRaiseGreenBeforeEvent(updateTrafficLightsCts.Token).Forget();
             await UpdateTrafficLights(linkedCts.Token);
 
-            updateTrafficLightsCts.Dispose();
+            updateTrafficLightsCts?.Dispose();
             updateTrafficLightsCts = null;
         }
         catch (InvalidOperationException ex)
@@ -108,7 +108,7 @@ public class ScTrafficLightSystem : ScObjectBase
         {
             while (!base.DestroyToken.IsCancellationRequested)
             {
-                ScCh3PlayService.Instance.SendUpdateTrafficLightsToMaster();
+                ScCh3PlayService.Instance.SendUpdateTrafficLightsToAll();
                 await UniTask.Delay(greenDuration);
             }
         }
@@ -126,10 +126,10 @@ public class ScTrafficLightSystem : ScObjectBase
     {
         try
         {
-            // ÀÌÀü ½ÅÈ£µî ±×·ì
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½×·ï¿½
             currentTrafficLightGroup?.SetLight(ScDefine.ScTrafficLightType.Red);
 
-            // ´ÙÀ½ ½ÅÈ£µî ±×·ì
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½×·ï¿½
             currentTrafficLightGroup = trafficLightGroups[nextTargetIndex];
             currentTrafficLightGroup.SetLight(ScDefine.ScTrafficLightType.Green);
 
@@ -142,7 +142,7 @@ public class ScTrafficLightSystem : ScObjectBase
 
             currentTrafficLightGroup.OnStartGreenLightBlink();
 
-            // ³ì»öºÒ Á¡¸ê
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (usePhoton)
             {
                 while (!token.IsCancellationRequested)
