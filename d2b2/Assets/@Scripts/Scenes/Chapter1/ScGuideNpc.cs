@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class ScGuideNpc : MonoBehaviour
 {
-    [SerializeField] private ScPlayer player;
-
+    [SerializeField] private GameObject player;
+    Vector3 deltaPos;
 
     private void Awake()
     {
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
+        deltaPos = player.transform.position - transform.position;
 
     }
     private void OnDestroy()
@@ -36,7 +37,8 @@ public class ScGuideNpc : MonoBehaviour
     private void FollowPlayer()
     {
         // NPC가 플레이어를 따라가는 로직 구현
-        Vector3 targetPosition = player.transform.position;
+        Vector3 targetPosition = player.transform.position - deltaPos;
+
         transform.DOMove(targetPosition, 1f).SetEase(Ease.Linear);
     }
     private void StopFollowingPlayer()

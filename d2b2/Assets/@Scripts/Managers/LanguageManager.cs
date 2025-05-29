@@ -6,22 +6,22 @@ public class LanguageManager : MonoBehaviour
 {
 
     private ScCsvLoader csvLoader = new ScCsvLoader();
-    private Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
-    public Dictionary<string, string> DialogueMap => dialogueMap;    
-
+    private Dictionary<string, KeyData> dialogueMap = new Dictionary<string, KeyData>();
+    public Dictionary<string, KeyData> DialogueMap => dialogueMap;    
+    public string CsvPath => Application.dataPath + "/@Scenes/03.Privates/JYL/LocalizationTable.csv";
 
 
     private void Start()
     {
-        dialogueMap = csvLoader.Init("@Scenes/03.Privates/JYL/StringTable.csv");
+        dialogueMap = csvLoader.Init(CsvPath);
     }
 
 
 
     public string GetText(string key)
     {
-        if (dialogueMap.TryGetValue(key, out string value))
-            return value;
+        if (dialogueMap.TryGetValue(key, out KeyData value))
+            return value.Text;
 
         Debug.LogWarning($"Dialogue key '{key}' not found.");
         return string.Empty;

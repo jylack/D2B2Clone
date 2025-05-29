@@ -45,9 +45,10 @@ public class ScMissionBoxTextCheck : MonoBehaviour
         }
 
         isCheck = check;
+
         if (tmp != null)
         {
-            tmp.fontStyle = check ? FontStyles.Strikethrough : FontStyles.Normal;
+            tmp.fontStyle = check ? FontStyles.Strikethrough : FontStyles.Bold;
             checkType =  check ? MissionBoxTextCheckType.Clear : MissionBoxTextCheckType.Base; 
             SetTypeChange(checkType);
         }
