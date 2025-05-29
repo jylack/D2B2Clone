@@ -12,6 +12,11 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
     string m_DefaultText;
     TMP_Text m_TrackBinding;
 
+    private const string KeyId = "Id";
+    private const string KeyText = "Text";
+    private const string KeyUseTTS = "TTS";
+
+
     // Called every frame that the timeline is evaluated. ProcessFrame is invoked after its' inputs.
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
@@ -30,17 +35,18 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
         Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
 
         ScCsvLoader csvLoader = new ScCsvLoader();
+        string path = Application.dataPath + "/@Scenes/03.Privates/JYL/LocalizationTable.csv";
+        string CsvText = System.IO.File.ReadAllText(path, System.Text.Encoding.UTF8);
 
-        string textPath = System.IO.File.ReadAllText(Application.dataPath + "/@Scenes/03.Privates/JYL/StringTable.csv", System.Text.Encoding.UTF8);
 
-
-        var textList = csvLoader.LoadFromText(textPath);
+        var textList = csvLoader.LoadFromText(CsvText);
 
         foreach (var row in textList)
         {
-            if (row.TryGetValue("ID", out string key) && row.TryGetValue("Str", out string value))
+            if (row.TryGetValue(KeyId, out string key) 
+                && row.TryGetValue(KeyText, out var textValue))
             {
-                dialogueMap.Add(key, value);
+                dialogueMap.Add(key, textValue);
             }
         }
 

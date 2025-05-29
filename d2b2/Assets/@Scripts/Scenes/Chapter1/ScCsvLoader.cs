@@ -4,26 +4,59 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public class ScCsvLoader 
+public class KeyData
+{
+    public bool useTTS { get; private set; }
+    public string Text { get; private set; }
+
+    public KeyData(bool use, string text)
+    {
+        useTTS = use;
+        Text = text;
+    }
+
+}
+
+
+public class ScCsvLoader
 {
     private const string KeyId = "Id";
     private const string KeyText = "Text";
+    private const string KeyUseTTS = "TTS";
 
-
-
-    public Dictionary<string, string> Init(string path)
+    public Dictionary<string, KeyData> Init(string path)
     {
-        Dictionary<string, string> dic = new();
+        Dictionary<string, KeyData> dic = new Dictionary<string, KeyData>();
 
-        string text = File.ReadAllText(Path.Combine(Application.dataPath, path), Encoding.UTF8);
-        List<Dictionary<string, string>> textList = LoadFromText(text);
+        string CsvText = File.ReadAllText(path, Encoding.UTF8);
+        List<Dictionary<string, string>> textList = LoadFromText(CsvText);
+
+        if (textList == null) return null;
+
 
         foreach (Dictionary<string, string> row in textList)
         {
-            if (row.TryGetValue(KeyId, out string key) && row.TryGetValue(KeyText, out string value))
-                dic.Add(key, value);
-        }
+            // Id가 없으면 건너뜀
+            if (!row.TryGetValue(KeyId, out string id))
+                continue;
 
+            // Text가 없으면 빈 문자열로 처리
+            string text = row.TryGetValue(KeyText, out var textValue) ? textValue : string.Empty;
+
+            bool useTts = false;
+            if (row.TryGetValue(KeyUseTTS, out var flagStr))// TTS 사용 여부 불러옴
+                bool.TryParse(flagStr, out useTts);// TTS 사용 여부가 없으면 false로 처리
+
+            if (dic.ContainsKey(id))
+            {                
+                Debug.LogWarning($"Duplicate key found in CSV: {id}. Overwriting existing value.");
+            }
+            else
+            {
+                dic.Add(id, new KeyData(useTts, text));
+            }
+
+        }
         return dic;
     }
 

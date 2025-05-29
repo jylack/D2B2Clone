@@ -26,10 +26,10 @@ public class ScMissionGuidePanel : MonoBehaviour
                 {
                     if (parts[2] == "0")
                     {
-                        missionText.Add(dir.Key, dir.Value);
+                        missionText.Add(dir.Key, dir.Value.Text);
                         continue;
                     }
-                    missionText.Add(dir.Key, parts[2] + ". " + dir.Value);                    
+                    missionText.Add(dir.Key, parts[2] + ". " + dir.Value.Text);                    
                 }
             }
         }
