@@ -66,9 +66,15 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 }
                 
             }
+            if (Hand.isLeftHandUp && ScMissionListPanel.Instance != null)  
+                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 3, true);
+
 
             if (isWalk == false || Hand.isLeftHandUp == false)
             {
+                if(ScMissionListPanel.Instance != null)
+                    ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 3, false);
+
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
             }
