@@ -77,7 +77,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
 
         if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
         {
-            Vector3 mirrorDir = mirrorHit.transform.forward;
+            Vector3 mirrorDir = mirrorHit.normal;
             Vector3 targetDir = Vector3.Reflect(dir, mirrorDir);
 
             Vector3 mirrorStartPoint = mirrorHit.point;
@@ -138,7 +138,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
         if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
         {
             Vector3 mirrorStartPoint = mirrorHit.point;
-            Vector3 mirrorDir = mirrorHit.transform.forward;
+            Vector3 mirrorDir = mirrorHit.normal;
             Vector3 targetDir = Vector3.Reflect(dir, mirrorDir);
             Debug.DrawRay(mirrorHit.point, mirrorHit.normal * 5f, Color.magenta); // 진짜 법선
             Debug.DrawRay(mirrorHit.point, mirrorHit.transform.forward * 5f, Color.blue);
