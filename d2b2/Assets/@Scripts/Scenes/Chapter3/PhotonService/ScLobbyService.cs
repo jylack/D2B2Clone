@@ -15,8 +15,6 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject lobbyPlayerPrefab;
     [SerializeField] private UnityEvent<bool> masterChanged;
 
-    //public PhotonView Photon { get; private set; }
-
     private Dictionary<int, ScLobbyPlayer> playerDict = new();
     private int[] actorNumbersForPosition = new int[6];
     private bool isVrPlayerInit;
@@ -25,7 +23,6 @@ public partial class ScLobbyService : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        //Photon = GetComponent<PhotonView>();
         Instance = this;
 
         Manager.Instance.Init();
