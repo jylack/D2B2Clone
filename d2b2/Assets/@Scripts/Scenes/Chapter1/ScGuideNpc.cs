@@ -1,17 +1,18 @@
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
 public class ScGuideNpc : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    Vector3 deltaPos;
+
+    private Vector3 offset;
+
 
     private void Awake()
     {
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
-        deltaPos = player.transform.position - transform.position;
+
+        offset = player.transform.InverseTransformPoint(transform.position);
 
     }
     private void OnDestroy()
@@ -36,8 +37,8 @@ public class ScGuideNpc : MonoBehaviour
 
     private void FollowPlayer()
     {
-        // NPC가 플레이어를 따라가는 로직 구현
-        Vector3 targetPosition = player.transform.position - deltaPos;
+        // 로컬 오프셋을 월드 좌표로 재변환
+        Vector3 targetPosition = player.transform.TransformPoint(offset);
 
         transform.DOMove(targetPosition, 1f).SetEase(Ease.Linear);
     }

@@ -1,20 +1,17 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ScMissionListPanel : MonoBehaviour
 {
-    //[SerializeField] private List<string> missionText;
     private List<ScMissionBoxTextCheck> missionTexts = new List<ScMissionBoxTextCheck>();
-    private GameObject MissionPrebs;
     private Dictionary<string, string> missionText = new Dictionary<string, string>();
 
 
     private void Start()
     {
         InitalizeAsync().Forget();
-        
+
     }
 
     private async UniTask InitalizeAsync()
@@ -44,10 +41,7 @@ public class ScMissionListPanel : MonoBehaviour
 
         foreach (var mission in missionText)
         {
-            MissionPrebs = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
-            MissionPrebs.GetComponent<ScMissionBoxTextCheck>().SetMissionText(mission.Value, MissionBoxTextCheckType.Base);
-            MissionPrebs.name = mission.Key;
-            missionTexts.Add(MissionPrebs.GetComponent<ScMissionBoxTextCheck>());
+            MissionTextCreate(mission.Key, mission.Value);
         }
 
         SetMissionTextTypeChange(0, MissionBoxTextCheckType.Title);
@@ -67,24 +61,15 @@ public class ScMissionListPanel : MonoBehaviour
         missionTexts[idx].SetTypeChange(type);
     }
 
-    public void SetMissionText(string key, string text, MissionBoxTextCheckType type)
+    private void MissionTextCreate(string key, string text)
     {
-        if (missionText.ContainsKey(key))
-        {
-            missionText[key] = text;
-            foreach (var mission in missionTexts)
-            {
-                if (mission.name == key)
-                {
-                    mission.SetMissionText(text, type);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError($"Mission text with key {key} does not exist.");
-        }
+        var obj = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
+        var ctrl = obj.GetComponent<ScMissionBoxTextCheck>();
+
+        ctrl.SetMissionText(text, MissionBoxTextCheckType.Base);
+        obj.name = key;
+
+        missionTexts.Add(ctrl);
     }
 
     public void SetMissionTextCheck(string key, bool check)
