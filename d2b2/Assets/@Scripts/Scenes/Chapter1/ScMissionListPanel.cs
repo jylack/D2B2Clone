@@ -2,95 +2,128 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Chapter
+{
+    Ch1,
+    Ch2,
+    Sg1,
+    Sg2,
+}
+
+public enum Category
+{
+    MissionText,
+    StoryText,
+}
+
 public class ScMissionListPanel : MonoBehaviour
 {
-    private List<ScMissionBoxTextCheck> missionTexts = new List<ScMissionBoxTextCheck>();
-    private Dictionary<string, string> missionText = new Dictionary<string, string>();
+    public static ScMissionListPanel Instance { get; private set; }
 
+    /// <summary>
+    /// _기준으로 앞과 뒤를 정해준뒤 맨뒤에 숫자로 순서만 정해주면 됩니다.
+    /// </summary>
+    [Header("Mission 필터")]
+    [Tooltip("챕터(접두어)를 선택하세요.")]
+    [SerializeField] private Chapter ChapterPrefix = Chapter.Ch1;
+
+    [Tooltip("카테고리를 선택하세요.")]
+    [SerializeField] private Category CategoryFilter = Category.MissionText;
+
+    private readonly List<ScMissionBoxTextCheck> missionTexts = new();
+    private readonly Dictionary<string, string> missionTextMap = new();
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("ScMissionListPanel: 이미 다른 인스턴스가 존재합니다. Destroy합니다.");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
-        InitalizeAsync().Forget();
-
+        // 기본 로드
+        LoadMissionsAsync().Forget();
+        Setup(ChapterPrefix, CategoryFilter);
     }
 
-    private async UniTask InitalizeAsync()
+    /// <summary>
+    /// 외부에서 필터를 설정하고 즉시 로드합니다.
+    /// </summary>
+    public void Setup(Chapter chapterPrefix, Category category)
     {
-        if (Manager.Instance)
-        {
+        ChapterPrefix = chapterPrefix;
+        CategoryFilter = category;
+        LoadMissionsAsync().Forget();
+    }
+
+    public void CheckMission(Chapter ch,int index, bool isChecked)
+    {
+        string key = ch.ToString() + "_" + CategoryFilter.ToString() + "_" + index.ToString();
+        SetMissionTextCheck(key, isChecked);
+    }
+
+    /// <summary>
+    /// 키와 체크 값만 전달하면 해당 미션에 체크를 설정합니다.
+    /// </summary>
+    public void CheckMission(string key, bool isChecked)
+    {
+        SetMissionTextCheck(key, isChecked);
+    }
+
+    private async UniTask LoadMissionsAsync()
+    {
+        if (Manager.Instance != null)
             await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
-        }
 
-        foreach (var dir in Manager.Instance.LanguageMgr.DialogueMap)
+        missionTextMap.Clear();
+        missionTexts.Clear();
+
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
+
+        // DialogueMap 중에서 prefix_category_* 키만 추출
+        foreach (var kv in Manager.Instance.LanguageMgr.DialogueMap)
         {
-            string[] parts = dir.Key.Split('_');
+            var parts = kv.Key.Split('_');
 
-            if (parts.Length > 2)
+            if (parts.Length > 2
+             && parts[0] == ChapterPrefix.ToString()
+             && parts[1] == CategoryFilter.ToString())
             {
-                if (parts[0] == "Ch1" && parts[1] == "MissionText")
-                {
-                    if (parts[2] == "0")
-                    {
-                        missionText.Add(dir.Key, dir.Value.Text);
-                        continue;
-                    }
-                    missionText.Add(dir.Key, parts[2] + ". " + dir.Value.Text);
-                }
+                string text = parts[2] == "0" ? kv.Value.Text : $"{parts[2]}. {kv.Value.Text}";
+                missionTextMap[kv.Key] = text;
             }
         }
 
-        foreach (var mission in missionText)
-        {
-            MissionTextCreate(mission.Key, mission.Value);
-        }
+        // UI 생성
+        foreach (var kv in missionTextMap)
+            CreateMissionEntry(kv.Key, kv.Value);
 
-        SetMissionTextTypeChange(0, MissionBoxTextCheckType.Title);
-    }
+        // 첫 항목만 Title 타입으로 변경
+        if (missionTexts.Count > 0)
+            missionTexts[0].SetTypeChange(MissionBoxTextCheckType.Title);
+    }    
 
-
-
-
-    public void SetMissionTextTypeChange(int idx, MissionBoxTextCheckType type)
+    private void CreateMissionEntry(string key, string text)
     {
-        if (idx < 0 || idx >= missionTexts.Count)
-        {
-            Debug.LogError("Index out of range for missionTexts.");
-            return;
-        }
-
-        missionTexts[idx].SetTypeChange(type);
-    }
-
-    private void MissionTextCreate(string key, string text)
-    {
-        var obj = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
-        var ctrl = obj.GetComponent<ScMissionBoxTextCheck>();
-
+        var go = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
+        var ctrl = go.GetComponent<ScMissionBoxTextCheck>();
         ctrl.SetMissionText(text, MissionBoxTextCheckType.Base);
-        obj.name = key;
-
+        go.name = key;
         missionTexts.Add(ctrl);
     }
 
-    public void SetMissionTextCheck(string key, bool check)
+    private void SetMissionTextCheck(string key, bool check)
     {
-        if (missionText.ContainsKey(key))
-        {
-            foreach (var mission in missionTexts)
-            {
-                if (mission.name == key)
-                {
-                    mission.SetCheck(check);
-                    break;
-                }
-            }
-        }
+        var ctrl = missionTexts.Find(m => m.name == key);
+        if (ctrl != null)
+            ctrl.SetCheck(check);
         else
-        {
-            Debug.LogError($"Mission text with key {key} does not exist.");
-        }
+            Debug.LogError($"ScMissionListPanel: 키 '{key}'의 미션 텍스트를 찾을 수 없습니다.");
     }
-
-
-
 }

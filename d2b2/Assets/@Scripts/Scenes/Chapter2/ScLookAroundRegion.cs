@@ -14,10 +14,14 @@ public class ScLookAroundRegion : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+
             lookAroundMissionClear = false;
             checkLookLeft = false;
             checkLookRight = false;
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
+            
+            if(ScMissionListPanel.Instance != null)
+                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 2, false);
         }
     }
 
@@ -26,6 +30,7 @@ public class ScLookAroundRegion : MonoBehaviour
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             ExitMissionRegion();
+
         }
     }
     private void OnDestroy()
@@ -86,6 +91,9 @@ public class ScLookAroundRegion : MonoBehaviour
         if (lookAroundMissionClear)
         {
             Debug.Log("미션 성공!");
+
+            if (ScMissionListPanel.Instance != null)
+                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 2, true);
             OffAllUI();
         }
     }
