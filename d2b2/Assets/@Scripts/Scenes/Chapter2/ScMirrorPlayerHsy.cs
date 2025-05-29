@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,31 @@ public class ScMirrorPlayerHsy : MonoBehaviour
 
     private GameObject hoveredNpc;
     private RayDetectMan hoveredDetectMan;
-    private bool isMirrorHovered = true;
+    private bool isMirrorHovered;
+    public int count;
+    private bool isNpcHovered;
+    public bool isGamePlaying;
+    public event Action<int> findChildChildEvent;
 
 
-
-    private void Start()
+    public void ConnectPlayerTriggerEvent()
     {
         Manager.Instance.InputMgr.OnTriggerPerform += InputMgr_OnTriggerPerform;
+    }
+    public void DisConnectPlayerTriggerEvent()
+    {
+        Manager.Instance.InputMgr.OnTriggerPerform -= InputMgr_OnTriggerPerform;
     }
 
     private void LateUpdate()
     {
-        if (isMirrorHovered)
+        if (isGamePlaying == false)
+        {
+            return;
+        }
+        Debug.Log("isMirrorHovered : " + isMirrorHovered);
+        Debug.Log("isNpcHovered : " + isNpcHovered);
+        if (isMirrorHovered || isNpcHovered)
         {
             if (Detect(out RaycastHit hit, ScDefine.Layer.NpcMask))
             {
@@ -54,8 +68,8 @@ public class ScMirrorPlayerHsy : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        //Vector3 startPoint = carmeraTranse.transform.position;
-        Vector3 startPoint = rayInteractor.attachTransform.position;
+        //Vector3 startPoint = rayInteractor.attachTransform.position;
+        Vector3 startPoint = carmeraTranse.transform.position;
         Vector3 dir = rayInteractor.attachTransform.forward;
         float distance = lineVisual.lineLength;
 
@@ -75,20 +89,28 @@ public class ScMirrorPlayerHsy : MonoBehaviour
 
     public void OnHoverEnter(HoverEnterEventArgs args)
     {
-        if (args.interactableObject.interactionLayers == ScDefine.InteractionLayer.MirrorMask)
+        Debug.Log("이름 : " + args.interactableObject.transform.name);
+        if ((args.interactableObject.interactionLayers & ScDefine.InteractionLayer.MirrorMask) != 0)
         {
-            print("Mirror Hover Enter");
             isMirrorHovered = true;
+        }
+        else if ((args.interactableObject.interactionLayers & ScDefine.InteractionLayer.NpcMask) != 0)
+        {
+            isNpcHovered = true;
         }
     }
 
     public void OnHoverExit(HoverExitEventArgs args)
     {
-        if (args.interactableObject.interactionLayers == ScDefine.InteractionLayer.MirrorMask)
+        if ((args.interactableObject.interactionLayers & ScDefine.InteractionLayer.MirrorMask) != 0)
         {
-            print("Hover Exit");
             isMirrorHovered = false;
-
+            hoveredDetectMan?.SetOutlineVisible(false);
+            hoveredDetectMan = null;
+        }
+        else if ((args.interactableObject.interactionLayers & ScDefine.InteractionLayer.NpcMask) != 0)
+        {
+            isNpcHovered = false;
             hoveredDetectMan?.SetOutlineVisible(false);
             hoveredDetectMan = null;
         }
@@ -98,28 +120,37 @@ public class ScMirrorPlayerHsy : MonoBehaviour
 
     private void InputMgr_OnTriggerPerform()
     {
-        hoveredDetectMan?.DoSomething();
+        if (hoveredDetectMan != null)
+        {
+            hoveredDetectMan.DoSomething();
+            findChildChildEvent.Invoke(++count);
+        }
     }
 
     private bool Detect(out RaycastHit hitInfo, int layerMask)
     {
         hitInfo = default;
-        //Vector3 startPoint = carmeraTranse.transform.position;
-        Vector3 startPoint = rayInteractor.attachTransform.position;
+        //Vector3 startPoint = rayInteractor.attachTransform.position;
+        Vector3 startPoint = carmeraTranse.transform.position;
         Vector3 dir = rayInteractor.attachTransform.forward;
         float distance = lineVisual.lineLength;
 
         if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
         {
+            Vector3 mirrorStartPoint = mirrorHit.point;
             Vector3 mirrorDir = mirrorHit.transform.forward;
             Vector3 targetDir = Vector3.Reflect(dir, mirrorDir);
+            Debug.DrawRay(mirrorHit.point, mirrorHit.normal * 5f, Color.magenta); // 진짜 법선
+            Debug.DrawRay(mirrorHit.point, mirrorHit.transform.forward * 5f, Color.blue);
 
-            Vector3 mirrorStartPoint = mirrorHit.point;
-
-            if (Physics.Raycast(mirrorStartPoint, targetDir, out hitInfo, distance, layerMask))
+            if (Physics.Raycast(mirrorStartPoint, targetDir, out hitInfo, distance))
             {
                 return true;
             }
+        }
+        else if (Physics.Raycast(startPoint, dir, out hitInfo, distance, layerMask))
+        {
+            return true;
         }
 
         return false;
