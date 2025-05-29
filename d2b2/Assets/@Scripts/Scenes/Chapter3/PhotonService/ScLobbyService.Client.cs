@@ -19,7 +19,7 @@ public partial class ScLobbyService
 
         ScLobbyPlayerEntity playerEntity = new(PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.ActorNumber, characterType, -1);
         string sendJson = JsonConvert.SerializeObject(playerEntity);
-        photonView.RPC(nameof(OnJoinedRoom_Server), RpcTarget.MasterClient, sendJson);
+        photonView.SendToMaster(nameof(OnJoinedRoom_Master), sendJson);
 
         masterChanged?.Invoke(PhotonNetwork.IsMasterClient);
     }

@@ -32,61 +32,31 @@ public partial class ScLobbyService
 
         ScLeftPlayerEntity leftPlayerEntity = new(otherPlayer.ActorNumber, actorNumbersForPosition);
         string json = JsonConvert.SerializeObject(leftPlayerEntity);
-        
-        Broadcast(nameof(OnPlayerLeft), json);
+
+        photonView.Broadcast(nameof(OnPlayerLeft), json);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
-
-        if (!changedProps.TryGetValue(ScCh3Define.PROP_KEY_IS_READY, out object isReady))
-            return;
-
-        if (!(bool)isReady)
-        {
-            Broadcast(nameof(OnCountdownStateChanged), false);
-            return;
-        }
         
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            if (!CheckIsReady(player.CustomProperties))
+            if (!ScCh3Assistant.ComparePropertyValue(player.CustomProperties, ScCh3Define.PROP_KEY_IS_READY, true))
             {
-                Broadcast(nameof(OnCountdownStateChanged), false);
+                photonView.Broadcast(nameof(OnCountdownStateChanged), false);
                 return;
             }
         }
 
-        Broadcast(nameof(OnCountdownStateChanged), true);
+        photonView.Broadcast(nameof(OnCountdownStateChanged), true);
     }
 
-    
-    
-    private static bool CheckIsReady(Hashtable props)
-    {
-        if (props.TryGetValue(ScCh3Define.PROP_KEY_IS_READY, out object isReady))
-        {
-            if (!(bool)isReady)
-            {
-                // ScCh3Define.PROP_KEY_IS_READY == false
-                return false;
-            }
-        }
-        else
-        {
-            // ScCh3Define.PROP_KEY_IS_READY Å° ¾øÀ½
-            return false;
-        }
-
-        return true;
-    }
-    
 
 
     [PunRPC]
-    private void OnJoinedRoom_Server(string json)
+    private void OnJoinedRoom_Master(string json)
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
@@ -107,11 +77,6 @@ public partial class ScLobbyService
         actorNumbersForPosition[emptyPosIdx] = playerEntity.actorNumber;
 
         string sendJson = JsonConvert.SerializeObject(playerEntity);
-        Broadcast(nameof(OnAddNewPlayer), sendJson);
-    }
-    
-    private void Broadcast(string methodName, params object[] parameters)
-    {
-        photonView.RPC(methodName, RpcTarget.AllViaServer, parameters);
+        photonView.Broadcast(nameof(OnAddNewPlayer), sendJson);
     }
 }

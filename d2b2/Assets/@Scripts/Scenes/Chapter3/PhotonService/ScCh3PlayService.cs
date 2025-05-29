@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 
-public class ScCh3PlayService : MonoBehaviour
+public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
+    public static ScCh3PlayService Instance { get; private set; }
+
+    [SerializeField] private ScTrafficLightSystem trafficLightSystem;
+
+
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        Hashtable props = new()
+        {
+            { ScCh3Define.PROP_KEY_PLAY_LOADED, true },
+        };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 }
