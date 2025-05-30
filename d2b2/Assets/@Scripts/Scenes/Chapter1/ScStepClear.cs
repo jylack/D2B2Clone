@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScStepClear : MonoBehaviour
 {
+    [SerializeField] private UnityEvent OnStepClear;
 
     private async void OnTriggerEnter(Collider other)
     {
@@ -16,11 +18,21 @@ public class ScStepClear : MonoBehaviour
                 return;
             }
 
+
             ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
             Debug.Log("¥Ÿ¿ΩΩ∫≈‹¿∏∑Œ ≥—æÓ∞¨¿Ω." + ScChapter1.CurrentSetp);
             gameObject.SetActive(false);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+        {
+            OnStepClear?.Invoke();
+        }
+    }
+
 
 
     private void EndGame()

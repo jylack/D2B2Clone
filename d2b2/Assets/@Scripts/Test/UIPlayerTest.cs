@@ -17,8 +17,13 @@ public class UIPlayerTest : MonoBehaviour
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
     }
     
-    
-    
+    private void OnDestroy()
+    {
+        Manager.Instance.GameMgr.OnPlayerHeadTurn -= OnPlayerOnPlayerHeadTurn;
+        Manager.Instance.GameMgr.OnPlayerHandsUp -= OnPlayerHandsUp;
+        Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
+    }
+
     private void OnPlayerOnPlayerHeadTurn(ScDefine.ScHeadTurn headTurn)
     {
         lookingText.text = headTurn.ToString();

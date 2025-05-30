@@ -35,7 +35,7 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
         Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
 
         ScCsvLoader csvLoader = new ScCsvLoader();
-        string path = Application.dataPath + "/@Scenes/03.Privates/JYL/LocalizationTable.csv";
+        string path = Application.dataPath + "/Resources/LocalizationTable.csv";
         string CsvText = System.IO.File.ReadAllText(path, System.Text.Encoding.UTF8);
 
 

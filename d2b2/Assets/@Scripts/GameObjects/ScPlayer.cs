@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScPlayer : ScObjectBase
@@ -47,6 +49,7 @@ public class ScPlayer : ScObjectBase
     private void Start()
     {
         Manager.Instance.GameMgr.SetPlayer(this);
+        LoopCheckMovingAsync().Forget();
     }
 
     private void Update()
@@ -54,6 +57,17 @@ public class ScPlayer : ScObjectBase
         UpdateHeadTurn();
         UpdateMove();
     }
+
+    private async UniTaskVoid LoopCheckMovingAsync()
+    {
+        while (true)
+        {
+            Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1), cancellationToken: this.GetCancellationTokenOnDestroy());
+        }
+    }
+
 
     private void OnDestroy()
     {
@@ -126,14 +140,12 @@ public class ScPlayer : ScObjectBase
         if (isLeftStickMove)
         {
             isMoving = true;
-            Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
-
             return;
         }
 
         bool isMoveStart;
         bool isValidSwingIntervalTime;
-        
+
         // 왼손 체크
         if (leftHandForwardTime > 0 && leftHandBackwardTime > 0)
         {
@@ -158,6 +170,8 @@ public class ScPlayer : ScObjectBase
                 MoveForward();
             }
         }
+
+
     }
 
     private void MoveForward()
@@ -166,8 +180,6 @@ public class ScPlayer : ScObjectBase
 
         //Debug.Log("isMoving : " + isMoving);
         isMoving = true;
-        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
-
     }
 
     // event
