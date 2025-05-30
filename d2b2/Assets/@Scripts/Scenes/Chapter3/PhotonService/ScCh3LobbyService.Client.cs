@@ -4,7 +4,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class ScLobbyService
+public partial class ScCh3LobbyService
 {
     public override void OnJoinRandomFailed(short returnCode, string message)
     {

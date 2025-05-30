@@ -70,7 +70,7 @@ public class ScTrafficLightSystem : ScObjectBase
             updateTrafficLightsCts?.Dispose();
             updateTrafficLightsCts = null;
         }
-        catch (InvalidOperationException ex)
+        catch (OperationCanceledException ex)
         {
             Debug.Log(ex.Message);
         }
@@ -86,7 +86,9 @@ public class ScTrafficLightSystem : ScObjectBase
     {
         try
         {
-            while (!base.DestroyToken.IsCancellationRequested)
+            CancellationToken token = base.DestroyToken;
+
+            while (!token.IsCancellationRequested)
             {
                 WaitThenRaiseGreenBeforeEvent(base.DestroyToken).Forget();
                 await UpdateTrafficLights(base.DestroyToken);
@@ -106,9 +108,14 @@ public class ScTrafficLightSystem : ScObjectBase
     {
         try
         {
-            while (!base.DestroyToken.IsCancellationRequested)
+            await UniTask.WaitUntil(() => ScCh3PlayService.Instance != null);
+
+            CancellationToken token = base.DestroyToken;
+
+            while (!token.IsCancellationRequested)
             {
                 ScCh3PlayService.Instance.SendUpdateTrafficLightsToAll();
+
                 await UniTask.Delay(greenDuration);
             }
         }
@@ -126,10 +133,10 @@ public class ScTrafficLightSystem : ScObjectBase
     {
         try
         {
-            // ���� ��ȣ�� �׷�
+            // 이전 신호등 그룹
             currentTrafficLightGroup?.SetLight(ScDefine.ScTrafficLightType.Red);
 
-            // ���� ��ȣ�� �׷�
+            // 다음 신호등 그룹
             currentTrafficLightGroup = trafficLightGroups[nextTargetIndex];
             currentTrafficLightGroup.SetLight(ScDefine.ScTrafficLightType.Green);
 
@@ -142,7 +149,7 @@ public class ScTrafficLightSystem : ScObjectBase
 
             currentTrafficLightGroup.OnStartGreenLightBlink();
 
-            // ����� ����
+            // 녹색불 점멸
             if (usePhoton)
             {
                 while (!token.IsCancellationRequested)
