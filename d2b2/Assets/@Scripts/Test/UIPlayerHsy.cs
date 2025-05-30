@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class UIPlayerHsy : MonoBehaviour
 {
@@ -18,6 +22,9 @@ public class UIPlayerHsy : MonoBehaviour
     [SerializeField] public TextMeshProUGUI handUpText;
     [SerializeField] public Image explanationUI;
     [SerializeField] public TextMeshProUGUI explanationText;
+    [SerializeField] public Image sideLeftScreenImage;
+    [SerializeField] public Image sideRightScreenImage;
+    [SerializeField] public TextMeshProUGUI countDownText;
 
     private void Awake()
     {
@@ -70,6 +77,22 @@ public class UIPlayerHsy : MonoBehaviour
     public void ChangeText(string text)
     {
         explanationText.text = text;
+    }
+
+    public IEnumerator SideFillProduction(float start, float end, float duration)
+    {
+        float time = 0f;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            float value = Mathf.Lerp(start, end, t);
+            sideLeftScreenImage.fillAmount = value;
+            sideRightScreenImage.fillAmount = value;
+            yield return null;
+        }
+        sideLeftScreenImage.fillAmount = end;
+        sideRightScreenImage.fillAmount = end;
     }
 
 }
