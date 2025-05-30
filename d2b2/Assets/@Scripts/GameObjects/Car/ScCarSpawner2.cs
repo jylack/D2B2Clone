@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -70,7 +71,9 @@ public class ScCarSpawner2 : ScObjectBase
     {
         try
         {
-            while (!DestroyToken.IsCancellationRequested)
+            CancellationToken token = base.DestroyToken;
+
+            while (!token.IsCancellationRequested)
             {
                 int randomInterval = GetRandomValue(minSpawnIntervalTime, maxSpawnIntervalTime);
                 await UniTask.Delay(randomInterval, cancellationToken: DestroyToken);

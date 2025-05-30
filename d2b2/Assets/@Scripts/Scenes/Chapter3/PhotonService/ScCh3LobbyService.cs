@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public partial class ScLobbyService : MonoBehaviourPunCallbacks
+public partial class ScCh3LobbyService : MonoBehaviourPunCallbacks
 {
-    public static ScLobbyService Instance { get; private set; }
+    public static ScCh3LobbyService Instance { get; private set; }
 
     private const int MaxPlayerCount = 6;
 

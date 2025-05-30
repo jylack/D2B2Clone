@@ -4,7 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 
-public partial class ScLobbyService
+public partial class ScCh3LobbyService
 {
     public bool TransferMasterTo()
     {

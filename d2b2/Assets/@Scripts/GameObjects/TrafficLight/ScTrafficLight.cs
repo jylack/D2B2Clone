@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
@@ -106,16 +107,27 @@ public class ScTrafficLight : ScObjectBase
 
     private async UniTask BlinkGreenRepeatly()
     {
-        blinkCts?.Dispose();
-        blinkCts = new CancellationTokenSource();
-        CancellationTokenSource cts = CancellationTokenSource.CreateLinkedTokenSource(blinkCts.Token, base.DestroyToken);
-
-        while (!cts?.IsCancellationRequested ?? false)
+        try
         {
-            await UniTask.WaitForSeconds(0.5f, cancellationToken: cts.Token);
-            InvertColor();
-        }
+            blinkCts?.Dispose();
+            blinkCts = new CancellationTokenSource();
+            CancellationTokenSource cts = CancellationTokenSource.CreateLinkedTokenSource(blinkCts.Token, base.DestroyToken);
 
-        cts.Dispose();
+            while (!cts?.IsCancellationRequested ?? false)
+            {
+                await UniTask.WaitForSeconds(0.5f, cancellationToken: cts.Token);
+                InvertColor();
+            }
+
+            cts.Dispose();
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
 }

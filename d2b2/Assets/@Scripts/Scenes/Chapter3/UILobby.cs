@@ -48,12 +48,12 @@ public class UILobby : UIBase
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (!ScLobbyService.Instance.TransferMasterTo())
-                ScLobbyService.Instance.LeaveRoom();
+            if (!ScCh3LobbyService.Instance.TransferMasterTo())
+                ScCh3LobbyService.Instance.LeaveRoom();
         }
         else
         {
-            ScLobbyService.Instance.LeaveRoom();
+            ScCh3LobbyService.Instance.LeaveRoom();
         }
 
         Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch3Login);
