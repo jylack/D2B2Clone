@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1.414, y: 1.414}
+  m_SizeDelta: {x: 4, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1429250967
 CanvasRenderer:
@@ -105,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 996025569809165147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.2182, y: 0.7, z: 4.8896}
-  m_LocalScale: {x: 3.1363952, y: 1, z: 7.7652125}
+  m_LocalScale: {x: 3.4000015, y: 1, z: 8.078726}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 996025570514346289}
@@ -128,7 +128,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996025569809165147}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -141,7 +141,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2bcbdc7edbda0294ebb0e0e9c2891fe4, type: 2}
+  - {fileID: 2100000, guid: 749169b54d08d824e828e6b055ae52d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,9 +189,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limitTime: 1
-  scTrafficCtrl: {fileID: 0}
   IsMove: {fileID: 996025570689357886}
   Hand: {fileID: 7796072757029886531}
+  OnCheckMissionClear:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ScMissionListPanel, Assembly-CSharp
+        m_MethodName: OnMissionClear
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCheckMissionFailed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ScMissionListPanel, Assembly-CSharp
+        m_MethodName: OnMissionFailed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &996025570514346290
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +323,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4095
 --- !u!1 &996025570689357880
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +466,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 996025569809165151}
     m_Modifications:
+    - target: {fileID: 7053658631133893392, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0566952
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053658631133893392, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 9.085494
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053658631133893392, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0283
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053658631133893392, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.21969998
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053658631133893392, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.0426946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053658631133893398, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7288948422768455344, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
       propertyPath: m_Name
@@ -450,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 7288948422768455345, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2938101
+      value: 0.98454463
       objectReference: {fileID: 0}
     - target: {fileID: 7288948422768455345, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
@@ -460,17 +519,17 @@ PrefabInstance:
     - target: {fileID: 7288948422768455345, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.016196966
+      value: -0.047943294
       objectReference: {fileID: 0}
     - target: {fileID: 7288948422768455345, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.33999985
+      value: -0.100000195
       objectReference: {fileID: 0}
     - target: {fileID: 7288948422768455345, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.73023117
+      value: 0.6018155
       objectReference: {fileID: 0}
     - target: {fileID: 7288948422768455345, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
@@ -507,10 +566,230 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455347, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CheckMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionListPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionListPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionListPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288948422768455357, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
         type: 3}
       propertyPath: missionFaildMessage
       value: GameClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CheckMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionListPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionListPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionListPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMission.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436450, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270381493516436455, guid: 97368470fd18eb247bf482032c794f33,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97368470fd18eb247bf482032c794f33, type: 3}

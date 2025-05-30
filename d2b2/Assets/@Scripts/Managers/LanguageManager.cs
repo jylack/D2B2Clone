@@ -7,8 +7,9 @@ public class LanguageManager : MonoBehaviour
 
     private ScCsvLoader csvLoader = new ScCsvLoader();
     private Dictionary<string, KeyData> dialogueMap = new Dictionary<string, KeyData>();
-    public Dictionary<string, KeyData> DialogueMap => dialogueMap;    
-    public string CsvPath => Application.dataPath + "/@Scenes/03.Privates/JYL/LocalizationTable.csv";
+    public Dictionary<string, KeyData> DialogueMap => dialogueMap;
+    //public string CsvPath => Application.dataPath + "/@Scenes/03.Privates/JYL/LocalizationTable.csv";
+    public string CsvPath => Application.dataPath + "/Resources/LocalizationTable.csv";
 
 
     private void Start()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScCrossWalkCtrl : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
     [SerializeField] private TextMeshProUGUI IsMove;
     [SerializeField] private ScHandUpRegion Hand;
 
+    [SerializeField] private UnityEvent OnCheckMissionClear;
+    [SerializeField] private UnityEvent OnCheckMissionFailed;
 
 
     bool isColorRed = false;
@@ -37,6 +40,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
             {
                 ScRespawn.Instance.Respawn();
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
+                OnCheckMissionFailed?.Invoke();
             }
         }
     }
@@ -66,21 +70,18 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 }
                 
             }
-            if (Hand.isLeftHandUp && ScMissionListPanel.Instance != null)  
-                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 3, true);
-
+            OnCheckMissionClear?.Invoke();
 
             if (isWalk == false || Hand.isLeftHandUp == false)
             {
-                if(ScMissionListPanel.Instance != null)
-                    ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 3, false);
+                OnCheckMissionFailed?.Invoke();
 
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
             }
         }
     }
-
+    
     private void OnDisable()
     {
         Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;

@@ -1,14 +1,19 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScLookAroundRegion : MonoBehaviour
 {
+
     private bool checkLookLeft;
     private bool checkLookRight;
     public bool lookAroundMissionClear { get; private set; }
     [SerializeField] private float completeTime = 1;
     private Coroutine lookCor;
+
+    [SerializeField] private UnityEvent OnCheckMissionClear;
+    [SerializeField] private UnityEvent OnCheckMissionFailed;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,9 +24,8 @@ public class ScLookAroundRegion : MonoBehaviour
             checkLookLeft = false;
             checkLookRight = false;
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
-            
-            if(ScMissionListPanel.Instance != null)
-                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 2, false);
+
+            OnCheckMissionFailed?.Invoke();
         }
     }
 
@@ -92,8 +96,8 @@ public class ScLookAroundRegion : MonoBehaviour
         {
             Debug.Log("미션 성공!");
 
-            if (ScMissionListPanel.Instance != null)
-                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 2, true);
+             OnCheckMissionClear?.Invoke();
+
             OffAllUI();
         }
     }

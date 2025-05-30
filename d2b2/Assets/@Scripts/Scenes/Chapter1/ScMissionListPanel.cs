@@ -18,7 +18,6 @@ public enum Category
 
 public class ScMissionListPanel : MonoBehaviour
 {
-    public static ScMissionListPanel Instance { get; private set; }
 
     /// <summary>
     /// _기준으로 앞과 뒤를 정해준뒤 맨뒤에 숫자로 순서만 정해주면 됩니다.
@@ -32,22 +31,14 @@ public class ScMissionListPanel : MonoBehaviour
 
     private readonly List<ScMissionBoxTextCheck> missionTexts = new();
     private readonly Dictionary<string, string> missionTextMap = new();
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Debug.LogWarning("ScMissionListPanel: 이미 다른 인스턴스가 존재합니다. Destroy합니다.");
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
+    private string defaultKey = string.Empty;
 
     private void Start()
     {
         // 기본 로드
         LoadMissionsAsync().Forget();
+        defaultKey = ChapterPrefix.ToString() + "_" + CategoryFilter.ToString() + "_";
+
         Setup(ChapterPrefix, CategoryFilter);
     }
 
@@ -73,6 +64,18 @@ public class ScMissionListPanel : MonoBehaviour
     public void CheckMission(string key, bool isChecked)
     {
         SetMissionTextCheck(key, isChecked);
+    }
+
+    public void OnMissionClear(int index)
+    {
+        string key = defaultKey + index.ToString();
+        SetMissionTextCheck(key, true);
+    }
+
+    public void OnMissionFailed(int index)
+    {
+        string key = defaultKey + index.ToString();
+        SetMissionTextCheck(key, false);
     }
 
     private async UniTask LoadMissionsAsync()

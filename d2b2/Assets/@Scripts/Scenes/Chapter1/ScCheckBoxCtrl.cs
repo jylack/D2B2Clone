@@ -1,22 +1,28 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 //행동권환 활성화 해줄 클래스
 public class ScCheckBoxCtrl : MonoBehaviour
 {
     [SerializeField] private ScLookAroundRegion Look;
 
+    [SerializeField] private UnityEvent OnCheckMissionClear;
+    [SerializeField] private UnityEvent OnCheckMissionFailed;
+
     private bool isMove = false;
+
+
+    private void OnEnable()
+    {
+        Manager.Instance.GameMgr.OnPlayerMoving += OnMoving;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            Manager.Instance.GameMgr.OnPlayerMoving += OnMoving;
-
-            if (ScMissionListPanel.Instance != null)
-            {
-                ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 1, false);
-            }
+            //Manager.Instance.GameMgr.OnPlayerMoving += OnMoving;
+            OnCheckMissionFailed?.Invoke();
         }
     }
 
@@ -26,12 +32,8 @@ public class ScCheckBoxCtrl : MonoBehaviour
         {
             if (isMove == false)
             {
-                if (ScMissionListPanel.Instance != null)
-                {
-                    ScMissionListPanel.Instance.CheckMission(Chapter.Ch1, 1, true);
-                }
+                OnCheckMissionClear?.Invoke();
             }
-
         }
     }
 
@@ -40,14 +42,18 @@ public class ScCheckBoxCtrl : MonoBehaviour
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             ScChapter1.Instance.lookAroundMissionClear = Look.lookAroundMissionClear;
-            Manager.Instance.GameMgr.OnPlayerMoving -= OnMoving;
+            //Manager.Instance.GameMgr.OnPlayerMoving -= OnMoving;
         }
+    }
+
+    private void OnDestroy()
+    {
+        Manager.Instance.GameMgr.OnPlayerMoving -= OnMoving;
     }
 
     private void OnMoving(bool isMoving)
     {
         isMove = isMoving;
-        Debug.Log("이동중");
     }
 
 }
