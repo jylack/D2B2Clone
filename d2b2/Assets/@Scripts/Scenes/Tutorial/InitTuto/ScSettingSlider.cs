@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ScSettingSlider : MonoBehaviour
@@ -11,7 +12,6 @@ public class ScSettingSlider : MonoBehaviour
     public Slider slider;
 
     [SerializeField] TMP_Text valueText;
-    public Action<float> OnValueChanged;
     [SerializeField] private bool displayString;
     [SerializeField] private float multiplyValue;
     [SerializeField] private string followingLetter;
@@ -47,6 +47,5 @@ public class ScSettingSlider : MonoBehaviour
         {
             valueText.text = (slider.value * multiplyValue).ToString(stringFormat) + followingLetter;
         }
-        OnValueChanged?.Invoke(Value);
     }
 }

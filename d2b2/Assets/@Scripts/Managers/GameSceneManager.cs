@@ -96,7 +96,7 @@ public class GameSceneManager : MonoBehaviour
         if (currentSceneName == sceneName)
             return;
         
-        Debug.Log($"load scene -> {sceneName}");
+        Debug.Log($"load scene -> {sceneName}"); 
 
         await FadeOut();
         

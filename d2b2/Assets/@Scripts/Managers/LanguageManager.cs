@@ -10,11 +10,13 @@ public class LanguageManager : MonoBehaviour
     public Dictionary<string, KeyData> DialogueMap => dialogueMap;
     //public string CsvPath => Application.dataPath + "/@Scenes/03.Privates/JYL/LocalizationTable.csv";
     public string CsvPath => Application.dataPath + "/Resources/LocalizationTable.csv";
+    private ScTTSSetting tts;
 
 
     private void Start()
     {
         dialogueMap = csvLoader.Init(CsvPath);
+        tts = GetComponent<ScTTSSetting>(); 
     }
 
 
@@ -26,5 +28,27 @@ public class LanguageManager : MonoBehaviour
 
         Debug.LogWarning($"Dialogue key '{key}' not found.");
         return string.Empty;
+    }
+
+    public void Speak(string key)
+    {
+
+        if (dialogueMap.TryGetValue(key, out KeyData data))
+        {
+            if (data.useTTS)
+            {
+                Debug.Log($"TTS: {data.Text}");
+                tts.Speak(data.Text, true); 
+            }
+            else
+            {
+                Debug.Log($"Speak: {data.Text}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Dialogue key '{key}' not found for speaking.");
+        }
+
     }
 }

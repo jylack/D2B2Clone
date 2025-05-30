@@ -60,8 +60,6 @@ public class ScCsvLoader
         return dic;
     }
 
-
-
     // CSV 전체 텍스트를 받아 헤더행 포함 레코드 단위로 분리한 뒤 파싱
     public List<Dictionary<string, string>> LoadFromText(string csvText)
     {
