@@ -22,9 +22,9 @@ public class ScNavigationCanvas : MonoBehaviour
         miniGameManagerScript.timer -= OnChangeTimerText;
     }
 
-    public void OnChangeTimerText(float currentTime)
+    public void OnChangeTimerText(float currentTime,float maxTime)
     {
-        timerText.text = currentTime.ToString();
+        timerText.text = ((int)currentTime).ToString() + $" / {maxTime}";
     }
     public void OnChangeFindChildCountText(int findChildCount)
     {

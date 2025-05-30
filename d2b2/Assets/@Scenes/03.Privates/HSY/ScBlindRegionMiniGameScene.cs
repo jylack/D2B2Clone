@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -30,18 +31,17 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     [SerializeField] GameObject navCanvas;
     [Header("PlaySetting")]
     [SerializeField] private float maxTime =30;
-    public event Action<float> timer;
+    public event Action<float,float> timer;
 
 
 
     IEnumerator Start()
     {
         yield return new WaitForSeconds(2);
-        playerScript.isGamePlaying= false;
-        playerPos.transform.position = new Vector3 (-1.5f, 2f, 0);
-        cameraOffset.transform.rotation = Quaternion.Euler(0, -camera.transform.eulerAngles.y, 0);
+        //playerScript.isGamePlaying= false;
+        //playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
+        //cameraOffset.transform.rotation = Quaternion.Euler(0, -camera.transform.eulerAngles.y, 0);
         //PlayBeforeGame();
-        OnClickPlayeButton();
     }
     public void OngameStartBtn()
     {
@@ -62,27 +62,52 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         director.playableAsset = miniGameEndTimeLine;
         director.Play();
     }
-
+    IEnumerator count()
+    {
+        UIPlayerHsy.Instance.countDownText.gameObject.SetActive(true);
+        int count = 3;
+        while (count >= 0)
+        {
+            if (count == 0)
+            {
+                UIPlayerHsy.Instance.countDownText.text = "시작";
+            }
+            else
+            {
+                UIPlayerHsy.Instance.countDownText.text = count.ToString();
+            }
+            yield return new WaitForSeconds(1);
+            count--;
+        }
+        playerScript.isGamePlaying = true;
+        UIPlayerHsy.Instance.countDownText.text = "";
+        navCanvas.SetActive(true);
+        CreateChildNpc();
+        yield return StartCoroutine(TimmerCor());
+        navCanvas.SetActive(false);
+        playerScript.DisConnectPlayerTriggerEvent();
+        UIPlayerHsy.Instance.countDownText.text = "종료";
+        yield return StartCoroutine(UIPlayerHsy.Instance.SideFillProduction(0,1,3));
+        yield return StartCoroutine(UIPlayerHsy.Instance.SideFillProduction(1,0,3));
+        UIPlayerHsy.Instance.countDownText.text = "";
+        PlayAfterGame();
+        playerScript.isGamePlaying = false;
+        playerScript.ConnectPlayerTriggerEvent();
+    }
     public void OnClickPlayeButton()
     {
+        StartCoroutine(count());
         OffgameStartBtn();
-        CreateChildNpc();
-        StartCoroutine(TimmerCor());
-        navCanvas.SetActive(true);
-        playerScript.ConnectPlayerTriggerEvent();
-        playerScript.isGamePlaying= true;
     }
     IEnumerator TimmerCor()
     {
         float currentTime = 0;
-        while (true)
+        while (currentTime<maxTime)
         {
             currentTime += Time.deltaTime;
-            timer?.Invoke(currentTime);
+            timer?.Invoke(currentTime, maxTime);
             yield return null;
         }
-        playerScript.DisConnectPlayerTriggerEvent();
-        PlayAfterGame();
     }
 
     public void CreateChildNpc()

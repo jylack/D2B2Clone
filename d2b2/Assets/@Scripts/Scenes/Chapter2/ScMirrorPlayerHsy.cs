@@ -69,7 +69,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
     {
         Gizmos.color = Color.green;
         //Vector3 startPoint = rayInteractor.attachTransform.position;
-        Vector3 startPoint = carmeraTranse.transform.position;
+        Vector3 startPoint = rayInteractor.transform.position;
         Vector3 dir = rayInteractor.attachTransform.forward;
         float distance = lineVisual.lineLength;
 
@@ -131,7 +131,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
     {
         hitInfo = default;
         //Vector3 startPoint = rayInteractor.attachTransform.position;
-        Vector3 startPoint = carmeraTranse.transform.position;
+        Vector3 startPoint = rayInteractor.attachTransform.position;
         Vector3 dir = rayInteractor.attachTransform.forward;
         float distance = lineVisual.lineLength;
 
