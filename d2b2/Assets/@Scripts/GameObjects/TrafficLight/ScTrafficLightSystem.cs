@@ -66,9 +66,6 @@ public class ScTrafficLightSystem : ScObjectBase
 
             WaitThenRaiseGreenBeforeEvent(updateTrafficLightsCts.Token).Forget();
             await UpdateTrafficLights(linkedCts.Token);
-
-            updateTrafficLightsCts?.Dispose();
-            updateTrafficLightsCts = null;
         }
         catch (OperationCanceledException ex)
         {
