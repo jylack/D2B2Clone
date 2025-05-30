@@ -13,4 +13,11 @@ public partial class ScCh3PlayService
     {
         trafficLightSystem.OnUpdateTrafficLight().Forget();
     }
+
+    [PunRPC]
+    private void OnSpawnCar(int spawnerIndex, int carIndex, float moveSpeed)
+    {
+        ScCarSpawner2 spawner = carSpawners[spawnerIndex];
+        spawner.SpawnCar(carIndex, moveSpeed);
+    }
 }

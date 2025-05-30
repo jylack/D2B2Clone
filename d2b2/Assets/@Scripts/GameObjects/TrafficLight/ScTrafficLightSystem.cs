@@ -87,8 +87,8 @@ public class ScTrafficLightSystem : ScObjectBase
 
             while (!token.IsCancellationRequested)
             {
-                WaitThenRaiseGreenBeforeEvent(base.DestroyToken).Forget();
-                await UpdateTrafficLights(base.DestroyToken);
+                WaitThenRaiseGreenBeforeEvent(token).Forget();
+                await UpdateTrafficLights(token);
             }
         }
         catch (OperationCanceledException ex)
@@ -111,7 +111,7 @@ public class ScTrafficLightSystem : ScObjectBase
 
             while (!token.IsCancellationRequested)
             {
-                ScCh3PlayService.Instance.SendUpdateTrafficLightsToAll();
+                ScCh3PlayService.Instance.BroadcastUpdateTrafficLights();
 
                 await UniTask.Delay(greenDuration);
             }

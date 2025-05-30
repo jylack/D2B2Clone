@@ -5,7 +5,7 @@ public class ScCh3PlayScene : ScSceneBase
 {
     [SerializeField] private GameObject[] positionObjects;
 
-    
+
 
     //private void Start()
     //{
@@ -17,9 +17,9 @@ public class ScCh3PlayScene : ScSceneBase
 
     //    if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(ScCh3Define.PROP_KEY_CHARACTER_TYPE, out object charType))
     //        characterType = (ScDefine.ScGuideCharacter)charType;
-        
+
     //    Transform playerTransform = positionObjects[posIndex].transform;
     //    object[] data = { characterType };
-    //    PhotonNetwork.Instantiate("Prefabs/Ch3Player", playerTransform.position, playerTransform.rotation, 0, data);
+    //    PhotonNetwork.InstantiateRoomObject("Prefabs/Ch3Player", playerTransform.position, playerTransform.rotation, 0, data);
     //}
 }

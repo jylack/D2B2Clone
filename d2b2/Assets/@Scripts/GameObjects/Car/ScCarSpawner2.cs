@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Photon.Pun;
 using System;
 using System.Threading;
 using Unity.VisualScripting;
@@ -14,6 +15,7 @@ public class ScCarSpawner2 : ScObjectBase
     [SerializeField] private float minMoveSpeed = 1f;
     [SerializeField] private float maxMoveSpeed = 2f;
     [Header("Etc")]
+    [SerializeField] private bool usePhoton;
     [SerializeField] private bool showGizmoLine = true;
     [SerializeField] private float distance = 10f;
     [SerializeField] private Vector3 direction;
@@ -26,8 +28,11 @@ public class ScCarSpawner2 : ScObjectBase
     {
         try
         {
+            if (usePhoton && !PhotonNetwork.IsMasterClient)
+                return;
+
             if (startDelay > 0)
-                await UniTask.Delay(startDelay, cancellationToken: DestroyToken);
+                await UniTask.Delay(startDelay, cancellationToken: base.DestroyToken);
 
             RunSpawn().Forget();
         }
@@ -67,6 +72,13 @@ public class ScCarSpawner2 : ScObjectBase
 
 
 
+    public void SpawnCar(int carIndex, float moveSpeed)
+    {
+
+    }
+
+
+
     private async UniTask RunSpawn()
     {
         try
@@ -76,7 +88,7 @@ public class ScCarSpawner2 : ScObjectBase
             while (!token.IsCancellationRequested)
             {
                 int randomInterval = GetRandomValue(minSpawnIntervalTime, maxSpawnIntervalTime);
-                await UniTask.Delay(randomInterval, cancellationToken: DestroyToken);
+                await UniTask.Delay(randomInterval, cancellationToken: token);
 
                 SpawnRandomCar();
             }
@@ -95,10 +107,18 @@ public class ScCarSpawner2 : ScObjectBase
     {
         float moveSpeed = GetRandomValue(minMoveSpeed, maxMoveSpeed);
         int carIndex = GetRandomValue(0, carPrefabs.Length);
-        GameObject carPrefab = carPrefabs[carIndex];
 
-        Instantiate(carPrefab, transform)
-            .GetComponent<ScCar>()
-            .Init(moveSpeed, direction, distance, ignoreGameObjects);
+        if (usePhoton)
+        {
+
+        }
+        else
+        {
+            GameObject carPrefab = carPrefabs[carIndex];
+
+            Instantiate(carPrefab, transform)
+                .GetComponent<ScCar>()
+                .Init(moveSpeed, direction, distance, ignoreGameObjects);
+        }
     }
 }

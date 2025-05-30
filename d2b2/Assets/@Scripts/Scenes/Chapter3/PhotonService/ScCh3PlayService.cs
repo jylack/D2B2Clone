@@ -7,6 +7,7 @@ public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
     public static ScCh3PlayService Instance { get; private set; }
 
     [SerializeField] private ScTrafficLightSystem trafficLightSystem;
+    [SerializeField] private ScCarSpawner2[] carSpawners;
 
 
 

@@ -20,8 +20,19 @@ public partial class ScCh3PlayService
     
     
     
-    public void SendUpdateTrafficLightsToAll()
+    public void BroadcastUpdateTrafficLights()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         photonView.Broadcast(nameof(OnUpdateTrafficLights));
+    }
+
+    public void BoradcastSpawnCar(int spawnerIndex, int carIndex, float moveSpeed)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        photonView.Broadcast(nameof(OnSpawnCar));
     }
 }
