@@ -13,34 +13,34 @@ public class ScTruckShader : MonoBehaviour
     [SerializeField] MeshRenderer[] allMats;
     [SerializeField] Shader shader;
 
-    [MenuItem("Tools/Change Shader For All MeshRenderers")]
-    static void ChangeAllShaders()
-    {
-        Shader targetShader = Shader.Find("Shader Graphs/YourShaderNameHere"); // 원하는 셰이더 경로
-        if (targetShader == null)
-        {
-            Debug.LogError("Shader not found. Check the shader path.");
-            return;
-        }
-
-        MeshRenderer[] renderers = FindObjectsOfType<MeshRenderer>();
-
-        foreach (MeshRenderer renderer in renderers)
-        {
-            Material[] materials = renderer.sharedMaterials; // shared 사용해야 에디터 적용
-            for (int i = 0; i < materials.Length; i++)
-            {
-                if (materials[i] != null)
-                {
-                    materials[i].shader = targetShader;
-                    EditorUtility.SetDirty(materials[i]); // 변경 표시
-                }
-            }
-        }
-
-        AssetDatabase.SaveAssets();
-        Debug.Log("Shader 변경 완료");
-    }
+    // [MenuItem("Tools/Change Shader For All MeshRenderers")]
+    // static void ChangeAllShaders()
+    // {
+    //     Shader targetShader = Shader.Find("Shader Graphs/YourShaderNameHere"); // 원하는 셰이더 경로
+    //     if (targetShader == null)
+    //     {
+    //         Debug.LogError("Shader not found. Check the shader path.");
+    //         return;
+    //     }
+    //
+    //     MeshRenderer[] renderers = FindObjectsOfType<MeshRenderer>();
+    //
+    //     foreach (MeshRenderer renderer in renderers)
+    //     {
+    //         Material[] materials = renderer.sharedMaterials; // shared 사용해야 에디터 적용
+    //         for (int i = 0; i < materials.Length; i++)
+    //         {
+    //             if (materials[i] != null)
+    //             {
+    //                 materials[i].shader = targetShader;
+    //                 EditorUtility.SetDirty(materials[i]); // 변경 표시
+    //             }
+    //         }
+    //     }
+    //
+    //     AssetDatabase.SaveAssets();
+    //     Debug.Log("Shader 변경 완료");
+    // }
     IEnumerator Start()
     {
         yield return new WaitForSeconds(1);

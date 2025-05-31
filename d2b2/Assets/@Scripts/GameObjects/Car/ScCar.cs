@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class ScCar : ScObjectBase
@@ -20,12 +21,20 @@ public class ScCar : ScObjectBase
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        gameObject.name = $"Car_{numbering++}";
-        originPosition = transform.position;
+        
+        var photonView = GetComponentInParent<PhotonView>();
+        if (photonView != null && photonView.InstantiationData != null)
+        {
+            moveSpeed = (float)photonView.InstantiationData[0];
+            dir = (Vector3)photonView.InstantiationData[1];
+            destinationDistance = (float)photonView.InstantiationData[2];
+        }
     }
 
     private void Start()
     {
+        gameObject.name = $"Car_{numbering++}";
+        originPosition = transform.position;
         transform.rotation = Quaternion.LookRotation(dir);
     }
 

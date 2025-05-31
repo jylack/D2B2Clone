@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using System;
 using System.Threading;
-using Unity.VisualScripting;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ScCarSpawner2 : ScObjectBase
@@ -107,15 +107,16 @@ public class ScCarSpawner2 : ScObjectBase
     {
         float moveSpeed = GetRandomValue(minMoveSpeed, maxMoveSpeed);
         int carIndex = GetRandomValue(0, carPrefabs.Length);
+        GameObject carPrefab = carPrefabs[carIndex];
 
         if (usePhoton)
         {
-
+            var param = new object[] { moveSpeed, direction, distance };
+            string prefabName = $"Prefabs/Cars/{carPrefab.name}";
+            PhotonNetwork.InstantiateRoomObject(prefabName, transform.position, quaternion.identity, 0, param);
         }
         else
         {
-            GameObject carPrefab = carPrefabs[carIndex];
-
             Instantiate(carPrefab, transform)
                 .GetComponent<ScCar>()
                 .Init(moveSpeed, direction, distance, ignoreGameObjects);
