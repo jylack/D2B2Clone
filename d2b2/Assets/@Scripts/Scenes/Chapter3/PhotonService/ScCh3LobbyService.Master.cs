@@ -63,7 +63,7 @@ public partial class ScCh3LobbyService
         
         ScLobbyPlayerEntity playerEntity = JsonConvert.DeserializeObject<ScLobbyPlayerEntity>(json);
 
-        // response: ¹æ±İ Á¢¼ÓÇÑ À¯Àú -> ¸ğµç À¯Àú Á¤º¸ Àü´Ş
+        // response: ë°©ê¸ˆ ì ‘ì†í•œ ìœ ì € -> ëª¨ë“  ìœ ì € ì •ë³´ ì „ë‹¬
         Player sender = PhotonNetwork.CurrentRoom.GetPlayer(playerEntity.actorNumber);
 
         List<ScLobbyPlayerEntity> playerEntities = GetAllPlayerEntities();
@@ -71,7 +71,7 @@ public partial class ScCh3LobbyService
 
         photonView.RPC(nameof(OnJoinedRoom_ServerResponse), sender, respJson);
 
-        // send all: ¸ğµç À¯Àú -> ¹æ±İ Á¢¼ÓÇÑ À¯Àú Á¤º¸ Àü´Ş
+        // send all: ëª¨ë“  ìœ ì € -> ë°©ê¸ˆ ì ‘ì†í•œ ìœ ì € ì •ë³´ ì „ë‹¬
         int emptyPosIdx = GetEmptyPositionIndex();
         playerEntity.positionIndex = emptyPosIdx;
         actorNumbersForPosition[emptyPosIdx] = playerEntity.actorNumber;
