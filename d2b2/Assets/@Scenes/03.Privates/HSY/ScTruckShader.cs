@@ -13,33 +13,55 @@ public class ScTruckShader : MonoBehaviour
     [SerializeField] MeshRenderer[] allMats;
     [SerializeField] Shader shader;
 
-    [MenuItem("Tools/Change Shader For All MeshRenderers")]
-    static void ChangeAllShaders()
+    [MenuItem("Tools/Convert URP Lit → LT_Dissolve (Preserve Color + Set Float)")] 
+    static void ConvertShadersPreserveColorAndSetFloat()
     {
-        Shader targetShader = Shader.Find("Shader Graphs/YourShaderNameHere"); // 원하는 셰이더 경로
+        Shader targetShader = Shader.Find("Shader Graphs/LT_Desolve2");
         if (targetShader == null)
         {
-            Debug.LogError("Shader not found. Check the shader path.");
+            Debug.LogError("Shader not found: Shader Graphs/LT_Desolve2");
             return;
         }
 
-        MeshRenderer[] renderers = FindObjectsOfType<MeshRenderer>();
-
-        foreach (MeshRenderer renderer in renderers)
+        var renderers = GameObject.FindObjectsOfType<MeshRenderer>();
+        
+        foreach (var renderer in renderers) 
         {
-            Material[] materials = renderer.sharedMaterials; // shared 사용해야 에디터 적용
+            var materials = renderer.sharedMaterials;
+
             for (int i = 0; i < materials.Length; i++)
             {
-                if (materials[i] != null)
+                Material mat = materials[i];
+                if (mat == null || mat.shader == null) continue;
+
+                if (mat.shader.name != "Shader Graphs/LT_Desolve") continue;
+
+                // 색상 백업
+                Color baseColor = mat.HasProperty("_BaseColor") ? mat.GetColor("_BaseColor") : Color.white;
+
+                // Shader 변경
+                mat.shader = targetShader;
+
+                // 색상 복원
+                if (mat.HasProperty("_BaseColor"))
+                    mat.SetColor("_BaseColor", baseColor);
+
+                // float 값 설정
+                if (mat.HasProperty("_Float"))
                 {
-                    materials[i].shader = targetShader;
-                    EditorUtility.SetDirty(materials[i]); // 변경 표시
+                    mat.SetFloat("_Float", 7f);
                 }
+                else
+                {
+                    Debug.Log("아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+                }
+
+                EditorUtility.SetDirty(mat);
             }
         }
 
         AssetDatabase.SaveAssets();
-        Debug.Log("Shader 변경 완료");
+        Debug.Log("Shader 변경, 색상 복원, float 세팅 완료");
     }
     IEnumerator Start()
     {
@@ -53,7 +75,7 @@ public class ScTruckShader : MonoBehaviour
                 allMats[i].materials[j].shader = shader;
             }
         }
-        Debug.Log(allMats.Length);
+        Debug.Log("길이 : "  + allMats.Length);
     }
 
     IEnumerator Ham()
