@@ -13,56 +13,56 @@ public class ScTruckShader : MonoBehaviour
     [SerializeField] MeshRenderer[] allMats;
     [SerializeField] Shader shader;
 
-    [MenuItem("Tools/Convert URP Lit → LT_Dissolve (Preserve Color + Set Float)")] 
-    static void ConvertShadersPreserveColorAndSetFloat()
-    {
-        Shader targetShader = Shader.Find("Shader Graphs/LT_Desolve2");
-        if (targetShader == null)
-        {
-            Debug.LogError("Shader not found: Shader Graphs/LT_Desolve2");
-            return;
-        }
-
-        var renderers = GameObject.FindObjectsOfType<MeshRenderer>();
-        
-        foreach (var renderer in renderers) 
-        {
-            var materials = renderer.sharedMaterials;
-
-            for (int i = 0; i < materials.Length; i++)
-            {
-                Material mat = materials[i];
-                if (mat == null || mat.shader == null) continue;
-
-                if (mat.shader.name != "Shader Graphs/LT_Desolve") continue;
-
-                // 색상 백업
-                Color baseColor = mat.HasProperty("_BaseColor") ? mat.GetColor("_BaseColor") : Color.white;
-
-                // Shader 변경
-                mat.shader = targetShader;
-
-                // 색상 복원
-                if (mat.HasProperty("_BaseColor"))
-                    mat.SetColor("_BaseColor", baseColor);
-
-                // float 값 설정
-                if (mat.HasProperty("_Float"))
-                {
-                    mat.SetFloat("_Float", 7f);
-                }
-                else
-                {
-                    Debug.Log("아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
-                }
-
-                EditorUtility.SetDirty(mat);
-            }
-        }
-
-        AssetDatabase.SaveAssets();
-        Debug.Log("Shader 변경, 색상 복원, float 세팅 완료");
-    }
+    // [MenuItem("Tools/Convert URP Lit → LT_Dissolve (Preserve Color + Set Float)")] 
+    // static void ConvertShadersPreserveColorAndSetFloat()
+    // {
+    //     Shader targetShader = Shader.Find("Shader Graphs/LT_Desolve2");
+    //     if (targetShader == null)
+    //     {
+    //         Debug.LogError("Shader not found: Shader Graphs/LT_Desolve2");
+    //         return;
+    //     }
+    //
+    //     var renderers = GameObject.FindObjectsOfType<MeshRenderer>();
+    //     
+    //     foreach (var renderer in renderers) 
+    //     {
+    //         var materials = renderer.sharedMaterials;
+    //
+    //         for (int i = 0; i < materials.Length; i++)
+    //         {
+    //             Material mat = materials[i];
+    //             if (mat == null || mat.shader == null) continue;
+    //
+    //             if (mat.shader.name != "Shader Graphs/LT_Desolve") continue;
+    //
+    //             // 색상 백업
+    //             Color baseColor = mat.HasProperty("_BaseColor") ? mat.GetColor("_BaseColor") : Color.white;
+    //
+    //             // Shader 변경
+    //             mat.shader = targetShader;
+    //
+    //             // 색상 복원
+    //             if (mat.HasProperty("_BaseColor"))
+    //                 mat.SetColor("_BaseColor", baseColor);
+    //
+    //             // float 값 설정
+    //             if (mat.HasProperty("_Float"))
+    //             {
+    //                 mat.SetFloat("_Float", 7f);
+    //             }
+    //             else
+    //             {
+    //                 Debug.Log("아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+    //             }
+    //
+    //             EditorUtility.SetDirty(mat);
+    //         }
+    //     }
+    //
+    //     AssetDatabase.SaveAssets();
+    //     Debug.Log("Shader 변경, 색상 복원, float 세팅 완료");
+    // }
     IEnumerator Start()
     {
         yield return new WaitForSeconds(1);
