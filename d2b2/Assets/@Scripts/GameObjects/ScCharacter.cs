@@ -12,6 +12,13 @@ public class ScCharacter : MonoBehaviour
     private bool isRaisingHand;
     private Tweener handTween;
 
+    public void SetIdleAnim() => SetAnimation(ScDefine.ScNpcAnimState.Idle);
+    public void SetWalkingAnim() => SetAnimation(ScDefine.ScNpcAnimState.Walking);
+    public void SetRunningAnim() => SetAnimation(ScDefine.ScNpcAnimState.Running);
+    public void RaiseHandOn() => SetRaiseHandAnimation(true);
+    public void RaiseHandOff() => SetRaiseHandAnimation(false);
+    public void SetLookAroundAnim() => SetAnimation(ScDefine.ScNpcAnimState.LookAround);
+
 
 
     public void SetAnimation(ScDefine.ScNpcAnimState animState)
@@ -24,7 +31,7 @@ public class ScCharacter : MonoBehaviour
         if (raisingHand != isRaisingHand)
         {
             animator.SetBool(AnimIsRaiseHandHash, raisingHand);
-            
+
             float curWeight = animator.GetLayerWeight(HandSideLayerIndex);
             float targetWeight = raisingHand ? 1 : 0;
 
