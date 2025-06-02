@@ -1,5 +1,4 @@
 using Pathfinding;
-using System.Reflection;
 using UnityEngine;
 
 public class ScCh3Npc : MonoBehaviour
@@ -8,13 +7,9 @@ public class ScCh3Npc : MonoBehaviour
 
     private RichAI ai;
     private AIDestinationSetter destinationSetter;
-    private bool hasArrived;
-    private int posIndex;
-    private bool isManualMove;
-    private Vector3 source;
-    private Vector3 destination;
-    //private float moveSpeed = 2f;
-
+    private ScPathPoint previousPathPoint;
+    private ScPathPoint currentPathPoint;
+    
 
 
     private void Awake()
@@ -25,83 +20,28 @@ public class ScCh3Npc : MonoBehaviour
 
     private void Start()
     {
-        //if (pathObjects?.Length > 0)
-        //    destinationSetter.target = GetNextDestination();
 
-        InvokeRepeating(nameof(MoveToRandomPosition), 1f, 5f);
     }
 
     private void Update()
     {
-        //if (isManualMove)
-        //{
-        //    Vector3 diff = destination - source;
+        if (ai.reachedEndOfPath && !ai.pathPending)
+        {
+            ScPathPoint nextPathpt = currentPathPoint.GetNextPathPoint();
 
-        //    if (diff.magnitude < 0.1f)
-        //    {
-        //        StartPathFinding();
-        //        hasArrived = false;
-        //        return;
-        //    }
+            previousPathPoint = currentPathPoint;
+            currentPathPoint = nextPathpt;
 
-        //    Vector3 dir = diff.normalized;
-        //    transform.position = dir * 5f * Time.deltaTime;
-        //}
-        //else if (!hasArrived && ai.reachedEndOfPath && !ai.pathPending)
-        //{
-        //    hasArrived = true;
-        //    destinationSetter.target = GetNextDestination();
-        //    hasArrived = false;
-        //}
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Vector3.zero, 20f);
+            destinationSetter.target = currentPathPoint.transform;
+            ai.SearchPath();
+        }
     }
 
 
 
-    public void StopPathFinding()
+    public void SetDestination(ScPathPoint pathPt)
     {
-        //source = transform.position;
-        //ai.canMove = false;
-        //ai.canSearch = false;
-
-        //typeof(RichAI).GetMethod("ClearPath", BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(ai, null);
-
-        //ai.Teleport(source, true);
-
-        //destination = GetNextDestination().position;
-        //isManualMove = true;
-
-        //hasArrived = true;
-    }
-
-    public void StartPathFinding()
-    {
-        //ai.Teleport(transform.position);
-        //ai.canMove = true;
-        //ai.canSearch = true;
-    }
-
-
-
-    private Transform GetNextDestination()
-    {
-        return pathObjects[(posIndex++)].transform;
-    }
-
-    private void MoveToRandomPosition()
-    {
-        Vector3 randomOffset = Random.insideUnitSphere * 20f;
-        randomOffset.y = 0f;
-
-        Vector3 randomPos = transform.position + randomOffset;
-
-        NNInfo info = AstarPath.active.GetNearest(randomPos);
-        ai.destination = info.position;
-        ai.SearchPath();
+        currentPathPoint = pathPt;
+        destinationSetter.target = pathPt.transform;
     }
 }

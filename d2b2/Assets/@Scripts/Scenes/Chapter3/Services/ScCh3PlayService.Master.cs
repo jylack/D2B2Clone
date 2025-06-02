@@ -33,6 +33,14 @@ public partial class ScCh3PlayService
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        photonView.Broadcast(nameof(OnSpawnCar));
+        photonView.Broadcast(nameof(OnSpawnCar), spawnerIndex, carIndex, moveSpeed);
+    }
+
+    public void BroadcastSpawnNpc(int prefabIndex)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        photonView.Broadcast(nameof(OnSpawnNpc), prefabIndex);
     }
 }

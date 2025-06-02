@@ -72,4 +72,12 @@
         StandingUsingPhone,
         WalkingUsingPhone,
     }
+
+    public enum ScPathPointNextAction
+    {
+        None,
+        Move,
+        Crosswalk,
+        Destroy,
+    }
 }
