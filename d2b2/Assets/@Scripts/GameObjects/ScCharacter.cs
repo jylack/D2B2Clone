@@ -17,6 +17,8 @@ public class ScCharacter : MonoBehaviour
     public void SetRunningAnim() => SetAnimation(ScDefine.ScNpcAnimState.Running);
     public void RaiseHandOn() => SetRaiseHandAnimation(true);
     public void RaiseHandOff() => SetRaiseHandAnimation(false);
+    public void SetLookAroundAnim() => SetAnimation(ScDefine.ScNpcAnimState.LookAround);
+
 
 
     public void SetAnimation(ScDefine.ScNpcAnimState animState)
