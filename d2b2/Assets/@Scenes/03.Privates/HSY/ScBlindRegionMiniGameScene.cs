@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -27,21 +28,23 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     [SerializeField] private PlayableAsset miniGameStartTimeLine;
     [SerializeField] private PlayableAsset miniGameEndTimeLine;
     [SerializeField] private PlayableDirector director;
+    [Header("Truck")]
+    [SerializeField] private ScTruckShader truckShader;
     [Header("navCanvas")]
-    [SerializeField] GameObject navCanvas;
+    [SerializeField] private GameObject navCanvas;
     [Header("PlaySetting")]
-    [SerializeField] private float maxTime =30;
+    [SerializeField] private float maxTime;
     public event Action<float,float> timer;
 
 
 
-    IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForSeconds(2);
-        //playerScript.isGamePlaying= false;
-        //playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
-        //cameraOffset.transform.rotation = Quaternion.Euler(0, -camera.transform.eulerAngles.y, 0);
-        //PlayBeforeGame();
+        Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
+        playerScript.isGamePlaying= false;
+        playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
+        cameraOffset.transform.rotation = Quaternion.Euler(0, -camera.transform.eulerAngles.y, 0);
+        PlayBeforeGame();
     }
     public void OngameStartBtn()
     {
@@ -62,7 +65,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         director.playableAsset = miniGameEndTimeLine;
         director.Play();
     }
-    IEnumerator count()
+    IEnumerator StartCount()
     {
         UIPlayerHsy.Instance.countDownText.gameObject.SetActive(true);
         int count = 3;
@@ -81,6 +84,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         }
         playerScript.isGamePlaying = true;
         UIPlayerHsy.Instance.countDownText.text = "";
+        playerScript.ConnectPlayerTriggerEvent();
         navCanvas.SetActive(true);
         CreateChildNpc();
         yield return StartCoroutine(TimmerCor());
@@ -92,11 +96,11 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         UIPlayerHsy.Instance.countDownText.text = "";
         PlayAfterGame();
         playerScript.isGamePlaying = false;
-        playerScript.ConnectPlayerTriggerEvent();
+        playerScript.DisConnectPlayerTriggerEvent();
     }
     public void OnClickPlayeButton()
     {
-        StartCoroutine(count());
+        StartCoroutine(StartCount());
         OffgameStartBtn();
     }
     IEnumerator TimmerCor()
