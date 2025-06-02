@@ -16,8 +16,8 @@ public enum VolumeColors
 
 public class ScColorWeakSetting : MonoBehaviour
 {
-    [SerializeField] private Volume volume;
-    [SerializeField] private ChannelMixer channelMixer;
+    private Volume volume;
+    private ChannelMixer channelMixer;
     private VolumeColors colors;
     private float curValue = 0;
 
