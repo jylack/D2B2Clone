@@ -2210,6 +2210,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.806294
       objectReference: {fileID: 0}
+    - target: {fileID: 6353600568182147525, guid: ce20d7ad9bb64c14e93ca05d39f34143,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6588066697814629080, guid: ce20d7ad9bb64c14e93ca05d39f34143,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2586,12 +2591,6 @@ Transform:
 --- !u!1 &417032292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4884637279742573748, guid: ce20d7ad9bb64c14e93ca05d39f34143,
-    type: 3}
-  m_PrefabInstance: {fileID: 417032290}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &417032293 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 976629199654584482, guid: ce20d7ad9bb64c14e93ca05d39f34143,
     type: 3}
   m_PrefabInstance: {fileID: 417032290}
   m_PrefabAsset: {fileID: 0}
@@ -4018,12 +4017,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39dc8f41436906244962c627c79203a6, type: 3}
---- !u!95 &436150811 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4903240673615525633, guid: 39dc8f41436906244962c627c79203a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 436150810}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &436150812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3450085046045422728, guid: 39dc8f41436906244962c627c79203a6,
@@ -4631,10 +4624,6 @@ PlayableDirector:
     value: {fileID: 436150812}
   - key: {fileID: 2797372994604945981, guid: cea1001bf9d77694b943c47aba7b021f, type: 2}
     value: {fileID: 417032291}
-  - key: {fileID: -8695701757995238714, guid: cea1001bf9d77694b943c47aba7b021f, type: 2}
-    value: {fileID: 436150811}
-  - key: {fileID: -200364755299172823, guid: cea1001bf9d77694b943c47aba7b021f, type: 2}
-    value: {fileID: 417032293}
   - key: {fileID: 3448338576926127703, guid: cea1001bf9d77694b943c47aba7b021f, type: 2}
     value: {fileID: 436150813}
   - key: {fileID: 8205174556748573070, guid: cea1001bf9d77694b943c47aba7b021f, type: 2}
@@ -8562,7 +8551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1811222545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9215,7 +9204,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
