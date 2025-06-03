@@ -45,7 +45,9 @@ public class ScLobbyPlayer : ScObjectBase
     {
         ActorNumber = playerEntity.actorNumber;
         PositionIndex = playerEntity.positionIndex;
-        GuideCharacterType = playerEntity.guideCharacterType;
+        // GuideCharacterType = playerEntity.guideCharacterType;
         NickName = playerEntity.nickname;
+
+        GuideCharacterType = (ScDefine.ScGuideCharacter)Random.Range(0, 4);
     }
 }

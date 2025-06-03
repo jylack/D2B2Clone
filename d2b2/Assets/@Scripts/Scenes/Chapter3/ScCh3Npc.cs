@@ -1,47 +1,94 @@
 using Pathfinding;
+using Photon.Pun;
 using UnityEngine;
 
 public class ScCh3Npc : MonoBehaviour
 {
-    [SerializeField] private GameObject[] pathObjects;
-
+    public int Id { get; private set; }
+    
     private RichAI ai;
     private AIDestinationSetter destinationSetter;
-    private ScPathPoint previousPathPoint;
-    private ScPathPoint currentPathPoint;
+    private ScPathPoint previousDestinationPoint;
+    private ScPathPoint currentDestinationPoint;
+    private ScCharacter character;
+    private bool isSendBroadcast;
+
+
     
-
-
     private void Awake()
     {
         ai = GetComponent<RichAI>();
         destinationSetter = GetComponent<AIDestinationSetter>();
+        character = GetComponent<ScCharacter>();
     }
-
-    private void Start()
-    {
-
-    }
-
+    
     private void Update()
     {
         if (ai.reachedEndOfPath && !ai.pathPending)
+            character.SetAnimation(ScDefine.ScNpcAnimState.Idle);
+        
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        
+        if (isSendBroadcast)
+            return;
+        
+        if (ai.reachedEndOfPath && !ai.pathPending)
         {
-            ScPathPoint nextPathpt = currentPathPoint.GetNextPathPoint();
-
-            previousPathPoint = currentPathPoint;
-            currentPathPoint = nextPathpt;
-
-            destinationSetter.target = currentPathPoint.transform;
-            ai.SearchPath();
+            // 다음 액션 선택
+            // 브로드캐스트 전달
+            
+            ScCh3PlayService.Instance.BroadcastUpdateNpcPathPoint(Id);
+            isSendBroadcast = true;
         }
     }
 
 
 
-    public void SetDestination(ScPathPoint pathPt)
+    public void Init(int npcId, ScPathPoint spawnPoint)
     {
-        currentPathPoint = pathPt;
-        destinationSetter.target = pathPt.transform;
+        Id = npcId;
+        ai.Teleport(spawnPoint.transform.position);
+        UpdateDestination(spawnPoint);
+    }
+
+    public void UpdateNextAction()
+    {
+        ScDefine.ScPathPointNextAction action = currentDestinationPoint.GetNextRandomAction();
+
+        switch (action)
+        {
+            case ScDefine.ScPathPointNextAction.Move:
+            {
+                UpdateDestination(currentDestinationPoint);
+                break;
+            }
+            case ScDefine.ScPathPointNextAction.Crosswalk:
+            {
+                break;
+            }
+            case ScDefine.ScPathPointNextAction.Destroy:
+            {
+                ScCh3NpcService.Instance.OnNpcDestroy(Id);
+                Destroy(gameObject);
+                break;
+            }
+            default:
+                break;
+        }
+
+        isSendBroadcast = false;
+    }
+
+
+
+    private void UpdateDestination(ScPathPoint curPathPoint)
+    {
+        currentDestinationPoint = curPathPoint.GetNextRandomPathPoint(previousDestinationPoint);
+        previousDestinationPoint = curPathPoint;
+        destinationSetter.target = currentDestinationPoint.transform;
+        ai.SearchPath();
+        
+        character.SetAnimation(ScDefine.ScNpcAnimState.Walking);
     }
 }

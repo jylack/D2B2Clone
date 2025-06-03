@@ -22,8 +22,14 @@ public partial class ScCh3PlayService
     }
 
     [PunRPC]
-    private void OnSpawnNpc(int prefabIndex)
+    private void OnSpawnNpc(int npcId, int prefabIndex)
     {
-        ScCh3NpcService.Instance.OnSpawnNpc(prefabIndex);
+        ScCh3NpcService.Instance.OnSpawnNpc(npcId, prefabIndex);
+    }
+    
+    [PunRPC]
+    private void OnUpdateNpcPathPoint(int npcId)
+    {
+        ScCh3NpcService.Instance.OnUpdatePathPoint(npcId);
     }
 }

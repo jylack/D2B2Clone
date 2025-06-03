@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ScPathPoint : ScObjectBase
@@ -34,8 +35,19 @@ public class ScPathPoint : ScObjectBase
 
 
 
-    public ScPathPoint GetNextPathPoint()
+    public ScDefine.ScPathPointNextAction GetNextRandomAction()
     {
-        return nearPoints[0];
+        return nextPathType[Random.Range(0, nextPathType.Length)];
+    }
+    
+    public ScPathPoint GetNextRandomPathPoint(ScPathPoint previousPathPoint)
+    {
+        List<ScPathPoint> newList = nearPoints.ToList();
+        
+        if (previousPathPoint != null)
+            newList.Remove(previousPathPoint);
+        
+        int randValue = Random.Range(0, newList.Count);
+        return newList[randValue];
     }
 }
