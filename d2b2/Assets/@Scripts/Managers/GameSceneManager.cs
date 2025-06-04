@@ -66,6 +66,9 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.TutorialInitial            => "Tut_Init",
             ScDefine.ScScene.TutorialMove               => "Tut_Move",
             ScDefine.ScScene.TutorialCrosswalk          => "Tut_Cross",
+            ScDefine.ScScene.TestTutorialInitial        => "InitialTutorial",
+            ScDefine.ScScene.TestTutorialMove           => "MoveTutorial",
+            ScDefine.ScScene.TestTutorialCrosswalk      => "CrosswalkTutorial",
 
             ScDefine.ScScene.Ch1Login                   => "Ch1_Login",
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
