@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 16955334, guid: a9f9a2c10ec3a8e41ae4442e73604f93, type: 3}
+      propertyPath: m_Radius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2098377791911301907, guid: a9f9a2c10ec3a8e41ae4442e73604f93,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -180,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1073741824
-  radius: 0.5
+  radius: 0.2
   height: 2
   canMove: 1
   maxSpeed: 1
@@ -188,7 +192,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  endReachedDistance: 0.2
+  endReachedDistance: 0.5
   whenCloseToDestination: 0
   rvoDensityBehavior:
     enabled: 1

@@ -28,8 +28,8 @@ public partial class ScCh3PlayService
     }
     
     [PunRPC]
-    private void OnUpdateNpcPathPoint(int npcId)
+    private void OnUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, int newPathPointIndex, bool isRun)
     {
-        ScCh3NpcService.Instance.OnUpdatePathPoint(npcId);
+        ScCh3NpcService.Instance.OnUpdateNpcNextAction(npcId, nextAction, newPathPointIndex, isRun);
     }
 }

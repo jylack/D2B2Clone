@@ -78,6 +78,7 @@
         None,
         Move,
         Crosswalk,
+        LookAround,
         Destroy,
     }
 }
