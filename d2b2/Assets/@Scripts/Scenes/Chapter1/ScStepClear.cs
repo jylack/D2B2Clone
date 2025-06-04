@@ -9,6 +9,8 @@ public class ScStepClear : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            OnStepClear?.Invoke();
+
             //ScChapter1.Instance.CurrentSetp++;
             await ScChapter1.Instance.NextStep();
 
@@ -25,13 +27,14 @@ public class ScStepClear : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
-        {
-            OnStepClear?.Invoke();
-        }
-    }
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
+    //    {
+    //        OnStepClear?.Invoke();
+    //    }
+    //}
 
 
 

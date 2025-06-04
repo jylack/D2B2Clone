@@ -70,7 +70,11 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 }
                 
             }
-            OnCheckMissionClear?.Invoke();
+
+            if(Hand.isLeftHandUp)
+            {
+                OnCheckMissionClear?.Invoke();
+            }
 
             if (isWalk == false || Hand.isLeftHandUp == false)
             {

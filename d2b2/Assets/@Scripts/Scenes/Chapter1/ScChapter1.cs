@@ -58,7 +58,9 @@ public class ScChapter1 : MonoBehaviour
 
     private async UniTask ArrowImageView()
     {
+        //Debug.Log("CurrentSetp : " + CurrentSetp);
         arrowImg[CurrentSetp].SetActive(true);
+        //Debug.Log("arrowImg : " + arrowImg[CurrentSetp].activeSelf);
         
 
         await UniTask.Delay(ImgViewTime);
