@@ -10,7 +10,7 @@ public class MoveTutorialManager : MonoBehaviour
     [SerializeField] GameObject walkObjs;
     [SerializeField] GameObject lookAroundObjs;
     [SerializeField] ScLookAroundRegion lookAround;
-    [SerializeField] string sceneName;
+    [SerializeField] ScDefine.ScScene sceneName;
     void Start()
     {
         guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);

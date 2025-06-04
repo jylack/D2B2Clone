@@ -12,7 +12,7 @@ public class CrosswalkTutorialManager : MonoBehaviour
     [SerializeField] ScHandUpRegion handUp;
     [SerializeField] XROrigin playerXR;
     [SerializeField] Transform player;
-    [SerializeField] string sceneName;
+    [SerializeField] ScDefine.ScScene sceneName;
     Vector3 startPos;
     bool missionClear = false;
     void Start()

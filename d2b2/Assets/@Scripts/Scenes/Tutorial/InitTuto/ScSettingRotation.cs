@@ -26,6 +26,7 @@ public class ScSettingRotation : MonoBehaviour
         snap = turn.GetComponent<SnapTurnProviderBase>();
         cont = turn.GetComponent<ContinuousTurnProviderBase>();
         RotationModeChange();
+        gameObject.SetActive(false);
     }
 
     public void RotationModeChange()

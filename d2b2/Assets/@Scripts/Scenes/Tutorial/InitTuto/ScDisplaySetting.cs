@@ -18,6 +18,7 @@ public class ScDisplaySetting : MonoBehaviour
         sceneLight = GameObject.Find("Directional Light").GetComponent<Light>();
         ApplyRenderScaleSetting();
         ApplyBrightnessSetting();
+        gameObject.SetActive(false);
     }
 
     public void ApplyRenderScaleSetting()
