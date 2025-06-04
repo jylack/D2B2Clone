@@ -129,4 +129,9 @@ public class ScMissionListPanel : MonoBehaviour
         else
             Debug.LogError($"ScMissionListPanel: 키 '{key}'의 미션 텍스트를 찾을 수 없습니다.");
     }
+
+    public List<ScMissionBoxTextCheck> GetMissionTextList()
+    {
+        return missionTexts;
+    }
 }

@@ -34,6 +34,23 @@ public class ScMissionBoxTextCheck : MonoBehaviour
         }
 
     }
+    public string GetMissionText()
+    {
+        if (tmp != null)
+        {
+            return tmp.text;
+        }
+        else
+        {
+            Debug.LogError("TextMeshProUGUI component is not assigned.");
+            return string.Empty;
+        }
+    }
+
+    public bool GetMissionState()
+    {
+        return isCheck;
+    }
 
 
     public void SetCheck(bool check)
