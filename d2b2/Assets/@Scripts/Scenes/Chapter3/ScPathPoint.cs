@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScPathPoint : ScObjectBase
 {
     [Header("TrafficLight")]
-    [SerializeField] private ScTrafficLight trafficLight;
-    [SerializeField] private ScPathPoint trafficLightOppositePoint;
+    public ScTrafficLight trafficLight;
+    public ScPathPoint trafficLightOppositePoint;
     [Header("Etc")]
+    public ScPathPoint oppositePoint;
     [SerializeField] private ScDefine.ScPathPointNextAction[] nextPathType;
     [SerializeField] private List<ScPathPoint> nearPoints;
 
@@ -38,6 +40,14 @@ public class ScPathPoint : ScObjectBase
     public ScDefine.ScPathPointNextAction GetNextRandomAction()
     {
         return nextPathType[Random.Range(0, nextPathType.Length)];
+    }
+
+    public ScDefine.ScPathPointNextAction GetNextRandomAction(ScDefine.ScPathPointNextAction exceptAction)
+    {
+        List<ScDefine.ScPathPointNextAction> newActions = nextPathType.ToList();
+        newActions.Remove(exceptAction);
+
+        return newActions[Random.Range(0, newActions.Count)];
     }
     
     public ScPathPoint GetNextRandomPathPoint(ScPathPoint previousPathPoint)

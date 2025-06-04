@@ -7,6 +7,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 66488032, guid: 39dc8f41436906244962c627c79203a6, type: 3}
+      propertyPath: m_Radius
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363433719580618107, guid: 39dc8f41436906244962c627c79203a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363433719580618107, guid: 39dc8f41436906244962c627c79203a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363433719580618107, guid: 39dc8f41436906244962c627c79203a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363433719580618107, guid: 39dc8f41436906244962c627c79203a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363433719580618107, guid: 39dc8f41436906244962c627c79203a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363433719580618107, guid: 39dc8f41436906244962c627c79203a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3450085046045422728, guid: 39dc8f41436906244962c627c79203a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -144,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1073741824
-  radius: 0.5
+  radius: 0.2
   height: 2
   canMove: 1
   maxSpeed: 1
@@ -152,7 +186,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  endReachedDistance: 0.2
+  endReachedDistance: 0.5
   whenCloseToDestination: 0
   rvoDensityBehavior:
     enabled: 1

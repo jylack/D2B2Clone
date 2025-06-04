@@ -64,16 +64,29 @@ public class ScCh3NpcService : ScObjectBase
         npcDict.Add(npcId, npc);
     }
 
-    public void OnUpdatePathPoint(int npcId)
+    public void OnUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, int newPathPointIndex, bool isRun)
     {
         if (npcDict.TryGetValue(npcId, out ScCh3Npc npc))
-            npc.UpdateNextAction();
+        {
+            ScPathPoint newPathPoint = totalPoints[newPathPointIndex];
+            npc.UpdateNextAction(nextAction, newPathPoint, isRun);
+        }
     }
 
     public void OnNpcDestroy(int npcId)
     {
         npcDict.Remove(npcId);
         currentNpcCount--;
+    }
+
+    public void BroadcastUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, ScPathPoint pathPoint = null, bool isRun = false)
+    {
+        int newPathPointIndex = 0;
+
+        if (pathPoint != null)
+            newPathPointIndex = totalPoints.IndexOf(pathPoint);
+
+        ScCh3PlayService.Instance.BroadcastUpdateNpcNextAction(npcId, nextAction, newPathPointIndex, isRun);
     }
 
 
