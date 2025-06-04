@@ -6,12 +6,13 @@ using UnityEngine.Events;
 
 public class ScTrafficLight : ScObjectBase
 {
+    public UnityEvent onGreenLightActivated;
+
     [SerializeField] private MeshRenderer redMeshRenderer;
     [SerializeField] private MeshRenderer greenMeshRenderer;
     [SerializeField] private Material redOnMaterial;
     [SerializeField] private Material greenOnMaterial;
     [SerializeField] private UnityEvent onGreenLightActivatedBefore;
-    [SerializeField] private UnityEvent onGreenLightActivated;
     [SerializeField] private UnityEvent onRedLightActivated;
     [SerializeField] private UnityEvent onBeginGreenLightBlink;
 

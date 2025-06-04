@@ -44,11 +44,11 @@ public partial class ScCh3PlayService
         photonView.Broadcast(nameof(OnSpawnNpc), npcId, prefabIndex);
     }
 
-    public void BroadcastUpdateNpcPathPoint(int npcId)
+    public void BroadcastUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, int newPathPointIndex, bool isRun)
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
         
-        photonView.Broadcast(nameof(OnUpdateNpcPathPoint), npcId);
+        photonView.Broadcast(nameof(OnUpdateNpcNextAction), npcId, nextAction, newPathPointIndex, isRun);
     }
 }
