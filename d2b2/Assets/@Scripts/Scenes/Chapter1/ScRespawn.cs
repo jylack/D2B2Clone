@@ -68,7 +68,7 @@ public class ScRespawn : MonoBehaviour
         //xrOrigin
         Player.CharacterController.transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
 
-        ScChapter1.Instance.lookAroundMissionClear = false;
+        ScChapter1.Instance.LookAroundMissionClear = false;
 
         Player.CharacterController.enabled = true;
 

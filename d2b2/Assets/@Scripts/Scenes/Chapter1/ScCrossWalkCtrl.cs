@@ -36,7 +36,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            if (ScChapter1.Instance.lookAroundMissionClear == false)
+            if (ScChapter1.Instance.LookAroundMissionClear == false)
             {
                 ScRespawn.Instance.Respawn();
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
