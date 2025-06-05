@@ -31,6 +31,7 @@ public class ScPlayer : ScObjectBase
     private float rightHandBackwardTime;
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
+    private Outline lastOutline;
 
 
 
@@ -101,6 +102,20 @@ public class ScPlayer : ScObjectBase
     public void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
+    }
+
+    public void OnOutlineHoverEnter(HoverEnterEventArgs args)
+    {
+        Debug.Log("OnOutlineHoverEnter");
+        if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))
+            npc.OnRayHoverEnter();
+    }
+
+    public void OnOutlineHoverExit(HoverExitEventArgs args)
+    {
+        Debug.Log("OnOutlineHoverExit");
+        if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))
+            npc.OnRayHoverExit();
     }
 
 
