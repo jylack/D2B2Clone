@@ -6,6 +6,7 @@ public delegate void OnHeadPositionChangedHandler(Vector3 position);
 public delegate void OnHeadRotationChangedHandler(Quaternion rotation);
 public delegate void OnHandPositionChangedHandler(Vector3 position);
 public delegate void OnLeftStickMoveHandler(bool stickMoving);
+//public delegate void OnRightStickMoveHandler(bool stickMoving);
 
 public class InputManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class InputManager : MonoBehaviour
     public event OnHandPositionChangedHandler OnLeftHandPositionChanged;
     public event OnHandPositionChangedHandler OnRightHandPositionChanged;
     public event OnLeftStickMoveHandler OnLeftStickMove;
+    //public event OnRightStickMoveHandler OnRightStickMove;
 
     public event Action OnTriggerPerform;
     public event Action OnTriggerCancel;
@@ -40,9 +42,22 @@ public class InputManager : MonoBehaviour
 
         inputActions.XRILeftHandLocomotion.Move.performed += LeftStickMove_performed;
         inputActions.XRILeftHandLocomotion.Move.canceled += LeftStickMove_canceled;
+        //inputActions.XRIRightHandLocomotion.Move.performed += RightStickMove_performed;
+        //inputActions.XRIRightHandLocomotion.Move.canceled += RightStickMove_canceled;
     }
 
-    
+    //우측 스틱 회전시 이벤트 발생
+    //private void RightStickMove_performed(InputAction.CallbackContext obj)
+    //{
+    //    bool stickMoving = obj.ReadValue<Vector2>().sqrMagnitude > 0f;
+    //    OnRightStickMove?.Invoke(stickMoving);
+    //}
+
+    //private void RightStickMove_canceled(InputAction.CallbackContext obj)
+    //{
+    //    OnRightStickMove?.Invoke(false);
+    //}
+
 
     private void LeftStickMove_performed(InputAction.CallbackContext obj)
     {
