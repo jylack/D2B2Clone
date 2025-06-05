@@ -24,6 +24,7 @@ public class ScCh3Npc : MonoBehaviour
     private Outline outline;
 
 
+    
     private void Awake()
     {
         ai = GetComponent<RichAI>();
@@ -150,6 +151,12 @@ public class ScCh3Npc : MonoBehaviour
         }
     }
 
+    public void Select()
+    {
+        // vfx
+        // +1 텍스트
+    }
+    
     public void OnRayHoverEnter()
     {
         if (isDoingBadThing)

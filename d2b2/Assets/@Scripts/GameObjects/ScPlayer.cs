@@ -1,6 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class ScPlayer : ScObjectBase
@@ -31,8 +29,7 @@ public class ScPlayer : ScObjectBase
     private float rightHandBackwardTime;
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
-    private Outline lastOutline;
-
+    
 
 
     private void Awake()
@@ -50,7 +47,6 @@ public class ScPlayer : ScObjectBase
     private void Start()
     {
         Manager.Instance.GameMgr.SetPlayer(this);
-
     }
 
     private void Update()
@@ -93,20 +89,6 @@ public class ScPlayer : ScObjectBase
     public void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
-    }
-
-    public void OnOutlineHoverEnter(HoverEnterEventArgs args)
-    {
-        Debug.Log("OnOutlineHoverEnter");
-        if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))
-            npc.OnRayHoverEnter();
-    }
-
-    public void OnOutlineHoverExit(HoverExitEventArgs args)
-    {
-        Debug.Log("OnOutlineHoverExit");
-        if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))
-            npc.OnRayHoverExit();
     }
 
 
