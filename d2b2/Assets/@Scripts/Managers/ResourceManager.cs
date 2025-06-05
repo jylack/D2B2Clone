@@ -18,6 +18,11 @@ public class ResourceManager : MonoBehaviour
 
 
 
+    public GameObject InstantiateBadThingPointer()
+    {
+        return Instantiate(Resources.Load<GameObject>("Prefabs/BadThingPointer"));
+    }
+
     public GameObject GetCharacterPrefab(ScDefine.ScGuideCharacter character)
     {
         return characterPrefabs[(int)ScDefine.ScGuideCharacter.Character1];
