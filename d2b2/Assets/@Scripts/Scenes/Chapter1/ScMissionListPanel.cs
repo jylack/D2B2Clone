@@ -6,8 +6,8 @@ public enum Chapter
 {
     Ch1,
     Ch2,
-    Sg1,
-    Sg2,
+    Ch3,
+    Tutorial,
 }
 
 public enum Category
