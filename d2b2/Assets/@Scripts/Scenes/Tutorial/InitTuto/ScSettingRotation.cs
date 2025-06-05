@@ -17,7 +17,7 @@ public class ScSettingRotation : MonoBehaviour
     [SerializeField] private SnapTurnProviderBase snap;
     [SerializeField] private ContinuousTurnProviderBase cont;
 
-    private void Start()
+    private void Awake()
     {
         //씬뷰에서는 Right Controller로 나와있으나 Find에는 붙혀놔야됨
         Debug.Log(GameObject.Find("Camera Offset").name);

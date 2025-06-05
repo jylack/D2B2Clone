@@ -21,7 +21,7 @@ public class ScCh3Npc : MonoBehaviour
     private bool canUpdateAnimation = true;
     private bool isDoingBadThing;
     private GameObject badThingPointer;
-
+    private Outline outline;
 
 
     private void Awake()
@@ -29,8 +29,9 @@ public class ScCh3Npc : MonoBehaviour
         ai = GetComponent<RichAI>();
         destinationSetter = GetComponent<AIDestinationSetter>();
         character = GetComponent<ScCharacter>();
+        outline = GetComponent<Outline>();
     }
-    
+
     private void Update()
     {
         if (ai.reachedEndOfPath && !ai.pathPending && canUpdateAnimation)
@@ -147,6 +148,17 @@ public class ScCh3Npc : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void OnRayHoverEnter()
+    {
+        if (isDoingBadThing)
+            outline.enabled = true;
+    }
+
+    public void OnRayHoverExit()
+    {
+        outline.enabled = false;
     }
 
 
