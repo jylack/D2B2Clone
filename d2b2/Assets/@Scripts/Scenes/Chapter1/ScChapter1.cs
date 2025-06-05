@@ -21,7 +21,15 @@ public class ScChapter1 : MonoBehaviour
     //public int CurrentSetp { get; private set; } = 0;
     //public ScNpcCtrl Npc => npc;
 
-    public bool lookAroundMissionClear = false;
+    private bool lookAroundMissionClear = false;
+    public bool LookAroundMissionClear
+    {
+        get => lookAroundMissionClear;
+        set
+        {
+            lookAroundMissionClear = value;
+        }
+    }
 
     private void Awake()
     {
@@ -33,6 +41,8 @@ public class ScChapter1 : MonoBehaviour
     {
         await ArrowImageView();
     }
+
+
 
  
     public void NpcCheck()
@@ -73,6 +83,5 @@ public class ScChapter1 : MonoBehaviour
     {
         Debug.Log("Chapter1 Å¬¸®¾î " + CurrentSetp);
         Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Login);
-
     }
 }
