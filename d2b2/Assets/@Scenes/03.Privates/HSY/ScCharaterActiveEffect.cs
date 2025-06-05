@@ -5,29 +5,16 @@ using UnityEngine;
 
 public class ScCharaterActiveEffect : MonoBehaviour
 {
-    [SerializeField] private float appearDuration = 0.5f;
-    [SerializeField] private float bounceScale = 1.1f;
-    [SerializeField] private float bounceDuration = 0.2f;
+    private Vector3 targetScale;
+    private Tween scaleTween;
 
     private void OnEnable()
     {
-        transform.localScale = Vector3.zero;
+        targetScale = transform.localScale;      // 원래 크기 저장
+        transform.localScale = Vector3.zero;     // 0에서 시작
+        scaleTween?.Kill();                      // 기존 Tween 제거
 
-        transform.DOScale(Vector3.one, appearDuration)
-            .SetEase(Ease.OutBack)
-            .OnComplete(OnAppearComplete);
-    }
-
-    private void OnAppearComplete()
-    {
-        transform.DOScale(Vector3.one * bounceScale, bounceDuration)
-            .SetEase(Ease.OutQuad)
-            .OnComplete(OnBounceOutComplete);
-    }
-
-    private void OnBounceOutComplete()
-    {
-        transform.DOScale(Vector3.one, bounceDuration / 2f)
-            .SetEase(Ease.InQuad);
+        scaleTween = transform.DOScale(targetScale, 0.5f)
+            .SetEase(Ease.OutBack);
     }
 }
