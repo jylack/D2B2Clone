@@ -15,13 +15,6 @@ public partial class ScCh3PlayService
     }
 
     [PunRPC]
-    private void OnSpawnCar(int spawnerIndex, int carIndex, float moveSpeed)
-    {
-        ScCarSpawner2 spawner = carSpawners[spawnerIndex];
-        spawner.SpawnCar(carIndex, moveSpeed);
-    }
-
-    [PunRPC]
     private void OnSpawnNpc(int npcId, int prefabIndex)
     {
         ScCh3NpcService.Instance.OnSpawnNpc(npcId, prefabIndex);

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ScCh3Npc : MonoBehaviour
 {
     private const float WALK_SPEED = 1f;
-    private const float RUN_SPEED = 3f;
+    private const float RUN_SPEED = 2.2f;
     private const float ROTATE_DURATION = 0.4f;
 
     private int id;
@@ -17,8 +17,9 @@ public class ScCh3Npc : MonoBehaviour
     private ScPathPoint currentDestinationPoint;
     private ScDefine.ScPathPointNextAction currentAction;
     private ScCharacter character;
-    private bool canUpdateMethod;   // Only For MasterClient
+    private bool canDoUpdateMethod = true;    // Only For MasterClient
     private bool canUpdateAnimation = true;
+    private bool isDoingBadThing;
 
 
     
@@ -37,17 +38,28 @@ public class ScCh3Npc : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
             return;
         
-        if (canUpdateMethod)
+        if (!canDoUpdateMethod)
             return;
         
         if (ai.reachedEndOfPath && !ai.pathPending)
         {
             ScDefine.ScPathPointNextAction nextAct;
 
-            if (currentAction == ScDefine.ScPathPointNextAction.Move)
-                nextAct = currentDestinationPoint.GetNextRandomAction();
+            if (currentAction != ScDefine.ScPathPointNextAction.DoBadThing && currentDestinationPoint.CanDoBadThing() && ScCh3NpcService.Instance.DecreaseBadThingToken())
+            {
+                nextAct = ScDefine.ScPathPointNextAction.DoBadThing;
+            }
+            else if (currentAction == ScDefine.ScPathPointNextAction.DoBadThing || currentAction == ScDefine.ScPathPointNextAction.Crosswalk)
+            {
+                nextAct = currentDestinationPoint.GetNextRandomAction(ScDefine.ScPathPointNextAction.Crosswalk);
+            }
             else
-                nextAct = currentDestinationPoint.GetNextRandomAction(currentAction);
+            {
+                if (currentAction == ScDefine.ScPathPointNextAction.Move)
+                    nextAct = currentDestinationPoint.GetNextRandomAction();
+                else
+                    nextAct = currentDestinationPoint.GetNextRandomAction(currentAction);
+            }
 
             switch (nextAct)
             {
@@ -64,7 +76,7 @@ public class ScCh3Npc : MonoBehaviour
                     }
             }
 
-            canUpdateMethod = true;
+            canDoUpdateMethod = false;
         }
     }
 
@@ -86,23 +98,44 @@ public class ScCh3Npc : MonoBehaviour
         {
             case ScDefine.ScPathPointNextAction.Move:
                 {
-                    Move(newPathPoint, isRun);
+                    currentAction = ScDefine.ScPathPointNextAction.Move;
+                    isDoingBadThing = false;
 
-                    canUpdateMethod = false;
+                    Move(newPathPoint, isRun);
+                    canDoUpdateMethod = true;
                     break;
                 }
             case ScDefine.ScPathPointNextAction.Crosswalk:
                 {
+                    currentAction = ScDefine.ScPathPointNextAction.Crosswalk;
+                    isDoingBadThing = false;
+
                     ReadyForCrosswalk().Forget();
                     break;
                 }
             case ScDefine.ScPathPointNextAction.LookAround:
                 {
-                    LookAround().Forget();
+                    currentAction = ScDefine.ScPathPointNextAction.LookAround;
+                    isDoingBadThing = false;
+
+                    LookAround().Forget(); 
+                    break;
+                }
+            case ScDefine.ScPathPointNextAction.DoBadThing:
+                {
+                    currentAction = ScDefine.ScPathPointNextAction.DoBadThing;
+                    isDoingBadThing = true;
+
+                    DoBadThing();
+
+                    canDoUpdateMethod = true;
                     break;
                 }
             case ScDefine.ScPathPointNextAction.Destroy:
                 {
+                    currentAction = ScDefine.ScPathPointNextAction.Destroy;
+                    isDoingBadThing = false;
+
                     ScCh3NpcService.Instance.OnNpcDestroy(id);
                     Destroy(gameObject);
                     break;
@@ -114,15 +147,34 @@ public class ScCh3Npc : MonoBehaviour
 
 
 
+    private async UniTaskVoid ReadyForCrosswalk()
+    {
+        ai.updateRotation = false;
+        await transform.DOLookAt(currentDestinationPoint.trafficLightOppositePoint.transform.position, ROTATE_DURATION);
+
+        currentDestinationPoint.trafficLight.onGreenLightActivated.AddListener(OnGreenActivated);
+    }
+
+    private async UniTaskVoid LookAround()
+    {
+        canUpdateAnimation = false;
+        ai.updateRotation = false;
+        await transform.DOLookAt(currentDestinationPoint.oppositePoint.transform.position, ROTATE_DURATION);
+
+        character.SetRaiseHandAnimation(false);
+        character.SetAnimation(ScDefine.ScNpcAnimState.LookAround);
+
+        await UniTask.Delay(5500);
+
+        ai.updateRotation = true;
+        canUpdateAnimation = true;
+        canDoUpdateMethod = true;
+    }
+
     private void Move(ScPathPoint newPathPoint, bool isRun)
     {
-        currentAction = ScDefine.ScPathPointNextAction.Move;
-
         previousDestinationPoint = currentDestinationPoint;
         currentDestinationPoint = newPathPoint;
-
-        destinationSetter.target = currentDestinationPoint.transform;
-        ai.SearchPath();
 
         character.SetRaiseHandAnimation(false);
 
@@ -136,16 +188,9 @@ public class ScCh3Npc : MonoBehaviour
             character.SetAnimation(ScDefine.ScNpcAnimState.Walking);
             ai.maxSpeed = WALK_SPEED;
         }
-    }
 
-    private async UniTaskVoid ReadyForCrosswalk()
-    {
-        currentAction = ScDefine.ScPathPointNextAction.Crosswalk;
-
-        ai.updateRotation = false;
-        await transform.DOLookAt(currentDestinationPoint.trafficLightOppositePoint.transform.position, ROTATE_DURATION);
-        
-        currentDestinationPoint.trafficLight.onGreenLightActivated.AddListener(OnGreenActivated);
+        destinationSetter.target = currentDestinationPoint.transform;
+        ai.SearchPath();
     }
 
     private void OnGreenActivated()
@@ -167,24 +212,18 @@ public class ScCh3Npc : MonoBehaviour
         character.SetRaiseHandAnimation(true);
         character.SetAnimation(ScDefine.ScNpcAnimState.Walking);
 
-        canUpdateMethod = false;
+        canDoUpdateMethod = true;
     }
 
-    private async UniTaskVoid LookAround()
+    private void DoBadThing()
     {
-        currentAction = ScDefine.ScPathPointNextAction.LookAround;
+        previousDestinationPoint = currentDestinationPoint;
+        currentDestinationPoint = previousDestinationPoint.oppositePoint;
 
-        canUpdateAnimation = false;
-        ai.updateRotation = false;
-        await transform.DOLookAt(currentDestinationPoint.oppositePoint.transform.position, ROTATE_DURATION);
-        
-        character.SetRaiseHandAnimation(false);
-        character.SetAnimation(ScDefine.ScNpcAnimState.LookAround);
+        destinationSetter.target = currentDestinationPoint.transform;
+        ai.maxSpeed = RUN_SPEED;
+        ai.SearchPath();
 
-        await UniTask.Delay(5500);
-
-        ai.updateRotation = true;
-        canUpdateAnimation = true;
-        canUpdateMethod = false;
+        character.SetAnimation(ScDefine.ScNpcAnimState.Running);
     }
 }

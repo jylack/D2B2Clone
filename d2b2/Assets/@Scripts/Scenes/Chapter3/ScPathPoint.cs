@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ScPathPoint : ScObjectBase
 {
@@ -37,17 +36,20 @@ public class ScPathPoint : ScObjectBase
 
 
 
-    public ScDefine.ScPathPointNextAction GetNextRandomAction()
+    public ScDefine.ScPathPointNextAction GetNextRandomAction(params ScDefine.ScPathPointNextAction[] exceptActions)
     {
-        return nextPathType[Random.Range(0, nextPathType.Length)];
-    }
+        List<ScDefine.ScPathPointNextAction> exceptList;
 
-    public ScDefine.ScPathPointNextAction GetNextRandomAction(ScDefine.ScPathPointNextAction exceptAction)
-    {
-        List<ScDefine.ScPathPointNextAction> newActions = nextPathType.ToList();
-        newActions.Remove(exceptAction);
+        if (exceptActions?.Length > 0)
+            exceptList = exceptActions.ToList();
+        else
+            exceptList = new();
 
-        return newActions[Random.Range(0, newActions.Count)];
+        exceptList.Add(ScDefine.ScPathPointNextAction.DoBadThing);
+
+        List<ScDefine.ScPathPointNextAction> actions = nextPathType.Except(exceptList).ToList();
+
+        return actions[Random.Range(0, actions.Count)];
     }
     
     public ScPathPoint GetNextRandomPathPoint(ScPathPoint previousPathPoint)
@@ -59,5 +61,10 @@ public class ScPathPoint : ScObjectBase
         
         int randValue = Random.Range(0, newList.Count);
         return newList[randValue];
+    }
+
+    public bool CanDoBadThing()
+    {
+        return nextPathType.Contains(ScDefine.ScPathPointNextAction.DoBadThing);
     }
 }

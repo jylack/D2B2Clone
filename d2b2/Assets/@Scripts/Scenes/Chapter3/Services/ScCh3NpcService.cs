@@ -14,13 +14,16 @@ public class ScCh3NpcService : ScObjectBase
     [SerializeField] private Transform movePointParent;
     [SerializeField] private GameObject[] npcPrefabs;
 
-    private List<ScPathPoint> spawnPoints = new();
-    private List<ScPathPoint> movePoints = new();
-    private List<ScPathPoint> totalPoints = new();
+    private readonly List<ScPathPoint> spawnPoints = new();
+    private readonly List<ScPathPoint> movePoints = new();
+    private readonly List<ScPathPoint> totalPoints = new();
+
+    private Dictionary<int, ScCh3Npc> npcDict = new();
     private int remainNpcCount = 16;
     private int currentNpcCount;
     private int npcIncreasedId;
-    private Dictionary<int, ScCh3Npc> npcDict = new();
+    private int badThingTokenCount;
+    private int badThingTokenGenInterval = 5000;
 
 
 
@@ -48,9 +51,31 @@ public class ScCh3NpcService : ScObjectBase
             return;
         
         RunSpawn().Forget();
+        RunGenerateBadThingToken().Forget();
     }
 
 
+
+    public void BroadcastUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, ScPathPoint pathPoint = null, bool isRun = false)
+    {
+        int newPathPointIndex = 0;
+
+        if (pathPoint != null)
+            newPathPointIndex = totalPoints.IndexOf(pathPoint);
+
+        ScCh3PlayService.Instance.BroadcastUpdateNpcNextAction(npcId, nextAction, newPathPointIndex, isRun);
+    }
+
+    public bool DecreaseBadThingToken()
+    {
+        if (badThingTokenCount > 0)
+        {
+            badThingTokenCount--;
+            return true;
+        }
+
+        return false;
+    }
 
     public void OnSpawnNpc(int npcId, int prefabIndex)
     {
@@ -71,6 +96,10 @@ public class ScCh3NpcService : ScObjectBase
             ScPathPoint newPathPoint = totalPoints[newPathPointIndex];
             npc.UpdateNextAction(nextAction, newPathPoint, isRun);
         }
+        else
+        {
+            Debug.LogError($"npc not found. npcId[{npcId}]");
+        }
     }
 
     public void OnNpcDestroy(int npcId)
@@ -79,17 +108,7 @@ public class ScCh3NpcService : ScObjectBase
         currentNpcCount--;
     }
 
-    public void BroadcastUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, ScPathPoint pathPoint = null, bool isRun = false)
-    {
-        int newPathPointIndex = 0;
-
-        if (pathPoint != null)
-            newPathPointIndex = totalPoints.IndexOf(pathPoint);
-
-        ScCh3PlayService.Instance.BroadcastUpdateNpcNextAction(npcId, nextAction, newPathPointIndex, isRun);
-    }
-
-
+    
 
     private async UniTaskVoid RunSpawn()
     {
@@ -107,6 +126,28 @@ public class ScCh3NpcService : ScObjectBase
                     int prefabIndex = Random.Range(0, npcPrefabs.Length);
                     ScCh3PlayService.Instance.BroadcastSpawnNpc(npcIncreasedId++, prefabIndex);
                 }
+            }
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
+
+    private async UniTaskVoid RunGenerateBadThingToken()
+    {
+        try
+        {
+            var token = base.DestroyToken;
+
+            while (!token.IsCancellationRequested)
+            {
+                await UniTask.Delay(badThingTokenGenInterval, cancellationToken: token);
+                badThingTokenCount++;
             }
         }
         catch (OperationCanceledException ex)
