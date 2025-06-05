@@ -12,7 +12,7 @@ public class ScDisplaySetting : MonoBehaviour
     UniversalRenderPipelineAsset urp;
     Light sceneLight;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         urp = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
         sceneLight = GameObject.Find("Directional Light").GetComponent<Light>();

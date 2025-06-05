@@ -482,15 +482,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 107100066, guid: ce20d7ad9bb64c14e93ca05d39f34143, type: 3}
+      propertyPath: targetTrans
+      value: 
+      objectReference: {fileID: 312404763}
+    - target: {fileID: 992915071, guid: ce20d7ad9bb64c14e93ca05d39f34143, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4884637279742573748, guid: ce20d7ad9bb64c14e93ca05d39f34143,
         type: 3}
       propertyPath: m_Name
       value: Toto
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884637279742573748, guid: ce20d7ad9bb64c14e93ca05d39f34143,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5664668980160613444, guid: ce20d7ad9bb64c14e93ca05d39f34143,
         type: 3}
@@ -549,26 +552,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce20d7ad9bb64c14e93ca05d39f34143, type: 3}
---- !u!1 &107100065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4884637279742573748, guid: ce20d7ad9bb64c14e93ca05d39f34143,
+--- !u!114 &107100066 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 107100066, guid: ce20d7ad9bb64c14e93ca05d39f34143,
     type: 3}
   m_PrefabInstance: {fileID: 107100064}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &107100066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107100065}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5cab0939aa32d04ebdbc3ec3696d195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 5
-  targetTrans: {fileID: 312404763}
 --- !u!1 &113562799
 GameObject:
   m_ObjectHideFlags: 0
@@ -9563,6 +9558,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1229042704}
+    - target: {fileID: 4966878691256097036, guid: 387918b4db7cc454f882136f6887235d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4966878692369843960, guid: 387918b4db7cc454f882136f6887235d,
         type: 3}
       propertyPath: m_RootOrder
