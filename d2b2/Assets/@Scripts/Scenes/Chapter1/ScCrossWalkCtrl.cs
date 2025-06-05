@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,7 +14,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
 
     bool isColorRed = false;
-    bool isBlink = false;   
+    bool isBlink = false;
 
     bool isWalk = false;
 
@@ -27,10 +26,11 @@ public class ScCrossWalkCtrl : MonoBehaviour
         Manager.Instance.InputMgr.OnLeftStickMove += OnLeftStickMove;
 
     }
-    private void Update()
-    {
-        IsMove.text = isWalk.ToString();
-    }
+
+    //private void Update()
+    //{
+    //    IsMove.text = isWalk.ToString();
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,7 +38,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
         {
             if (ScChapter1.Instance.LookAroundMissionClear == false)
             {
-                ScRespawn.Instance.Respawn();
+                //ScRespawn.Instance.Respawn();
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
                 OnCheckMissionFailed?.Invoke();
             }
@@ -51,14 +51,18 @@ public class ScCrossWalkCtrl : MonoBehaviour
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
 
-            var temp = other.gameObject.GetComponent<ScRespawn>();
+            //var temp = other.gameObject.GetComponent<ScRespawn>();
 
-            if(isColorRed || isBlink)
+            Debug.Log("isBlink : " + isBlink);
+            Debug.Log("isColorRed : " + isColorRed);
+
+
+            if (isColorRed || isBlink)
             {
                 ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
-                ScRespawn.Instance.Respawn();
+                //ScRespawn.Instance.Respawn();
 
-                if(isBlink)
+                if (isBlink)
                 {
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     return;
@@ -68,10 +72,10 @@ public class ScCrossWalkCtrl : MonoBehaviour
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg08_Jaywalking);
                     return;
                 }
-                
+
             }
 
-            if(Hand.isLeftHandUp)
+            if (Hand.isLeftHandUp)
             {
                 OnCheckMissionClear?.Invoke();
             }
@@ -85,13 +89,13 @@ public class ScCrossWalkCtrl : MonoBehaviour
             }
         }
     }
-    
+
     private void OnDisable()
     {
         Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
         Manager.Instance.InputMgr.OnLeftStickMove -= OnLeftStickMove;
     }
-    
+
 
     IEnumerator TimeLimit(Collider other)
     {
@@ -101,9 +105,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
         {
             //Debug.Log("isWalk : " + isWalk);
             //Debug.Log("Hand.isLeftHandUp : " + Hand.isLeftHandUp);
-            var temp = other.gameObject.GetComponent<ScRespawn>();
             ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
-            ScRespawn.Instance.Respawn();
+            //ScRespawn.Instance.Respawn();
             //¿Ãµø ¡ﬂ∞£ø° ∏ÿ√„
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_SafeWalk);
             coroutine = null;
@@ -112,7 +115,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     }
 
     private void OnPlayerMoving(bool isMoving)
-    {        
+    {
         isWalk = isMoving;
     }
 
@@ -123,7 +126,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     public void OnRed()
     {
-        isColorRed = true;          
+        Debug.Log("OnRed");
+        isColorRed = true;
         isBlink = false;
     }
 
@@ -135,6 +139,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     public void OnGrean()
     {
+        Debug.Log("OnGrean");
         isColorRed = false;
         isBlink = false;
     }

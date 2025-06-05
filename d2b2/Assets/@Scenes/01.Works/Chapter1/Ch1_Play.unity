@@ -1997,7 +1997,7 @@ MonoBehaviour:
   - {fileID: 1237504856}
   - {fileID: 1021140073}
   ImgViewTime: 2000
-  npc: {fileID: 0}
+  npc: {fileID: 107100066}
 --- !u!4 &493206005
 Transform:
   m_ObjectHideFlags: 0
@@ -2644,7 +2644,7 @@ PrefabInstance:
     - target: {fileID: 1945127346298810982, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1945127346298810982, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -2974,6 +2974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadCrosswalk (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1416373601309472, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4392699554287472, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
       propertyPath: m_LocalScale.x
       value: 399.99374
@@ -3034,6 +3038,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2129619454675153704, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2694581801404420253, guid: 8bcf2090328770447adf61081fd2809c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3063,6 +3072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390586570475691462, guid: 8bcf2090328770447adf61081fd2809c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
@@ -4797,8 +4811,8 @@ Transform:
   m_Children:
   - {fileID: 1071951839}
   - {fileID: 745233986}
-  - {fileID: 716634873}
   - {fileID: 1956000230}
+  - {fileID: 716634873}
   m_Father: {fileID: 1369928103}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5082,7 +5096,8 @@ PrefabInstance:
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -5097,7 +5112,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1237504858}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -5112,7 +5127,8 @@ PrefabInstance:
         type: 3}
       propertyPath: onBeginGreenLightBlink.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -6004,6 +6020,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1237504854}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1237504858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1237504854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9603cb4abe4521449a976bfb81645bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1269154881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2020466469263562152, guid: 2cb7aff6d5c326e40ad70874353f3d4b,
@@ -6464,6 +6492,10 @@ PrefabInstance:
     - target: {fileID: 1416373601309472, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
       propertyPath: m_Name
       value: RoadCrosswalk
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416373601309472, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4392699554287472, guid: 8bcf2090328770447adf61081fd2809c, type: 3}
       propertyPath: m_LocalScale.x
@@ -7944,7 +7976,7 @@ PrefabInstance:
     - target: {fileID: 1945127346298810982, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1945127346298810982, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
