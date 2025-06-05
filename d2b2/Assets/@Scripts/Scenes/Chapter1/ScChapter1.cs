@@ -79,9 +79,5 @@ public class ScChapter1 : MonoBehaviour
         
     }
 
-    public void EndGame()
-    {
-        Debug.Log("Chapter1 Å¬¸®¾î " + CurrentSetp);
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch1Login);
-    }
+
 }

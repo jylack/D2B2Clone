@@ -1,61 +1,56 @@
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScMissionClearUI : MonoBehaviour
 {
+    [Header("클리어 텍스트 키값 설정")]
+    [SerializeField] private string missionClearTextKey; // 미션 클리어 텍스트 키
+
+    [Header("오브젝트 연결")]
+    [SerializeField] private GameObject clearMissionListTextPanel;
+    [SerializeField] private TextMeshProUGUI missionClearText;
+    [SerializeField] private TextMeshProUGUI NickNameText;
+
+    [Header("다음 씬 설정")]
+    [SerializeField] private ScDefine.ScScene nextScene;
+
     private List<ScMissionBoxTextCheck> missionList;
-    [SerializeField] private GameObject missionClearTextPanel;
-
-
-    //[SerializeField] private List<Image> Seals;
 
     private void Start()
     {
         missionList = GameObject.Find("MissionListPanel").GetComponent<ScMissionListPanel>().GetMissionTextList();
-        foreach(var mission in missionList)
+        foreach (var mission in missionList)
         {
             // 미션이 완료된 경우
             if (mission.GetMissionState())
             {
-                Instantiate(mission.gameObject, missionClearTextPanel.transform);
+                Instantiate(mission.gameObject, clearMissionListTextPanel.transform);
             }
         }
+        
+        ManagerSetting();
+    }
 
-        //for(int i = 0 ; i < missionList.Count; i++)
-        //{
-        //    if (missionList[i].GetMissionState())
-        //    {
-        //        // 미션이 완료된 경우
-                
-        //    }
-        //    else
-        //    {
-        //        // 미션이 완료되지 않은 경우
-                
-        //    }
-        //}
+    private async void ManagerSetting()
+    {
+        await UniTask.WaitUntil(() => Manager.Instance != null);
+        await UniTask.WaitUntil(() => Manager.Instance.LanguageMgr != null);
 
-        //foreach (var mission in missionList)
-        //{
-        //    if (mission.GetMissionState())
-        //    {
-        //        // 미션이 완료된 경우
-        //        Image seal = Instantiate(Seals[0], transform);
-        //        seal.gameObject.SetActive(true);
-        //        seal.transform.localScale = Vector3.one;
-        //        seal.transform.localPosition = Vector3.zero;
-        //    }
-        //    else
-        //    {
-        //        // 미션이 완료되지 않은 경우
-        //        Image seal = Instantiate(Seals[1], transform);
-        //        seal.gameObject.SetActive(true);
-        //        seal.transform.localScale = Vector3.one;
-        //        seal.transform.localPosition = Vector3.zero;
-        //    }
-        //}
+        missionClearText.text = Manager.Instance.LanguageMgr.GetText(missionClearTextKey);
+
+        
+        await UniTask.WaitUntil(()=> Manager.Instance.GameMgr != null);
+        
+    
+        NickNameText.text += Manager.Instance.GameMgr.NickName;
+
+     
+    }
+
+    public void EndGame()
+    {
+        Manager.Instance.SceneMgr.LoadScene(nextScene);
     }
 }
