@@ -43,10 +43,9 @@ public class ScGuideNpc : MonoBehaviour
 
         float duration = 1f;
 
-        // 거리 비례 속도 조정 (선택 사항)
         float distance = Vector3.Distance(currentPos, newTarget);
         if (distance < 0.01f) return; // 너무 가까우면 무시
-
+        
         moveTween = transform.DOMove(newTarget, duration)
                              .SetEase(Ease.Linear)
                              .SetAutoKill(true);
