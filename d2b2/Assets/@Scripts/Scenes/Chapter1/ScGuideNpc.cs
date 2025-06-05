@@ -6,7 +6,7 @@ public class ScGuideNpc : MonoBehaviour
     [SerializeField] private GameObject player;
 
     private Vector3 offset;
-
+    private Tween moveTween;
 
     private void Awake()
     {
@@ -28,25 +28,26 @@ public class ScGuideNpc : MonoBehaviour
             // 플레이어가 움직일 때 NPC가 따라오도록 설정
             FollowPlayer();
         }
-        else
-        {
-            // 플레이어가 멈추면 NPC도 멈추도록 설정
-            StopFollowingPlayer();
-        }
     }
-
     private void FollowPlayer()
     {
-        // 로컬 오프셋을 월드 좌표로 재변환
-        Vector3 targetPosition = player.transform.TransformPoint(offset);
+        // 이동 중이면 현재 위치를 시작점으로 새 목표로 다시 계산
+        Vector3 currentPos = transform.position;
+        Vector3 newTarget = player.transform.TransformPoint(offset);
 
-        transform.DOMove(targetPosition, 1f).SetEase(Ease.Linear);
-    }
-    private void StopFollowingPlayer()
-    {
-        // NPC가 멈추는 로직 구현
-        transform.DOKill(); // 현재 진행 중인 이동을 중지
-                            // 추가적인 멈춤 애니메이션이나 행동을 여기에 추가할 수 있습니다.
+        // 기존 Tween이 있으면 Kill
+        if (moveTween != null && moveTween.IsActive())
+        {
+            moveTween.Kill();
+        }
 
+        float duration = 1f;
+
+        float distance = Vector3.Distance(currentPos, newTarget);
+        if (distance < 0.01f) return; // 너무 가까우면 무시
+        
+        moveTween = transform.DOMove(newTarget, duration)
+                             .SetEase(Ease.Linear)
+                             .SetAutoKill(true);
     }
 }

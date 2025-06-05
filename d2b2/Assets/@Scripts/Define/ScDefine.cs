@@ -82,6 +82,7 @@
         Move,
         Crosswalk,
         LookAround,
+        DoBadThing,
         Destroy,
     }
 }

@@ -36,6 +36,12 @@ public class ScCar : ScObjectBase
         gameObject.name = $"Car_{numbering++}";
         originPosition = transform.position;
         transform.rotation = Quaternion.LookRotation(dir);
+
+        if (dir.x != 0)
+            rb.constraints = rb.constraints | RigidbodyConstraints.FreezePositionZ;
+
+        if (dir.z != 0)
+            rb.constraints = rb.constraints | RigidbodyConstraints.FreezePositionX;
     }
 
     private void FixedUpdate()
@@ -66,7 +72,7 @@ public class ScCar : ScObjectBase
         rb.velocity = dir.normalized * moveSpeed;
     }
 
-    // Boxcast 범위 확인용
+    //Boxcast 범위 확인용
     //private void OnDrawGizmos()
     //{
     //    Gizmos.color = Color.red;

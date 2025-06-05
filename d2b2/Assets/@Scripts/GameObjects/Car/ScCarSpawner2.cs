@@ -70,15 +70,6 @@ public class ScCarSpawner2 : ScObjectBase
         return UnityEngine.Random.Range(value, value2);
     }
 
-
-
-    public void SpawnCar(int carIndex, float moveSpeed)
-    {
-
-    }
-
-
-
     private async UniTask RunSpawn()
     {
         try

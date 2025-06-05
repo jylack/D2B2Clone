@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc6f5187a81dc47999eefade6f0935, type: 3}
-  m_Name: Signal Track Group
+  m_Name: TrafficLight Track Group
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -1399,13 +1399,13 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -8735600319700852936}
-    m_Duration: 3
+    m_Duration: 2.5
     m_TimeScale: 1
     m_ParentTrack: {fileID: -1365698894343801912}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.9833333333333325
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -1465,15 +1465,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: FirstMove
   - m_Version: 1
-    m_Start: 2.0166666666666675
+    m_Start: 2.5
     m_ClipIn: 0
     m_Asset: {fileID: 1553426328462730994}
-    m_Duration: 70.98333333333333
+    m_Duration: 70.5
     m_TimeScale: 1
     m_ParentTrack: {fileID: -1365698894343801912}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.9833333333333325
+    m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -2013,7 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 2.5166666666666666
+  m_Time: 2.5
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: b6398b2d68de7174f9090a73bd5065b8, type: 2}
