@@ -79,6 +79,7 @@ public class ScTutNameSet : MonoBehaviour
             settings = new ScPlayerSettingsEntity()
         };
         TutorialManager.Instance.playerEntity = entity;
+        Manager.Instance.GameMgr.SetCurrentPlayerInfo(entity);
 
         Manager.Instance.DbMgr.Save(name, entity).Forget();
 

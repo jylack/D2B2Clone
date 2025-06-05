@@ -66,6 +66,8 @@ public class FirebaseRealtimeDatabase : IDatabase
             
             string json = JsonConvert.SerializeObject(playerEntity);
             await dbRef.Child(RootPath).Child(nickName).SetRawJsonValueAsync(json);
+
+            Debug.Log("TT " + json);
         }
         catch (Exception ex)
         {
