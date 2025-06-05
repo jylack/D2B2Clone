@@ -20,9 +20,10 @@ public class ScCh3Npc : MonoBehaviour
     private bool canDoUpdateMethod = true;    // Only For MasterClient
     private bool canUpdateAnimation = true;
     private bool isDoingBadThing;
+    private GameObject badThingPointer;
 
 
-    
+
     private void Awake()
     {
         ai = GetComponent<RichAI>();
@@ -94,6 +95,9 @@ public class ScCh3Npc : MonoBehaviour
 
     public void UpdateNextAction(ScDefine.ScPathPointNextAction nextAction, ScPathPoint newPathPoint, bool isRun)
     {
+        if (badThingPointer != null)
+            Destroy(badThingPointer);
+
         switch (nextAction)
         {
             case ScDefine.ScPathPointNextAction.Move:
@@ -225,5 +229,9 @@ public class ScCh3Npc : MonoBehaviour
         ai.SearchPath();
 
         character.SetAnimation(ScDefine.ScNpcAnimState.Running);
+
+        badThingPointer = Manager.Instance.ResourceMgr.InstantiateBadThingPointer();
+        badThingPointer.transform.SetParent(transform);
+        badThingPointer.transform.localPosition = new Vector3(0f, 2f, 0f);
     }
 }
