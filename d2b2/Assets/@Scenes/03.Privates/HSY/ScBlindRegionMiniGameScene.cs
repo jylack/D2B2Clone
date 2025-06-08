@@ -24,6 +24,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     [Header("Child")]
     [SerializeField] private GameObject[] childPrefab;
     [SerializeField] private Transform[] childPosArray;
+    [SerializeField] public int childMaxCount => childPosArray.Length;
     [Header("TimeLine")]
     [SerializeField] private PlayableAsset miniGameStartTimeLine;
     [SerializeField] private PlayableAsset miniGameEndTimeLine;
@@ -31,15 +32,20 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     [Header("Truck")]
     [SerializeField] private ScTruckShader truckShader;
     [Header("navCanvas")]
-    [SerializeField] private GameObject navCanvas;
+    [SerializeField] private GameObject playNavInfo;
+    [SerializeField] private GameObject playResultNavInfo;
     [Header("PlaySetting")]
     [SerializeField] private float maxTime;
     public event Action<float,float> timer;
 
-
+    static public ScBlindRegionMiniGameScene Instance { get; private set; }
 
     private void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         playerScript.isGamePlaying= false;
         playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
@@ -85,10 +91,10 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         playerScript.isGamePlaying = true;
         UIPlayerHsy.Instance.countDownText.text = "";
         playerScript.ConnectPlayerTriggerEvent();
-        navCanvas.SetActive(true);
+        playNavInfo.SetActive(true);
         CreateChildNpc();
         yield return StartCoroutine(TimmerCor());
-        navCanvas.SetActive(false);
+        playNavInfo.SetActive(false);
         playerScript.DisConnectPlayerTriggerEvent();
         UIPlayerHsy.Instance.countDownText.text = "Á¾·á";
         yield return StartCoroutine(UIPlayerHsy.Instance.SideFillProduction(0,1,3));

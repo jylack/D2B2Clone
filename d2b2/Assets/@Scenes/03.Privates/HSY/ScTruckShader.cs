@@ -30,7 +30,7 @@ public class ScTruckShader : MonoBehaviour
     }
     public void TruckTransparent(float endHeight)
     {
-        float maxTime = 10f;
+        float time = 10f;
 
         for (int i = 0; i < mats.Count; i++)
         {
@@ -50,7 +50,7 @@ public class ScTruckShader : MonoBehaviour
                            mat.SetFloat("_ThresholdY", x);
                        },
                        endHeight,
-                       maxTime
+                       time
             );
         }
     }

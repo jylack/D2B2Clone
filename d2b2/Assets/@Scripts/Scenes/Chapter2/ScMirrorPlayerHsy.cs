@@ -13,7 +13,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
     private GameObject hoveredNpc;
     private RayDetectMan hoveredDetectMan;
     private bool isMirrorHovered;
-    public int count;
+    public int findChildCount { get; private set; }
     private bool isNpcHovered;
     public bool isGamePlaying;
     public event Action<int> findChildChildEvent;
@@ -123,7 +123,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
         if (hoveredDetectMan != null)
         {
             hoveredDetectMan.DoSomething();
-            findChildChildEvent.Invoke(++count);
+            findChildChildEvent.Invoke(++findChildCount);
         }
     }
 

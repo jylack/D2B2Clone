@@ -5,21 +5,20 @@ using UnityEngine;
 
 public class ScNavigationCanvas : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] TextMeshProUGUI findChildCountText;
-    [SerializeField] ScMirrorPlayerHsy playerScript;
-    [SerializeField] ScBlindRegionMiniGameScene miniGameManagerScript;
-
+    [Header("playingNav")]
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI findChildCountText;
+    [SerializeField] private ScMirrorPlayerHsy playerScript;
     private void OnEnable()
     {
         playerScript.findChildChildEvent += OnChangeFindChildCountText;
-        miniGameManagerScript.timer += OnChangeTimerText;
+        ScBlindRegionMiniGameScene.Instance.timer += OnChangeTimerText;
 
     }
     private void OnDisable()
     {
         playerScript.findChildChildEvent -= OnChangeFindChildCountText;
-        miniGameManagerScript.timer -= OnChangeTimerText;
+        ScBlindRegionMiniGameScene.Instance.timer -= OnChangeTimerText;
     }
 
     public void OnChangeTimerText(float currentTime,float maxTime)
