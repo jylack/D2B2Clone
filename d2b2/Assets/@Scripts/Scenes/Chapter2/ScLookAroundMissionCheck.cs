@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ScCh2Check : MonoBehaviour
+public class ScLookAroundMissionCheck : MonoBehaviour
 {
     [SerializeField] private ScLookAroundRegion check;
     private void OnTriggerEnter(Collider other)

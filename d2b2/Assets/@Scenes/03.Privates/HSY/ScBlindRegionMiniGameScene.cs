@@ -14,7 +14,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     [Header("Player")]
     [SerializeField] private Transform playerPos;
     [SerializeField] private Transform cameraOffset;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform cameraPos;
     [SerializeField] private ScMirrorPlayerHsy playerScript;
     [Header("Npc")]
     [SerializeField] private GameObject npcPrefab;
@@ -49,7 +49,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         playerScript.isGamePlaying= false;
         playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
-        cameraOffset.transform.rotation = Quaternion.Euler(0, -camera.transform.eulerAngles.y, 0);
+        cameraOffset.transform.rotation = Quaternion.Euler(0, -cameraPos.transform.eulerAngles.y, 0);
         PlayBeforeGame();
     }
     public void OngameStartBtn()
