@@ -27,10 +27,7 @@ public class ScTrafficLight : ScObjectBase
     {
         redOffMaterial = redMeshRenderer.material;
         greenOffMaterial = greenMeshRenderer.material;
-    }
 
-    private void Start()
-    {
         SetColor(ScDefine.ScTrafficLightType.Red);
     }
 

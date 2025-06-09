@@ -13,7 +13,6 @@ public enum Chapter
 public enum Category
 {
     MissionText,
-    StoryText,
 }
 
 public class ScMissionListPanel : MonoBehaviour

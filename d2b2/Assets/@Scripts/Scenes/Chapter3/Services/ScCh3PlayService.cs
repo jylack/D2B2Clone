@@ -1,6 +1,7 @@
 using UnityEngine;
 using ExitGames.Client.Photon;
 using Photon.Pun;
+using System.Collections.Generic;
 
 public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
 {
@@ -8,6 +9,8 @@ public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
 
     [SerializeField] private ScTrafficLightSystem trafficLightSystem;
     [SerializeField] private ScCarSpawner2[] carSpawners;
+
+    private Dictionary<int, int> npcIdToActorNumber = new();
 
 
 

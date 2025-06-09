@@ -2,6 +2,13 @@ using Photon.Pun;
 
 public partial class ScCh3PlayService
 {
+    public void TryCatchNpc(int npcId, int actorNumber)
+    {
+        photonView.SendToMaster(nameof(OnTryCatchNpc), npcId, actorNumber);
+    }
+
+
+
     [PunRPC]
     private void OnAllClientLoaded()
     {
@@ -24,5 +31,11 @@ public partial class ScCh3PlayService
     private void OnUpdateNpcNextAction(int npcId, ScDefine.ScPathPointNextAction nextAction, int newPathPointIndex, bool isRun)
     {
         ScCh3NpcService.Instance.OnUpdateNpcNextAction(npcId, nextAction, newPathPointIndex, isRun);
+    }
+
+    [PunRPC]
+    private void OnNpcCatched(int npcId, int actorNumber)
+    {
+
     }
 }

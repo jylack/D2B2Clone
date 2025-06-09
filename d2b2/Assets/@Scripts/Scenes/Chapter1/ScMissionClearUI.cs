@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScMissionClearUI : MonoBehaviour
 {
-    [Header("클리어 텍스트 키값 설정")]
+    [Header("클리어 텍스트 키")]
     [SerializeField] private string missionClearTextKey; // 미션 클리어 텍스트 키
 
     [Header("오브젝트 연결")]
@@ -20,7 +20,11 @@ public class ScMissionClearUI : MonoBehaviour
 
     private void Start()
     {
-        missionList = GameObject.Find("MissionListPanel").GetComponent<ScMissionListPanel>().GetMissionTextList();
+        var missionListPanel = GameObject.Find("MissionListPanel");
+        
+        missionList = missionListPanel.GetComponent<ScMissionListPanel>().GetMissionTextList();
+        
+
         foreach (var mission in missionList)
         {
             // 미션이 완료된 경우
@@ -30,10 +34,10 @@ public class ScMissionClearUI : MonoBehaviour
             }
         }
         
-        ManagerSetting();
+        ManagerSetting().Forget();
     }
 
-    private async void ManagerSetting()
+    private async UniTask ManagerSetting()
     {
         await UniTask.WaitUntil(() => Manager.Instance != null);
         await UniTask.WaitUntil(() => Manager.Instance.LanguageMgr != null);

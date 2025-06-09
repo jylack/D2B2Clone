@@ -17,9 +17,7 @@ public partial class ScCh3PlayService
 
         photonView.Broadcast(nameof(OnAllClientLoaded));
     }
-    
-    
-    
+
     public void BroadcastUpdateTrafficLights()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -42,5 +40,21 @@ public partial class ScCh3PlayService
             return;
         
         photonView.Broadcast(nameof(OnUpdateNpcNextAction), npcId, nextAction, newPathPointIndex, isRun);
+    }
+
+
+
+    [PunRPC]
+    private void OnTryCatchNpc(int npcId, int actorNumber)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        if (npcIdToActorNumber.ContainsKey(npcId))
+            return;
+
+        npcIdToActorNumber.Add(npcId, actorNumber);
+
+        photonView.Broadcast(nameof(OnNpcCatched), npcId, actorNumber);
     }
 }
