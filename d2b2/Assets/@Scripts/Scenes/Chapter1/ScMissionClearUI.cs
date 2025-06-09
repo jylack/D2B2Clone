@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScMissionClearUI : MonoBehaviour
 {
-    [Header("클리어 텍스트 키값 설정")]
+    [Header("클리어 텍스트 키")]
     [SerializeField] private string missionClearTextKey; // 미션 클리어 텍스트 키
 
     [Header("오브젝트 연결")]
