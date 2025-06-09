@@ -1,14 +1,21 @@
 ﻿using FIMSpace.FTools;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ScPlayScene : ScSceneBase
 {
+    [SerializeField] private List<ScDefine.ScScene> MovingSceneList;
+
     private void Start()
     {
-        if(SceneManager.GetActiveScene().name != ScDefine.ScScene.Ch1Play.ToString())
+        foreach (var sceneName in MovingSceneList)
         {
-            Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
+            if (SceneManager.GetActiveScene().name != sceneName.ToString())
+            {
+                Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
+            }
         }
+
     }
 }
