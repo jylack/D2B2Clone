@@ -126,7 +126,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     public void OnRed()
     {
-        Debug.Log("OnRed");
+        //Debug.Log("OnRed");
         isColorRed = true;
         isBlink = false;
     }
@@ -134,12 +134,12 @@ public class ScCrossWalkCtrl : MonoBehaviour
     public void OnBlink()
     {
         isBlink = true;
-        Debug.Log("OnBlink");   
+        //Debug.Log("OnBlink");   
     }
 
     public void OnGrean()
     {
-        Debug.Log("OnGrean");
+        //Debug.Log("OnGrean");
         isColorRed = false;
         isBlink = false;
     }

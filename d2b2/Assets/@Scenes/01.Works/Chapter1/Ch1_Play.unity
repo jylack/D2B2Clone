@@ -3819,22 +3819,22 @@ PrefabInstance:
         type: 3}
       propertyPath: trafficLightGroups.Array.data[0].items.Array.data[0]
       value: 
-      objectReference: {fileID: 1956000231}
+      objectReference: {fileID: 1071951840}
     - target: {fileID: 68565469203473113, guid: 4c7c50d314853ee41a88dd921b369497,
         type: 3}
       propertyPath: trafficLightGroups.Array.data[0].items.Array.data[1]
       value: 
-      objectReference: {fileID: 716634874}
+      objectReference: {fileID: 745233987}
     - target: {fileID: 68565469203473113, guid: 4c7c50d314853ee41a88dd921b369497,
         type: 3}
       propertyPath: trafficLightGroups.Array.data[1].items.Array.data[0]
       value: 
-      objectReference: {fileID: 1071951840}
+      objectReference: {fileID: 1956000231}
     - target: {fileID: 68565469203473113, guid: 4c7c50d314853ee41a88dd921b369497,
         type: 3}
       propertyPath: trafficLightGroups.Array.data[1].items.Array.data[1]
       value: 
-      objectReference: {fileID: 745233987}
+      objectReference: {fileID: 716634874}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c7c50d314853ee41a88dd921b369497, type: 3}
 --- !u!114 &830065172 stripped
@@ -5057,12 +5057,12 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5072,7 +5072,7 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivatedBefore.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5103,13 +5103,12 @@ PrefabInstance:
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
-        type: 3}
+      objectReference: {fileID: 1237504858}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1071951841}
+      objectReference: {fileID: 1448887165}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onBeginGreenLightBlink.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5129,13 +5128,12 @@ PrefabInstance:
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1071951841}
+      objectReference: {fileID: 1448887165}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onBeginGreenLightBlink.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
-        type: 3}
+      objectReference: {fileID: 1237504858}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -5150,6 +5148,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnRed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
+        type: 3}
+      propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnRedLightActivated
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5174,12 +5177,17 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnGrean
+      value: OnRed
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: NpcCheck
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
+        type: 3}
+      propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnGreenLightActivated
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5200,7 +5208,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onGreenLightActivatedBefore.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1448887165}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivatedBefore.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -5219,7 +5227,7 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivatedBefore.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnBlink
+      value: OnGreenLightActivatedBefore
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5234,7 +5242,7 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ScCrossWalkCtrl, Assembly-CSharp
+      value: ScRoadCrosswalk, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5249,7 +5257,7 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: ScChapter1, Assembly-CSharp
+      value: ScRoadCrosswalk, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5259,7 +5267,7 @@ PrefabInstance:
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivatedBefore.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ScCrossWalkCtrl, Assembly-CSharp
+      value: ScRoadCrosswalk, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
@@ -5273,12 +5281,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
+      propertyPath: onRedLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
+        type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
         type: 3}
       propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
+        type: 3}
+      propertyPath: onGreenLightActivated.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8928481986626376112, guid: e7580b1b33c9aff48922ce34cba850c1,
@@ -5310,18 +5328,12 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1071951838}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071951841}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7819595ec2eae2f4eb036de1160e0416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1071951841 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1945127346298810983, guid: e7580b1b33c9aff48922ce34cba850c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1071951838}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1072219027
 GameObject:
   m_ObjectHideFlags: 0
@@ -9423,14 +9435,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1941275197, guid: 4a88b8d95e66d9a4e9b87cecbf939bf1, type: 3}
-      propertyPath: missionClearTextKey
-      value: Chapter1ClearText
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071280245982856590, guid: 4a88b8d95e66d9a4e9b87cecbf939bf1,
+    - target: {fileID: 1071280246076077777, guid: 4a88b8d95e66d9a4e9b87cecbf939bf1,
         type: 3}
-      propertyPath: m_text
-      value: 
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1071280246076077779, guid: 4a88b8d95e66d9a4e9b87cecbf939bf1,
         type: 3}
