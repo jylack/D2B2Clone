@@ -9,15 +9,14 @@ using System;
 public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
 {
     public static ScCh3PlayService Instance { get; private set; }
-    private const float TOTAL_TIME = 120f;
+    private const int TOTAL_TIME = 120;
 
     [SerializeField] private ScTrafficLightSystem trafficLightSystem;
     //[SerializeField] private ScCarSpawner2[] carSpawners;
 
     private Dictionary<int, int> npcIdToActorNumber = new();
     private List<ScCh3ScoreData> scoreDatas = new();
-    private CancellationTokenSource timerCts;
-    private float timerStartTime;
+    private double timerStartTime;
 
 
 
@@ -38,31 +37,27 @@ public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
 
 
 
-    private async UniTaskVoid StartTimer(float startTime)
+    private async UniTaskVoid StartTimer()
     {
         try
         {
-            timerStartTime = startTime;
+            timerStartTime = PhotonNetwork.Time;
 
-            UICh3Play.Instance.UpdateTime((int)TOTAL_TIME);
+            UICh3Play.Instance.UpdateTime(TOTAL_TIME);
+            CancellationToken token = this.GetCancellationTokenOnDestroy();
 
-            timerCts = new CancellationTokenSource();
-            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timerCts.Token, this.GetCancellationTokenOnDestroy());
-
-            while (!linkedCts.IsCancellationRequested)
+            while (!token.IsCancellationRequested)
             {
-                await UniTask.Delay(100);
+                await UniTask.Delay(100, cancellationToken: token);
 
-                float interval = Time.time - timerStartTime;
-                int time = (int)(TOTAL_TIME - interval);
+                double elapsed = PhotonNetwork.Time - timerStartTime;
+                int time = Mathf.Clamp((int)(TOTAL_TIME - elapsed), 0, TOTAL_TIME);
 
                 UICh3Play.Instance.UpdateTime(time);
 
                 if (time <= 0)
                     break;
             }
-
-            // 게임 종료
         }
         catch (OperationCanceledException ex)
         {

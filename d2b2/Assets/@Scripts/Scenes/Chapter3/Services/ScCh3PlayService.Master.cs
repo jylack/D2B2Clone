@@ -1,3 +1,4 @@
+using System;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -16,8 +17,7 @@ public partial class ScCh3PlayService
                 return;
         }
 
-        float startTime = Time.time;
-        photonView.Broadcast(nameof(OnAllClientLoaded), startTime);
+        photonView.Broadcast(nameof(OnAllClientLoaded));
     }
 
     public void BroadcastUpdateTrafficLights()

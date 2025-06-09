@@ -20,6 +20,6 @@ public class ScCh3PlayScene : ScSceneBase
 
         Transform playerTransform = positionObjects[posIndex].transform;
         object[] data = { characterType };
-        PhotonNetwork.InstantiateRoomObject("Prefabs/Ch3Player", playerTransform.position, playerTransform.rotation, 0, data);
+        PhotonNetwork.Instantiate("Prefabs/Ch3Player", playerTransform.position, playerTransform.rotation, 0, data);
     }
 }

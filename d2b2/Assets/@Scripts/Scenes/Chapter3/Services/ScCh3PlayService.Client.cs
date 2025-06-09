@@ -13,13 +13,13 @@ public partial class ScCh3PlayService
 
 
     [PunRPC]
-    private void OnAllClientLoaded(float startTime)
+    private void OnAllClientLoaded()
     {
         foreach (Player player in PhotonNetwork.PlayerList)
             scoreDatas.Add(new ScCh3ScoreData(player.ActorNumber, player.NickName, 0));
 
         UICh3Play.Instance.UpdateScores(scoreDatas);
-        StartTimer(startTime).Forget();
+        StartTimer().Forget();
     }
 
     [PunRPC]
