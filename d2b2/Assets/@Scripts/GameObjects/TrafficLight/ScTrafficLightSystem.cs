@@ -87,8 +87,8 @@ public class ScTrafficLightSystem : ScObjectBase
 
             while (!token.IsCancellationRequested)
             {
-                WaitThenRaiseGreenBeforeEvent(token).Forget();
                 await UpdateTrafficLights(token);
+                WaitThenRaiseGreenBeforeEvent(token).Forget();
             }
         }
         catch (OperationCanceledException ex)
