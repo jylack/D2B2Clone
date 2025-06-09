@@ -1,5 +1,4 @@
-﻿using FIMSpace.FTools;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,13 +8,20 @@ public class ScPlayScene : ScSceneBase
 
     private void Start()
     {
+        bool isMovableScene = false;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
         foreach (var sceneName in MovingSceneList)
         {
-            if (SceneManager.GetActiveScene().name != sceneName.ToString())
+            if (currentSceneName == sceneName.ToString())
             {
-                Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
+                isMovableScene = true;
+                break;
             }
         }
 
+        if (!isMovableScene)
+            Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
     }
+
 }
