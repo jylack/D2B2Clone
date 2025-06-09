@@ -108,6 +108,14 @@ public class ScCh3NpcService : ScObjectBase
         currentNpcCount--;
     }
 
+    public void OnNpcCaught(int npcId, int actorNumber)
+    {
+        if (npcDict.TryGetValue(npcId, out ScCh3Npc npc))
+            npc.OnNpcCaught(npcId, actorNumber);
+        else
+            Debug.Log("npc not found.");
+    }
+
     
 
     private async UniTaskVoid RunSpawn()

@@ -34,14 +34,20 @@ public class ScTrafficLightFloor : ScObjectBase
         blinkCts?.Dispose();
         blinkCts = null;
 
-        lightType = ScDefine.ScTrafficLightType.Red;
-        meshRenderer.material = redOnMaterial;
+        if (meshRenderer != null)
+        {
+            lightType = ScDefine.ScTrafficLightType.Red;
+            meshRenderer.material = redOnMaterial;
+        }
     }
 
     public void OnGreenLightActivated()
     {
-        lightType = ScDefine.ScTrafficLightType.Green;
-        meshRenderer.material = greenOnMaterial;
+        if (meshRenderer != null)
+        {
+            lightType = ScDefine.ScTrafficLightType.Green;
+            meshRenderer.material = greenOnMaterial;
+        }
     }
 
     public void OnBeginGreenLightBlink()

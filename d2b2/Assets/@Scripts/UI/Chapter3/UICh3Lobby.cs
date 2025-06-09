@@ -4,12 +4,11 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 
-public class UILobby : UIBase
+public class UICh3Lobby : UIBase
 {
     [SerializeField] private TextMeshProUGUI nickNameText;
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private int maxSeconds = 10;
-    [SerializeField] private GameObject playerParent;
     [SerializeField] private GameObject startButton;
 
     private int seconds;

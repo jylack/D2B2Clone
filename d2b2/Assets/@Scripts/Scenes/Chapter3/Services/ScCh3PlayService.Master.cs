@@ -1,6 +1,7 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine;
 
 public partial class ScCh3PlayService
 {
@@ -15,7 +16,8 @@ public partial class ScCh3PlayService
                 return;
         }
 
-        photonView.Broadcast(nameof(OnAllClientLoaded));
+        float startTime = Time.time;
+        photonView.Broadcast(nameof(OnAllClientLoaded), startTime);
     }
 
     public void BroadcastUpdateTrafficLights()
@@ -55,6 +57,6 @@ public partial class ScCh3PlayService
 
         npcIdToActorNumber.Add(npcId, actorNumber);
 
-        photonView.Broadcast(nameof(OnNpcCatched), npcId, actorNumber);
+        photonView.Broadcast(nameof(OnNpcCaught), npcId, actorNumber);
     }
 }

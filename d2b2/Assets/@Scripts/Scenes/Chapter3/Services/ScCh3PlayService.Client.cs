@@ -1,4 +1,7 @@
 using Photon.Pun;
+using Photon.Realtime;
+using System.Linq;
+using UnityEngine;
 
 public partial class ScCh3PlayService
 {
@@ -10,9 +13,13 @@ public partial class ScCh3PlayService
 
 
     [PunRPC]
-    private void OnAllClientLoaded()
+    private void OnAllClientLoaded(float startTime)
     {
+        foreach (Player player in PhotonNetwork.PlayerList)
+            scoreDatas.Add(new ScCh3ScoreData(player.ActorNumber, player.NickName, 0));
 
+        UICh3Play.Instance.UpdateScores(scoreDatas);
+        StartTimer(startTime).Forget();
     }
 
     [PunRPC]
@@ -34,8 +41,17 @@ public partial class ScCh3PlayService
     }
 
     [PunRPC]
-    private void OnNpcCatched(int npcId, int actorNumber)
+    private void OnNpcCaught(int npcId, int actorNumber)
     {
+        ScCh3NpcService.Instance.OnNpcCaught(npcId, actorNumber);
 
+        ScCh3ScoreData scoreData = scoreDatas.FirstOrDefault(x => x.actorNumber == actorNumber);
+
+        if (scoreData != null)
+            scoreData.score++;
+        else
+            Debug.Log("score data not found.");
+
+        UICh3Play.Instance.UpdateScores(scoreDatas);
     }
 }

@@ -10,7 +10,7 @@ public partial class ScCh3LobbyService : MonoBehaviourPunCallbacks
     private const int MaxPlayerCount = 6;
 
     [SerializeField] private Transform vrPlayer;
-    [SerializeField] private UILobby uiLobby;
+    [SerializeField] private UICh3Lobby uiLobby;
     [SerializeField] private Transform playerParent;
     [SerializeField] private GameObject lobbyPlayerPrefab;
     [SerializeField] private UnityEvent<bool> masterChanged;

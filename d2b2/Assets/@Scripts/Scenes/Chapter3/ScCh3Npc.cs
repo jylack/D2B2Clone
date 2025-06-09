@@ -97,6 +97,12 @@ public class ScCh3Npc : MonoBehaviour
 
     public void UpdateNextAction(ScDefine.ScPathPointNextAction nextAction, ScPathPoint newPathPoint, bool isRun)
     {
+        if (nextAction != ScDefine.ScPathPointNextAction.DoBadThing && isDoingBadThing)
+        {
+            isDoingBadThing = false;
+            UICh3Play.Instance.IncreaseMissedCharacterCount();
+        }
+
         if (badThingPointer != null)
             Destroy(badThingPointer);
 
@@ -105,7 +111,6 @@ public class ScCh3Npc : MonoBehaviour
             case ScDefine.ScPathPointNextAction.Move:
                 {
                     currentAction = ScDefine.ScPathPointNextAction.Move;
-                    isDoingBadThing = false;
 
                     Move(newPathPoint, isRun);
                     canDoUpdateMethod = true;
@@ -114,7 +119,6 @@ public class ScCh3Npc : MonoBehaviour
             case ScDefine.ScPathPointNextAction.Crosswalk:
                 {
                     currentAction = ScDefine.ScPathPointNextAction.Crosswalk;
-                    isDoingBadThing = false;
 
                     ReadyForCrosswalk().Forget();
                     break;
@@ -122,7 +126,6 @@ public class ScCh3Npc : MonoBehaviour
             case ScDefine.ScPathPointNextAction.LookAround:
                 {
                     currentAction = ScDefine.ScPathPointNextAction.LookAround;
-                    isDoingBadThing = false;
 
                     LookAround().Forget(); 
                     break;
@@ -140,10 +143,8 @@ public class ScCh3Npc : MonoBehaviour
             case ScDefine.ScPathPointNextAction.Destroy:
                 {
                     currentAction = ScDefine.ScPathPointNextAction.Destroy;
-                    isDoingBadThing = false;
 
-                    ScCh3NpcService.Instance.OnNpcDestroy(id);
-                    Destroy(gameObject);
+                    DestroySelf();
                     break;
                 }
             default:
@@ -151,12 +152,24 @@ public class ScCh3Npc : MonoBehaviour
         }
     }
 
-    public void Select()
+    public void TryCatchNpc()
     {
-        // vfx
-        // +1 텍스트
+        if (isDoingBadThing)
+            ScCh3PlayService.Instance.TryCatchNpc(id, PhotonNetwork.LocalPlayer.ActorNumber);
     }
     
+    public void OnNpcCaught(int npcId, int actorNumber)
+    {
+        if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
+        {
+            // +1 텍스트
+        }
+
+        // vfx
+
+        DestroySelf();
+    }
+
     public void OnRayHoverEnter()
     {
         if (isDoingBadThing)
@@ -252,5 +265,11 @@ public class ScCh3Npc : MonoBehaviour
         badThingPointer = Manager.Instance.ResourceMgr.InstantiateBadThingPointer();
         badThingPointer.transform.SetParent(transform);
         badThingPointer.transform.localPosition = new Vector3(0f, 2f, 0f);
+    }
+
+    private void DestroySelf()
+    {
+        ScCh3NpcService.Instance.OnNpcDestroy(id);
+        Destroy(gameObject);
     }
 }

@@ -51,6 +51,6 @@ public class ScCh3Player : ScObjectBase
     
     private void InputMgrOnOnTriggerPerform()
     {
-        hoveredNpc?.Select();
+        hoveredNpc?.TryCatchNpc();
     }
 }
