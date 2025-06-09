@@ -53,9 +53,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
             //var temp = other.gameObject.GetComponent<ScRespawn>();
 
-            Debug.Log("isBlink : " + isBlink);
-            Debug.Log("isColorRed : " + isColorRed);
-
+            //Debug.Log("isBlink : " + isBlink);
+            //Debug.Log("isColorRed : " + isColorRed);
 
             if (isColorRed || isBlink)
             {
@@ -126,7 +125,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     public void OnRed()
     {
-        Debug.Log("OnRed");
+        //Debug.Log("OnRed");
         isColorRed = true;
         isBlink = false;
     }
@@ -134,12 +133,12 @@ public class ScCrossWalkCtrl : MonoBehaviour
     public void OnBlink()
     {
         isBlink = true;
-        Debug.Log("OnBlink");   
+        //Debug.Log("OnBlink");   
     }
 
     public void OnGrean()
     {
-        Debug.Log("OnGrean");
+        //Debug.Log("OnGrean");
         isColorRed = false;
         isBlink = false;
     }

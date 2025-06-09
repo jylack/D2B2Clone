@@ -42,9 +42,6 @@ public class ScHandUpRegion : MonoBehaviour
             inHandUpRegion = false;
             ExitHandUpRegion();
         }
-        if (handUpMissionClear == true)
-        {
-        }
     }
     public void StopCurrentCor()
     {

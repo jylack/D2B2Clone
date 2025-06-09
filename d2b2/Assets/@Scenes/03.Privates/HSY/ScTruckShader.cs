@@ -8,7 +8,6 @@ using static UnityEngine.Rendering.DebugUI;
 public class ScTruckShader : MonoBehaviour
 {
     public float dissolveSpeed = 1f;
-    private float dissolveValue = 0f;
     private Material[] materials;
     [SerializeField] MeshRenderer[] allMats;
     [SerializeField] List<Material> mats;
