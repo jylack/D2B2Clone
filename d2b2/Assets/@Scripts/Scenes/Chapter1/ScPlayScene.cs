@@ -16,11 +16,11 @@ public class ScPlayScene : ScSceneBase
 
         foreach (var sceneName in MovingSceneList)
         {
-            //Debug.Log($"Checking Scene: {sceneName}");                        
+            Debug.Log($"Checking ScDefine.ScScene: {sceneName}");                        
 
             if (currentSceneName == Manager.Instance.SceneMgr.GetSceneName(sceneName))
             {
-                //Debug.Log($"Scene {sceneName} 이동가능씬");
+                //Debug.Log($"Scene: {currentSceneName} 이동가능씬");
                 isMovableScene = true;
                 break;
             }
@@ -28,8 +28,13 @@ public class ScPlayScene : ScSceneBase
 
         if (!isMovableScene)
         {
-            //Debug.LogWarning($"Scene {currentSceneName} 이동불가씬");
+            Debug.LogWarning($"Scene {currentSceneName} 이동불가씬");
             Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
+        }
+        else
+        {
+            Debug.Log($"Scene {currentSceneName} 이동가능씬");
+            Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(1);
         }
 
     }
@@ -37,12 +42,28 @@ public class ScPlayScene : ScSceneBase
     private void Start()
     {
         currentSceneName = SceneManager.GetActiveScene().name;
-        //Debug.Log($"Current Scene: {currentSceneName}");
+
+        Debug.Log($"Current Scene: {currentSceneName}");
 
 
         Init().Forget();
     }
 
+    //private void OnEnable()
+    //{
+    //    SceneManager.sceneLoaded += OnSceneLoaded;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    SceneManager.sceneLoaded -= OnSceneLoaded;
+    //}
+
+    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    //    currentSceneName = scene.name;
+    //    Debug.Log($"Scene Loaded: {currentSceneName}");
+    //    Init().Forget();
+    //}
 
 }
-
