@@ -100,27 +100,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2658031098026451770}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &-6443206300183130069
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2891962844528762475}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b8b48b5f1227e7b4db81ccce01264e50, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!136 &649808896
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -135,6 +114,27 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!95 &-6443206300183130069
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2891962844528762475}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8b48b5f1227e7b4db81ccce01264e50, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &649808895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,3 +268,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc7ad5a213be1542b6218d3fa16c845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effect: {fileID: 8896332076797583620, guid: 7872ee59d40bdcd4b836bc8ce193e022, type: 3}

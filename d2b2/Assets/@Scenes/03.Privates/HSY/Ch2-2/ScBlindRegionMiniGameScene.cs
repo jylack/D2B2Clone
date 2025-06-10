@@ -17,13 +17,13 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     [SerializeField] private Transform cameraPos;
     [SerializeField] private ScMirrorPlayerHsy playerScript;
     [Header("Npc")]
-    [SerializeField] private GameObject npcPrefab;
     [SerializeField] private ParticleSystem npcCreateParticle;
     [SerializeField] private Vector3 npcSpawnPos;
     [SerializeField] private GameObject gameStartBtn;
     [Header("Child")]
     [SerializeField] private GameObject[] childPrefab;
     [SerializeField] private Transform[] childPosArray;
+    [SerializeField] private GameObject[] childArray;
     [SerializeField] public int childMaxCount => childPosArray.Length;
     [Header("TimeLine")]
     [SerializeField] private PlayableAsset miniGameStartTimeLine;
@@ -96,13 +96,12 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         yield return StartCoroutine(TimmerCor());
         playNavInfo.SetActive(false);
         playerScript.DisConnectPlayerTriggerEvent();
+        playerScript.isGamePlaying = false;
         UIPlayerHsy.Instance.countDownText.text = "Á¾·á";
         yield return StartCoroutine(UIPlayerHsy.Instance.SideFillProduction(0,1,3));
         yield return StartCoroutine(UIPlayerHsy.Instance.SideFillProduction(1,0,3));
         UIPlayerHsy.Instance.countDownText.text = "";
         PlayAfterGame();
-        playerScript.isGamePlaying = false;
-        playerScript.DisConnectPlayerTriggerEvent();
     }
     public void OnClickPlayeButton()
     {
@@ -122,10 +121,18 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
 
     public void CreateChildNpc()
     {
+        childArray = new GameObject[childMaxCount];
         for (int i=0; i< childPosArray.Length; i++)
         {
-            Instantiate(childPrefab[UnityEngine.Random.Range(0, childPrefab.Length)], childPosArray[i].position,Quaternion.identity);
+            childArray[i] = Instantiate(childPrefab[UnityEngine.Random.Range(0, childPrefab.Length)], childPosArray[i].position,Quaternion.identity);
         }
     }
-
+    public void ResetChanter2_2()
+    {
+        playerScript.findChildCount = 0;
+        for (int i = 0; i < childArray.Length; i++)
+        {
+            Destroy(childArray[i]);
+        }
+    }
 }

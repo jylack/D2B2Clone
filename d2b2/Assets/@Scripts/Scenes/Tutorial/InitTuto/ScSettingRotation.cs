@@ -19,7 +19,6 @@ public class ScSettingRotation : MonoBehaviour
 
     private void Awake()
     {
-        //씬뷰에서는 Right Controller로 나와있으나 Find에는 붙혀놔야됨
         Debug.Log(GameObject.Find("Camera Offset").name);
         abcm = GameObject.Find("Camera Offset").transform.GetChild(5).GetComponent<ActionBasedControllerManager>(); 
         GameObject turn = GameObject.Find("Turn");

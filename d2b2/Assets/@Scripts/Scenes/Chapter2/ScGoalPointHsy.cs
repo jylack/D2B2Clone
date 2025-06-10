@@ -10,17 +10,18 @@ public class ScGoalPointHsy : MonoBehaviour
     [SerializeField] private UnityEvent goalEvent;
     [SerializeField] private GameObject arrowImg;
      private Vector3 arrowMinPos;
-     private Vector3 arrowMaxPos;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             goalEvent?.Invoke();
+           // Manager.Instance.GameMgr.SetPlayer();
         }
     }
 
     private void Start()
     {
+        arrowImg.transform.position = new Vector3(transform.position.x, arrowImg.transform.position.y + 1, transform.position.z);
         arrowMinPos = new Vector3(transform.position.x, arrowImg.transform.position.y - 1, transform.position.z);
         StartCoroutine(ArrowUI());
     }

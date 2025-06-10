@@ -129,6 +129,10 @@ public class GameSceneManager : MonoBehaviour
             await SceneManager.UnloadSceneAsync(currentSceneName);
 
         await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        // 활성 씬을 새로 로드된 씬으로 설정합니다.
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+
         currentSceneName = sceneName;
 
         isLoaded = false;

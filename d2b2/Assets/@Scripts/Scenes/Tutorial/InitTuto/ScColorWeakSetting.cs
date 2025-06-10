@@ -24,7 +24,8 @@ public class ScColorWeakSetting : MonoBehaviour
     private void Awake()
     {
         volume = GameObject.Find("Global Volume").GetComponent<Volume>();
-        volume.profile.TryGet<ChannelMixer>(out channelMixer);
+        //그냥 volume.profile.TryGet을 하면 복사본을 만들어서 그 복사본을 수정, sharedProfile을 써야 원본에 수정가능
+        volume.sharedProfile.TryGet(out channelMixer);
         colors = VolumeColors.None;
     }
 
