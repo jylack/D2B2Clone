@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ScPlayer : ScObjectBase
+public class ScPlayer : ScPlayerBase
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
@@ -86,7 +86,7 @@ public class ScPlayer : ScObjectBase
 
 
 
-    public void PlaySound(AudioClip audioClip)
+    public override void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
     }

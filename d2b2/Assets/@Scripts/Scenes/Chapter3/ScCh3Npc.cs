@@ -162,10 +162,20 @@ public class ScCh3Npc : MonoBehaviour
     {
         if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
-            // +1 텍스트
+            Vector3 playerPos = Manager.Instance.GameMgr.Player.transform.position;
+            Vector3 plusOneScorePos = transform.position + Vector3.up * 3f;
+
+            GameObject plusOneScore = Manager.Instance.ResourceMgr.InstantiatePlusOneScore();
+            plusOneScore.transform.position = plusOneScorePos;
+            plusOneScore.transform.LookAt(new Vector3(playerPos.x, plusOneScorePos.y, playerPos.z));
+
+            plusOneScore.transform.DOMoveY(plusOneScorePos.y + 3f, 3f).OnComplete(() =>
+            {
+                Destroy(plusOneScore);
+            });
         }
 
-        // vfx
+        Manager.Instance.ResourceMgr.InstantiateStarExplosion(transform.position + Vector3.up);
 
         DestroySelf();
     }
