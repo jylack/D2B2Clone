@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class ScCarSpawner2 : ScObjectBase
     [SerializeField] private Vector3 direction;
     [SerializeField] private GameObject[] ignoreGameObjects;
     [SerializeField] private GameObject[] carPrefabs;
-    
+
 
 
     private async void Start()
@@ -74,7 +75,12 @@ public class ScCarSpawner2 : ScObjectBase
     {
         try
         {
-            CancellationToken token = base.DestroyToken;
+            CancellationToken token;
+
+            if (Manager.Instance.SceneMgr.CurrentScene == ScDefine.ScScene.Ch3Play)
+                token = CancellationTokenSource.CreateLinkedTokenSource(ScCh3PlayService.Instance.TimeUpCts.Token, base.DestroyToken).Token;
+            else
+                token = base.DestroyToken;
 
             while (!token.IsCancellationRequested)
             {
@@ -104,13 +110,12 @@ public class ScCarSpawner2 : ScObjectBase
         {
             var param = new object[] { moveSpeed, direction, distance };
             string prefabName = $"Prefabs/Cars/{carPrefab.name}";
-            PhotonNetwork.InstantiateRoomObject(prefabName, transform.position, quaternion.identity, 0, param);
+            PhotonNetwork.Instantiate(prefabName, transform.position, quaternion.identity, 0, param);
         }
         else
         {
-            Instantiate(carPrefab, transform)
-                .GetComponent<ScCar>()
-                .Init(moveSpeed, direction, distance, ignoreGameObjects);
+            var car = Instantiate(carPrefab, transform).GetComponent<ScCar>();
+            car.Init(moveSpeed, direction, distance, ignoreGameObjects);
         }
     }
 }

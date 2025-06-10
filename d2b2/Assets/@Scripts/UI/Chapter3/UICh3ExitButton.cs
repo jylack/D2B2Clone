@@ -1,3 +1,4 @@
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 public class UICh3ExitButton : ScObjectBase, IPointerDownHandler, IPointerUpHandler
 {
-    private const float HOLD_THRESHOLD = 3f;
+    private const float HOLD_THRESHOLD = 2f;
 
     [SerializeField] private TMP_Text exitText;
     [SerializeField] private Image imgPressed;
@@ -25,7 +26,7 @@ public class UICh3ExitButton : ScObjectBase, IPointerDownHandler, IPointerUpHand
             if (holdTime >= HOLD_THRESHOLD)
             {
                 isHolding = false;
-                OnHoldComplete();
+                ScCh3PlayService.Instance.TryLeaveRoom();
             }
         }
     }
@@ -44,12 +45,5 @@ public class UICh3ExitButton : ScObjectBase, IPointerDownHandler, IPointerUpHand
         isHolding = false;
         holdTime = 0f;
         imgPressed.fillAmount = 0f;
-    }
-
-
-
-    private void OnHoldComplete()
-    {
-
     }
 }

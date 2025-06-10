@@ -19,7 +19,6 @@ public class ScTrafficLightSystem : ScObjectBase
 
     private int nextTargetIndex;
     private ScTrafficLightGroup currentTrafficLightGroup;
-    private CancellationTokenSource greenBeforeEventCts;
     private CancellationTokenSource updateTrafficLightsCts;
 
 
@@ -44,6 +43,12 @@ public class ScTrafficLightSystem : ScObjectBase
     }
 
 
+
+    public void SetAllLightColors(ScDefine.ScTrafficLightType lightColor)
+    {
+        foreach (ScTrafficLightGroup group in trafficLightGroups)
+            group.SetLight(lightColor);
+    }
 
     public void OnCrosswalkEnter()
     {
@@ -107,7 +112,7 @@ public class ScTrafficLightSystem : ScObjectBase
         {
             await UniTask.WaitUntil(() => ScCh3PlayService.Instance != null);
 
-            CancellationToken token = base.DestroyToken;
+            var token = CancellationTokenSource.CreateLinkedTokenSource(ScCh3PlayService.Instance.TimeUpCts.Token, base.DestroyToken);
 
             while (!token.IsCancellationRequested)
             {

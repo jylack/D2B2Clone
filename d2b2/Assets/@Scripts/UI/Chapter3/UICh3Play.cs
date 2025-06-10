@@ -25,6 +25,12 @@ public class UICh3Play : UIBase
         Instance = this;
     }
 
+    private void Start()
+    {
+        var canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Manager.Instance.GameMgr.Player.MainCamera;
+    }
+
 
 
     public void GoToLogin()

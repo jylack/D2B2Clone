@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -30,13 +31,22 @@ public class ResourceManager : MonoBehaviour
 
     public GameObject InstantiateStarExplosion(Vector3 position)
     {
-        GameObject vfx = Instantiate(Resources.Load<GameObject>("Prefabs/StarExplosion"));
-        vfx.transform.position = position;
+        return InstantiateVfx("Prefabs/StarExplosion", position);
+    }
 
-        var particle = vfx.GetComponent<ParticleSystem>();
-        Destroy(vfx, particle.main.duration);
+    public GameObject InstantiateSmokeExplosion(Vector3 position)
+    {
+        return InstantiateVfx("Prefabs/SmokeExplosionWhite", position);
+    }
 
-        return vfx;
+    public GameObject InstantiateConfettiBlast(Vector3 position)
+    {
+        return InstantiateVfx("Prefabs/ConfettiBlastRainbow", position);
+    }
+
+    public GameObject InstantiateConfettiDirectional(Vector3 position)
+    {
+        return InstantiateVfx("Prefabs/ConfettiDirectionalRainbow", position);
     }
 
     public GameObject GetCharacterPrefab(ScDefine.ScGuideCharacter character)
@@ -47,5 +57,18 @@ public class ResourceManager : MonoBehaviour
     public GameObject GetCharacterHeadPrefab(ScDefine.ScGuideCharacter character)
     {
         return characterHeadPrefabs[(int)ScDefine.ScGuideCharacter.Character1];
+    }
+
+
+
+    private GameObject InstantiateVfx(string path, Vector3 position)
+    {
+        GameObject vfx = Instantiate(Resources.Load<GameObject>(path));
+        vfx.transform.position = position;
+
+        var particle = vfx.GetComponent<ParticleSystem>();
+        Destroy(vfx, particle.main.duration);
+
+        return vfx;
     }
 }

@@ -33,8 +33,8 @@ public partial class ScCh3LobbyService : MonoBehaviourPunCallbacks
         TryConnect(Manager.Instance.GameMgr.NickName);
     }
 
-    
-    
+
+
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();

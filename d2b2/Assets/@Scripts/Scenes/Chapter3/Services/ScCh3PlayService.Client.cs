@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Linq;
@@ -18,6 +19,7 @@ public partial class ScCh3PlayService
         foreach (Player player in PhotonNetwork.PlayerList)
             scoreDatas.Add(new ScCh3ScoreData(player.ActorNumber, player.NickName, 0));
 
+        glowWallParent.SetActive(true);
         UICh3Play.Instance.UpdateScores(scoreDatas);
         StartTimer().Forget();
     }
@@ -53,5 +55,21 @@ public partial class ScCh3PlayService
             Debug.Log("score data not found.");
 
         UICh3Play.Instance.UpdateScores(scoreDatas);
+    }
+
+    [PunRPC]
+    private async void OnTimeUp()
+    {
+        TimeUpCts.Cancel();
+
+        glowWallParent.SetActive(false);
+        trafficLightSystem.SetAllLightColors(ScDefine.ScTrafficLightType.Red);
+
+        DestoyAllCars();
+        ScCh3NpcService.Instance.DestroyAllNpcs();
+
+        await UniTask.Delay(1000);
+
+        confettiParent.SetActive(true);
     }
 }

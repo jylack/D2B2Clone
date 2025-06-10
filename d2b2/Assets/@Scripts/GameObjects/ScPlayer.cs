@@ -17,6 +17,7 @@ public class ScPlayer : ScPlayerBase
     [SerializeField] private float maxHandHeight;
 
     public CharacterController CharacterController => characterController;
+    public override Camera MainCamera => mainCamera;
 
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
     private bool isLeftHandUp;

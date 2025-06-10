@@ -5,7 +5,9 @@ public class ScCh3Player : ScPlayerBase
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private AudioSource audioSource;
-    
+
+    public override Camera MainCamera => mainCamera;
+
     private ScCh3Npc hoveredNpc;
 
 

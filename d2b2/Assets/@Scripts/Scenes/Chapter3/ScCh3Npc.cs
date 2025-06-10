@@ -2,9 +2,10 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Pathfinding;
 using Photon.Pun;
+using System;
 using UnityEngine;
 
-public class ScCh3Npc : MonoBehaviour
+public class ScCh3Npc : ScObjectBase
 {
     private const float WALK_SPEED = 1f;
     private const float RUN_SPEED = 2.2f;
@@ -24,7 +25,7 @@ public class ScCh3Npc : MonoBehaviour
     private Outline outline;
 
 
-    
+
     private void Awake()
     {
         ai = GetComponent<RichAI>();
@@ -157,7 +158,7 @@ public class ScCh3Npc : MonoBehaviour
         if (isDoingBadThing)
             ScCh3PlayService.Instance.TryCatchNpc(id, PhotonNetwork.LocalPlayer.ActorNumber);
     }
-    
+
     public void OnNpcCaught(int npcId, int actorNumber)
     {
         if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
@@ -168,6 +169,8 @@ public class ScCh3Npc : MonoBehaviour
             GameObject plusOneScore = Manager.Instance.ResourceMgr.InstantiatePlusOneScore();
             plusOneScore.transform.position = plusOneScorePos;
             plusOneScore.transform.LookAt(new Vector3(playerPos.x, plusOneScorePos.y, playerPos.z));
+            var canvas = plusOneScore.GetComponent<Canvas>();
+            canvas.worldCamera = Manager.Instance.GameMgr.Player.MainCamera;
 
             plusOneScore.transform.DOMoveY(plusOneScorePos.y + 3f, 3f).OnComplete(() =>
             {
@@ -175,9 +178,14 @@ public class ScCh3Npc : MonoBehaviour
             });
         }
 
-        Manager.Instance.ResourceMgr.InstantiateStarExplosion(transform.position + Vector3.up);
-
+        ShowCaughtVfx();
         DestroySelf();
+    }
+
+    public void DestroyNpc()
+    {
+        ShowDestoryVfx();
+        Destroy(gameObject);
     }
 
     public void OnRayHoverEnter()
@@ -203,18 +211,32 @@ public class ScCh3Npc : MonoBehaviour
 
     private async UniTaskVoid LookAround()
     {
-        canUpdateAnimation = false;
-        ai.updateRotation = false;
-        await transform.DOLookAt(currentDestinationPoint.oppositePoint.transform.position, ROTATE_DURATION);
+        try
+        {
+            canUpdateAnimation = false;
+            ai.updateRotation = false;
 
-        character.SetRaiseHandAnimation(false);
-        character.SetAnimation(ScDefine.ScNpcAnimState.LookAround);
+            await transform
+                .DOLookAt(currentDestinationPoint.oppositePoint.transform.position, ROTATE_DURATION)
+                .SetLink(gameObject);
 
-        await UniTask.Delay(5500);
+            character.SetRaiseHandAnimation(false);
+            character.SetAnimation(ScDefine.ScNpcAnimState.LookAround);
 
-        ai.updateRotation = true;
-        canUpdateAnimation = true;
-        canDoUpdateMethod = true;
+            await UniTask.Delay(5500, cancellationToken: base.DestroyToken);
+
+            ai.updateRotation = true;
+            canUpdateAnimation = true;
+            canDoUpdateMethod = true;
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+        }
     }
 
     private void Move(ScPathPoint newPathPoint, bool isRun)
@@ -275,6 +297,16 @@ public class ScCh3Npc : MonoBehaviour
         badThingPointer = Manager.Instance.ResourceMgr.InstantiateBadThingPointer();
         badThingPointer.transform.SetParent(transform);
         badThingPointer.transform.localPosition = new Vector3(0f, 2f, 0f);
+    }
+
+    private void ShowCaughtVfx()
+    {
+        Manager.Instance.ResourceMgr.InstantiateStarExplosion(transform.position + Vector3.up);
+    }
+
+    private void ShowDestoryVfx()
+    {
+        Manager.Instance.ResourceMgr.InstantiateSmokeExplosion(transform.position + Vector3.up);
     }
 
     private void DestroySelf()
