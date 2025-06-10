@@ -73,7 +73,7 @@ public class ScCharaSelectManager : MonoBehaviour
         TutorialManager.Instance.playerEntity.guideCharacter = selectCharacter.GetCharaId();
         Manager.Instance.DbMgr.Save(TutorialManager.Instance.playerEntity.nickName, TutorialManager.Instance.playerEntity).Forget();
         ConfirmPopUp.SetActive(false);
-        Manager.Instance.SceneMgr.LoadScene(sceneName);
+        //Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 
     public void CancelSelect()

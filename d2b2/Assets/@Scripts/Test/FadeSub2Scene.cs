@@ -21,6 +21,6 @@ public class FadeSub2Scene : MonoBehaviour
     
     public void LoadScene()
     {
-        Manager.Instance.SceneMgr.LoadScene("FadeSub1");
+        //Manager.Instance.SceneMgr.LoadScene("FadeSub1");
     }
 }

@@ -23,22 +23,25 @@ public class ScCharacter : MonoBehaviour
 
     public void SetAnimation(ScDefine.ScNpcAnimState animState)
     {
-        animator.SetInteger(AnimStateHash, (int)animState);
+        animator?.SetInteger(AnimStateHash, (int)animState);
     }
 
     public void SetRaiseHandAnimation(bool raisingHand)
     {
         if (raisingHand != isRaisingHand)
         {
-            animator.SetBool(AnimIsRaiseHandHash, raisingHand);
+            animator?.SetBool(AnimIsRaiseHandHash, raisingHand);
+            float curWeight = 0;
 
-            float curWeight = animator.GetLayerWeight(HandSideLayerIndex);
+            if (animator != null)
+                curWeight = animator.GetLayerWeight(HandSideLayerIndex);
+
             float targetWeight = raisingHand ? 1 : 0;
 
             handTween?.Kill();
             handTween = DOTween.To(
                     () => curWeight,
-                    w => animator.SetLayerWeight(HandSideLayerIndex, w),
+                    w => animator?.SetLayerWeight(HandSideLayerIndex, w),
                     targetWeight,
                     0.4f)
                 .SetLink(gameObject);

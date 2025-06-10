@@ -3,6 +3,7 @@ using Photon.Pun;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -77,6 +78,14 @@ public class ScCh3NpcService : ScObjectBase
         return false;
     }
 
+    public void DestroyAllNpcs()
+    {
+        foreach (ScCh3Npc npc in npcDict.Values)
+            npc.DestroyNpc();
+
+        npcDict.Clear();
+    }
+
     public void OnSpawnNpc(int npcId, int prefabIndex)
     {
         int spawnPointIndex = npcId % spawnPoints.Count;
@@ -98,7 +107,7 @@ public class ScCh3NpcService : ScObjectBase
         }
         else
         {
-            Debug.LogError($"npc not found. npcId[{npcId}]");
+            Debug.Log($"npc not found. npcId[{npcId}]");
         }
     }
 
@@ -122,11 +131,11 @@ public class ScCh3NpcService : ScObjectBase
     {
         try
         {
-            var token = base.DestroyToken;
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ScCh3PlayService.Instance.TimeUpCts.Token, base.DestroyToken);
 
-            while (!token.IsCancellationRequested)
+            while (!linkedCts.IsCancellationRequested)
             {
-                await UniTask.Delay(1000, cancellationToken: token);
+                await UniTask.Delay(1000, cancellationToken: linkedCts.Token);
 
                 if (currentNpcCount < remainNpcCount)
                 {
@@ -150,11 +159,11 @@ public class ScCh3NpcService : ScObjectBase
     {
         try
         {
-            var token = base.DestroyToken;
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ScCh3PlayService.Instance.TimeUpCts.Token, base.DestroyToken);
 
-            while (!token.IsCancellationRequested)
+            while (!linkedCts.IsCancellationRequested)
             {
-                await UniTask.Delay(badThingTokenGenInterval, cancellationToken: token);
+                await UniTask.Delay(badThingTokenGenInterval, cancellationToken: linkedCts.Token);
                 badThingTokenCount++;
             }
         }

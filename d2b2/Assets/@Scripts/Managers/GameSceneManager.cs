@@ -11,6 +11,9 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private float duration = 0.15f;
     [SerializeField] private string emptySceneName = "";
     
+    public ScDefine.ScScene CurrentScene { get; private set; }
+    public ScDefine.ScScene PreviousScene { get; private set; }
+
     private bool isLoaded;
     private string currentSceneName;
     private string prevSceneName;
@@ -32,15 +35,13 @@ public class GameSceneManager : MonoBehaviour
     
     public void LoadScene(ScDefine.ScScene scene)
     {
-        string sceneName = GetSceneName(scene);
-        LoadScene(sceneName);
-    }
+        PreviousScene = CurrentScene;
+        CurrentScene = scene;
 
-    public void LoadScene(string sceneName)
-    {
+        string sceneName = GetSceneName(scene);
         Load(sceneName).Forget();
     }
-    
+
     public void OnSceneLoaded()
     {
         isLoaded = true;
@@ -50,7 +51,7 @@ public class GameSceneManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(prevSceneName))
         {
-            LoadScene(prevSceneName);
+            Load(prevSceneName).Forget();
         }
         else
         {
@@ -92,7 +93,15 @@ public class GameSceneManager : MonoBehaviour
         };
     }
 
-    
+    public void SetCurrentSceneManually(ScDefine.ScScene currentScene)
+    {
+        prevSceneName = currentSceneName;
+
+        CurrentScene = currentScene;
+        currentSceneName = GetSceneName(currentScene);
+    }
+
+
 
     private async UniTask Load(string sceneName)
     {
@@ -102,14 +111,18 @@ public class GameSceneManager : MonoBehaviour
         Debug.Log($"load scene -> {sceneName}"); 
 
         await FadeOut();
-        
+
         // warning error log 방지
-        var listener = GameObject.Find("Main Camera").GetComponent<AudioListener>();
-        if (listener != null)
-            Destroy(listener);
-        
+        GameObject camera = GameObject.Find("Main Camera");
+        if (camera != null)
+        {
+            var listener = camera.GetComponent<AudioListener>();
+            if (listener != null)
+                Destroy(listener);
+        }
+
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
-        
+
         // unload
         prevSceneName = currentSceneName;
         if (!string.IsNullOrEmpty(currentSceneName))

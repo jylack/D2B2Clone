@@ -46,14 +46,9 @@ public class UICh3Lobby : UIBase
     public void OnExitButtonClicked()
     {
         if (PhotonNetwork.IsMasterClient)
-        {
-            if (!ScCh3LobbyService.Instance.TransferMasterTo())
-                ScCh3LobbyService.Instance.LeaveRoom();
-        }
-        else
-        {
-            ScCh3LobbyService.Instance.LeaveRoom();
-        }
+            ScCh3LobbyService.Instance.TransferMasterTo();
+        
+        ScCh3LobbyService.Instance.LeaveRoom();
 
         Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch3Login);
     }

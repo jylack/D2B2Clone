@@ -33,6 +33,8 @@ public class ScCar : ScObjectBase
 
     private void Start()
     {
+        ScCh3PlayService.Instance.SetCarParent(this);
+
         gameObject.name = $"Car_{numbering++}";
         originPosition = transform.position;
         transform.rotation = Quaternion.LookRotation(dir);
