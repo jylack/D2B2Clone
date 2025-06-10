@@ -13,7 +13,7 @@ public class MoveTutorialManager : MonoBehaviour
     [SerializeField] ScDefine.ScScene sceneName;
     void Start()
     {
-        guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
+        //guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
     }
 
     public void WalkSuccess()
