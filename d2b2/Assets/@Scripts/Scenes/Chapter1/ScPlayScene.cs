@@ -16,15 +16,16 @@ public class ScPlayScene : ScSceneBase
 
         foreach (var sceneName in MovingSceneList)
         {
-            Debug.Log($"Checking ScDefine.ScScene: {sceneName}");                        
+            Debug.Log($"ScDefine.ScScene: {sceneName}");
 
             if (currentSceneName == Manager.Instance.SceneMgr.GetSceneName(sceneName))
             {
-                //Debug.Log($"Scene: {currentSceneName} 이동가능씬");
                 isMovableScene = true;
                 break;
             }
         }
+
+
 
         if (!isMovableScene)
         {
@@ -39,31 +40,20 @@ public class ScPlayScene : ScSceneBase
 
     }
 
+
     private void Start()
     {
-        currentSceneName = SceneManager.GetActiveScene().name;
-
-        Debug.Log($"Current Scene: {currentSceneName}");
-
+        if(SceneManager.sceneCount > 1)
+        {
+            currentSceneName = SceneManager.GetSceneAt(1).name;            
+        }
+        else
+        {
+            currentSceneName = SceneManager.GetActiveScene().name;
+        }
+        Debug.Log($"현재 씬: {currentSceneName}");
 
         Init().Forget();
     }
-
-    //private void OnEnable()
-    //{
-    //    SceneManager.sceneLoaded += OnSceneLoaded;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    SceneManager.sceneLoaded -= OnSceneLoaded;
-    //}
-
-    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    currentSceneName = scene.name;
-    //    Debug.Log($"Scene Loaded: {currentSceneName}");
-    //    Init().Forget();
-    //}
 
 }
