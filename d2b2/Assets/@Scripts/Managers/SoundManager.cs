@@ -3,25 +3,39 @@
 public class SoundManager : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private AudioClip okButton;
-    [SerializeField] private AudioClip cancelButton;
+    [SerializeField] private AudioClip ok;
+    [SerializeField] private AudioClip cancel;
+    [Header("Game")]
+    [SerializeField] private AudioClip trafficLightChanged;
+    [SerializeField] private AudioClip chapterFinished;
+    [SerializeField] private AudioClip catchSomething;
+    [SerializeField] private AudioClip positiveNotification;
+    [SerializeField] private AudioClip negativeNotification;
+    [Header("BGM")]
+    [SerializeField] private AudioClip defaultBgm;
+    [SerializeField] private AudioClip chapterBgm;
     
-    [SerializeField] private AudioClip success;
-    [SerializeField] private AudioClip fail;
 
-    private ScPlayerBase Player => Manager.Instance.GameMgr.Player;
     
     
-    
-    public void PlaySuccess()
+    public void Play(ScDefine.ScSound sound)
     {
-        PlaySound(success);
+        switch (sound)
+        {
+            case ScDefine.ScSound.Ok:                   PlaySound(ok);                      break;
+            case ScDefine.ScSound.Cancel:               PlaySound(cancel);                  break;
+            case ScDefine.ScSound.TrafficLightChanged:  PlaySound(trafficLightChanged);     break;
+            case ScDefine.ScSound.ChapterFinished:      PlaySound(chapterFinished);         break;
+            case ScDefine.ScSound.CatchSomething:       PlaySound(catchSomething);          break;
+            case ScDefine.ScSound.PositiveNotification: PlaySound(positiveNotification);    break;
+            case ScDefine.ScSound.NegativeNotification: PlaySound(negativeNotification);    break;
+        }
     }
 
 
 
     private void PlaySound(AudioClip audioClip)
     {
-        Player?.PlaySound(audioClip);
+        Manager.Instance.GameMgr.Player?.PlaySound(audioClip);
     }
 }

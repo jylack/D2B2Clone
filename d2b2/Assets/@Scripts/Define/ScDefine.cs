@@ -85,4 +85,17 @@
         DoBadThing,
         Destroy,
     }
+
+    public enum ScSound
+    {
+        None,
+        Ok,
+        Cancel,
+        
+        TrafficLightChanged,
+        ChapterFinished,
+        CatchSomething,
+        PositiveNotification,
+        NegativeNotification,
+    }
 }

@@ -28,6 +28,7 @@ public class ScCh3Player : ScPlayerBase
     public override void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
+        audioSource.Play();
     }
 
     public void OnOutlineHoverEnter(HoverEnterEventArgs args)
