@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public event OnPlayerHandsUpHandler OnPlayerHandsUp;
     public event OnPlayerMovingHandler OnPlayerMoving;
 
-    public ScPlayer Player { get; private set; }
+    public ScPlayerBase Player { get; private set; }
     public string NickName => playerEntity.nickName;
     public ScDefine.ScGuideCharacter GuideCharacterType => playerEntity.guideCharacter;
 
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void SetPlayer(ScPlayer player)
+    public void SetPlayer(ScPlayerBase player)
     {
         Player = player;
     }

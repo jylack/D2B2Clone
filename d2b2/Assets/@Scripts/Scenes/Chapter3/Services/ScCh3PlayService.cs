@@ -12,7 +12,6 @@ public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
     private const int TOTAL_TIME = 120;
 
     [SerializeField] private ScTrafficLightSystem trafficLightSystem;
-    //[SerializeField] private ScCarSpawner2[] carSpawners;
 
     private Dictionary<int, int> npcIdToActorNumber = new();
     private List<ScCh3ScoreData> scoreDatas = new();

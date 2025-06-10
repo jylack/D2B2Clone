@@ -23,6 +23,22 @@ public class ResourceManager : MonoBehaviour
         return Instantiate(Resources.Load<GameObject>("Prefabs/BadThingPointer"));
     }
 
+    public GameObject InstantiatePlusOneScore()
+    {
+        return Instantiate(Resources.Load<GameObject>("Prefabs/PlusOneScore"));
+    }
+
+    public GameObject InstantiateStarExplosion(Vector3 position)
+    {
+        GameObject vfx = Instantiate(Resources.Load<GameObject>("Prefabs/StarExplosion"));
+        vfx.transform.position = position;
+
+        var particle = vfx.GetComponent<ParticleSystem>();
+        Destroy(vfx, particle.main.duration);
+
+        return vfx;
+    }
+
     public GameObject GetCharacterPrefab(ScDefine.ScGuideCharacter character)
     {
         return characterPrefabs[(int)ScDefine.ScGuideCharacter.Character1];

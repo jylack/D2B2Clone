@@ -5,7 +5,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip success;
     [SerializeField] private AudioClip fail;
 
-    private ScPlayer Player => Manager.Instance.GameMgr.Player;
+    private ScPlayerBase Player => Manager.Instance.GameMgr.Player;
     
     
     
@@ -18,6 +18,6 @@ public class SoundManager : MonoBehaviour
 
     private void PlaySound(AudioClip audioClip)
     {
-        Manager.Instance.GameMgr.Player?.PlaySound(audioClip);
+        Player?.PlaySound(audioClip);
     }
 }

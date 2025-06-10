@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ScCh3Player : ScObjectBase
+public class ScCh3Player : ScPlayerBase
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private AudioSource audioSource;
     
-    private Outline lastOutline;
     private ScCh3Npc hoveredNpc;
 
 
-    
+
     private void Start()
     {
         Manager.Instance.InputMgr.OnTriggerPerform += InputMgrOnOnTriggerPerform;
+        Manager.Instance.GameMgr.SetPlayer(this);
     }
 
     private void OnDestroy()
@@ -22,7 +22,12 @@ public class ScCh3Player : ScObjectBase
     }
 
 
-    
+
+    public override void PlaySound(AudioClip audioClip)
+    {
+        audioSource.PlayOneShot(audioClip);
+    }
+
     public void OnOutlineHoverEnter(HoverEnterEventArgs args)
     {
         if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))
@@ -46,9 +51,9 @@ public class ScCh3Player : ScObjectBase
                 hoveredNpc = null;
         }
     }
-    
-    
-    
+
+
+
     private void InputMgrOnOnTriggerPerform()
     {
         hoveredNpc?.TryCatchNpc();

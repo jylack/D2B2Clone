@@ -6,7 +6,7 @@ public class ScMirror : MonoBehaviour
     public Transform mirrorCamTransform;
 
 
-    private void Start()
+    private void LateUpdate()
     {
         
         // Player -> Mirror
