@@ -2,6 +2,10 @@
 
 public class SoundManager : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] private AudioClip okButton;
+    [SerializeField] private AudioClip cancelButton;
+    
     [SerializeField] private AudioClip success;
     [SerializeField] private AudioClip fail;
 
