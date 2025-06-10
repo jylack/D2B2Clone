@@ -14,7 +14,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
     private GameObject hoveredNpc;
     private RayDetectMan hoveredDetectMan;
     private bool isMirrorHovered;
-    public int findChildCount { get; private set; }
+    public int findChildCount { get; set; }
     private bool isNpcHovered;
     public bool isGamePlaying;
     public event Action<int> findChildChildEvent;
@@ -125,45 +125,39 @@ public class ScMirrorPlayerHsy : MonoBehaviour
         }
     }
     private bool Detect(out RaycastHit hitInfo, int layerMask)
-{
-    hitInfo = default;
-
-    Vector3 startPoint = rayInteractor.attachTransform.position;
-    Vector3 dir = rayInteractor.attachTransform.forward;
-    float distance = lineVisual.lineLength;
-
-    // 1차 Ray: XR Ray → 거울 맞았는지
-    if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
     {
-        ScMirror mirror = mirrorHit.collider.GetComponent<ScMirror>();
-        if (mirror == null) return false;
+        hitInfo = default;
 
-        Camera mirrorCamera = mirror.mirrorCamTransform.GetComponent<Camera>();
-        if (mirrorCamera == null) return false;
+        Vector3 startPoint = rayInteractor.attachTransform.position;
+        Vector3 dir = rayInteractor.attachTransform.forward;
+        float distance = lineVisual.lineLength;
+        if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
+        {
+            ScMirror mirror = mirrorHit.collider.GetComponent<ScMirror>();
+            if (mirror == null) return false;
 
-        Vector3 mirrorLocalHit = mirrorHit.collider.transform.InverseTransformPoint(mirrorHit.point);
-        Vector2 uv = new Vector2(
-            1f - (mirrorLocalHit.x / mirrorHit.collider.bounds.size.x + 0.5f),
-            mirrorLocalHit.y / mirrorHit.collider.bounds.size.y + 0.5f
-        );
+            Camera mirrorCamera = mirror.mirrorCamTransform.GetComponent<Camera>();
+            if (mirrorCamera == null) return false;
 
-        Ray reflectedRay = mirrorCamera.ViewportPointToRay(new Vector3(uv.x, uv.y, 0));
-        Debug.DrawRay(reflectedRay.origin, reflectedRay.direction * distance, Color.magenta);
+            Vector3 mirrorLocalHit = mirrorHit.collider.transform.InverseTransformPoint(mirrorHit.point);
+            Vector2 uv = new Vector2(
+                1f - (mirrorLocalHit.x / mirrorHit.collider.bounds.size.x + 0.5f),
+                mirrorLocalHit.y / mirrorHit.collider.bounds.size.y + 0.5f
+            );
 
-        if (Physics.Raycast(reflectedRay, out hitInfo, distance, layerMask))
+            Ray reflectedRay = mirrorCamera.ViewportPointToRay(new Vector3(uv.x, uv.y, 0));
+            Debug.DrawRay(reflectedRay.origin, reflectedRay.direction * distance, Color.magenta);
+            if (Physics.Raycast(reflectedRay, out hitInfo, distance, layerMask))
+            {
+                return true;
+            }
+        }
+        if (Physics.Raycast(startPoint, dir, out hitInfo, distance, layerMask))
         {
             return true;
         }
+        return false;
     }
-
-    // 거울 안 맞으면 그냥 기본 Ray
-    if (Physics.Raycast(startPoint, dir, out hitInfo, distance, layerMask))
-    {
-        return true;
-    }
-
-    return false;
-}
     //private bool Detect(out RaycastHit hitInfo, int layerMask)
     //{
     //    hitInfo = default;
