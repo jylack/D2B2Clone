@@ -67,7 +67,8 @@ public class ScTrafficLightSystem : ScObjectBase
             updateTrafficLightsCts?.Cancel();
             updateTrafficLightsCts?.Dispose();
             updateTrafficLightsCts = new CancellationTokenSource();
-            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(updateTrafficLightsCts.Token, base.DestroyToken);
+            CancellationToken timeUpToken = ScCh3PlayService.Instance.TimeUpCts.Token;
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(updateTrafficLightsCts.Token, timeUpToken, base.DestroyToken);
 
             WaitThenRaiseGreenBeforeEvent(updateTrafficLightsCts.Token).Forget();
             await UpdateTrafficLights(linkedCts.Token);

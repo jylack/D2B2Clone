@@ -52,7 +52,7 @@ public class ScTrafficLightFloor : ScObjectBase
 
     public void OnBeginGreenLightBlink()
     {
-        BlinkGreenRepeatly().Forget();
+        BlinkGreenRepeatedly().Forget();
     }
 
 
@@ -71,7 +71,7 @@ public class ScTrafficLightFloor : ScObjectBase
         }
     }
 
-    private async UniTask BlinkGreenRepeatly()
+    private async UniTask BlinkGreenRepeatedly()
     {
         try
         {
@@ -80,9 +80,10 @@ public class ScTrafficLightFloor : ScObjectBase
             blinkCts = null;
 
             blinkCts = new CancellationTokenSource();
-            CancellationTokenSource linkedCts = CancellationTokenSource.CreateLinkedTokenSource(blinkCts.Token, base.DestroyToken);
+            CancellationToken timeUpCts = ScCh3PlayService.Instance.TimeUpCts.Token;
+            CancellationTokenSource linkedCts = CancellationTokenSource.CreateLinkedTokenSource(blinkCts.Token, timeUpCts, base.DestroyToken);
 
-            while (!linkedCts?.IsCancellationRequested ?? false)
+            while (!linkedCts.IsCancellationRequested)
             {
                 InvertColor();
                 await UniTask.WaitForSeconds(0.4f, cancellationToken: linkedCts.Token);
