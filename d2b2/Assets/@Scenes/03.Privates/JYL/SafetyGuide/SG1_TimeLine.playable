@@ -500,6 +500,50 @@ MonoBehaviour:
     m_DisplayName: SceondStart
   m_Markers:
     m_Objects: []
+--- !u!114 &-6903192903112300344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4631aac3e8958e840855eeec9cd45ec5, type: 3}
+  m_Name: TweenClip(Clone)
+  m_EditorClassIdentifier: 
+  startLocation:
+    exposedName: 114ffbed3b9ddf642a73f467576085c4
+    defaultValue: {fileID: 0}
+  endLocation:
+    exposedName: b8796fc1dc6aecb4e9fd8282da35932c
+    defaultValue: {fileID: 0}
+  shouldTweenPosition: 0
+  shouldTweenRotation: 1
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &-6554464086578469874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1457,25 +1501,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: -1
-        outSlope: -1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -1
-        outSlope: -1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1490,10 +1516,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: FirstMove
   - m_Version: 1
-    m_Start: 2.5
+    m_Start: 3.5974148930981755
     m_ClipIn: 0
     m_Asset: {fileID: -1677257292267884089}
-    m_Duration: 66.66666666666666
+    m_Duration: 65.56925177356848
     m_TimeScale: 1
     m_ParentTrack: {fileID: -1158198572555591473}
     m_EaseInDuration: 0
@@ -1502,49 +1528,13 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1558,6 +1548,39 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: SceondMove
+  - m_Version: 1
+    m_Start: 2.500000000000001
+    m_ClipIn: 0
+    m_Asset: {fileID: -6903192903112300344}
+    m_Duration: 1.0974148930981746
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -1158198572555591473}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: FirstMove
   m_Markers:
     m_Objects: []
 --- !u!114 &-640019759050461038
@@ -2018,7 +2041,7 @@ MonoBehaviour:
     exposedName: c8329f657acd2a54b9fcaa5f98d553ec
     defaultValue: {fileID: 0}
   shouldTweenPosition: 1
-  shouldTweenRotation: 1
+  shouldTweenRotation: 0
   curve:
     serializedVersion: 2
     m_Curve:
