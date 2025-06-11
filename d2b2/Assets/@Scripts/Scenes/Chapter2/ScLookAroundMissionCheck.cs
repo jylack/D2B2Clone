@@ -13,9 +13,7 @@ public class ScLookAroundMissionCheck : MonoBehaviour
         {
             if (check.lookAroundMissionClear == false)
             {
-                UIPlayerHsy.Instance.explanationUI.gameObject.SetActive(true);
-                UIPlayerHsy.Instance.explanationText.text = "LookAroundFail";
-                StartCoroutine(WaitExplanationMessage());
+                Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
             }
             else
             {
@@ -23,11 +21,5 @@ public class ScLookAroundMissionCheck : MonoBehaviour
             }
             check.ExitMissionRegion();
         }
-    }
-    IEnumerator WaitExplanationMessage()
-    {
-        yield return new WaitForSeconds(2);
-        UIPlayerHsy.Instance.explanationUI.gameObject.SetActive(false);
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
     }
 }
