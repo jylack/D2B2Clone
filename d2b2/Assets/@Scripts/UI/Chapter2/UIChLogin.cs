@@ -38,9 +38,6 @@ public class UIChLogin : UIBase
 
             Manager.Instance.GameMgr.SetCurrentPlayerInfo(playerEntity);
 
-            if (nextSceneType == ScDefine.ScScene.Ch1Play)
-                ScChapter1.CurrentSetp = 0;
-
             base.LoadScene(nextSceneType);
         }
         catch (Exception ex)

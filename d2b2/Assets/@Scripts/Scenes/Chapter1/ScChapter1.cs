@@ -18,8 +18,6 @@ public class ScChapter1 : MonoBehaviour
 
     public static ScChapter1 Instance => instance;
     public static int CurrentSetp = 0;
-    //public int CurrentSetp { get; private set; } = 0;
-    //public ScNpcCtrl Npc => npc;
 
     private bool lookAroundMissionClear = false;
     public bool LookAroundMissionClear
@@ -41,8 +39,6 @@ public class ScChapter1 : MonoBehaviour
     {
         await ArrowImageView();
     }
-
-
 
  
     public void NpcCheck()

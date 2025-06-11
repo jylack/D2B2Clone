@@ -14,6 +14,8 @@ public class ScPlayScene : ScSceneBase
     {
         await UniTask.WaitUntil(() => Manager.Instance.SceneMgr != null);
 
+        
+
         foreach (var sceneName in MovingSceneList)
         {
             //Debug.Log($"ScDefine.ScScene: {sceneName}");
@@ -52,7 +54,7 @@ public class ScPlayScene : ScSceneBase
             currentSceneName = SceneManager.GetActiveScene().name;
         }
         //Debug.Log($"현재 씬: {currentSceneName}");
-
+           
         Init().Forget();
     }
 
