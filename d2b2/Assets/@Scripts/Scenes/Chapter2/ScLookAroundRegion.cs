@@ -43,6 +43,7 @@ public class ScLookAroundRegion : MonoBehaviour
     }
     private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
     {
+        Debug.Log(headDirection);
         if (headDirection == ScDefine.ScHeadTurn.Left && checkLookLeft == false)
         {
             UIPlayerHsy.Instance.OnLookAroundLeftProgress();
