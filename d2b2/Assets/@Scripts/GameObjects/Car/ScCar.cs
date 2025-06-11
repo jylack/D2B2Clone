@@ -33,7 +33,8 @@ public class ScCar : ScObjectBase
 
     private void Start()
     {
-        ScCh3PlayService.Instance.SetCarParent(this);
+        if (Manager.Instance.SceneMgr.CurrentScene == ScDefine.ScScene.Ch3Play)
+            ScCh3PlayService.Instance?.SetCarParent(this);
 
         gameObject.name = $"Car_{numbering++}";
         originPosition = transform.position;
