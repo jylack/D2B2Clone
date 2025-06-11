@@ -53,7 +53,7 @@ public class ScMissionClearUI : MonoBehaviour
      
     }
 
-    public void EndGame()
+    public void NextSceneLoad()
     {
         Manager.Instance.SceneMgr.LoadScene(nextScene);
     }
