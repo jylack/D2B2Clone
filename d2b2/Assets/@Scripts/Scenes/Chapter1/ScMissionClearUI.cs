@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class ScMissionClearUI : MonoBehaviour
 {
-    [Header("Å¬¸®¾î ÅØ½ºÆ® Å°")]
-    [SerializeField] private string missionClearTextKey; // ¹Ì¼Ç Å¬¸®¾î ÅØ½ºÆ® Å°
+    [Header("Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® Å°")]
+    [SerializeField] private string missionClearTextKey; // ï¿½Ì¼ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® Å°
 
-    [Header("¿ÀºêÁ§Æ® ¿¬°á")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private GameObject clearMissionListTextPanel;
     [SerializeField] private TextMeshProUGUI missionClearText;
     [SerializeField] private TextMeshProUGUI NickNameText;
 
-    [Header("´ÙÀ½ ¾À ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private ScDefine.ScScene nextScene;
 
     private List<ScMissionBoxTextCheck> missionList;
@@ -27,7 +27,7 @@ public class ScMissionClearUI : MonoBehaviour
 
         foreach (var mission in missionList)
         {
-            // ¹Ì¼ÇÀÌ ¿Ï·áµÈ °æ¿ì
+            // ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (mission.GetMissionState())
             {
                 Instantiate(mission.gameObject, clearMissionListTextPanel.transform);
