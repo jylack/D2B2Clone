@@ -66,7 +66,7 @@ public class GameSceneManager : MonoBehaviour
     {
         return scene switch
         {
-            ScDefine.ScScene.InitSettings               => "InitSettings",
+            ScDefine.ScScene.Admin                      => "Admin",
             ScDefine.ScScene.TutorialInitial            => "Tut_Init",
             ScDefine.ScScene.TutorialMove               => "Tut_Move",
             ScDefine.ScScene.TutorialCrosswalk          => "Tut_Cross",
@@ -79,7 +79,7 @@ public class GameSceneManager : MonoBehaviour
             
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
             ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
-            ScDefine.ScScene.Ch2BlindSpot => "Ch2-2_BlindExperience",
+            ScDefine.ScScene.Ch2BlindSpot               => "Ch2-2_BlindExperience",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Lobby",
@@ -149,7 +149,7 @@ public class GameSceneManager : MonoBehaviour
 
     private async UniTask FadeIn()
     {
-        await canvasGroup.DOFade(0f, duration);
+        await canvasGroup.DOFade(0f, duration).ToUniTask();
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
     }
