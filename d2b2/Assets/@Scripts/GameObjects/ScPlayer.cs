@@ -99,6 +99,7 @@ public class ScPlayer : ScPlayerBase
         var tempHeadTurn = ScDefine.ScHeadTurn.None;
         //float rotationY = xrOrigin.Camera.transform.localRotation.y;
         float rotationY = mainCamera.transform.localRotation.y;
+        //Debug.Log(rotationY);
         bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
         bool lookingRight = rotationY > headTurnThresholdQuaternion;
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
