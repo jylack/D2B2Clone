@@ -84,4 +84,10 @@ public partial class ScCh3LobbyService
             AddNewPlayer(playerEntity);
         }
     }
+
+    [PunRPC]
+    private void OnStartGame()
+    {
+        uiLobby.OnStartGame();
+    }
 }
