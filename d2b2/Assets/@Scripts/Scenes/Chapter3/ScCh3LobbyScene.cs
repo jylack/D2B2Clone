@@ -1,4 +1,4 @@
-﻿public class ScCh3RoomScene : ScSceneBase
+﻿public class ScCh3LobbyScene : ScSceneBase
 {
     private void Start()
     {

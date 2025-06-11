@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class GameSceneManager : MonoBehaviour
 {
     [SerializeField] private Image bg;
+    [SerializeField] private Image logo;
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private float duration = 0.15f;
+    [SerializeField] private float duration = 0.5f;
     [SerializeField] private string emptySceneName = "";
     
     public ScDefine.ScScene CurrentScene { get; private set; }
@@ -23,6 +24,8 @@ public class GameSceneManager : MonoBehaviour
     private void Awake()
     {
         bg.enabled = true;
+        logo.enabled = true;
+
         Scene activeScene = SceneManager.GetActiveScene();
         currentSceneName = activeScene.name;
 
@@ -31,8 +34,8 @@ public class GameSceneManager : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
-    
-    
+
+
     public void LoadScene(ScDefine.ScScene scene)
     {
         PreviousScene = CurrentScene;
@@ -63,7 +66,7 @@ public class GameSceneManager : MonoBehaviour
     {
         return scene switch
         {
-            ScDefine.ScScene.InitSettings               => "InitSettings",
+            ScDefine.ScScene.Admin                      => "Admin",
             ScDefine.ScScene.TutorialInitial            => "Tut_Init",
             ScDefine.ScScene.TutorialMove               => "Tut_Move",
             ScDefine.ScScene.TutorialCrosswalk          => "Tut_Cross",
@@ -75,7 +78,8 @@ public class GameSceneManager : MonoBehaviour
             ScDefine.ScScene.Ch1Play                    => "Ch1_Play",
             
             ScDefine.ScScene.Ch2Login                   => "Ch2_Login",
-            ScDefine.ScScene.Ch2Play                    => "SecondStage",
+            ScDefine.ScScene.Ch2Play                    => "Ch2_Play",
+            ScDefine.ScScene.Ch2BlindSpot               => "Ch2-2_BlindExperience",
 
             ScDefine.ScScene.Ch3Login                   => "Ch3_Login",
             ScDefine.ScScene.Ch3Room                    => "Ch3_Lobby",
@@ -112,16 +116,8 @@ public class GameSceneManager : MonoBehaviour
 
         await FadeOut();
 
-        // warning error log 방지
-        GameObject camera = GameObject.Find("Main Camera");
-        if (camera != null)
-        {
-            var listener = camera.GetComponent<AudioListener>();
-            if (listener != null)
-                Destroy(listener);
-        }
-
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
+        await UniTask.WaitForSeconds(0.5f);
 
         // unload
         prevSceneName = currentSceneName;
@@ -145,6 +141,7 @@ public class GameSceneManager : MonoBehaviour
 
     private async UniTask FadeOut()
     {
+        canvasGroup.alpha = 0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         await canvasGroup.DOFade(1f, duration).ToUniTask();
@@ -152,7 +149,7 @@ public class GameSceneManager : MonoBehaviour
 
     private async UniTask FadeIn()
     {
-        await canvasGroup.DOFade(0f, duration);
+        await canvasGroup.DOFade(0f, duration).ToUniTask();
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
     }

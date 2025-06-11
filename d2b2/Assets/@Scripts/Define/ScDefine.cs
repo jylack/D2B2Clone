@@ -7,7 +7,7 @@
 
     public enum ScScene
     {
-        InitSettings = 0,
+        Admin = 0,
         TutorialInitial,
         TutorialMove,
         TutorialCrosswalk,

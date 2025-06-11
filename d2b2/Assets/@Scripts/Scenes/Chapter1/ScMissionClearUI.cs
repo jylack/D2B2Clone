@@ -5,36 +5,39 @@ using UnityEngine;
 
 public class ScMissionClearUI : MonoBehaviour
 {
-    [Header("Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® Å°")]
-    [SerializeField] private string missionClearTextKey; // ï¿½Ì¼ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® Å°
+    [Header("Å¬¸®¾î ÅØ½ºÆ® Å°")]
+    [SerializeField] private string missionClearTextKey; // ¹Ì¼Ç Å¬¸®¾î ÅØ½ºÆ® Å°
 
-    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
+    [Header("¿ÀºêÁ§Æ® ¿¬°á")]
     [SerializeField] private GameObject clearMissionListTextPanel;
     [SerializeField] private TextMeshProUGUI missionClearText;
     [SerializeField] private TextMeshProUGUI NickNameText;
+    [SerializeField] private ScMissionListPanel missionListPanel; // ¹Ì¼Ç ¸®½ºÆ® ÆÐ³Î
 
-    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [Header("´ÙÀ½ ¾À ¼³Á¤")]
     [SerializeField] private ScDefine.ScScene nextScene;
 
     private List<ScMissionBoxTextCheck> missionList;
 
     private void Start()
     {
-        var missionListPanel = GameObject.Find("MissionListPanel");
+        //var missionListPanel = GameObject.Find("MissionListPanel");
         
-        missionList = missionListPanel.GetComponent<ScMissionListPanel>().GetMissionTextList();
-        
-
-        foreach (var mission in missionList)
+        if(missionListPanel != null)
         {
-            // ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½
-            if (mission.GetMissionState())
+            missionList = missionListPanel.GetMissionTextList();
+            
+            foreach (var mission in missionList)
             {
-                Instantiate(mission.gameObject, clearMissionListTextPanel.transform);
+                // ¹Ì¼ÇÀÌ ¿Ï·áµÈ °æ¿ì
+                if (mission.GetMissionState())
+                {
+                    Instantiate(mission.gameObject, clearMissionListTextPanel.transform);
+                }
             }
-        }
-        
-        ManagerSetting().Forget();
+
+            ManagerSetting().Forget();
+        }       
     }
 
     private async UniTask ManagerSetting()
@@ -53,7 +56,7 @@ public class ScMissionClearUI : MonoBehaviour
      
     }
 
-    public void EndGame()
+    public void NextSceneLoad()
     {
         Manager.Instance.SceneMgr.LoadScene(nextScene);
     }

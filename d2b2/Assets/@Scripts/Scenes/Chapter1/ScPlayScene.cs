@@ -14,9 +14,11 @@ public class ScPlayScene : ScSceneBase
     {
         await UniTask.WaitUntil(() => Manager.Instance.SceneMgr != null);
 
+        
+
         foreach (var sceneName in MovingSceneList)
         {
-            Debug.Log($"ScDefine.ScScene: {sceneName}");
+            //Debug.Log($"ScDefine.ScScene: {sceneName}");
 
             if (currentSceneName == Manager.Instance.SceneMgr.GetSceneName(sceneName))
             {
@@ -29,12 +31,12 @@ public class ScPlayScene : ScSceneBase
 
         if (!isMovableScene)
         {
-            Debug.LogWarning($"Scene {currentSceneName} 이동불가씬");
+            //Debug.LogWarning($"Scene {currentSceneName} 이동불가씬");
             Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         }
         else
         {
-            Debug.Log($"Scene {currentSceneName} 이동가능씬");
+            //Debug.Log($"Scene {currentSceneName} 이동가능씬");
             Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(1);
         }
 
@@ -51,8 +53,8 @@ public class ScPlayScene : ScSceneBase
         {
             currentSceneName = SceneManager.GetActiveScene().name;
         }
-        Debug.Log($"현재 씬: {currentSceneName}");
-
+        //Debug.Log($"현재 씬: {currentSceneName}");
+           
         Init().Forget();
     }
 
