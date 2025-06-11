@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class GameSceneManager : MonoBehaviour
 {
     [SerializeField] private Image bg;
+    [SerializeField] private Image logo;
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private float duration = 0.15f;
+    [SerializeField] private float duration = 0.5f;
     [SerializeField] private string emptySceneName = "";
     
     public ScDefine.ScScene CurrentScene { get; private set; }
@@ -23,6 +24,8 @@ public class GameSceneManager : MonoBehaviour
     private void Awake()
     {
         bg.enabled = true;
+        logo.enabled = true;
+
         Scene activeScene = SceneManager.GetActiveScene();
         currentSceneName = activeScene.name;
 
@@ -31,8 +34,8 @@ public class GameSceneManager : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
-    
-    
+
+
     public void LoadScene(ScDefine.ScScene scene)
     {
         PreviousScene = CurrentScene;
@@ -113,16 +116,8 @@ public class GameSceneManager : MonoBehaviour
 
         await FadeOut();
 
-        // warning error log 방지
-        GameObject camera = GameObject.Find("Main Camera");
-        if (camera != null)
-        {
-            var listener = camera.GetComponent<AudioListener>();
-            if (listener != null)
-                Destroy(listener);
-        }
-
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
+        await UniTask.WaitForSeconds(0.5f);
 
         // unload
         prevSceneName = currentSceneName;
@@ -146,6 +141,7 @@ public class GameSceneManager : MonoBehaviour
 
     private async UniTask FadeOut()
     {
+        canvasGroup.alpha = 0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         await canvasGroup.DOFade(1f, duration).ToUniTask();
