@@ -22,8 +22,6 @@ public class ScLobbyPlayer : ScObjectBase
         character.transform.localPosition = Vector3.zero;
         character.transform.localRotation = Quaternion.identity;
 
-        nickNameText.text = NickName;
-        
         if (PhotonNetwork.LocalPlayer.ActorNumber == ActorNumber)
         {
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -37,6 +35,15 @@ public class ScLobbyPlayer : ScObjectBase
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
+        else
+        {
+            Vector3 playerPos = Manager.Instance.GameMgr.Player.transform.position;
+            Vector3 lookAtPos = new(playerPos.x, transform.position.y, playerPos.z);
+
+            nickNameText.text = NickName;
+            nickNameText.transform.LookAt(lookAtPos);
+            nickNameText.gameObject.SetActive(true);
+        }
     }
 
 
@@ -45,9 +52,8 @@ public class ScLobbyPlayer : ScObjectBase
     {
         ActorNumber = playerEntity.actorNumber;
         PositionIndex = playerEntity.positionIndex;
-        // GuideCharacterType = playerEntity.guideCharacterType;
         NickName = playerEntity.nickname;
 
-        GuideCharacterType = (ScDefine.ScGuideCharacter)Random.Range(0, 4);
+        GuideCharacterType = (ScDefine.ScGuideCharacter)(PositionIndex % 4);
     }
 }

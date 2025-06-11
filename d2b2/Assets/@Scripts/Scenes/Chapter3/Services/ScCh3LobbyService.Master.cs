@@ -19,6 +19,11 @@ public partial class ScCh3LobbyService
         PhotonNetwork.SetMasterClient(player);
     }
 
+    public void BroadcastStartGame()
+    {
+        photonView.Broadcast(nameof(OnStartGame));
+    }
+
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -33,22 +38,22 @@ public partial class ScCh3LobbyService
         photonView.Broadcast(nameof(OnPlayerLeft), json);
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-    {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+    //public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    //{
+    //    if (!PhotonNetwork.IsMasterClient)
+    //        return;
         
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            if (!ScCh3Assistant.ComparePropertyValue(player.CustomProperties, ScCh3Define.PROP_KEY_IS_READY, true))
-            {
-                photonView.Broadcast(nameof(OnCountdownStateChanged), false);
-                return;
-            }
-        }
+    //    foreach (Player player in PhotonNetwork.PlayerList)
+    //    {
+    //        if (!ScCh3Assistant.ComparePropertyValue(player.CustomProperties, ScCh3Define.PROP_KEY_IS_READY, true))
+    //        {
+    //            photonView.Broadcast(nameof(OnCountdownStateChanged), false);
+    //            return;
+    //        }
+    //    }
 
-        photonView.Broadcast(nameof(OnCountdownStateChanged), true);
-    }
+    //    photonView.Broadcast(nameof(OnCountdownStateChanged), true);
+    //}
 
 
 
