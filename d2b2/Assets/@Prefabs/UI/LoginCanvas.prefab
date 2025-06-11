@@ -138,7 +138,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 823849267}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7316981590406960844}
+        m_TargetAssemblyTypeName: UIChLogin, Assembly-CSharp
+        m_MethodName: OnClickExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &899860050
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8440550413752138474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1369,9 +1381,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e649711a595f4e23a03cdcb030015dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  signIn: {fileID: 3905869865305170289}
+  signInSuccess: {fileID: 8845067831150886580}
   nameInput: {fileID: 5829128343462742649}
   errorText: {fileID: 7316981589367584370}
   nextSceneType: 5
+  signedInNickName: {fileID: 569435603967676313}
 --- !u!1 &7441810721053784045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,7 +1525,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7696210008601187816}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7316981590406960844}
+        m_TargetAssemblyTypeName: UIChLogin, Assembly-CSharp
+        m_MethodName: OnClickSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7822870206809601974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,7 +1676,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1222953460332126376}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7316981590406960844}
+        m_TargetAssemblyTypeName: UIChLogin, Assembly-CSharp
+        m_MethodName: OnClickStartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8516952208591818738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8220531001889464241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2239,7 +2278,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7316981590406960844}
         m_TargetAssemblyTypeName: UIChLogin, Assembly-CSharp
-        m_MethodName: OnClickLoginButton
+        m_MethodName: OnClickLogin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

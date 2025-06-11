@@ -8,23 +8,25 @@ public class UIChLogin : UIBase
     [Header("UI")]
     [SerializeField] private GameObject signIn;
     [SerializeField] private GameObject signInSuccess;
-    [Header("Etc")]
+    [Header("Before Login")]
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
     [SerializeField] private ScDefine.ScScene nextSceneType;
+    [Header("After Login")]
+    [SerializeField] private TMP_Text signedInNickName;
 
-    private bool isLoggingIn;
-    
-    
-    
-    public async void OnClickLoginButton()
+    private bool isProcessing;
+
+
+
+    public async void OnClickLogin()
     {
         try
         {
-            if (isLoggingIn)
+            if (isProcessing)
                 return;
 
-            isLoggingIn = true;
+            isProcessing = true;
 
             if (!CheckValidation())
                 return;
@@ -37,8 +39,10 @@ public class UIChLogin : UIBase
             }
 
             Manager.Instance.GameMgr.SetCurrentPlayerInfo(playerEntity);
+            signedInNickName.text = playerEntity.nickName;
 
-            base.LoadScene(nextSceneType);
+            signIn.SetActive(false);
+            signInSuccess.SetActive(true);
         }
         catch (Exception ex)
         {
@@ -46,8 +50,38 @@ public class UIChLogin : UIBase
         }
         finally
         {
-            isLoggingIn = false;
+            isProcessing = false;
         }
+    }
+
+    public void OnClickStartGame()
+    {
+        if (isProcessing)
+            return;
+
+        isProcessing = true;
+
+        base.LoadScene(nextSceneType);
+    }
+
+    public void OnClickSettings()
+    {
+        if (isProcessing)
+            return;
+
+        isProcessing = true;
+
+        // Show Settings UI
+    }
+
+    public void OnClickExit()
+    {
+        if (isProcessing)
+            return;
+
+        isProcessing = true;
+
+        base.LoadRootScene();
     }
 
 
