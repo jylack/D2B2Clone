@@ -1740,24 +1740,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 683341822}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &683341824 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5870112956731025398, guid: 0a9371bc7f6f521478a3f32c163c82c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 683341822}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683341823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &683341825 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9122039619289706848, guid: 0a9371bc7f6f521478a3f32c163c82c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 683341822}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &683341826 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5870112957974565801, guid: 0a9371bc7f6f521478a3f32c163c82c1,
@@ -2897,7 +2879,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1522193613}
   - component: {fileID: 1522193612}
-  - component: {fileID: 1522193614}
   m_Layer: 0
   m_Name: HandUpGuidManager
   m_TagString: Untagged
@@ -2916,7 +2897,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
   m_InitialState: 1
-  m_WrapMode: 2
+  m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
@@ -2928,8 +2909,6 @@ PlayableDirector:
     value: {fileID: 1356262922}
   - key: {fileID: -841737722515550192, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
     value: {fileID: 347719185}
-  - key: {fileID: 2606356537741314274, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
-    value: {fileID: 683341825}
   - key: {fileID: 4074156302628661315, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
     value: {fileID: 683341827}
   - key: {fileID: 4923475293331732926, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
@@ -2956,8 +2935,6 @@ PlayableDirector:
     value: {fileID: 1965535126}
   - key: {fileID: 1892017863187101083, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
     value: {fileID: 1356262923}
-  - key: {fileID: -6254688015498746282, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
-    value: {fileID: 683341824}
   - key: {fileID: -2294319430376138330, guid: e2c139803230cfd4bbdb7dce00d17483, type: 2}
     value: {fileID: 683341823}
   m_ExposedReferences:
@@ -3013,24 +2990,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1522193614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522193611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ebaa299fb1919b48a8e20bd42fdfe81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guideNpc: {fileID: 0}
-  guideNpcContextUI: {fileID: 0}
-  problemChildNpc: {fileID: 0}
-  truck: {fileID: 0}
-  npcTextList: []
-  guideNpcContextTxt: {fileID: 0}
 --- !u!1001 &1554299092
 PrefabInstance:
   m_ObjectHideFlags: 0
