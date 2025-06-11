@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class UIChLogin : UIBase
 {
+    [Header("UI")]
+    [SerializeField] private GameObject signIn;
+    [SerializeField] private GameObject signInSuccess;
+    [Header("Etc")]
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
     [SerializeField] private ScDefine.ScScene nextSceneType;
