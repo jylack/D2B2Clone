@@ -1,18 +1,28 @@
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
+using System;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UICh3Lobby : UIBase
 {
     [SerializeField] private TextMeshProUGUI nickNameText;
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private int maxSeconds = 10;
-    [SerializeField] private GameObject startButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button exitButton;
 
     private int seconds;
     private CancellationTokenSource countdownCts;
+
+
+
+    private void Start()
+    {
+        nickNameText.text = Manager.Instance.GameMgr.NickName;
+    }
 
 
 
@@ -39,10 +49,9 @@ public class UICh3Lobby : UIBase
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
 
-        string sceneName = Manager.Instance.SceneMgr.GetSceneName(ScDefine.ScScene.Ch3Play);
-        PhotonNetwork.LoadLevel(sceneName);
+        ScCh3LobbyService.Instance.BroadcastStartGame();
     }
-    
+
     public void OnExitButtonClicked()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -55,7 +64,15 @@ public class UICh3Lobby : UIBase
 
     public void OnMasterChanged(bool isMaster)
     {
-        startButton.SetActive(isMaster);
+        startButton.gameObject.SetActive(isMaster);
+    }
+
+    public void OnStartGame()
+    {
+        startButton.interactable = false;
+        exitButton.interactable = false;
+
+        RestartCountdown();
     }
 
 
@@ -67,22 +84,38 @@ public class UICh3Lobby : UIBase
 
     private async UniTask StartCountdown()
     {
-        countdownCts?.Cancel();
-        countdownCts?.Dispose();
-        countdownCts = new CancellationTokenSource();
-        var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(countdownCts.Token, base.DestroyToken);
-
-        while (seconds > 0)
+        try
         {
-            await UniTask.WaitForSeconds(1, cancellationToken: linkedCts.Token);
+            countdownCts?.Cancel();
+            countdownCts?.Dispose();
+            countdownCts = new CancellationTokenSource();
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(countdownCts.Token, base.DestroyToken);
 
-            if (linkedCts.IsCancellationRequested)
-                return;
+            while (seconds > 0)
+            {
+                await UniTask.WaitForSeconds(1, cancellationToken: linkedCts.Token);
 
-            SetCountdown(--seconds);
+                if (linkedCts.IsCancellationRequested)
+                    return;
+
+                SetCountdown(--seconds);
+            }
+
+            countdownCts?.Dispose();
+            countdownCts = null;
+
+            await UniTask.Delay(1000, cancellationToken: base.DestroyToken);
+
+            string sceneName = Manager.Instance.SceneMgr.GetSceneName(ScDefine.ScScene.Ch3Play);
+            PhotonNetwork.LoadLevel(sceneName);
         }
-
-        countdownCts?.Dispose();
-        countdownCts = null;
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
 }
