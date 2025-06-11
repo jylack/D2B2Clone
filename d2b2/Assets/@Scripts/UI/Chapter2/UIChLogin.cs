@@ -7,7 +7,6 @@ public class UIChLogin : UIBase
 {
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
-    [SerializeField] private TMP_Text successText;
     [SerializeField] private ScDefine.ScScene nextSceneType;
 
     private bool isLoggingIn;
@@ -34,7 +33,6 @@ public class UIChLogin : UIBase
             }
 
             Manager.Instance.GameMgr.SetCurrentPlayerInfo(playerEntity);
-            SetSuccessMessage(playerEntity.nickName);
 
             if (nextSceneType == ScDefine.ScScene.Ch1Play)
                 ScChapter1.CurrentSetp = 0;
@@ -74,13 +72,6 @@ public class UIChLogin : UIBase
     
     private void SetErrorMessage(string msg)
     {
-        successText.text = "";
-        errorText.text = "faild : " +  msg;
-    }
-    
-    private void SetSuccessMessage(string msg)
-    {
-        errorText.text = "";
-        successText.text = "success : " +  msg  + " 님";
+        errorText.text = msg;
     }
 }

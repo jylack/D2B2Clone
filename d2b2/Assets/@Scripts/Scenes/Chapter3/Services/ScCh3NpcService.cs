@@ -30,6 +30,7 @@ public class ScCh3NpcService : ScObjectBase
 
     private void Awake()
     {
+        badThingTokenGenInterval -= (PhotonNetwork.PlayerList.Length * 500);
         Instance = this;
     }
 
