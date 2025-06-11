@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class CrosswalkTutorialManager : MonoBehaviour
 {
-    [SerializeField] GameObject clearMessage;
-    [SerializeField] ScGuide guide;
+    [SerializeField] ScTutoClear clearMessage;
+    //[SerializeField] ScGuide guide;
     [SerializeField] ScHandUpRegion handUp;
     [SerializeField] XROrigin playerXR;
     [SerializeField] Transform player;
@@ -17,12 +17,12 @@ public class CrosswalkTutorialManager : MonoBehaviour
     bool missionClear = false;
     void Start()
     {
-        clearMessage.SetActive(false);
-        Debug.Log("Tuto ins " + TutorialManager.Instance.playerEntity);
+        clearMessage.gameObject.SetActive(false);
+        /*Debug.Log("Tuto ins " + TutorialManager.Instance.playerEntity);
         if(TutorialManager.Instance.playerEntity != null)
         {
             guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
-        }
+        }*/
         startPos = player.position;
         startPos.y = playerXR.GetComponent<CharacterController>().height;
         HandUpChecker().Forget();
@@ -49,7 +49,8 @@ public class CrosswalkTutorialManager : MonoBehaviour
     private void TutorialClear() 
     {
         Debug.Log("Tuto Wan");
-        clearMessage.SetActive(true);
+        clearMessage.gameObject.SetActive(true);
+        clearMessage.Clear();
     }
 
     public void MoveToTutoStart()
