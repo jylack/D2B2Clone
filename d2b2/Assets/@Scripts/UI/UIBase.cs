@@ -9,6 +9,6 @@ public abstract class UIBase : ScObjectBase
 
     public void LoadRootScene()
     {
-        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.InitSettings);
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Admin);
     }
 }

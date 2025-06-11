@@ -4,12 +4,17 @@ using UnityEngine;
 
 public abstract class ScSceneBase : ScObjectBase
 {
+    public bool IsLoaded { get; protected set; }
+
+
+
     protected virtual async void Awake()
     {
         try
         {
             await UniTask.Delay(1000, cancellationToken: base.DestroyToken);
             Manager.Instance.SceneMgr.OnSceneLoaded();
+            IsLoaded = true;
         }
         catch (OperationCanceledException ex)
         {
@@ -19,5 +24,12 @@ public abstract class ScSceneBase : ScObjectBase
         {
             Debug.LogException(ex);
         }
+    }
+
+
+
+    public void SetIsLoadedFalse()
+    {
+        IsLoaded = false;
     }
 }
