@@ -41,6 +41,9 @@ public class GameSceneManager : MonoBehaviour
         PreviousScene = CurrentScene;
         CurrentScene = scene;
 
+        PlaySceneBgm(scene);
+        RemovePlayerInfoOrNot(scene);
+
         string sceneName = GetSceneName(scene);
         Load(sceneName).Forget();
     }
@@ -105,6 +108,60 @@ public class GameSceneManager : MonoBehaviour
         currentSceneName = GetSceneName(currentScene);
     }
 
+    public async UniTask FadeOut()
+    {
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+        await canvasGroup.DOFade(1f, duration).ToUniTask();
+    }
+
+    public async UniTask FadeIn()
+    {
+        await canvasGroup.DOFade(0f, duration).ToUniTask();
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+
+
+    private static void PlaySceneBgm(ScDefine.ScScene scene)
+    {
+        switch (scene)
+        {
+            case ScDefine.ScScene.Admin:
+            case ScDefine.ScScene.TutorialInitial:
+            case ScDefine.ScScene.TutorialMove:
+            case ScDefine.ScScene.TutorialCrosswalk:
+            case ScDefine.ScScene.TestTutorialInitial:
+            case ScDefine.ScScene.TestTutorialMove:
+            case ScDefine.ScScene.TestTutorialCrosswalk:
+            case ScDefine.ScScene.Ch1Login:
+            case ScDefine.ScScene.Ch2Login:
+            case ScDefine.ScScene.Ch3Login:
+            case ScDefine.ScScene.Ch3Room:
+                Manager.Instance.SoundMgr.PlayDefaultBgm();
+                break;
+            default:
+                Manager.Instance.SoundMgr.PlayChapterBgm();
+                break;
+        }
+    }
+
+    private static void RemovePlayerInfoOrNot(ScDefine.ScScene scene)
+    {
+        switch (scene)
+        {
+            case ScDefine.ScScene.Admin:
+            case ScDefine.ScScene.TutorialInitial:
+            case ScDefine.ScScene.Ch1Login:
+            case ScDefine.ScScene.Ch2Login:
+            case ScDefine.ScScene.Ch3Login:
+                Manager.Instance.GameMgr.SetCurrentPlayerInfo(null);
+                break;
+        }
+    }
+
 
 
     private async UniTask Load(string sceneName)
@@ -137,20 +194,5 @@ public class GameSceneManager : MonoBehaviour
         await SceneManager.UnloadSceneAsync(emptySceneName);
 
         await FadeIn();
-    }
-
-    private async UniTask FadeOut()
-    {
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        await canvasGroup.DOFade(1f, duration).ToUniTask();
-    }
-
-    private async UniTask FadeIn()
-    {
-        await canvasGroup.DOFade(0f, duration).ToUniTask();
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
     }
 }

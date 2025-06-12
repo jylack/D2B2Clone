@@ -2382,7 +2382,7 @@ PlayableDirector:
   m_GameObject: {fileID: 558936746}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 87d50e894350c1b4b85a60d9de810211, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 665d25f34261ee745bb7ca3a2589ffd1, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -11920,6 +11920,7 @@ GameObject:
   - component: {fileID: 6823950372039788612}
   - component: {fileID: 3767078485988486269}
   - component: {fileID: 4189671073109054392}
+  - component: {fileID: 6823950372039788613}
   m_Layer: 0
   m_Name: Interior Seat
   m_TagString: Untagged
@@ -15081,6 +15082,20 @@ Transform:
   m_Father: {fileID: 7264999775904529764}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &6823950372039788613
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256038004049879077}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7735519243402987705, guid: 8be31647ffb43c54db8df056fa16a90e, type: 3}
 --- !u!33 &6853076331761873974
 MeshFilter:
   m_ObjectHideFlags: 0

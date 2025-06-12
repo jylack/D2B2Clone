@@ -46,6 +46,8 @@ public class UICh3Lobby : UIBase
 
     public void OnStartButtonClicked()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
 
@@ -54,6 +56,8 @@ public class UICh3Lobby : UIBase
 
     public void OnExitButtonClicked()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Cancel);
+
         if (PhotonNetwork.IsMasterClient)
             ScCh3LobbyService.Instance.TransferMasterTo();
         
@@ -104,10 +108,14 @@ public class UICh3Lobby : UIBase
             countdownCts?.Dispose();
             countdownCts = null;
 
-            await UniTask.Delay(1000, cancellationToken: base.DestroyToken);
+            await Manager.Instance.SceneMgr.FadeOut();
+            Manager.Instance.SoundMgr.PlayChapterBgm();
 
-            string sceneName = Manager.Instance.SceneMgr.GetSceneName(ScDefine.ScScene.Ch3Play);
-            PhotonNetwork.LoadLevel(sceneName);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                string sceneName = Manager.Instance.SceneMgr.GetSceneName(ScDefine.ScScene.Ch3Play);
+                PhotonNetwork.LoadLevel(sceneName);
+            }
         }
         catch (OperationCanceledException ex)
         {
