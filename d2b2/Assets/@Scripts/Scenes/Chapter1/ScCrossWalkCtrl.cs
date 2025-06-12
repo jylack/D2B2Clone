@@ -15,7 +15,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     bool isColorRed = false;
     bool isBlink = false;
-
+    bool isHandUp = false;
     bool isWalk = false;
 
     Coroutine coroutine = null;
@@ -74,14 +74,16 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
             }
 
-            if (Hand.isLeftHandUp)
+            if (Hand.isLeftHandUp ==true && isHandUp ==false)
             {
                 OnCheckMissionClear?.Invoke();
+                isHandUp = true;
             }
 
             if (isWalk == false || Hand.isLeftHandUp == false)
             {
                 OnCheckMissionFailed?.Invoke();
+                isHandUp = false;
 
                 if (coroutine == null)
                     coroutine = StartCoroutine(TimeLimit(other));
