@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -22,8 +23,9 @@ public class SoundManager : MonoBehaviour
     private AudioSource soundBgm;
     private AudioSource soundVoice;
     private AudioSource soundBgmSfx;
+    private Dictionary<string, AudioClip> voiceDict = new();
 
-
+    
 
     private void Awake()
     {
@@ -34,6 +36,10 @@ public class SoundManager : MonoBehaviour
         SetDefaultSettings(soundBgm);
         SetDefaultSettings(soundVoice);
         SetDefaultSettings(soundBgmSfx);
+
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("TTS");
+        foreach (AudioClip audioClip in audioClips)
+            voiceDict.Add(audioClip.name, audioClip);
     }
 
     private void Start()
@@ -53,9 +59,10 @@ public class SoundManager : MonoBehaviour
         PlayBgm(chapterBgm).Forget();
     }
 
-    public void PlayVoice()
+    public void PlayVoice(string voiceKey)
     {
-        // TODO
+        if (voiceDict.TryGetValue(voiceKey, out AudioClip audioClip))
+            soundVoice.PlayOneShot(audioClip);
     }
 
     public void PlaySfx(ScDefine.ScSound sound)

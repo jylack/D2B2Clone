@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEditor;
@@ -11,18 +12,68 @@ public class ScGoogleTTS : MonoBehaviour
 {
     private const string TOKEN_URI = "https://oauth2.googleapis.com/token";
     private const string TTS_URI = "https://texttospeech.googleapis.com/v1/text:synthesize";
-    private const string SAVE_FOLDER_PATH = "Resources/TTS";
+    private const string SAVE_FOLDER_PATH = "Resources/TTS/Temp";
 
 
-
-    [MenuItem("Tools/RequestGoogleTTS_All")]
-    private static async void Request()
+    
+    // [MenuItem("Tools/RequestGoogleTTS_All")]
+    private static async void RequestAll()
+    {
+        int index = 0;
+        
+        try
+        {
+            Debug.Log("===== 모든 TTS 요청 시작 =====");
+            
+            Dictionary<string, KeyData> langDict = ScCsvLoader.Parse(LanguageManager.LanguageFilePath);
+            foreach (var lang in langDict)
+            {
+                if (lang.Value.UseTTS)
+                {
+                    await RequestTTS(lang.Value.Text, lang.Key);
+                    Debug.Log($"{index++:00}: TTS 저장 완료: {lang.Key}.wav");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            Debug.Log($"===== TTS 요청 완료: {index + 1}개 =====");
+        }
+    }
+    
+    // [MenuItem("Tools/RequestGoogleTTS")]
+    private static async void RequestSingle()
     {
         try
         {
-            string inputText = @"정말 대단했어! 안전 보행 교육을 완벽히 마친 모범 보행자에게 수료증을 수여합니다! 앞으로도 안전하게 걸을 수 있겠지? 진심으로 축하해!";
+            Debug.Log("===== TTS 요청 =====");
 
-            string credPath = Path.Combine(Application.streamingAssetsPath, "unity-auth-a2ac0-cf270e3093d2.json");
+            string key = "Sg1_1";
+
+            Dictionary<string, KeyData> langDict = ScCsvLoader.Parse(LanguageManager.LanguageFilePath);
+            
+            if (langDict.TryGetValue(key, out KeyData lang))
+                await RequestTTS(lang.Text, key);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            Debug.Log("===== TTS 요청 완료 =====");
+        }
+    }
+    
+    private static async UniTask RequestTTS(string text, string fileName)
+    {
+        try
+        {
+            string credPath = Path.Combine(Application.streamingAssetsPath, "unity-tts-462712-76584afbc113.json");
             string credJson = File.ReadAllText(credPath);
             var parsed = JObject.Parse(credJson);
             string clientEmail = parsed["client_email"].ToString();
@@ -47,7 +98,7 @@ public class ScGoogleTTS : MonoBehaviour
                     ["speakingRate"] = 1,
                 },
                 ["input"] = new JObject { 
-                    ["text"] = inputText 
+                    ["text"] = text 
                 },
                 ["voice"] = new JObject
                 {
@@ -72,14 +123,13 @@ public class ScGoogleTTS : MonoBehaviour
 
             string audioBase64 = JObject.Parse(ttsReq.downloadHandler.text)["audioContent"].ToString();
             byte[] audioBytes = Convert.FromBase64String(audioBase64);
-            string outputPath = Path.Combine(Application.dataPath, SAVE_FOLDER_PATH, "tts_output.wav");
-            File.WriteAllBytes(outputPath, audioBytes);
-
-            Debug.Log("TTS 저장 완료: " + outputPath);
+            string outputPath = Path.Combine(Application.dataPath, SAVE_FOLDER_PATH, $"{fileName}.wav");
+            await File.WriteAllBytesAsync(outputPath, audioBytes);
         }
         catch (Exception ex)
         {
             Debug.LogException(ex);
+            throw;
         }
     }
 }

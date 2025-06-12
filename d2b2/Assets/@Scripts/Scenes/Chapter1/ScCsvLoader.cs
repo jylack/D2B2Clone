@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class KeyData
 {
-    public bool useTTS { get; private set; }
+    public bool UseTTS { get; private set; }
     public string Text { get; private set; }
 
     public KeyData(bool use, string text)
     {
-        useTTS = use;
+        UseTTS = use;
         Text = text;
     }
 }
@@ -42,8 +42,8 @@ public class ScCsvLoader
             string text = row.TryGetValue(KeyText, out var textValue) ? textValue : string.Empty;
 
             bool useTts = false;
-            if (row.TryGetValue(KeyUseTTS, out var flagStr))// TTS 사용 여부 불러옴
-                bool.TryParse(flagStr, out useTts);// TTS 사용 여부가 없으면 false로 처리
+            if (row.TryGetValue(KeyUseTTS, out string flagStr))
+                useTts = flagStr == "1";
 
             if (dict.ContainsKey(id))
             {                
