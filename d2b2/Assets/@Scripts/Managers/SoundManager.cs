@@ -32,19 +32,19 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlayDefaultBgm().Forget();
+        PlayDefaultBgm();
     }
 
 
 
-    public async UniTaskVoid PlayDefaultBgm()
+    public void PlayDefaultBgm()
     {
-        await PlayBgm(defaultBgm);
+        PlayBgm(defaultBgm).Forget();
     }
 
-    public async UniTaskVoid PlayChapterBgm()
+    public void PlayChapterBgm()
     {
-        await PlayBgm(chapterBgm);
+        PlayBgm(chapterBgm).Forget();
     }
 
     public void PlayVoice()
@@ -90,6 +90,9 @@ public class SoundManager : MonoBehaviour
 
     private async UniTask PlayBgm(AudioClip bgm)
     {
+        if (soundBgm.clip == bgm)
+            return;
+
         float volume = soundBgm.volume;
 
         await soundBgm.DOFade(0f, 1f);
