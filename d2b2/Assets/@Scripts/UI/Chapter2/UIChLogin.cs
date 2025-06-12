@@ -43,6 +43,7 @@ public class UIChLogin : UIBase
             Manager.Instance.GameMgr.SetCurrentPlayerInfo(playerEntity);
             signedInNickName.text = playerEntity.nickName;
 
+            errorText.gameObject.SetActive(false);
             signIn.SetActive(false);
             signInSuccess.SetActive(true);
         }

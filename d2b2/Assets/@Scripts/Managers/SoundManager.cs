@@ -28,6 +28,10 @@ public class SoundManager : MonoBehaviour
         soundBgm = gameObject.AddComponent<AudioSource>();
         soundVoice = gameObject.AddComponent<AudioSource>();
         soundBgmSfx = gameObject.AddComponent<AudioSource>();
+
+        SetDefaultSettings(soundBgm);
+        SetDefaultSettings(soundVoice);
+        SetDefaultSettings(soundBgmSfx);
     }
 
     private void Start()
@@ -82,6 +86,12 @@ public class SoundManager : MonoBehaviour
     }
 
 
+
+    private void SetDefaultSettings(AudioSource audioSource)
+    {
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0;
+    }
 
     private void PlayOneShot(AudioClip audioClip)
     {

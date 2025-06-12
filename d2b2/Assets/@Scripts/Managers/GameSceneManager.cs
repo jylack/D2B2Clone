@@ -41,9 +41,10 @@ public class GameSceneManager : MonoBehaviour
         PreviousScene = CurrentScene;
         CurrentScene = scene;
 
-        string sceneName = GetSceneName(scene);
         PlaySceneBgm(scene);
+        RemovePlayerInfoOrNot(scene);
 
+        string sceneName = GetSceneName(scene);
         Load(sceneName).Forget();
     }
 
@@ -107,6 +108,21 @@ public class GameSceneManager : MonoBehaviour
         currentSceneName = GetSceneName(currentScene);
     }
 
+    public async UniTask FadeOut()
+    {
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+        await canvasGroup.DOFade(1f, duration).ToUniTask();
+    }
+
+    public async UniTask FadeIn()
+    {
+        await canvasGroup.DOFade(0f, duration).ToUniTask();
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+    }
+
 
 
     private static void PlaySceneBgm(ScDefine.ScScene scene)
@@ -126,23 +142,22 @@ public class GameSceneManager : MonoBehaviour
             case ScDefine.ScScene.Ch3Room:
                 Manager.Instance.SoundMgr.PlayDefaultBgm();
                 break;
-
-            case ScDefine.ScScene.Ch1Play:
-            case ScDefine.ScScene.Ch2Play:
-            case ScDefine.ScScene.Ch2BlindSpot:
-            case ScDefine.ScScene.Ch3Play:
-            case ScDefine.ScScene.LookAroundGuide:
-            case ScDefine.ScScene.HandUpGuide:
-            case ScDefine.ScScene.Sg01_SafetyLine:
-            case ScDefine.ScScene.Sg02_LookAround:
-            case ScDefine.ScScene.Sg03_HandUp:
-            case ScDefine.ScScene.Sg04_TrafficBlink:
-            case ScDefine.ScScene.Sg05_SafeWalk:
-            case ScDefine.ScScene.Sg06_BlindSpot:
-            case ScDefine.ScScene.Sg07_GsCarPrediction:
-            case ScDefine.ScScene.Sg08_Jaywalking:
             default:
                 Manager.Instance.SoundMgr.PlayChapterBgm();
+                break;
+        }
+    }
+
+    private static void RemovePlayerInfoOrNot(ScDefine.ScScene scene)
+    {
+        switch (scene)
+        {
+            case ScDefine.ScScene.Admin:
+            case ScDefine.ScScene.TutorialInitial:
+            case ScDefine.ScScene.Ch1Login:
+            case ScDefine.ScScene.Ch2Login:
+            case ScDefine.ScScene.Ch3Login:
+                Manager.Instance.GameMgr.SetCurrentPlayerInfo(null);
                 break;
         }
     }
@@ -179,20 +194,5 @@ public class GameSceneManager : MonoBehaviour
         await SceneManager.UnloadSceneAsync(emptySceneName);
 
         await FadeIn();
-    }
-
-    private async UniTask FadeOut()
-    {
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        await canvasGroup.DOFade(1f, duration).ToUniTask();
-    }
-
-    private async UniTask FadeIn()
-    {
-        await canvasGroup.DOFade(0f, duration).ToUniTask();
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
     }
 }
