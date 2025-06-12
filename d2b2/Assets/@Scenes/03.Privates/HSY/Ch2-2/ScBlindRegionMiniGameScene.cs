@@ -135,7 +135,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
             Destroy(childArray[i]);
         }
     }
-    public void ChangeCh2Login()
+    public void LoadCh2Login()
     {
         Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Ch2Login);
     }
