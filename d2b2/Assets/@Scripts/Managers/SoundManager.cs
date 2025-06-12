@@ -66,6 +66,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void SetBgmVolume(float volume)
+    {
+        soundBgm.volume = volume;
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        soundBgmSfx.volume = volume;
+    }
+
 
 
     private void PlaySound(AudioClip audioClip)
