@@ -26,7 +26,7 @@ public class ScChapter1_NpcMoveController : MonoBehaviour
                 //Debug.Log("NpcMove End");
                 npc.SetAnimation(ScDefine.ScNpcAnimState.Idle);
                 //핸드업 애니메이션 
-                //npc.SetRaiseHandAnimation(ScDefine.ScHandSide.Right);
+                npc.SetRaiseHandAnimation(true);
             });
 
     }

@@ -58,6 +58,8 @@ public class ScMissionClearUI : MonoBehaviour
 
     public void NextSceneLoad()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+             
         Manager.Instance.SceneMgr.LoadScene(nextScene);
     }
 }

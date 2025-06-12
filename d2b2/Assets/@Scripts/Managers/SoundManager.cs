@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
             case ScDefine.ScSound.CatchSomething:       PlayOneShot(catchSomething);        break;
             case ScDefine.ScSound.PositiveNotification: PlayOneShot(positiveNotification);  break;
             case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
-            case ScDefine.ScSound.ChapterMissionClear: PlayOneShot(chapterMissionClear);  break;
+            case ScDefine.ScSound.ChapterMissionClear:  PlayOneShot(chapterMissionClear);   break;
         }
     }
 
