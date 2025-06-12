@@ -10,7 +10,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
     [SerializeField] private UnityEvent OnCheckMissionFailed;
 
     private bool isMove = false;
-
+    private bool isClearInvoked = false;  
 
     private void OnEnable()
     {
@@ -21,6 +21,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
+            isClearInvoked = false;
             //Manager.Instance.GameMgr.OnPlayerMoving += OnMoving;
             OnCheckMissionFailed?.Invoke();
         }
@@ -30,9 +31,10 @@ public class ScCheckBoxCtrl : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            if (isMove == false)
+            if (isMove == false && isClearInvoked == false)
             {
                 OnCheckMissionClear?.Invoke();
+                isClearInvoked = true;
             }
         }
     }

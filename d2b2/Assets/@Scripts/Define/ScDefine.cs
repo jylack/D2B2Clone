@@ -98,5 +98,6 @@
         CatchSomething,
         PositiveNotification,
         NegativeNotification,
+        ChapterMissionClear,
     }
 }

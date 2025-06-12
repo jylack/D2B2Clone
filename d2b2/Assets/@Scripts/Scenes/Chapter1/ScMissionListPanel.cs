@@ -51,7 +51,7 @@ public class ScMissionListPanel : MonoBehaviour
         LoadMissionsAsync().Forget();
     }
 
-    public void CheckMission(Chapter ch,int index, bool isChecked)
+    public void CheckMission(Chapter ch, int index, bool isChecked)
     {
         string key = ch.ToString() + "_" + CategoryFilter.ToString() + "_" + index.ToString();
         SetMissionTextCheck(key, isChecked);
@@ -68,6 +68,9 @@ public class ScMissionListPanel : MonoBehaviour
     public void OnMissionClear(int index)
     {
         string key = defaultKey + index.ToString();
+
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.ChapterMissionClear);
+
         SetMissionTextCheck(key, true);
     }
 
@@ -93,9 +96,9 @@ public class ScMissionListPanel : MonoBehaviour
         {
             var parts = kv.Key.Split('_');
 
-            if (parts.Length > 2
-             && parts[0] == ChapterPrefix.ToString()
-             && parts[1] == CategoryFilter.ToString())
+            if (parts.Length > 2 &&
+                parts[0] == ChapterPrefix.ToString() &&
+                parts[1] == CategoryFilter.ToString())
             {
                 string text = parts[2] == "0" ? kv.Value.Text : $"{parts[2]}. {kv.Value.Text}";
                 missionTextMap[kv.Key] = text;
@@ -109,7 +112,7 @@ public class ScMissionListPanel : MonoBehaviour
         // 첫 항목만 Title 타입으로 변경
         if (missionTexts.Count > 0)
             missionTexts[0].SetTypeChange(MissionBoxTextCheckType.Title);
-    }    
+    }
 
     private void CreateMissionEntry(string key, string text)
     {
