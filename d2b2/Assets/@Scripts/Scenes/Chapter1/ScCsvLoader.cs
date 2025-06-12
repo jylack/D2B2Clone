@@ -14,9 +14,7 @@ public class KeyData
         useTTS = use;
         Text = text;
     }
-
 }
-
 
 public class ScCsvLoader
 {
@@ -24,15 +22,15 @@ public class ScCsvLoader
     private const string KeyText = "Text";
     private const string KeyUseTTS = "TTS";
 
-    public Dictionary<string, KeyData> Init(string path)
+    public static Dictionary<string, KeyData> Parse(string path)
     {
-        Dictionary<string, KeyData> dic = new Dictionary<string, KeyData>();
+        Dictionary<string, KeyData> dict = new();
 
-        string CsvText = File.ReadAllText(path, Encoding.UTF8);
-        List<Dictionary<string, string>> textList = LoadFromText(CsvText);
+        string csvText = File.ReadAllText(path, Encoding.UTF8);
+        List<Dictionary<string, string>> textList = LoadFromText(csvText);
 
-        if (textList == null) return null;
-
+        if (textList == null) 
+            return null;
 
         foreach (Dictionary<string, string> row in textList)
         {
@@ -47,21 +45,21 @@ public class ScCsvLoader
             if (row.TryGetValue(KeyUseTTS, out var flagStr))// TTS 사용 여부 불러옴
                 bool.TryParse(flagStr, out useTts);// TTS 사용 여부가 없으면 false로 처리
 
-            if (dic.ContainsKey(id))
+            if (dict.ContainsKey(id))
             {                
                 Debug.LogWarning($"Duplicate key found in CSV: {id}. Overwriting existing value.");
             }
             else
             {
-                dic.Add(id, new KeyData(useTts, text));
+                dict.Add(id, new KeyData(useTts, text));
             }
-
         }
-        return dic;
+
+        return dict;
     }
 
     // CSV 전체 텍스트를 받아 헤더행 포함 레코드 단위로 분리한 뒤 파싱
-    public List<Dictionary<string, string>> LoadFromText(string csvText)
+    public static List<Dictionary<string, string>> LoadFromText(string csvText)
     {
         var result = new List<Dictionary<string, string>>();
 
@@ -92,7 +90,7 @@ public class ScCsvLoader
 
     // 텍스트 전체를 한 글자씩 보면서, 인용부호 안에 들어 있는 줄바꿈은 무시하고
     // 인용부호 밖의 '\r' 또는 '\n' 만을 레코드 구분자로 삼음
-    private List<string> SplitCsvRecords(string text)
+    private static List<string> SplitCsvRecords(string text)
     {
         var records = new List<string>();
         var sb = new StringBuilder();
@@ -139,7 +137,7 @@ public class ScCsvLoader
 
     // 한 레코드(한 줄)에서 콤마 단위로 필드를 분리, 인용부호를 벗어나면 분할
     // 인용부호 내부의 콤마나 줄바꿈은 sb 에 그대로 축적
-    private List<string> ParseLine(string line)
+    private static List<string> ParseLine(string line)
     {
         var list = new List<string>();
         var sb = new StringBuilder();

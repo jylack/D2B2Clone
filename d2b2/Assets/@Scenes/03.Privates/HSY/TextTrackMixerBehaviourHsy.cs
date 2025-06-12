@@ -34,12 +34,11 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
 
         Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
 
-        ScCsvLoader csvLoader = new ScCsvLoader();
         string path = Application.dataPath + "/Resources/LocalizationTable.csv";
         string CsvText = System.IO.File.ReadAllText(path, System.Text.Encoding.UTF8);
 
 
-        var textList = csvLoader.LoadFromText(CsvText);
+        var textList = ScCsvLoader.LoadFromText(CsvText);
 
         foreach (var row in textList)
         {
