@@ -23,6 +23,8 @@ public class UIAdmin : UIBase
 
     public void OnCardHoverEntered(HoverEnterEventArgs args)
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.SimpleNotification);
+
         Transform target = args.interactableObject.transform;
         target.DOLocalMoveZ(-0.5f, 0.2f).SetLink(target.gameObject);
     }

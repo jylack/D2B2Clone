@@ -221,12 +221,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3fd8240cea2c2468a7f2a00e393390, type: 3}
---- !u!1 &411101043 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 667076388541421492, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
-    type: 3}
-  m_PrefabInstance: {fileID: 894212481}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &479037352
 Mesh:
   m_ObjectHideFlags: 0
@@ -412,6 +406,12 @@ GameObject:
 --- !u!1 &644121202 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5870112957240761797, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
+    type: 3}
+  m_PrefabInstance: {fileID: 894212481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &718641617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1612539511, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
     type: 3}
   m_PrefabInstance: {fileID: 894212481}
   m_PrefabAsset: {fileID: 0}
@@ -709,7 +709,7 @@ PrefabInstance:
     - target: {fileID: 4138334456392941062, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4138334456392941062, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
@@ -1127,6 +1127,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &894212485 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3629433628660447492, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
+    type: 3}
+  m_PrefabInstance: {fileID: 894212481}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &894212486 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5870112957342104046, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
@@ -1343,7 +1355,7 @@ PrefabInstance:
     - target: {fileID: 5027589175670547348, guid: ee884690f38dd28409715cdac376ca2c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5027589175670547348, guid: ee884690f38dd28409715cdac376ca2c,
         type: 3}
@@ -1402,90 +1414,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee884690f38dd28409715cdac376ca2c, type: 3}
---- !u!1 &1750671995
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1750671997}
-  - component: {fileID: 1750671996}
-  m_Layer: 0
-  m_Name: arrow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!212 &1750671996
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750671995}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dda297d205a7d40578a2fb79f6206b90, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3.97, y: 2.19}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1750671997
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750671995}
-  m_LocalRotation: {x: 0, y: -0, z: 0.976296, w: -0.21643949}
-  m_LocalPosition: {x: 4.663157, y: 1.4597651, z: -4.75}
-  m_LocalScale: {x: 0.27, y: 0.27, z: 0.27}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 205}
 --- !u!114 &1780485883 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1965535126, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
@@ -1565,7 +1493,7 @@ PlayableDirector:
   - key: {fileID: -8604456281300904053, guid: d851b46557c07264aae1f1efd3c89454, type: 2}
     value: {fileID: 0}
   - key: {fileID: 4905531971398860959, guid: d851b46557c07264aae1f1efd3c89454, type: 2}
-    value: {fileID: 1750671995}
+    value: {fileID: 0}
   - key: {fileID: 3148723894379103311, guid: d851b46557c07264aae1f1efd3c89454, type: 2}
     value: {fileID: 0}
   - key: {fileID: -7063389456046714556, guid: d851b46557c07264aae1f1efd3c89454, type: 2}
@@ -1576,12 +1504,10 @@ PlayableDirector:
     value: {fileID: 1780485883}
   - key: {fileID: -699429413558311135, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
     value: {fileID: 644121202}
-  - key: {fileID: 1132436987661432961, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
-    value: {fileID: 411101043}
   - key: {fileID: 560398208386934604, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
     value: {fileID: 517810392}
   - key: {fileID: -7019606957605684134, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
-    value: {fileID: 1750671995}
+    value: {fileID: 718641617}
   - key: {fileID: 6217407609248256480, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
     value: {fileID: 1255913608}
   - key: {fileID: 2061129485771576168, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
@@ -1604,6 +1530,8 @@ PlayableDirector:
     value: {fileID: 1602086245}
   - key: {fileID: -7545456458544701787, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
     value: {fileID: 91206881}
+  - key: {fileID: 7548734608689774900, guid: e66a7c72b71e457498bc880c19b27de2, type: 2}
+    value: {fileID: 894212485}
   m_ExposedReferences:
     m_References:
     - aa6ad975213d3d24e838cbcedbb681f5: {fileID: 516391148}

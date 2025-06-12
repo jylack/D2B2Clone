@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private AudioClip ok;
     [SerializeField] private AudioClip cancel;
+    [SerializeField] private AudioClip simpleNotification;
     [Header("Game")]
     [SerializeField] private AudioClip trafficLightChanged;
     [SerializeField] private AudioClip chapterFinished;
@@ -18,7 +19,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip chapterBgm;
 
     private AudioSource soundBgm;
-    private AudioSource soundTalk;
+    private AudioSource soundVoice;
     private AudioSource soundBgmSfx;
 
 
@@ -26,28 +27,32 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         soundBgm = gameObject.AddComponent<AudioSource>();
-        soundTalk = gameObject.AddComponent<AudioSource>();
+        soundVoice = gameObject.AddComponent<AudioSource>();
         soundBgmSfx = gameObject.AddComponent<AudioSource>();
+
+        SetDefaultSettings(soundBgm);
+        SetDefaultSettings(soundVoice);
+        SetDefaultSettings(soundBgmSfx);
     }
 
     private void Start()
     {
-        PlayDefaultBgm().Forget();
+        PlayDefaultBgm();
     }
 
 
 
-    public async UniTaskVoid PlayDefaultBgm()
+    public void PlayDefaultBgm()
     {
-        await PlayBgm(defaultBgm);
+        PlayBgm(defaultBgm).Forget();
     }
 
-    public async UniTaskVoid PlayChapterBgm()
+    public void PlayChapterBgm()
     {
-        await PlayBgm(chapterBgm);
+        PlayBgm(chapterBgm).Forget();
     }
 
-    public void PlayTalk()
+    public void PlayVoice()
     {
         // TODO
     }
@@ -56,19 +61,26 @@ public class SoundManager : MonoBehaviour
     {
         switch (sound)
         {
-            case ScDefine.ScSound.Ok:                   PlaySound(ok);                      break;
-            case ScDefine.ScSound.Cancel:               PlaySound(cancel);                  break;
-            case ScDefine.ScSound.TrafficLightChanged:  PlaySound(trafficLightChanged);     break;
-            case ScDefine.ScSound.ChapterFinished:      PlaySound(chapterFinished);         break;
-            case ScDefine.ScSound.CatchSomething:       PlaySound(catchSomething);          break;
-            case ScDefine.ScSound.PositiveNotification: PlaySound(positiveNotification);    break;
-            case ScDefine.ScSound.NegativeNotification: PlaySound(negativeNotification);    break;
+            case ScDefine.ScSound.Ok:                   PlayOneShot(ok);                    break;
+            case ScDefine.ScSound.Cancel:               PlayOneShot(cancel);                break;
+            case ScDefine.ScSound.SimpleNotification:   PlayOneShot(simpleNotification);    break;
+
+            case ScDefine.ScSound.TrafficLightChanged:  PlayOneShot(trafficLightChanged);   break;
+            case ScDefine.ScSound.ChapterFinished:      PlayOneShot(chapterFinished);       break;
+            case ScDefine.ScSound.CatchSomething:       PlayOneShot(catchSomething);        break;
+            case ScDefine.ScSound.PositiveNotification: PlayOneShot(positiveNotification);  break;
+            case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
         }
     }
 
     public void SetBgmVolume(float volume)
     {
         soundBgm.volume = volume;
+    }
+
+    public void SetVoiceVolume(float volume)
+    {
+        soundVoice.volume = volume;
     }
 
     public void SetSfxVolume(float volume)
@@ -78,21 +90,30 @@ public class SoundManager : MonoBehaviour
 
 
 
-    private void PlaySound(AudioClip audioClip)
+    private void SetDefaultSettings(AudioSource audioSource)
+    {
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0;
+    }
+
+    private void PlayOneShot(AudioClip audioClip)
     {
         soundBgmSfx.PlayOneShot(audioClip);
     }
 
     private async UniTask PlayBgm(AudioClip bgm)
     {
+        if (soundBgm.clip == bgm)
+            return;
+
         float volume = soundBgm.volume;
 
-        await soundBgm.DOFade(0f, 1f);
+        await soundBgm.DOFade(0f, 0.5f);
         soundBgm.Stop();
 
         soundBgm.clip = bgm;
         soundBgm.loop = true;
         soundBgm.Play();
-        await soundBgm.DOFade(volume, 1f);
+        await soundBgm.DOFade(volume, 0.5f);
     }
 }

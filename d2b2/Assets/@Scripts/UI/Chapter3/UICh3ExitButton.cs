@@ -35,6 +35,8 @@ public class UICh3ExitButton : ScObjectBase, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+
         isHolding = true;
         holdTime = 0f;
         imgPressed.fillAmount = 0f;
