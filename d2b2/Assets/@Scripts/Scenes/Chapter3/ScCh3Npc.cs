@@ -98,9 +98,10 @@ public class ScCh3Npc : ScObjectBase
 
     public void UpdateNextAction(ScDefine.ScPathPointNextAction nextAction, ScPathPoint newPathPoint, bool isRun)
     {
-        if (nextAction != ScDefine.ScPathPointNextAction.DoBadThing && isDoingBadThing)
+        if (isDoingBadThing && nextAction != ScDefine.ScPathPointNextAction.DoBadThing)
         {
             isDoingBadThing = false;
+            Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.NegativeNotification);
             UICh3Play.Instance.IncreaseMissedCharacterCount();
         }
 
@@ -133,6 +134,7 @@ public class ScCh3Npc : ScObjectBase
                 }
             case ScDefine.ScPathPointNextAction.DoBadThing:
                 {
+                    Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
                     currentAction = ScDefine.ScPathPointNextAction.DoBadThing;
                     isDoingBadThing = true;
 

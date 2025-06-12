@@ -136,6 +136,8 @@ public class ScTrafficLightSystem : ScObjectBase
     {
         try
         {
+            Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.TrafficLightChanged);
+
             // 이전 신호등 그룹
             currentTrafficLightGroup?.SetLight(ScDefine.ScTrafficLightType.Red);
 

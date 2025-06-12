@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private AudioClip ok;
     [SerializeField] private AudioClip cancel;
+    [SerializeField] private AudioClip simpleNotification;
     [Header("Game")]
     [SerializeField] private AudioClip trafficLightChanged;
     [SerializeField] private AudioClip chapterFinished;
@@ -62,6 +63,8 @@ public class SoundManager : MonoBehaviour
         {
             case ScDefine.ScSound.Ok:                   PlayOneShot(ok);                    break;
             case ScDefine.ScSound.Cancel:               PlayOneShot(cancel);                break;
+            case ScDefine.ScSound.SimpleNotification:   PlayOneShot(simpleNotification);    break;
+
             case ScDefine.ScSound.TrafficLightChanged:  PlayOneShot(trafficLightChanged);   break;
             case ScDefine.ScSound.ChapterFinished:      PlayOneShot(chapterFinished);       break;
             case ScDefine.ScSound.CatchSomething:       PlayOneShot(catchSomething);        break;
@@ -105,12 +108,12 @@ public class SoundManager : MonoBehaviour
 
         float volume = soundBgm.volume;
 
-        await soundBgm.DOFade(0f, 1f);
+        await soundBgm.DOFade(0f, 0.5f);
         soundBgm.Stop();
 
         soundBgm.clip = bgm;
         soundBgm.loop = true;
         soundBgm.Play();
-        await soundBgm.DOFade(volume, 1f);
+        await soundBgm.DOFade(volume, 0.5f);
     }
 }

@@ -60,6 +60,7 @@ public partial class ScCh3PlayService
     [PunRPC]
     private async void OnTimeUp()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.ChapterFinished);
         TimeUpCts.Cancel();
 
         glowWallParent.SetActive(false);
