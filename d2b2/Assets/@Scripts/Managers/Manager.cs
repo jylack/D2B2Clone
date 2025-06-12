@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public static bool IsInit { get; private set; }
+
     private static Manager instance;
     public static Manager Instance
     {
@@ -12,6 +14,9 @@ public class Manager : MonoBehaviour
             {
                 try
                 {
+                    IsInit = true;
+                    Debug.Log("manager initialized.");
+
                     var managerPrefab = Resources.Load<GameObject>("Prefabs/Manager");
                     instance = Instantiate(managerPrefab).GetComponent<Manager>();
                     DontDestroyOnLoad(instance.gameObject);
@@ -37,7 +42,6 @@ public class Manager : MonoBehaviour
     public DatabaseManager DbMgr { get; private set; }
     public SoundManager SoundMgr { get; private set; }
     public LanguageManager LanguageMgr { get; private set; }
-
 
 
 
@@ -70,10 +74,7 @@ public class Manager : MonoBehaviour
 
 
 
-    public void Init()
-    {
-        Debug.Log("manager initialized.");
-    }
+    public void Init() { }
 
 
 
