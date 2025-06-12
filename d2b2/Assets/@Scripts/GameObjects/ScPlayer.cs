@@ -5,7 +5,6 @@ public class ScPlayer : ScPlayerBase
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
-    [SerializeField] private AudioSource audioSource;
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
     [SerializeField] private float swingThresholdIntervalTime;
@@ -35,6 +34,8 @@ public class ScPlayer : ScPlayerBase
 
     private void Awake()
     {
+        base.InitSound(characterController.gameObject);
+
         headTurnThresholdQuaternion = Quaternion.Euler(0f, headTurnThreshold, 0f).y;
 
         Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
@@ -83,13 +84,6 @@ public class ScPlayer : ScPlayerBase
         Vector3 backwardLeft = backwardCenter + Vector3.left * 1f;
         Vector3 backwardRight = backwardCenter + Vector3.right * 1f;
         Gizmos.DrawLine(backwardLeft, backwardRight);
-    }
-
-
-
-    public override void PlaySound(AudioClip audioClip)
-    {
-        audioSource.PlayOneShot(audioClip);
     }
 
 

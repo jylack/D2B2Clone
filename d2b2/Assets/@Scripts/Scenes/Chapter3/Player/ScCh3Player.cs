@@ -4,13 +4,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ScCh3Player : ScPlayerBase
 {
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private GameObject xrOrigin;
 
     public override Camera MainCamera => mainCamera;
 
     private ScCh3Npc hoveredNpc;
 
 
+
+    private void Awake()
+    {
+        base.InitSound(xrOrigin);
+    }
 
     private void Start()
     {
@@ -24,12 +29,6 @@ public class ScCh3Player : ScPlayerBase
     }
 
 
-
-    public override void PlaySound(AudioClip audioClip)
-    {
-        audioSource.PlayOneShot(audioClip);
-        audioSource.Play();
-    }
 
     public void OnOutlineHoverEnter(HoverEnterEventArgs args)
     {

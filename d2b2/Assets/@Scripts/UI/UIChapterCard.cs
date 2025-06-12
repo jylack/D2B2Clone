@@ -15,6 +15,7 @@ public class UIChapterCard : UIBase
         if (!IsLoaded)
             return;
 
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
         imgCheck.gameObject.SetActive(true);
         Manager.Instance.SceneMgr.LoadScene(nextScene);
     }
