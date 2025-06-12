@@ -14,7 +14,7 @@ public class LanguageManager : MonoBehaviour
 
     private void Start()
     {
-        CsvPath = Path.Combine(Application.dataPath + "Resources/LocalizationTable.csv");
+        CsvPath = Path.Combine(Application.dataPath, "Resources/LocalizationTable.csv");
         dialogueMap = ScCsvLoader.Parse(CsvPath);
         tts = GetComponent<ScTTSSetting>(); 
     }
