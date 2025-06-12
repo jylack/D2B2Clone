@@ -91,6 +91,7 @@
         None,
         Ok,
         Cancel,
+        SimpleNotification,
         
         TrafficLightChanged,
         ChapterFinished,
