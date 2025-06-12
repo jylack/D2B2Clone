@@ -173,6 +173,15 @@ public class GameSceneManager : MonoBehaviour
 
         await FadeOut();
 
+        // warning error log 방지
+        //GameObject camera = GameObject.Find("Main Camera");
+        //if (camera != null)
+        //{
+        //    var listener = camera.GetComponent<AudioListener>();
+        //    if (listener != null)
+        //        Destroy(listener);
+        //}
+
         await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
         await UniTask.WaitForSeconds(0.5f);
 

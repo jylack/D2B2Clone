@@ -80,11 +80,14 @@ public class FirebaseRealtimeDatabase : IDatabase
     {
         try
         {
-            DataSnapshot snapshot = await dbRef.Child(RootPath).Child(nickName).GetValueAsync();
-            if (snapshot.Exists)
+            if (!string.IsNullOrWhiteSpace(nickName))
             {
-                string json = snapshot.GetRawJsonValue();
-                return JsonConvert.DeserializeObject<ScPlayerEntity>(json);
+                DataSnapshot snapshot = await dbRef.Child(RootPath).Child(nickName).GetValueAsync();
+                if (snapshot.Exists)
+                {
+                    string json = snapshot.GetRawJsonValue();
+                    return JsonConvert.DeserializeObject<ScPlayerEntity>(json);
+                }
             }
         }
         catch (Exception ex)

@@ -1,9 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -59,22 +57,39 @@ public class GameManager : MonoBehaviour
         OnPlayerMoving?.Invoke(isMoving);
     }
 
-    public async void ApplyCurrentSetting()
+    public void ApplyCurrentSetting()
     {
         try
         {
-            if (NickName != null)
+            if (playerEntity?.settings != null)
             {
-                ScPlayerEntity player = await Manager.Instance.DbMgr.Load(Manager.Instance.GameMgr.NickName);
-                if (player != null)
-                {
-                    ApplyLoadedSetting(player.settings);
-                }
+                ApplyLoadedSetting(playerEntity.settings);
+            }
+            else
+            {
+                ScPlayerSettingsEntity entity = new();
+                entity.renderScale = 1f;
+                entity.brightness = 2f;
+
+                entity.colorWeakMode = 0;
+                entity.colorWeakCompensate = 100f;
+
+                entity.rotateMode = 2;
+                entity.rotationAngle = 3f;
+                entity.rotationSpeed = 6f;
+
+                entity.masterVolume = 1f;
+                entity.bgmVolume = 1f;
+                entity.voiceVolume = 1f;
+                entity.soundEffectVolume = 1f;
+
+                Manager.Instance.GameMgr.ApplyLoadedSetting(entity);
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            Debug.LogError(e);
+            //Debug.LogException(ex);
+            Debug.Log(ex.Message);
         }
     }
 
@@ -85,14 +100,14 @@ public class GameManager : MonoBehaviour
             urp.renderScale = playerSetting.renderScale;
         }
 
-        Light sceneLight = GameObject.Find("Directional Light").GetComponent<Light>();
+        Light sceneLight = GameObject.Find("Directional Light")?.GetComponent<Light>();
         if(sceneLight != null)
         {
             sceneLight.intensity = playerSetting.brightness + 1;
         }
 
         Volume volume = GameObject.Find("Global Volume")?.GetComponent<Volume>();
-        if(volume != null && volume.sharedProfile.TryGet<ChannelMixer>(out ChannelMixer channelMixer))
+        if(volume != null && volume.sharedProfile.TryGet(out ChannelMixer channelMixer))
         {
             float curValue = playerSetting.colorWeakCompensate;
             bool red, green, blue;
