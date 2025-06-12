@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip catchSomething;
     [SerializeField] private AudioClip positiveNotification;
     [SerializeField] private AudioClip negativeNotification;
+    [SerializeField] private AudioClip chapterMissionClear;
     [Header("BGM")]
     [SerializeField] private AudioClip defaultBgm;
     [SerializeField] private AudioClip chapterBgm;
@@ -70,6 +71,7 @@ public class SoundManager : MonoBehaviour
             case ScDefine.ScSound.CatchSomething:       PlayOneShot(catchSomething);        break;
             case ScDefine.ScSound.PositiveNotification: PlayOneShot(positiveNotification);  break;
             case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
+            case ScDefine.ScSound.ChapterMissionClear: PlayOneShot(chapterMissionClear);  break;
         }
     }
 

@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9104301527778006332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
+  m_Name: ActivationPlayableAsset(Clone)
+  m_EditorClassIdentifier: 
 --- !u!114 &-7158984633635974465
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +271,75 @@ MonoBehaviour:
     m_Start: 2.533333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 2058538661254576771}
+    m_Duration: 2.216666666666667
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -3787887563374641025}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Active
+  - m_Version: 1
+    m_Start: 47.76666666666654
+    m_ClipIn: 0
+    m_Asset: {fileID: -9104301527778006332}
     m_Duration: 2.216666666666667
     m_TimeScale: 1
     m_ParentTrack: {fileID: -3787887563374641025}
@@ -984,10 +1065,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextPlayableAsset
   - m_Version: 1
-    m_Start: 47.76666666666654
+    m_Start: 46.08333333333326
     m_ClipIn: 0
     m_Asset: {fileID: 6425734199753224081}
-    m_Duration: 4
+    m_Duration: 2.3166666666667766
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1367356077104883341}
     m_EaseInDuration: 0
@@ -1087,6 +1168,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset
   m_EditorClassIdentifier: 
+--- !u!114 &2676941111604905728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 52.96666666666667
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: 034e41764a40a6c40ae72b92431e3a9f, type: 2}
 --- !u!114 &3496186118011547069
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1141,6 +1238,7 @@ MonoBehaviour:
     - {fileID: 5864769586313874267}
     - {fileID: -324627971210315740}
     - {fileID: 8952938087269054726}
+    - {fileID: 2676941111604905728}
 --- !u!114 &4423158770745302322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1360,7 +1458,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 16.133333333333315
+    m_Start: 18.1
     m_ClipIn: 0
     m_Asset: {fileID: -5521393801845549355}
     m_Duration: 24.333333333333
