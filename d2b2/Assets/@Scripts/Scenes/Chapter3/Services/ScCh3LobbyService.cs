@@ -24,8 +24,6 @@ public partial class ScCh3LobbyService : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
-
-        Manager.Instance.Init();
     }
 
     private void Start()
