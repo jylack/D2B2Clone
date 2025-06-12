@@ -23,11 +23,13 @@ public class UIChLogin : UIBase
     {
         try
         {
+            Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+
             if (isProcessing)
                 return;
 
             isProcessing = true;
-
+            
             if (!CheckValidation())
                 return;
 
@@ -56,16 +58,20 @@ public class UIChLogin : UIBase
 
     public void OnClickStartGame()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+
         if (isProcessing)
             return;
 
         isProcessing = true;
-
+        
         base.LoadScene(nextSceneType);
     }
 
     public void OnClickSettings()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+
         if (isProcessing)
             return;
 
@@ -76,11 +82,13 @@ public class UIChLogin : UIBase
 
     public void OnClickExit()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Cancel);
+
         if (isProcessing)
             return;
 
         isProcessing = true;
-
+        
         base.LoadRootScene();
     }
 

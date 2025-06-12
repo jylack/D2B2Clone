@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip chapterBgm;
 
     private AudioSource soundBgm;
-    private AudioSource soundTalk;
+    private AudioSource soundVoice;
     private AudioSource soundBgmSfx;
 
 
@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         soundBgm = gameObject.AddComponent<AudioSource>();
-        soundTalk = gameObject.AddComponent<AudioSource>();
+        soundVoice = gameObject.AddComponent<AudioSource>();
         soundBgmSfx = gameObject.AddComponent<AudioSource>();
     }
 
@@ -47,7 +47,7 @@ public class SoundManager : MonoBehaviour
         await PlayBgm(chapterBgm);
     }
 
-    public void PlayTalk()
+    public void PlayVoice()
     {
         // TODO
     }
@@ -56,19 +56,24 @@ public class SoundManager : MonoBehaviour
     {
         switch (sound)
         {
-            case ScDefine.ScSound.Ok:                   PlaySound(ok);                      break;
-            case ScDefine.ScSound.Cancel:               PlaySound(cancel);                  break;
-            case ScDefine.ScSound.TrafficLightChanged:  PlaySound(trafficLightChanged);     break;
-            case ScDefine.ScSound.ChapterFinished:      PlaySound(chapterFinished);         break;
-            case ScDefine.ScSound.CatchSomething:       PlaySound(catchSomething);          break;
-            case ScDefine.ScSound.PositiveNotification: PlaySound(positiveNotification);    break;
-            case ScDefine.ScSound.NegativeNotification: PlaySound(negativeNotification);    break;
+            case ScDefine.ScSound.Ok:                   PlayOneShot(ok);                    break;
+            case ScDefine.ScSound.Cancel:               PlayOneShot(cancel);                break;
+            case ScDefine.ScSound.TrafficLightChanged:  PlayOneShot(trafficLightChanged);   break;
+            case ScDefine.ScSound.ChapterFinished:      PlayOneShot(chapterFinished);       break;
+            case ScDefine.ScSound.CatchSomething:       PlayOneShot(catchSomething);        break;
+            case ScDefine.ScSound.PositiveNotification: PlayOneShot(positiveNotification);  break;
+            case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
         }
     }
 
     public void SetBgmVolume(float volume)
     {
         soundBgm.volume = volume;
+    }
+
+    public void SetVoiceVolume(float volume)
+    {
+        soundVoice.volume = volume;
     }
 
     public void SetSfxVolume(float volume)
@@ -78,7 +83,7 @@ public class SoundManager : MonoBehaviour
 
 
 
-    private void PlaySound(AudioClip audioClip)
+    private void PlayOneShot(AudioClip audioClip)
     {
         soundBgmSfx.PlayOneShot(audioClip);
     }

@@ -178,6 +178,7 @@ public class ScCh3Npc : ScObjectBase
             });
         }
 
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.CatchSomething);
         ShowCaughtVfx();
         DestroySelf();
     }

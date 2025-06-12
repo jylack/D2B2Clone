@@ -46,6 +46,8 @@ public class UICh3Lobby : UIBase
 
     public void OnStartButtonClicked()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
 
@@ -54,6 +56,8 @@ public class UICh3Lobby : UIBase
 
     public void OnExitButtonClicked()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Cancel);
+
         if (PhotonNetwork.IsMasterClient)
             ScCh3LobbyService.Instance.TransferMasterTo();
         
