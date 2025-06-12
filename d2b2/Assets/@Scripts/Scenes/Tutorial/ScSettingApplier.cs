@@ -80,6 +80,7 @@ public class ScSettingApplier : MonoBehaviour
             settings = playerSetting
         };
 
+        Manager.Instance.GameMgr.SetCurrentPlayerInfo(entity);
         Manager.Instance.DbMgr.Save(Manager.Instance.GameMgr.NickName, entity).Forget();
     }
 
