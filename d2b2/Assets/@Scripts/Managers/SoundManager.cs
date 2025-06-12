@@ -36,6 +36,6 @@ public class SoundManager : MonoBehaviour
 
     private void PlaySound(AudioClip audioClip)
     {
-        Manager.Instance.GameMgr.Player?.PlaySound(audioClip);
+        Manager.Instance.GameMgr.Player?.PlayBgm(audioClip);
     }
 }
