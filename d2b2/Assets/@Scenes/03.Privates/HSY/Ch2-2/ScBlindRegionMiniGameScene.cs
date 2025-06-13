@@ -77,15 +77,17 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         int count = 3;
         while (count >= 0)
         {
+            yield return new WaitForSeconds(1);
             if (count == 0)
             {
+                Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ch2_2_GameStart);
                 UIPlayerHsy.Instance.countDownText.text = "Ω√¿€";
             }
             else
             {
+                Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ch2_2_CountDown);
                 UIPlayerHsy.Instance.countDownText.text = count.ToString();
             }
-            yield return new WaitForSeconds(1);
             count--;
         }
         playerScript.isGamePlaying = true;
@@ -94,6 +96,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         playNavInfo.SetActive(true);
         CreateChildNpc();
         yield return StartCoroutine(TimmerCor());
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ch2_2_GameEnd);
         playNavInfo.SetActive(false);
         playerScript.DisConnectPlayerTriggerEvent();
         playerScript.isGamePlaying = false;
@@ -105,6 +108,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
     }
     public void OnClickPlayeButton()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
         StartCoroutine(StartCount());
         OffgameStartBtn();
     }
