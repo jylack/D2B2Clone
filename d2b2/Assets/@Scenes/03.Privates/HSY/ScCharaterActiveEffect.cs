@@ -17,4 +17,8 @@ public class ScCharaterActiveEffect : MonoBehaviour
         scaleTween = transform.DOScale(targetScale, 0.5f)
             .SetEase(Ease.OutBack);
     }
+    public void SkidSoundPlay()
+    {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.CarSkid);
+    }
 }
