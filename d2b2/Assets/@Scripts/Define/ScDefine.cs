@@ -100,5 +100,8 @@
         NegativeNotification,
         ChapterMissionClear,
         CarSkid,
+        Ch2_2_CountDown,
+        Ch2_2_GameStart,
+        Ch2_2_GameEnd,
     }
 }
