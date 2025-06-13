@@ -99,5 +99,6 @@
         PositiveNotification,
         NegativeNotification,
         ChapterMissionClear,
+        CarSkid,
     }
 }
