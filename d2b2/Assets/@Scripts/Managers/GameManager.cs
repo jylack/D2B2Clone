@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public delegate void OnPlayerHeadTurnHandler(ScDefine.ScHeadTurn headTurn);
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         OnPlayerHeadTurn?.Invoke(headTurn);
     }
 
-    public void RaisePlayerHandsUpEvent(bool isLeftHandUp, bool isRightHandUp,float distance)
+    public void RaisePlayerHandsUpEvent(bool isLeftHandUp, bool isRightHandUp, float distance)
     {
         OnPlayerHandsUp?.Invoke(isLeftHandUp, isRightHandUp, distance);
     }
@@ -94,73 +95,84 @@ public class GameManager : MonoBehaviour
     }
 
     public void ApplyLoadedSetting(ScPlayerSettingsEntity playerSetting)
-    { 
+    {
         UniversalRenderPipelineAsset urp = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
-        if (urp != null) {
+        if (urp != null)
+        {
             urp.renderScale = playerSetting.renderScale;
         }
 
-        Light sceneLight = GameObject.Find("Directional Light")?.GetComponent<Light>();
-        if(sceneLight != null)
+        Light[] sceneLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
+        if (sceneLights != null)
         {
-            sceneLight.intensity = playerSetting.brightness + 1;
-        }
-
-        Volume volume = GameObject.Find("Global Volume")?.GetComponent<Volume>();
-        if(volume != null && volume.sharedProfile.TryGet(out ChannelMixer channelMixer))
-        {
-            float curValue = playerSetting.colorWeakCompensate;
-            bool red, green, blue;
-            switch (playerSetting.colorWeakMode)
+            foreach (var light in sceneLights)
             {
-                case 1: //red
-                    red = true;
-                    green = false;
-                    blue = false;
-                    channelMixer.redOutBlueIn.value = -curValue;
-                    channelMixer.redOutGreenIn.value = -curValue;
-                    channelMixer.redOutRedIn.value = curValue + 100;
-                    break;
-                case 2: //green
-                    red = false;
-                    green = true;
-                    blue = false;
-                    channelMixer.greenOutBlueIn.value = -curValue;
-                    channelMixer.greenOutGreenIn.value = curValue + 100;
-                    channelMixer.greenOutRedIn.value = -curValue;
-                    break;
-                case 3: //blue
-                    red = false;
-                    green = false;
-                    blue = true;
-                    channelMixer.blueOutBlueIn.value = curValue + 100;
-                    channelMixer.blueOutGreenIn.value = -curValue;
-                    channelMixer.blueOutRedIn.value = -curValue;
-                    break;
-                default:
-                    red = false;
-                    green = false;
-                    blue = false;
-                    break;
+                light.intensity = playerSetting.brightness + 1;
             }
-            channelMixer.redOutBlueIn.overrideState = red;
-            channelMixer.redOutGreenIn.overrideState = red;
-            channelMixer.redOutRedIn.overrideState = red;
-
-            channelMixer.greenOutBlueIn.overrideState = green;
-            channelMixer.greenOutGreenIn.overrideState = green;
-            channelMixer.greenOutRedIn.overrideState = green;
-
-            channelMixer.blueOutBlueIn.overrideState = blue;
-            channelMixer.blueOutGreenIn.overrideState = blue;
-            channelMixer.blueOutRedIn.overrideState = blue;
         }
 
-        ActionBasedControllerManager abcm = GameObject.Find("Camera Offset").transform.GetChild(5).GetComponent<ActionBasedControllerManager>();
-        GameObject turn = GameObject.Find("Turn");
-        SnapTurnProviderBase snap = turn.GetComponent<SnapTurnProviderBase>();
-        ContinuousTurnProviderBase cont = turn.GetComponent<ContinuousTurnProviderBase>();
-        if(abcm != null && turn != null)
+        Volume[] volumes = FindObjectsByType<Volume>(FindObjectsSortMode.None);
+        if (volumes != null)
+        {
+            foreach (var volume in volumes)
+            {
+                if (!volume.isGlobal) continue;
+                if (volume.sharedProfile.TryGet(out ChannelMixer channelMixer))
+                {
+                    float curValue = playerSetting.colorWeakCompensate;
+                    bool red, green, blue;
+                    switch (playerSetting.colorWeakMode)
+                    {
+                        case 1: //red
+                            red = true;
+                            green = false;
+                            blue = false;
+                            channelMixer.redOutBlueIn.value = -curValue;
+                            channelMixer.redOutGreenIn.value = -curValue;
+                            channelMixer.redOutRedIn.value = curValue + 100;
+                            break;
+                        case 2: //green
+                            red = false;
+                            green = true;
+                            blue = false;
+                            channelMixer.greenOutBlueIn.value = -curValue;
+                            channelMixer.greenOutGreenIn.value = curValue + 100;
+                            channelMixer.greenOutRedIn.value = -curValue;
+                            break;
+                        case 3: //blue
+                            red = false;
+                            green = false;
+                            blue = true;
+                            channelMixer.blueOutBlueIn.value = curValue + 100;
+                            channelMixer.blueOutGreenIn.value = -curValue;
+                            channelMixer.blueOutRedIn.value = -curValue;
+                            break;
+                        default:
+                            red = false;
+                            green = false;
+                            blue = false;
+                            break;
+                    }
+                    channelMixer.redOutBlueIn.overrideState = red;
+                    channelMixer.redOutGreenIn.overrideState = red;
+                    channelMixer.redOutRedIn.overrideState = red;
+
+                    channelMixer.greenOutBlueIn.overrideState = green;
+                    channelMixer.greenOutGreenIn.overrideState = green;
+                    channelMixer.greenOutRedIn.overrideState = green;
+
+                    channelMixer.blueOutBlueIn.overrideState = blue;
+                    channelMixer.blueOutGreenIn.overrideState = blue;
+                    channelMixer.blueOutRedIn.overrideState = blue;
+                }
+            }
+        }
+        XRInputModalityManager imm = FindAnyObjectByType<XRInputModalityManager>();
+        ActionBasedControllerManager abcm = null;
+        imm?.rightController.TryGetComponent(out abcm);
+        SnapTurnProviderBase snap = FindAnyObjectByType<ActionBasedSnapTurnProvider>();
+        ContinuousTurnProviderBase cont = FindAnyObjectByType<ActionBasedContinuousTurnProvider>();
+        if (abcm != null && snap != null && cont != null)
         {
             switch (playerSetting.rotateMode)
             {

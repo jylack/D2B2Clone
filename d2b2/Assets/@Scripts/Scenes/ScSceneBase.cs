@@ -16,7 +16,7 @@ public abstract class ScSceneBase : ScObjectBase
             Manager.Instance.SceneMgr.OnSceneLoaded();
             IsLoaded = true;
 
-            //Manager.Instance.GameMgr.ApplyCurrentSetting();
+            Manager.Instance.GameMgr.ApplyCurrentSetting();
         }
         catch (OperationCanceledException ex)
         {
