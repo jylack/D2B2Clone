@@ -92,8 +92,6 @@ public class ScMissionBoxTextCheck : MonoBehaviour
                 case MissionBoxTextCheckType.Clear:
                     checkType = MissionBoxTextCheckType.Clear;
                     tmp.color = Color.gray;
-                    Debug.Log("중복되는중");
-
                     break;
                 case MissionBoxTextCheckType.Title:
                     tmp.color = Color.white;
