@@ -101,4 +101,13 @@
         ChapterMissionClear,
         CarSkid,
     }
+
+    public enum ScLanguage
+    {
+        Ko, // 한국어
+        En, // 영어
+        Fr, // 프랑스어
+        Ru, // 러시아어
+        De, // 독일어
+    }
 }

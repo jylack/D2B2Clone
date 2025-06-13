@@ -15,6 +15,7 @@ public class LanguageManager : MonoBehaviour
 
     public Dictionary<string, KeyData> DialogueMap => dialogueMap;
     public ScLanguageSet LanguageSet { get; } = new();
+    public ScDefine.ScLanguage Language { get; private set; } = ScDefine.ScLanguage.Ko;
     
     private Dictionary<string, KeyData> dialogueMap = new();
     private ScTTSSetting tts;
@@ -80,6 +81,21 @@ public class LanguageManager : MonoBehaviour
         else
         {
             Debug.LogWarning($"Dialogue key '{key}' not found for speaking.");
+        }
+    }
+
+    public async UniTaskVoid ChangeLanguage(ScDefine.ScLanguage lang)
+    {
+        try
+        {
+            await LocalizationSettings.InitializationOperation.Task;
+
+            string localeId = lang.ToString().ToLower();
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(localeId);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
         }
     }
 }
