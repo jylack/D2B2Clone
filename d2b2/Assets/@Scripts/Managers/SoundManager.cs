@@ -64,7 +64,7 @@ public class SoundManager : MonoBehaviour
     public void PlayVoice(string voiceKey)
     {
         if (voiceDict.TryGetValue(voiceKey, out AudioClip audioClip))
-            soundVoice.PlayOneShot(audioClip);
+            soundVoice.PlayOneShot(audioClip);        
     }
 
     public void PlaySfx(ScDefine.ScSound sound)
