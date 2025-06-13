@@ -100,5 +100,17 @@
         NegativeNotification,
         ChapterMissionClear,
         CarSkid,
+        Ch2_2_CountDown,
+        Ch2_2_GameStart,
+        Ch2_2_GameEnd,
+    }
+
+    public enum ScLanguage
+    {
+        Ko, // 한국어
+        En, // 영어
+        Fr, // 프랑스어
+        Ru, // 러시아어
+        De, // 독일어
     }
 }

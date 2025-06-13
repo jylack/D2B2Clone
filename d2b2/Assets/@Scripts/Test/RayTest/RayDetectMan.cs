@@ -25,13 +25,17 @@ public class RayDetectMan : MonoBehaviour
     public void SetOutlineVisible(bool isVisible)
     {
         if (outline != null)
+        {
+            Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ch2_2_CountDown);
             outline.enabled = isVisible;
+        }
     }
 
     public void DoSomething()
     {
         transform.DOScale(minSize,0.3f).OnComplete(() => gameObject.SetActive(false));
-        effect.Play(true);
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.CatchSomething);
+        effect.Play();
     }
     private void OnDestroy()
     {

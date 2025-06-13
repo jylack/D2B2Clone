@@ -17,6 +17,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip negativeNotification;
     [SerializeField] private AudioClip chapterMissionClear;
     [SerializeField] private AudioClip carSkid;
+    [SerializeField] private AudioClip miniGamecountDown;
+    [SerializeField] private AudioClip miniGameStart;
+    [SerializeField] private AudioClip miniGameEnd;
 
     [Header("BGM")]
     [SerializeField] private AudioClip defaultBgm;
@@ -82,6 +85,9 @@ public class SoundManager : MonoBehaviour
             case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
             case ScDefine.ScSound.ChapterMissionClear:  PlayOneShot(chapterMissionClear);   break;
             case ScDefine.ScSound.CarSkid:              PlayOneShot(carSkid);               break;
+            case ScDefine.ScSound.Ch2_2_CountDown: PlayOneShot(miniGamecountDown);          break;
+            case ScDefine.ScSound.Ch2_2_GameStart: PlayOneShot(miniGameStart);              break;
+            case ScDefine.ScSound.Ch2_2_GameEnd: PlayOneShot(miniGameEnd);                  break;
         }
     }
 

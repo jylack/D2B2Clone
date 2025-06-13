@@ -2,10 +2,10 @@
 using UnityEditor;
 using UnityEngine;
 
-public class ScLanguageGenerator : MonoBehaviour
+public class ScLanguageSetGenerator : MonoBehaviour
 {
     [MenuItem("Tools/Generate ScLanguageSet Class")]
-    public static void GenerateClass()
+    public static void Generate()
     {
         Debug.Log("===== 클래스 파일 생성 시작 =====");
         
