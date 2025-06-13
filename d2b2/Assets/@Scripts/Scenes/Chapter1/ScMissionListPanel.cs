@@ -22,7 +22,7 @@ public class ScMissionListPanel : MonoBehaviour
     /// _기준으로 앞과 뒤를 정해준뒤 맨뒤에 숫자로 순서만 정해주면 됩니다.
     /// </summary>
     [Header("Mission 필터")]
-    [Tooltip("챕터(접두어)를 선택하세요.")]
+    [Tooltip("챕터를 선택하세요.")]
     [SerializeField] private Chapter ChapterPrefix = Chapter.Ch1;
 
     [Tooltip("카테고리를 선택하세요.")]
