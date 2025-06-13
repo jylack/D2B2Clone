@@ -11,11 +11,12 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
     float m_DefaultFontSize;
     string m_DefaultText;
     TMP_Text m_TrackBinding;
+    string lastText;
+    string currentText;
 
     private const string KeyId = "Id";
     private const string KeyText = "Text";
     private const string KeyUseTTS = "TTS";
-
 
     // Called every frame that the timeline is evaluated. ProcessFrame is invoked after its' inputs.
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
@@ -32,24 +33,6 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
         float greatestWeight = 0f;
         string text = m_DefaultText;
 
-        Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
-
-        string path = Application.dataPath + "/Resources/LocalizationTable.csv";
-        string CsvText = System.IO.File.ReadAllText(path, System.Text.Encoding.UTF8);
-
-
-        var textList = ScCsvLoader.LoadFromText(CsvText);
-
-        foreach (var row in textList)
-        {
-            if (row.TryGetValue(KeyId, out string key) 
-                && row.TryGetValue(KeyText, out var textValue))
-            {
-                dialogueMap.Add(key, textValue);
-            }
-        }
-
-
         for (int i = 0; i < inputCount; i++)
         {
             float inputWeight = playable.GetInputWeight(i);
@@ -59,23 +42,24 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
             blendedColor += input.color * inputWeight;
             blendedFontSize += input.fontSize * inputWeight;
             totalWeight += inputWeight;
+
             if (inputWeight > greatestWeight)
             {
-                if (dialogueMap.TryGetValue(input.key, out string value))
-                {
-                    text = value;
-                }
-                else
-                {
-                    text = $"{input.key} 키값 없음";
-                    Debug.LogWarning(text);
-                }
+                currentText = input.key;
                 greatestWeight = inputWeight;
             }
         }
+
+        // 텍스트가 변경될 때만 갱신
+        if (currentText != lastText)
+        {
+            m_TrackBinding.text = GetText(currentText);
+            lastText = currentText;
+        }
+
         m_TrackBinding.color = Color.Lerp(m_DefaultColor, blendedColor, totalWeight);
         m_TrackBinding.fontSize = Mathf.RoundToInt(Mathf.Lerp(m_DefaultFontSize, blendedFontSize, totalWeight));
-        m_TrackBinding.text = text;
+        //m_TrackBinding.text = text;
     }
 
     public override void OnPlayableDestroy(Playable playable)
@@ -109,4 +93,35 @@ public class TextTrackMixerBehaviourHsy : PlayableBehaviour
         m_TrackBinding.text = m_DefaultText;
     }
 
+    private string GetText(string textKey)
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying)
+        {
+            Manager.Instance.SoundMgr.PlayVoice(textKey);
+            return Manager.Instance.LanguageMgr.GetText(textKey);
+        }
+        else
+        {
+            Dictionary<string, string> dialogueMap = new Dictionary<string, string>();
+            string path = Application.dataPath + "/Resources/LocalizationTable.csv";
+            string CsvText = System.IO.File.ReadAllText(path, System.Text.Encoding.UTF8);
+            var textList = ScCsvLoader.LoadFromText(CsvText);
+            foreach (var row in textList)
+            {
+                if (row.TryGetValue(KeyId, out string key)
+                    && row.TryGetValue(KeyText, out var textValue))
+                {
+                    dialogueMap.Add(key, textValue);
+                }
+            }
+
+            return dialogueMap[textKey];
+        }
+#else
+    Manager.Instance.SoundMgr.PlayVoice(textKey);
+    return Manager.Instance.LanguageMgr.GetText(textKey);
+#endif
+
+    }
 }

@@ -1010,6 +1010,8 @@ PlayableDirector:
     value: {fileID: 425876773}
   - key: {fileID: 8553458662189667115, guid: d851b46557c07264aae1f1efd3c89454, type: 2}
     value: {fileID: 1813439749}
+  - key: {fileID: -8972199407634350385, guid: d851b46557c07264aae1f1efd3c89454, type: 2}
+    value: {fileID: 1912047140}
   m_ExposedReferences:
     m_References:
     - 8c2531620d2163d47ba9a8c79f40b223: {fileID: 425876772}
@@ -1127,7 +1129,7 @@ PrefabInstance:
     - target: {fileID: 1945127346265614660, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 2374
+      value: 2392
       objectReference: {fileID: 0}
     - target: {fileID: 1945127346265614665, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
@@ -1147,7 +1149,7 @@ PrefabInstance:
     - target: {fileID: 1945127346558518307, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 2374
+      value: 2392
       objectReference: {fileID: 0}
     - target: {fileID: 1951174404561958145, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
@@ -1657,7 +1659,7 @@ PrefabInstance:
     - target: {fileID: 8741760774377978997, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 721
+      value: 739
       objectReference: {fileID: 0}
     - target: {fileID: 8741760775173618184, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
@@ -1677,7 +1679,17 @@ PrefabInstance:
     - target: {fileID: 8741760775173618189, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 721
+      value: 739
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766279983446547737, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SkidSoundPlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766279983446547737, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScCharaterActiveEffect, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8792504611101525266, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
         type: 3}
@@ -1739,7 +1751,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.6597522
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7876424049877263434, guid: 29d48a014dd6b7b4ea5fda5feca2efff, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 29d48a014dd6b7b4ea5fda5feca2efff, type: 3}
 --- !u!1 &1813439747 stripped
 GameObject:
@@ -1784,6 +1797,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1813439746}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353059396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1912047140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8766279983446547737, guid: 29d48a014dd6b7b4ea5fda5feca2efff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1813439746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
