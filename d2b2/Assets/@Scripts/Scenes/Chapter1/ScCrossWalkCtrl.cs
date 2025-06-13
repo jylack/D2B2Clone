@@ -41,6 +41,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 ScRespawn.Instance.Respawn();
                 Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg02_LookAround);
                 OnCheckMissionFailed?.Invoke();
+                
             }
         }
     }
@@ -66,6 +67,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     return;
                 }
+
                 if (isColorRed)
                 {
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg08_Jaywalking);

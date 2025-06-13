@@ -34,7 +34,6 @@ public class CrosswalkTutorialManager : MonoBehaviour
         while (!missionClear)
         {
             Debug.Log("tp player");
-            playerXR.MoveCameraToWorldLocation(startPos);
             await UniTask.WaitUntil(() => handUp.inHandUpRegion);
             Debug.Log("in region");
 
@@ -45,8 +44,13 @@ public class CrosswalkTutorialManager : MonoBehaviour
         }
         TutorialClear();
     }
+    public void HandUpFail()
+    {
+        playerXR.MoveCameraToWorldLocation(startPos);
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.NegativeNotification);
+    }
 
-    private void TutorialClear() 
+    private void TutorialClear()
     {
         Debug.Log("Tuto Wan");
         clearMessage.gameObject.SetActive(true);

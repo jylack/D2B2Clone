@@ -13,17 +13,21 @@ public class ScSettingRotation : MonoBehaviour
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private ScSettingSlider snapRot;
     [SerializeField] private ScSettingSlider continuousRot;
+    [SerializeField] private XRInputModalityManager imm;
     [SerializeField] private ActionBasedControllerManager abcm;
     [SerializeField] private SnapTurnProviderBase snap;
     [SerializeField] private ContinuousTurnProviderBase cont;
 
     private void Awake()
     {
-        Debug.Log(GameObject.Find("Camera Offset").name);
-        abcm = GameObject.Find("Camera Offset").transform.GetChild(5).GetComponent<ActionBasedControllerManager>(); 
+        //Debug.Log(GameObject.Find("Right Controller").name);
+        //abcm = GameObject.Find("Camera Offset").transform.GetChild(5).GetComponent<ActionBasedControllerManager>();
+        imm = FindAnyObjectByType<XRInputModalityManager>();
+        Debug.Log(imm.name);
+        imm?.rightController.TryGetComponent(out abcm);
         GameObject turn = GameObject.Find("Turn");
-        snap = turn.GetComponent<SnapTurnProviderBase>();
-        cont = turn.GetComponent<ContinuousTurnProviderBase>();
+        snap = FindAnyObjectByType<ActionBasedSnapTurnProvider>();
+        cont = FindAnyObjectByType<ActionBasedContinuousTurnProvider>();
         RotationModeChange();
         gameObject.SetActive(false);
     }

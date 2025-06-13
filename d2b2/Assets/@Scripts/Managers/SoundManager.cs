@@ -16,6 +16,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip positiveNotification;
     [SerializeField] private AudioClip negativeNotification;
     [SerializeField] private AudioClip chapterMissionClear;
+    [SerializeField] private AudioClip carSkid;
+
     [Header("BGM")]
     [SerializeField] private AudioClip defaultBgm;
     [SerializeField] private AudioClip chapterBgm;
@@ -62,7 +64,7 @@ public class SoundManager : MonoBehaviour
     public void PlayVoice(string voiceKey)
     {
         if (voiceDict.TryGetValue(voiceKey, out AudioClip audioClip))
-            soundVoice.PlayOneShot(audioClip);
+            soundVoice.PlayOneShot(audioClip);        
     }
 
     public void PlaySfx(ScDefine.ScSound sound)
@@ -79,6 +81,7 @@ public class SoundManager : MonoBehaviour
             case ScDefine.ScSound.PositiveNotification: PlayOneShot(positiveNotification);  break;
             case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
             case ScDefine.ScSound.ChapterMissionClear:  PlayOneShot(chapterMissionClear);   break;
+            case ScDefine.ScSound.CarSkid:              PlayOneShot(carSkid);               break;
         }
     }
 

@@ -644,6 +644,7 @@ MonoBehaviour:
   m_Parent: {fileID: 11400000}
   m_Children:
   - {fileID: 4807341037959418605}
+  - {fileID: -4584877770655167861}
   m_Clips: []
   m_Markers:
     m_Objects: []
@@ -712,6 +713,30 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
     fontSize: 10
     key: Sg4_9
+--- !u!114 &-4584877770655167861
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46e36075dd1c124a8422c228e75e1fb, type: 3}
+  m_Name: Signal Track
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: -5276357848948657558}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: -3193318160836822093}
 --- !u!114 &-4515846617151155105
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -823,14 +848,14 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 8109042678887998076}
+  m_Parent: {fileID: 2723191741311503617}
   m_Children: []
   m_Clips:
   - m_Version: 1
     m_Start: 2.5
     m_ClipIn: 0
     m_Asset: {fileID: 2735154875716893544}
-    m_Duration: 4.000000000000001
+    m_Duration: 3
     m_TimeScale: 1
     m_ParentTrack: {fileID: -3320454257777935217}
     m_EaseInDuration: 0
@@ -878,7 +903,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextPlayableAsset
   - m_Version: 1
-    m_Start: 6.500000000000002
+    m_Start: 5.5
     m_ClipIn: 0
     m_Asset: {fileID: -2465273786235042217}
     m_Duration: 4
@@ -1031,7 +1056,7 @@ MonoBehaviour:
     m_Start: 24.499999999999993
     m_ClipIn: 0
     m_Asset: {fileID: -6197906953302809873}
-    m_Duration: 4
+    m_Duration: 5.700000000000006
     m_TimeScale: 1
     m_ParentTrack: {fileID: -3320454257777935217}
     m_EaseInDuration: 0
@@ -1115,7 +1140,7 @@ MonoBehaviour:
     m_Start: 43.5
     m_ClipIn: 0
     m_Asset: {fileID: -4988735348242412638}
-    m_Duration: 4
+    m_Duration: 5.200000000000003
     m_TimeScale: 1
     m_ParentTrack: {fileID: -3320454257777935217}
     m_EaseInDuration: 0
@@ -1410,6 +1435,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset(Clone)(Clone)
   m_EditorClassIdentifier: 
+--- !u!114 &-3193318160836822093
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 39.5
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: c69d1088153976f4fbcde57e57c21cae, type: 2}
 --- !u!114 &-2561349276751945529
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1631,7 +1672,7 @@ MonoBehaviour:
     m_Start: 2.5
     m_ClipIn: 0
     m_Asset: {fileID: -9101917067668454917}
-    m_Duration: 25.999999999999993
+    m_Duration: 27.7
     m_TimeScale: 1
     m_ParentTrack: {fileID: -699429413558311135}
     m_EaseInDuration: 0
@@ -1700,7 +1741,7 @@ MonoBehaviour:
     m_Start: 33.5
     m_ClipIn: 0
     m_Asset: {fileID: 6248163373039670579}
-    m_Duration: 14
+    m_Duration: 15.200000000000003
     m_TimeScale: 1
     m_ParentTrack: {fileID: -699429413558311135}
     m_EaseInDuration: 0
@@ -2230,6 +2271,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 4354660170755328317}
   - {fileID: -699429413558311135}
+  - {fileID: -3320454257777935217}
   - {fileID: 2061129485771576168}
   - {fileID: 3615077621627691526}
   m_Clips: []
@@ -3509,7 +3551,6 @@ MonoBehaviour:
   m_Children:
   - {fileID: -7019606957605684134}
   - {fileID: 6217407609248256480}
-  - {fileID: -3320454257777935217}
   - {fileID: -5261407535488989444}
   - {fileID: 7548734608689774900}
   m_Clips: []

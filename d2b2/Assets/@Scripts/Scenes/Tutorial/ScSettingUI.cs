@@ -10,6 +10,11 @@ public class ScSettingUI : MonoBehaviour
     [SerializeField] GameObject controlSettingObj;
     [SerializeField] GameObject soundSettingObj;
 
+    public void SetSettingMenu(bool active)
+    {
+        settingMenuObj.SetActive(active);
+    }
+
     public void SetDisplaySetting(bool active)
     {
         displaySettingObj.SetActive(active);

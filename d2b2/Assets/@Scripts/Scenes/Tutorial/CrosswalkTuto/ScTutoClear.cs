@@ -8,10 +8,12 @@ public class ScTutoClear : MonoBehaviour
 {
     [SerializeField] private Transform moveGoal;
     [SerializeField] private float walkSpeed;
+    [SerializeField] private GameObject clearUI;
+    [SerializeField] private GameObject clearImg;
 
     private void Start()
     {
-        Clear();
+        //Clear();
     }
     public void Clear()
     {
@@ -28,5 +30,10 @@ public class ScTutoClear : MonoBehaviour
         }
         transform.position = moveGoal.position;
         transform.rotation = Quaternion.Euler(0, 180, 0);
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.ChapterMissionClear);
+        clearImg.SetActive(true);
+        yield return new WaitForSeconds(1.2f);
+        clearImg.SetActive(false);
+        clearUI.SetActive(true);
     }
 }

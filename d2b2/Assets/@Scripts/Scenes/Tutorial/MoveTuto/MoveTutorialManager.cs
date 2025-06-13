@@ -18,6 +18,7 @@ public class MoveTutorialManager : MonoBehaviour
 
     public void WalkSuccess()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
         walkObjs.SetActive(false);
         lookAroundObjs.SetActive(true);
         CheckLookAroundComplete().Forget();
@@ -25,6 +26,7 @@ public class MoveTutorialManager : MonoBehaviour
 
     public void LookAroundSuccess()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
         Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 
