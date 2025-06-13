@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218489309567265259}
   - component: {fileID: 5586859931368111805}
+  - component: {fileID: 5298344514598862709}
   - component: {fileID: 1266409559319438944}
   - component: {fileID: 6519491554534081570}
   m_Layer: 5
@@ -48,6 +49,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929964521337961904}
   m_CullTransparentMesh: 1
+--- !u!114 &5298344514598862709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929964521337961904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b15f4ee7da927e45b103d2dbdbeae2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: 1
 --- !u!114 &1266409559319438944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +135,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1266409559319438944}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5298344514598862709}
+        m_TargetAssemblyTypeName: ScSoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8661758673172238623
 GameObject:
   m_ObjectHideFlags: 0
