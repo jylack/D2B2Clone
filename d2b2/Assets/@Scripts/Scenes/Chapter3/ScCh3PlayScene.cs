@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 public class ScCh3PlayScene : ScSceneBase
@@ -11,7 +10,6 @@ public class ScCh3PlayScene : ScSceneBase
     protected override void Awake()
     {
         Manager.Instance.SceneMgr.SetCurrentSceneManually(ScDefine.ScScene.Ch3Play);
-        Manager.Instance.SceneMgr.FadeIn().Forget();
         base.Awake();
     }
 

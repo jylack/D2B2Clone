@@ -13,7 +13,6 @@ public abstract class ScSceneBase : ScObjectBase
         try
         {
             await UniTask.Delay(1000, cancellationToken: base.DestroyToken);
-            Manager.Instance.SceneMgr.OnSceneLoaded();
             IsLoaded = true;
 
             Manager.Instance.GameMgr.ApplyCurrentSetting();

@@ -23,6 +23,7 @@ public class UIChLogin : UIBase
     private void Start()
     {
         settings.SetActive(false);
+        Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
     }
 
     
@@ -74,7 +75,9 @@ public class UIChLogin : UIBase
 
         isProcessing = true;
         
+        gameObject.SetActive(false);
         base.LoadScene(nextSceneType);
+        isProcessing = false;
     }
 
     public void OnClickSettings()
@@ -101,6 +104,8 @@ public class UIChLogin : UIBase
         isProcessing = true;
         
         base.LoadRootScene();
+        
+        isProcessing = false;
     }
 
     public void OnSettingsClosed()

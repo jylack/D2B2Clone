@@ -9,7 +9,6 @@ public class FadeSub2Scene : MonoBehaviour
         try
         {
             await UniTask.Delay(1000);
-            Manager.Instance.SceneMgr.OnSceneLoaded();
         }
         catch (Exception ex)
         {

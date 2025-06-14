@@ -1,16 +1,10 @@
 ﻿using DG.Tweening;
-using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class UIAdmin : UIBase
 {
     public UIAdmin Instance { get; private set; }
-
-    [SerializeField] private GameObject inputPanel;
-    [SerializeField] private GameObject chapterButtonPanel;
-    [SerializeField] private TMP_InputField inputId;
-    [SerializeField] private TMP_InputField inputPassword;
 
 
 

@@ -108,7 +108,6 @@ public class UICh3Lobby : UIBase
             countdownCts?.Dispose();
             countdownCts = null;
 
-            await Manager.Instance.SceneMgr.FadeOut();
             Manager.Instance.SoundMgr.PlayChapterBgm();
 
             if (PhotonNetwork.IsMasterClient)

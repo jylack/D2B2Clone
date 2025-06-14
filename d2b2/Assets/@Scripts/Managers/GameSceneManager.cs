@@ -1,38 +1,25 @@
 ﻿using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
-    [SerializeField] private Image bg;
-    [SerializeField] private Image logo;
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private float duration = 0.5f;
+    [SerializeField] private float duration = 3f;
     [SerializeField] private string emptySceneName = "";
     
     public ScDefine.ScScene CurrentScene { get; private set; }
     public ScDefine.ScScene PreviousScene { get; private set; }
 
-    private bool isLoaded;
     private string currentSceneName;
     private string prevSceneName;
+    private bool isSceneLoading;
+
+
     
-    private bool isSceneLoading = false;
-
-
     private void Awake()
     {
-        bg.enabled = true;
-        logo.enabled = true;
-
         Scene activeScene = SceneManager.GetActiveScene();
         currentSceneName = activeScene.name;
-
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
     }
 
 
@@ -47,26 +34,17 @@ public class GameSceneManager : MonoBehaviour
 
         isSceneLoading = true;
 
-        PreviousScene = CurrentScene;
-        CurrentScene = scene;
-
         PlaySceneBgm(scene);
         RemovePlayerInfoOrNot(scene);
 
-        string sceneName = GetSceneName(scene);
-        Load(sceneName).Forget();
-    }
-
-    public void OnSceneLoaded()
-    {
-        isLoaded = true;
+        Load(scene).Forget();
     }
 
     public void LoadPreviousScene()
     {
         if (!string.IsNullOrEmpty(prevSceneName))
         {
-            Load(prevSceneName).Forget();
+            Load(PreviousScene).Forget();
         }
         else
         {
@@ -116,23 +94,8 @@ public class GameSceneManager : MonoBehaviour
         CurrentScene = currentScene;
         currentSceneName = GetSceneName(currentScene);
     }
-
-    public async UniTask FadeOut()
-    {
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        await canvasGroup.DOFade(1f, duration).ToUniTask();
-    }
-
-    public async UniTask FadeIn()
-    {
-        await canvasGroup.DOFade(0f, duration).ToUniTask();
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
-    }
-
-
+    
+    
 
     private static void PlaySceneBgm(ScDefine.ScScene scene)
     {
@@ -173,46 +136,25 @@ public class GameSceneManager : MonoBehaviour
 
 
 
-    private async UniTask Load(string sceneName)
+    private async UniTaskVoid Load(ScDefine.ScScene scene)
     {
-        if (currentSceneName == sceneName)
-            return;
+        if (CurrentScene != scene)
+        {
+            string sceneName = GetSceneName(scene);
+            
+            Debug.Log($"load scene -> {sceneName}");
+
+            await SceneManager.LoadSceneAsync(emptySceneName);
+            await UniTask.WaitForSeconds(duration);
+            await SceneManager.LoadSceneAsync(sceneName);
+            
+            PreviousScene = CurrentScene;
+            prevSceneName = currentSceneName;
+            
+            CurrentScene = scene;
+            currentSceneName = sceneName;
+        }
         
-        Debug.Log($"load scene -> {sceneName}"); 
-
-        await FadeOut();
-
-        // warning error log 방지
-        //GameObject camera = GameObject.Find("Main Camera");
-        //if (camera != null)
-        //{
-        //    var listener = camera.GetComponent<AudioListener>();
-        //    if (listener != null)
-        //        Destroy(listener);
-        //}
-
-        await SceneManager.LoadSceneAsync(emptySceneName, LoadSceneMode.Additive);
-        await UniTask.WaitForSeconds(0.5f);
-
-        // unload
-        prevSceneName = currentSceneName;
-        if (!string.IsNullOrEmpty(currentSceneName))
-            await SceneManager.UnloadSceneAsync(currentSceneName);
-
-        await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
-        // 활성 씬을 새로 로드된 씬으로 설정합니다.
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-
-        currentSceneName = sceneName;
-
-        isLoaded = false;
-        await UniTask.WaitUntil(() => isLoaded);
-
-        await SceneManager.UnloadSceneAsync(emptySceneName);
-
-        await FadeIn();
-
         isSceneLoading = false;
     }
 }
