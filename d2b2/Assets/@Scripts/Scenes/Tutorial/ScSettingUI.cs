@@ -41,7 +41,7 @@ public class ScSettingUI : MonoBehaviour
 
     public void ReturnToMenu()
     {
-
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Admin);
     }
 
     public void ExitOption()
