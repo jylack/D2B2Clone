@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScSettingUI : MonoBehaviour
 {
@@ -9,6 +8,8 @@ public class ScSettingUI : MonoBehaviour
     [SerializeField] GameObject colorBlindSettingObj;
     [SerializeField] GameObject controlSettingObj;
     [SerializeField] GameObject soundSettingObj;
+
+    public UnityEvent onClosed;
 
     public void SetSettingMenu(bool active)
     {
@@ -47,5 +48,6 @@ public class ScSettingUI : MonoBehaviour
     public void ExitOption()
     {
         settingMenuObj.SetActive(false);
+        onClosed?.Invoke();
     }
 }

@@ -36,18 +36,13 @@ public class ScSettingApplier : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private async void LoadPlayer()
+    private void LoadPlayer()
     {
         try
         {
-            if(Manager.Instance.GameMgr.NickName != null)
-            {
-                ScPlayerEntity player = await Manager.Instance.DbMgr.Load(Manager.Instance.GameMgr.NickName);
-                if(player != null)
-                {
-                    ApplySettings(player.settings);
-                }
-            }
+            ScPlayerSettingsEntity settings = Manager.Instance.GameMgr.PlayerSettings;
+            if (settings != null)
+                ApplySettings(settings);
         }
         catch (Exception e)
         {

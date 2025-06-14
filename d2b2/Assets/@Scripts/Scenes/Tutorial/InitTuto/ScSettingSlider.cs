@@ -38,7 +38,7 @@ public class ScSettingSlider : MonoBehaviour
     public void ChangeValue()
     {
         Value = slider.value;
-        Debug.Log("V " + Value);
+        // Debug.Log("V " + Value);
         if(displayString)
         {
             valueText.text = displayNames[(int)Value];

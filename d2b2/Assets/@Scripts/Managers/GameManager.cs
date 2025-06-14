@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public ScPlayerBase Player { get; private set; }
     public string NickName => playerEntity?.nickName ?? "";
     public ScDefine.ScGuideCharacter GuideCharacterType => playerEntity?.guideCharacter ?? ScDefine.ScGuideCharacter.Character1;
+    public ScPlayerSettingsEntity PlayerSettings => playerEntity?.settings;
 
     private ScPlayerEntity playerEntity;
 

@@ -1,13 +1,14 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
 public class UIChLogin : UIBase
 {
     [Header("UI")]
+    [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject signIn;
     [SerializeField] private GameObject signInSuccess;
+    [SerializeField] private GameObject settings;
     [Header("Before Login")]
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
@@ -17,8 +18,15 @@ public class UIChLogin : UIBase
 
     private bool isProcessing;
 
+    
+    
+    private void Start()
+    {
+        settings.SetActive(false);
+    }
 
-
+    
+    
     public async void OnClickLogin()
     {
         try
@@ -78,8 +86,9 @@ public class UIChLogin : UIBase
 
         isProcessing = true;
 
-        // Show Settings UI
-
+        mainPanel.SetActive(false);
+        settings.SetActive(true);
+        isProcessing = false;
     }
 
     public void OnClickExit()
@@ -92,6 +101,12 @@ public class UIChLogin : UIBase
         isProcessing = true;
         
         base.LoadRootScene();
+    }
+
+    public void OnSettingsClosed()
+    {
+        settings.SetActive(false);
+        mainPanel.SetActive(true);
     }
 
 
