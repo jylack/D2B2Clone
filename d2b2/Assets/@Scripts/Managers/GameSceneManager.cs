@@ -19,8 +19,9 @@ public class GameSceneManager : MonoBehaviour
     private string currentSceneName;
     private string prevSceneName;
     
-    
-    
+    private bool isSceneLoading = false;
+
+
     private void Awake()
     {
         bg.enabled = true;
@@ -38,6 +39,14 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadScene(ScDefine.ScScene scene)
     {
+        if(isSceneLoading)
+        {
+            Debug.LogWarning("씬 로딩 중입니다. 잠시 후 다시 시도해주세요.");
+            return;
+        }
+
+        isSceneLoading = true;
+
         PreviousScene = CurrentScene;
         CurrentScene = scene;
 
@@ -203,5 +212,7 @@ public class GameSceneManager : MonoBehaviour
         await SceneManager.UnloadSceneAsync(emptySceneName);
 
         await FadeIn();
+
+        isSceneLoading = false;
     }
 }
