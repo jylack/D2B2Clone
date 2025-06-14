@@ -107,18 +107,19 @@ public class ScMissionListPanel : MonoBehaviour
 
         // UI 생성
         foreach (var kv in missionTextMap)
-            CreateMissionEntry(kv.Key, kv.Value);
+            CreateMissionEntry(kv.Key);
 
         // 첫 항목만 Title 타입으로 변경
         if (missionTexts.Count > 0)
             missionTexts[0].SetTypeChange(MissionBoxTextCheckType.Title);
     }
 
-    private void CreateMissionEntry(string key, string text)
+    private void CreateMissionEntry(string key)
     {
         var go = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
         var ctrl = go.GetComponent<ScMissionBoxTextCheck>();
-        ctrl.SetMissionText(text, MissionBoxTextCheckType.Base);
+
+        ctrl.SetMissionTextAsync(key,MissionBoxTextCheckType.Base);
         go.name = key;
         missionTexts.Add(ctrl);
     }

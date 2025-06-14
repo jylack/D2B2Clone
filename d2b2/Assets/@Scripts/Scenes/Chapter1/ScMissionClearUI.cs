@@ -14,25 +14,20 @@ public class ScMissionClearUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI missionClearText;
     [SerializeField] private TextMeshProUGUI nickNameText;
     [SerializeField] private ScMissionListPanel missionListPanel;
-    [SerializeField] private Image missionClearImage;
+    [SerializeField] private GameObject missionClearVfc;
     [SerializeField] private GameObject missionClearUI;
 
     [Header("다음 씬 설정")]
     [SerializeField] private ScDefine.ScScene nextScene;
 
-    [Header("미션클리어 이미지 띄울 시간")]
-    [SerializeField] private float missionClearImageShowTime = 1f;
+    [Header("미션클리어 증서 팝업 딜레이")]
+    [SerializeField] private float missionClearUIDelay = 1f;
 
     private List<ScMissionBoxTextCheck> missionList;
-
-    private float startTime = 0f;
 
     private void Start()
     {
         Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.ChapterFinished);
-
-        // 미션 클리어 텍스트 활성화 시간
-        startTime = Time.time;
 
         if (missionListPanel != null)
         {
@@ -54,18 +49,11 @@ public class ScMissionClearUI : MonoBehaviour
     }
 
     private async UniTask MissionClearImageFadeOut()
-    {
-        float delayTime = Time.time - startTime;
+    {        
+        int waitTime = (int)(missionClearUIDelay * 1000);
 
-        if (delayTime < missionClearImageShowTime)
-        {
-            float tempTime = (missionClearImageShowTime - delayTime);
-            int waitTime = (int)(tempTime * 1000);
-
-            await UniTask.Delay(waitTime);
-        }
-
-        missionClearImage.gameObject.SetActive(false);
+        await UniTask.Delay(waitTime);
+        
         missionClearUI.gameObject.SetActive(true);
     }
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1444305917630904002}
   - component: {fileID: 1444305917630904003}
   - component: {fileID: 4128065979179186402}
+  - component: {fileID: -8949348018617055607}
   m_Layer: 0
   m_Name: MissionText
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC548\uC804\uD558\uAC8C \uAC74\uB110\uBAA9 \uAC74\uB108\uAE30!\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5f8b6f921ca1799449903937235da7ca, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9b98d0d7fc9902a4e92044144b80646c, type: 2}
   m_sharedMaterial: {fileID: -7365817498201930763, guid: 5f8b6f921ca1799449903937235da7ca,
     type: 2}
   m_fontSharedMaterials: []
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0.2
   m_fontSizeMax: 0.2
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &4128065979179186402
@@ -149,3 +150,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ae7e4fcf8056345b30f42f8d2bd8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8949348018617055607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444305917630904029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1444305917630904003}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public enum MissionBoxTextCheckType
 
 public class ScMissionBoxTextCheck : MonoBehaviour
 {
+
     private MissionBoxTextCheckType checkType;
     private TextMeshProUGUI tmp;
     private bool isCheck;
@@ -21,12 +23,19 @@ public class ScMissionBoxTextCheck : MonoBehaviour
         isCheck = false;
     }
 
-    public void SetMissionText(string text,MissionBoxTextCheckType checkType)
+    public async void SetMissionTextAsync(string key, MissionBoxTextCheckType checkType)
     {
         if (tmp != null)
         {
-            tmp.text = text;
-            SetTypeChange(checkType);
+            try
+            {
+                tmp.text = await Manager.Instance.LanguageMgr.GetTextAsync(key);
+                SetTypeChange(checkType);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
         else
         {
@@ -55,7 +64,7 @@ public class ScMissionBoxTextCheck : MonoBehaviour
 
     public void SetCheck(bool check)
     {
-        if(checkType == MissionBoxTextCheckType.Title)
+        if (checkType == MissionBoxTextCheckType.Title)
         {
             Debug.LogError("Cannot change check state for Title type.");
             return;
@@ -64,9 +73,9 @@ public class ScMissionBoxTextCheck : MonoBehaviour
         isCheck = check;
 
         if (tmp != null)
-        {            
+        {
             tmp.fontStyle = check ? FontStyles.Strikethrough : FontStyles.Bold;
-            checkType =  check ? MissionBoxTextCheckType.Clear : MissionBoxTextCheckType.Base; 
+            checkType = check ? MissionBoxTextCheckType.Clear : MissionBoxTextCheckType.Base;
             SetTypeChange(checkType);
         }
         else
@@ -83,11 +92,11 @@ public class ScMissionBoxTextCheck : MonoBehaviour
             {
                 case MissionBoxTextCheckType.none:
                     tmp.color = Color.black;
-                    checkType = MissionBoxTextCheckType.none; 
+                    checkType = MissionBoxTextCheckType.none;
                     break;
                 case MissionBoxTextCheckType.Base:
                     tmp.color = Color.red;
-                    checkType = MissionBoxTextCheckType.Base; 
+                    checkType = MissionBoxTextCheckType.Base;
                     break;
                 case MissionBoxTextCheckType.Clear:
                     checkType = MissionBoxTextCheckType.Clear;
