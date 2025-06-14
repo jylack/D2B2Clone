@@ -21,8 +21,22 @@ public class UIPlayerTest : MonoBehaviour
         Manager.Instance.GameMgr.OnPlayerHeadTurn += OnPlayerOnPlayerHeadTurn;
         Manager.Instance.GameMgr.OnPlayerHandsUp += OnPlayerHandsUp;
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
+        
+        LocalizationSettings.SelectedLocaleChanged += LocalizationSettingsOnSelectedLocaleChanged;
     }
-    
+
+    private async void LocalizationSettingsOnSelectedLocaleChanged(Locale obj)
+    {
+        try
+        {
+            string txt = await Manager.Instance.LanguageMgr.GetTextAsync("Sg1_1");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
+
     private void OnDestroy()
     {
         Manager.Instance.GameMgr.OnPlayerHeadTurn -= OnPlayerOnPlayerHeadTurn;
