@@ -9,7 +9,7 @@ using System;
 public partial class ScCh3PlayService : MonoBehaviourPunCallbacks
 {
     public static ScCh3PlayService Instance { get; private set; }
-    private const int TOTAL_TIME = 20;
+    private const int TOTAL_TIME = 60;
 
     [SerializeField] private ScTrafficLightSystem trafficLightSystem;
     [SerializeField] private GameObject glowWallParent;

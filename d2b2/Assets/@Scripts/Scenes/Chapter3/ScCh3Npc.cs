@@ -134,7 +134,7 @@ public class ScCh3Npc : ScObjectBase
                 }
             case ScDefine.ScPathPointNextAction.DoBadThing:
                 {
-                    Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
+                    // Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
                     currentAction = ScDefine.ScPathPointNextAction.DoBadThing;
                     isDoingBadThing = true;
 
