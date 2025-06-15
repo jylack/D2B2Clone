@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -59,9 +60,10 @@ public class UICh3Play : UIBase
         });
     }
 
-    public void IncreaseMissedCharacterCount()
+    public async UniTaskVoid IncreaseMissedCharacterCount()
     {
         missedCharacterCount++;
-        missedCharacterCountText.text = $"놓친 캐릭터 수: {missedCharacterCount}";
+        string title = await Manager.Instance.LanguageMgr.GetTextAsync("MissedCharacterCount");
+        missedCharacterCountText.text = $"{title}: {missedCharacterCount}";
     }
 }

@@ -102,7 +102,7 @@ public class ScCh3Npc : ScObjectBase
         {
             isDoingBadThing = false;
             Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.NegativeNotification);
-            UICh3Play.Instance.IncreaseMissedCharacterCount();
+            UICh3Play.Instance.IncreaseMissedCharacterCount().Forget();
         }
 
         if (badThingPointer != null)

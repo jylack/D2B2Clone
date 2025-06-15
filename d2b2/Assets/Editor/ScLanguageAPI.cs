@@ -21,7 +21,7 @@ public class ScLanguageAPI : MonoBehaviour
     //{
     //    TranslateTextAsync("I love game development", "en", "ko").Forget();
     //}
-
+    
     [MenuItem("Tools/Set BaseLanguages")]
     public static async void SetBaseLanguages()
     {
