@@ -90,7 +90,7 @@ public class UIChLogin : UIBase
         isProcessing = true;
 
         mainPanel.SetActive(false);
-        settings.SetActive(true);
+        settings.GetComponent<ScSettingUI>().SetSettingMenu(true);
         isProcessing = false;
     }
 
