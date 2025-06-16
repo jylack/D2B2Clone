@@ -82,13 +82,20 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 isHandUp = true;
             }
 
-            if (isWalk == false || Hand.isLeftHandUp == false)
+            if (isWalk == false)
+            {
+                if (coroutine == null)
+                    coroutine = StartCoroutine(StopMoveTimeLimit(other));
+            }
+
+            if(Hand.isLeftHandUp == false)
             {
                 OnCheckMissionFailed?.Invoke();
                 isHandUp = false;
 
                 if (coroutine == null)
-                    coroutine = StartCoroutine(TimeLimit(other));
+                    coroutine = StartCoroutine(HandDownTimeLimit(other));
+
             }
         }
     }
@@ -100,18 +107,29 @@ public class ScCrossWalkCtrl : MonoBehaviour
     }
 
 
-    IEnumerator TimeLimit(Collider other)
+    IEnumerator StopMoveTimeLimit(Collider other)
     {
         yield return new WaitForSeconds(limitTime);
 
-        if (isWalk == false || Hand.isLeftHandUp == false)
+        if (isWalk == false)
         {
-            //Debug.Log("isWalk : " + isWalk);
-            //Debug.Log("Hand.isLeftHandUp : " + Hand.isLeftHandUp);
             ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
             ScRespawn.Instance.Respawn();
-            //¿Ãµø ¡ﬂ∞£ø° ∏ÿ√„
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg05_SafeWalk);            
+            coroutine = null;
+            yield break;
+        }
+    }
+
+    IEnumerator HandDownTimeLimit(Collider other)
+    {
+        yield return new WaitForSeconds(limitTime);
+
+        if (Hand.isLeftHandUp == false)
+        {
+            ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
+            ScRespawn.Instance.Respawn();
+            Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg03_HandUp);
             coroutine = null;
             yield break;
         }
