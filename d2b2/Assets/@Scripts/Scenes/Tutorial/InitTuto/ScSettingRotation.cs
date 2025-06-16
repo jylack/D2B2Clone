@@ -33,7 +33,7 @@ public class ScSettingRotation : MonoBehaviour
         cont = FindAnyObjectByType<ActionBasedContinuousTurnProvider>();
         RotationModeChange();
         gameObject.SetActive(false);
-        SetDropdownTexts();
+        SetDropdownTexts().Forget();
     }
 
     public void RotationModeChange()
