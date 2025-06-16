@@ -105,7 +105,10 @@ public class LanguageManager : MonoBehaviour
             await LocalizationSettings.InitializationOperation.Task;
 
             string localeId = lang.ToString().ToLower();
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(localeId);
+            Locale locale = LocalizationSettings.AvailableLocales.GetLocale(localeId);
+
+            if (locale != LocalizationSettings.SelectedLocale)
+                LocalizationSettings.SelectedLocale = locale;
         }
         catch (Exception ex)
         {
