@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveTutorialManager : MonoBehaviour
 {
-    [SerializeField] ScGuide guide;
+    [SerializeField] ScCharacter guide;
     [SerializeField] ScNotifyFairy notifyFairy;
     [SerializeField] GameObject walkObjs;
     [SerializeField] GameObject lookAroundObjs;
@@ -22,6 +22,7 @@ public class MoveTutorialManager : MonoBehaviour
         walkObjs.SetActive(false);
         lookAroundObjs.SetActive(true);
         CheckLookAroundComplete().Forget();
+        guide.SetLookAroundAnim();
     }
 
     public void LookAroundSuccess()

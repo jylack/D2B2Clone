@@ -13,6 +13,7 @@ public class ScSettingUI : MonoBehaviour
 
     public void SetSettingMenu(bool active)
     {
+        gameObject.SetActive(active);
         settingMenuObj.SetActive(active);
     }
 
