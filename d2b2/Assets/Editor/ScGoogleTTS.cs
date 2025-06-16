@@ -45,14 +45,14 @@ public class ScGoogleTTS : MonoBehaviour
         }
     }
     
-    // [MenuItem("Tools/RequestGoogleTTS")]
+     [MenuItem("Tools/RequestGoogleTTS")]
     private static async void RequestSingle()
     {
         try
         {
             Debug.Log("===== TTS ฟไรป =====");
 
-            string key = "Sg1_1";
+            string key = "Mini15";
 
             Dictionary<string, KeyData> langDict = ScCsvLoader.Parse(LanguageManager.LanguageFilePath);
             
