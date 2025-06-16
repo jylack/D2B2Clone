@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -37,23 +38,38 @@ public class ScSettingRotation : MonoBehaviour
         switch(dropdown.value)
         {
             case 0:
+                AsyncSetDropdownText("NoRotation");
                 snapRot.gameObject.SetActive(false);
                 continuousRot.gameObject.SetActive(false);
                 abcm.smoothTurnEnabled = false;
                 snap.turnAmount = 0;
                 break;
             case 1:
+                AsyncSetDropdownText("FixedAngleRotation");
                 snapRot.gameObject.SetActive(true);
                 continuousRot.gameObject.SetActive(false);
                 abcm.smoothTurnEnabled = false;
                 SnapAmountChange();
                 break;
             case 2:
+                AsyncSetDropdownText("SmoothRotation");
                 snapRot.gameObject.SetActive(false);
                 continuousRot.gameObject.SetActive(true);
                 abcm.smoothTurnEnabled = true;
                 ContinousAmountChange();
                 break;
+        }
+    }
+
+    public async void AsyncSetDropdownText(string key)
+    {
+        try
+        {
+            dropdown.captionText.text = await Manager.Instance.LanguageMgr.GetTextAsync(key);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
         }
     }
 
