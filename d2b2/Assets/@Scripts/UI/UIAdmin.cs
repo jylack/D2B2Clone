@@ -31,26 +31,34 @@ public class UIAdmin : UIBase
 
     public void OnChangeToKoreanClicked()
     {
-        Manager.Instance.LanguageMgr.ChangeLanguage(ScDefine.ScLanguage.Ko).Forget();
+        ChangeLanguage(ScDefine.ScLanguage.Ko);
     }
 
     public void OnChangeToEnglishClicked()
     {
-        Manager.Instance.LanguageMgr.ChangeLanguage(ScDefine.ScLanguage.En).Forget();
+        ChangeLanguage(ScDefine.ScLanguage.En);
     }
 
     public void OnChangeToFrenchClicked()
     {
-        Manager.Instance.LanguageMgr.ChangeLanguage(ScDefine.ScLanguage.Fr).Forget();
+        ChangeLanguage(ScDefine.ScLanguage.Fr);
     }
 
     public void OnChangeToGermanClicked()
     {
-        Manager.Instance.LanguageMgr.ChangeLanguage(ScDefine.ScLanguage.De).Forget();
+        ChangeLanguage(ScDefine.ScLanguage.De);
     }
 
     public void OnChangeToRussianClicked()
     {
-        Manager.Instance.LanguageMgr.ChangeLanguage(ScDefine.ScLanguage.Ru).Forget();
+        ChangeLanguage(ScDefine.ScLanguage.Ru);
+    }
+
+
+
+    private void ChangeLanguage(ScDefine.ScLanguage language)
+    {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ok);
+        Manager.Instance.LanguageMgr.ChangeLanguage(language).Forget();
     }
 }
