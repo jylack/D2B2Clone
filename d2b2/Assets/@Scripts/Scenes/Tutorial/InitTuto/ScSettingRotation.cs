@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ public class ScSettingRotation : MonoBehaviour
     [SerializeField] private ActionBasedControllerManager abcm;
     [SerializeField] private SnapTurnProviderBase snap;
     [SerializeField] private ContinuousTurnProviderBase cont;
+    [SerializeField] private List<string> optionIds;
 
     private void Awake()
     {
@@ -31,6 +33,7 @@ public class ScSettingRotation : MonoBehaviour
         cont = FindAnyObjectByType<ActionBasedContinuousTurnProvider>();
         RotationModeChange();
         gameObject.SetActive(false);
+        SetDropdownTexts();
     }
 
     public void RotationModeChange()
@@ -38,21 +41,18 @@ public class ScSettingRotation : MonoBehaviour
         switch(dropdown.value)
         {
             case 0:
-                AsyncSetDropdownText("NoRotation");
                 snapRot.gameObject.SetActive(false);
                 continuousRot.gameObject.SetActive(false);
                 abcm.smoothTurnEnabled = false;
                 snap.turnAmount = 0;
                 break;
             case 1:
-                AsyncSetDropdownText("FixedAngleRotation");
                 snapRot.gameObject.SetActive(true);
                 continuousRot.gameObject.SetActive(false);
                 abcm.smoothTurnEnabled = false;
                 SnapAmountChange();
                 break;
             case 2:
-                AsyncSetDropdownText("SmoothRotation");
                 snapRot.gameObject.SetActive(false);
                 continuousRot.gameObject.SetActive(true);
                 abcm.smoothTurnEnabled = true;
@@ -61,11 +61,15 @@ public class ScSettingRotation : MonoBehaviour
         }
     }
 
-    public async void AsyncSetDropdownText(string key)
+    public async UniTaskVoid SetDropdownTexts()
     {
         try
         {
-            dropdown.captionText.text = await Manager.Instance.LanguageMgr.GetTextAsync(key);
+            for (int i = 0; i < dropdown.options.Count; i++)
+            {
+                string txt = await Manager.Instance.LanguageMgr.GetTextAsync(optionIds[i]);
+                dropdown.options[i].text = txt;
+            }
         }
         catch (Exception e)
         {
