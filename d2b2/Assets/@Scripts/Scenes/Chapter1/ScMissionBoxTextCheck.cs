@@ -74,7 +74,7 @@ public class ScMissionBoxTextCheck : MonoBehaviour
 
         if (tmp != null)
         {
-            tmp.fontStyle = check ? FontStyles.Strikethrough : FontStyles.Bold;
+            tmp.fontStyle = check ? FontStyles.Strikethrough : FontStyles.Normal;
             checkType = check ? MissionBoxTextCheckType.Clear : MissionBoxTextCheckType.Base;
             SetTypeChange(checkType);
         }
@@ -95,7 +95,7 @@ public class ScMissionBoxTextCheck : MonoBehaviour
                     checkType = MissionBoxTextCheckType.none;
                     break;
                 case MissionBoxTextCheckType.Base:
-                    tmp.color = Color.red;
+                    tmp.color = Color.white;
                     checkType = MissionBoxTextCheckType.Base;
                     break;
                 case MissionBoxTextCheckType.Clear:
@@ -105,6 +105,7 @@ public class ScMissionBoxTextCheck : MonoBehaviour
                 case MissionBoxTextCheckType.Title:
                     tmp.color = Color.white;
                     checkType = MissionBoxTextCheckType.Title;
+                    tmp.fontStyle = FontStyles.Bold;
                     break;
             }
         }
