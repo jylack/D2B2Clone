@@ -22,20 +22,34 @@ public class LanguageManager : MonoBehaviour
 
 
 
-    private void Start()
+    private async void Start()
     {
         dialogueMap = ScCsvLoader.Parse(LanguageFilePath);
-        tts = GetComponent<ScTTSSetting>(); 
+        tts = GetComponent<ScTTSSetting>();
+
+        await LocalizationSettings.InitializationOperation.Task;
     }
 
 
 
     public string GetText(string key)
     {
-        if (dialogueMap.TryGetValue(key, out KeyData value))
-            return value.Text;
+        //if (dialogueMap.TryGetValue(key, out KeyData value))
+        //    return value.Text;
 
-        Debug.LogWarning($"Dialogue key '{key}' not found.");
+        //Debug.LogWarning($"Dialogue key '{key}' not found.");
+        //return string.Empty;
+
+        Locale locale = LocalizationSettings.SelectedLocale;
+        StringTable table = LocalizationSettings.StringDatabase.GetTable(LocalizationTableName, locale);
+
+        if (table != null)
+        {
+            StringTableEntry entry = table.GetEntry(key);
+            if (entry != null)
+                return entry.LocalizedValue;
+        }
+
         return string.Empty;
     }
 
@@ -91,7 +105,10 @@ public class LanguageManager : MonoBehaviour
             await LocalizationSettings.InitializationOperation.Task;
 
             string localeId = lang.ToString().ToLower();
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(localeId);
+            Locale locale = LocalizationSettings.AvailableLocales.GetLocale(localeId);
+
+            if (locale != LocalizationSettings.SelectedLocale)
+                LocalizationSettings.SelectedLocale = locale;
         }
         catch (Exception ex)
         {

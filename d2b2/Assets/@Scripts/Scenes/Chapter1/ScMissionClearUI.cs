@@ -14,7 +14,6 @@ public class ScMissionClearUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI missionClearText;
     [SerializeField] private TextMeshProUGUI nickNameText;
     [SerializeField] private ScMissionListPanel missionListPanel;
-    [SerializeField] private GameObject missionClearVfc;
     [SerializeField] private GameObject missionClearUI;
 
     [Header("¥Ÿ¿Ω æ¿ º≥¡§")]
