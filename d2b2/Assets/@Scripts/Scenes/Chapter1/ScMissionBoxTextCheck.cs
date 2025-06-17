@@ -14,22 +14,25 @@ public class ScMissionBoxTextCheck : MonoBehaviour
 {
 
     private MissionBoxTextCheckType checkType;
-    private TextMeshProUGUI tmp;
+    private TextMeshProUGUI tmp
+    {
+        get => GetComponent<TextMeshProUGUI>();
+    }
     private bool isCheck;
 
     private void Awake()
     {
-        tmp = GetComponent<TextMeshProUGUI>();
+        //tmp = GetComponent<TextMeshProUGUI>();
         isCheck = false;
     }
 
-    public async void SetMissionTextAsync(string key, MissionBoxTextCheckType checkType)
+    public void SetMissionText(string key, MissionBoxTextCheckType checkType)
     {
         if (tmp != null)
         {
             try
             {
-                tmp.text = await Manager.Instance.LanguageMgr.GetTextAsync(key);
+                tmp.text = Manager.Instance.LanguageMgr.GetText(key);
                 SetTypeChange(checkType);
             }
             catch (Exception ex)
