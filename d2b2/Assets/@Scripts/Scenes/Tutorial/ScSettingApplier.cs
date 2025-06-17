@@ -29,14 +29,10 @@ public class ScSettingApplier : MonoBehaviour
 
     void Start()
     {
-        if(!isTutorial)
-        {
-            LoadPlayer();
-        }
         gameObject.SetActive(false);
     }
 
-    private void LoadPlayer()
+    public void LoadPlayer()
     {
         try
         {

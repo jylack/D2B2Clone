@@ -15,6 +15,7 @@ public class UIChLogin : UIBase
     [SerializeField] private ScDefine.ScScene nextSceneType;
     [Header("After Login")]
     [SerializeField] private TMP_Text signedInNickName;
+    [SerializeField] private ScSettingApplier settingApplier;
 
     private bool isProcessing;
 
@@ -55,6 +56,7 @@ public class UIChLogin : UIBase
             errorText.gameObject.SetActive(false);
             signIn.SetActive(false);
             signInSuccess.SetActive(true);
+            settingApplier.LoadPlayer();
         }
         catch (Exception ex)
         {
