@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4754711316192658973}
   - component: {fileID: 4754711316192658975}
   - component: {fileID: 4754711316192658972}
-  - component: {fileID: 4754711316192658974}
-  - component: {fileID: 4754711316192658969}
+  - component: {fileID: 2853363009351063048}
   m_Layer: 0
   m_Name: MissionListPanel
   m_TagString: Untagged
@@ -80,46 +79,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 400
---- !u!114 &4754711316192658974
+--- !u!114 &2853363009351063048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4754711316192658946}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
---- !u!114 &4754711316192658969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4754711316192658946}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 250ea16d7512f88408d6598255a4a1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ChapterPrefix: 0
   CategoryFilter: 0
+  missionListPrefab: {fileID: 5364379051872444663}
 --- !u!1 &4786976798463966340
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +106,7 @@ GameObject:
   - component: {fileID: 1871506944080641281}
   - component: {fileID: 8056301109614404818}
   - component: {fileID: 2575002126374574102}
-  - component: {fileID: 439909796019798212}
+  - component: {fileID: 5364379051872444663}
   m_Layer: 0
   m_Name: List
   m_TagString: Untagged
@@ -224,7 +198,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &439909796019798212
+--- !u!114 &5364379051872444663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,11 +207,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4786976798463966340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250ea16d7512f88408d6598255a4a1e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f977e67854ed254c9b9d7b300059494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChapterPrefix: 0
-  CategoryFilter: 0
 --- !u!1 &5768324050669071794
 GameObject:
   m_ObjectHideFlags: 0

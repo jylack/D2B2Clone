@@ -22,7 +22,6 @@ public class ScMissionClearUI : MonoBehaviour
     [Header("미션클리어 증서 팝업 딜레이")]
     [SerializeField] private float missionClearUIDelay = 1f;
 
-    private List<ScMissionBoxTextCheck> missionList;
 
     private void Start()
     {
@@ -30,9 +29,8 @@ public class ScMissionClearUI : MonoBehaviour
 
         if (missionListPanel != null)
         {
-            missionList = missionListPanel.GetMissionTextList();
 
-            foreach (var mission in missionList)
+            foreach (var mission in missionListPanel.MissionListTests)
             {
                 // 미션이 완료된 경우
                 if (mission.GetMissionState())

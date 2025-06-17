@@ -5338,18 +5338,6 @@ PrefabInstance:
       objectReference: {fileID: 716634874}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c7c50d314853ee41a88dd921b369497, type: 3}
---- !u!114 &830065172 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4966878691010018808, guid: 387918b4db7cc454f882136f6887235d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4966878691299833836}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4966878691299833838}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250ea16d7512f88408d6598255a4a1e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &837040815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5691,12 +5679,32 @@ PrefabInstance:
         type: 3}
       propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
     - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 996025569809165151, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: m_RootOrder
@@ -5761,22 +5769,62 @@ PrefabInstance:
         type: 3}
       propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
     - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
     - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c67c976ee2f42442abc77a641c373e4, type: 3}
 --- !u!4 &887771124 stripped
@@ -5835,8 +5883,8 @@ MonoBehaviour:
   OnStepClear:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830065172}
-        m_TargetAssemblyTypeName: ScMissionListPanel, Assembly-CSharp
+      - m_Target: {fileID: 4966878691299833839}
+        m_TargetAssemblyTypeName: ScMissionList, Assembly-CSharp
         m_MethodName: OnMissionFailed
         m_Mode: 3
         m_Arguments:
@@ -5847,8 +5895,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 830065172}
-        m_TargetAssemblyTypeName: ScMissionListPanel, Assembly-CSharp
+      - m_Target: {fileID: 4966878691299833839}
+        m_TargetAssemblyTypeName: ScMissionList, Assembly-CSharp
         m_MethodName: OnMissionFailed
         m_Mode: 3
         m_Arguments:
@@ -5859,8 +5907,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 830065172}
-        m_TargetAssemblyTypeName: ScMissionListPanel, Assembly-CSharp
+      - m_Target: {fileID: 4966878691299833839}
+        m_TargetAssemblyTypeName: ScMissionList, Assembly-CSharp
         m_MethodName: OnMissionFailed
         m_Mode: 3
         m_Arguments:
@@ -8109,12 +8157,32 @@ PrefabInstance:
         type: 3}
       propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
     - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 996025569809165150, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 996025569809165151, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: m_RootOrder
@@ -8179,22 +8247,62 @@ PrefabInstance:
         type: 3}
       propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
     - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562981944607549421, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
     - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
         type: 3}
       propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 4966878691299833839}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMissionFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157185683113396914, guid: 8c67c976ee2f42442abc77a641c373e4,
+        type: 3}
+      propertyPath: OnCheckMissionFailed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScMissionList, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c67c976ee2f42442abc77a641c373e4, type: 3}
 --- !u!4 &1237504855 stripped
@@ -10783,7 +10891,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnStepClear.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 830065172}
+      objectReference: {fileID: 0}
     - target: {fileID: 6708513851690753920, guid: bc61139e7be49f240ad1dcd55babded4,
         type: 3}
       propertyPath: OnStepClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -12885,6 +12993,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4966878691299833836}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4966878691299833839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5720661459609656086, guid: 387918b4db7cc454f882136f6887235d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4966878691299833836}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f977e67854ed254c9b9d7b300059494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5027589174685212161
 PrefabInstance:
   m_ObjectHideFlags: 0
