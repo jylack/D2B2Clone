@@ -51,7 +51,8 @@ public class ScMissionList : MonoBehaviour
 
         Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.ChapterMissionClear);
 
-        SetMissionTextCheck(key, true);
+        SetMissionTextCheck
+            (key, true);
     }
 
     public void OnMissionFailed(int index)
