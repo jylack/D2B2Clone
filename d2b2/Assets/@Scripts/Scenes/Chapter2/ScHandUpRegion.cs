@@ -64,7 +64,7 @@ public class ScHandUpRegion : MonoBehaviour
             {
                 StopCurrentCor();
             }
-            UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
+            //UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
         }
         UIPlayerHsy.Instance.DrawHandUpProgress(distance);
     }

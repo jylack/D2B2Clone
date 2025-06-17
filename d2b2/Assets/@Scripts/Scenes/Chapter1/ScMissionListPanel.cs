@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,9 +45,16 @@ public class ScMissionListPanel : MonoBehaviour
         //LoadMissionsAsync().Forget();
         //defaultKey = ChapterPrefix.ToString() + "_" + CategoryFilter.ToString() + "_";
 
-        //Setup(ChapterPrefix, CategoryFilter);
+        //Setup(ChapterPrefix, CategoryFilter);F
 
-        missionListPrefab.Setup(ChapterPrefix, CategoryFilter);
+        try
+        {
+            missionListPrefab.Setup(ChapterPrefix, CategoryFilter);
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex);
+        }
     }
 
     ///// <summary>

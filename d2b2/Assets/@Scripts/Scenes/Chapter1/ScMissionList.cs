@@ -26,7 +26,7 @@ public class ScMissionList : MonoBehaviour
         ChapterPrefix = chapterPrefix;
         CategoryFilter = category;
         // 기본 로드
-        LoadMissionsAsync().Forget();
+        LoadMissions();
         defaultKey = ChapterPrefix.ToString() + "_" + CategoryFilter.ToString() + "_";
     }
 
@@ -51,7 +51,8 @@ public class ScMissionList : MonoBehaviour
 
         Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.ChapterMissionClear);
 
-        SetMissionTextCheck(key, true);
+        SetMissionTextCheck
+            (key, true);
     }
 
     public void OnMissionFailed(int index)
@@ -60,10 +61,11 @@ public class ScMissionList : MonoBehaviour
         SetMissionTextCheck(key, false);
     }
 
-    private async UniTask LoadMissionsAsync()
+    private void LoadMissions()
     {
-        if (Manager.Instance != null)
-            await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
+        //if (Manager.Instance != null)
+            //await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
+            //await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
 
         missionTextMap.Clear();
         missionTexts.Clear();
@@ -98,8 +100,25 @@ public class ScMissionList : MonoBehaviour
     {
         var go = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
         var ctrl = go.GetComponent<ScMissionBoxTextCheck>();
+        if (go == null)
+        {
+            Debug.Log("여기1");
+        }
+        else
+        {
+            Debug.Log("여기11");
 
-        ctrl.SetMissionTextAsync(key, MissionBoxTextCheckType.Base);
+        }
+        if (ctrl == null)
+        {
+            Debug.Log("여기2");
+        }
+        else
+        {
+            Debug.Log("여기22");
+
+        }
+        ctrl.SetMissionText(key, MissionBoxTextCheckType.Base);
         go.name = key;
         missionTexts.Add(ctrl);
     }
