@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
             {
                 ScPlayerSettingsEntity entity = new();
                 entity.renderScale = 1f;
-                entity.brightness = 2f;
+                entity.brightness = 6f;
 
                 entity.colorWeakMode = 0;
                 entity.colorWeakCompensate = 100f;

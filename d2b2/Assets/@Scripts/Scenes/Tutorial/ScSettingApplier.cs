@@ -95,7 +95,7 @@ public class ScSettingApplier : MonoBehaviour
         renderScaleSlider.onValueChanged?.Invoke(renderScaleSlider.value);
         brightnessSlider.onValueChanged?.Invoke(brightnessSlider.value);
 
-        colorWeakButtons.SettingApply(playerSettings.rotateMode);
+        colorWeakButtons.SettingApply(playerSettings.colorWeakMode);
         colorWeakCompensateSlider.onValueChanged?.Invoke(colorWeakCompensateSlider.value);
 
         rotateMode.onValueChanged?.Invoke(rotateMode.value);

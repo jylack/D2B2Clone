@@ -105,6 +105,10 @@ public class ScTutNameSet : MonoBehaviour
         nameShowText.text = name;
     }
 
+    public void ToAdmin()
+    {
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Admin);
+    }
 
     public void ChangeToSetting()
     {
