@@ -74,17 +74,42 @@ public class ScMissionList : MonoBehaviour
             Destroy(child.gameObject);
 
         // DialogueMap 중에서 prefix_category_* 키만 추출
-        foreach (var kv in Manager.Instance.LanguageMgr.DialogueMap)
-        {
-            var parts = kv.Key.Split('_');
+        //foreach (var kv in Manager.Instance.LanguageMgr.DialogueMap)
+        //{
+        //    var parts = kv.Key.Split('_');
 
-            if (parts.Length > 2 &&
-                parts[0] == ChapterPrefix.ToString() &&
-                parts[1] == CategoryFilter.ToString())
-            {
-                string text = parts[2] == "0" ? kv.Value.Text : $"{parts[2]}. {kv.Value.Text}";
-                missionTextMap[kv.Key] = text;
-            }
+        //    if (parts.Length > 2 &&
+        //        parts[0] == ChapterPrefix.ToString() &&
+        //        parts[1] == CategoryFilter.ToString())
+        //    {
+        //        string text = parts[2] == "0" ? kv.Value.Text : $"{parts[2]}. {kv.Value.Text}";
+        //        missionTextMap[kv.Key] = text;
+        //    }
+        //}
+
+        var langMgr = Manager.Instance.LanguageMgr;
+
+        if (ChapterPrefix == Chapter.Ch1)
+        {
+            string titleKey = "Ch1_MissionText_0";
+            string mission1Key = "Ch1_MissionText_1";
+            string mission2Key = "Ch1_MissionText_2";
+            string mission3Key = "Ch1_MissionText_3";
+
+            missionTextMap[titleKey] = langMgr.GetText(titleKey);
+            missionTextMap[mission1Key] = $"1.{langMgr.GetText(titleKey)}";
+            missionTextMap[mission2Key] = $"2.{langMgr.GetText(titleKey)}";
+            missionTextMap[mission3Key] = $"3.{langMgr.GetText(titleKey)}";
+        }
+        else if (ChapterPrefix == Chapter.Ch2)
+        {
+            string titleKey = "Ch2_MissionText_0";
+            string mission1Key = "Ch2_MissionText_1";
+            string mission2Key = "Ch2_MissionText_2";
+
+            missionTextMap[titleKey] = langMgr.GetText(titleKey);
+            missionTextMap[mission1Key] = $"1.{langMgr.GetText(titleKey)}";
+            missionTextMap[mission2Key] = $"2.{langMgr.GetText(titleKey)}";
         }
 
         // UI 생성
