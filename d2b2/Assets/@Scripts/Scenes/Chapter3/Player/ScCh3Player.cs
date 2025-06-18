@@ -11,12 +11,7 @@ public class ScCh3Player : ScPlayerBase
     private ScCh3Npc hoveredNpc;
 
 
-
-    private void Awake()
-    {
-        base.InitSound(xrOrigin);
-    }
-
+        
     private void Start()
     {
         Manager.Instance.InputMgr.OnTriggerPerform += InputMgrOnOnTriggerPerform;

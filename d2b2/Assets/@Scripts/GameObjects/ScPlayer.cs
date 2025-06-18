@@ -34,8 +34,6 @@ public class ScPlayer : ScPlayerBase
 
     private void Awake()
     {
-        base.InitSound(characterController.gameObject);
-
         headTurnThresholdQuaternion = Quaternion.Euler(0f, headTurnThreshold, 0f).y;
 
         Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
