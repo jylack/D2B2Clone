@@ -36,8 +36,6 @@ public class ScMissionListPanel : MonoBehaviour
 
     private void Start()
     {
-
-
         try
         {
             missionListPrefab.Setup(ChapterPrefix, CategoryFilter);

@@ -1,20 +1,23 @@
-using Cysharp.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 
 
 
 public class ScMissionList : MonoBehaviour
 {
-
-
     private Chapter ChapterPrefix;
     private Category CategoryFilter;
 
     private readonly List<ScMissionBoxTextCheck> missionTexts = new();
     private readonly Dictionary<string, string> missionTextMap = new();
 
+    private StringTable table;
+
+    private const string LocalizationTableName = "LocalizationTable";
     private string defaultKey = string.Empty;
 
 
@@ -67,36 +70,60 @@ public class ScMissionList : MonoBehaviour
         missionTextMap.Clear();
         missionTexts.Clear();
 
+        Locale locale = LocalizationSettings.SelectedLocale;
+        table = LocalizationSettings.StringDatabase.GetTable(LocalizationTableName, locale);
+
         foreach (Transform child in transform)
             Destroy(child.gameObject);
 
         var langMgr = Manager.Instance.LanguageMgr;
 
-        if (ChapterPrefix == Chapter.Ch1)
+        if (table == null)
         {
-            string titleKey = "Ch1_MissionText_0";
-            string mission1Key = "Ch1_MissionText_1";
-            string mission2Key = "Ch1_MissionText_2";
-            string mission3Key = "Ch1_MissionText_3";
-
-            missionTextMap[titleKey] = langMgr.GetText(titleKey);
-            missionTextMap[mission1Key] = $"1.{langMgr.GetText(mission1Key)}";
-            missionTextMap[mission2Key] = $"2.{langMgr.GetText(mission2Key)}";
-            missionTextMap[mission3Key] = $"3.{langMgr.GetText(mission3Key)}";
+            Debug.LogError("Localization table is not loaded.");
+            return;
         }
-        else if (ChapterPrefix == Chapter.Ch2)
+
+        foreach (var kv in table.Values)
         {
-            string titleKey = "Ch2_MissionText_0";
-            string mission1Key = "Ch2_MissionText_1";
-            string mission2Key = "Ch2_MissionText_2";
+            var parts = kv.Key.Split('_');
 
-            missionTextMap[titleKey] = langMgr.GetText(titleKey);
-            missionTextMap[mission1Key] = $"1.{langMgr.GetText(mission1Key)}";
-            missionTextMap[mission2Key] = $"2.{langMgr.GetText(mission2Key)}";
+            if (parts.Length > 2 &&
+                parts[0] == ChapterPrefix.ToString() &&
+                parts[1] == CategoryFilter.ToString())
+            {
+                string text = parts[2] == "0" ? kv.Value : $"{parts[2]}. {kv.Value}";
+                missionTextMap[kv.Key] = text;
+            }
         }
+
+        var tempTextMap = missionTextMap.OrderBy(k => k.Key);
+
+        //if (ChapterPrefix == Chapter.Ch1)
+        //{
+        //    string titleKey       = "Ch1_MissionText_0";
+        //    string mission1Key    = "Ch1_MissionText_1";
+        //    string mission2Key    = "Ch1_MissionText_2";
+        //    string mission3Key    = "Ch1_MissionText_3";
+
+        //    missionTextMap[titleKey] = langMgr.GetText(titleKey);
+        //    missionTextMap[mission1Key] = $"1.{langMgr.GetText(mission1Key)}";
+        //    missionTextMap[mission2Key] = $"2.{langMgr.GetText(mission2Key)}";
+        //    missionTextMap[mission3Key] = $"3.{langMgr.GetText(mission3Key)}";
+        //}
+        //else if (ChapterPrefix == Chapter.Ch2)
+        //{
+        //    string titleKey = "Ch2_MissionText_0";
+        //    string mission1Key = "Ch2_MissionText_1";
+        //    string mission2Key = "Ch2_MissionText_2";
+
+        //    missionTextMap[titleKey] = langMgr.GetText(titleKey);
+        //    missionTextMap[mission1Key] = $"1.{langMgr.GetText(mission1Key)}";
+        //    missionTextMap[mission2Key] = $"2.{langMgr.GetText(mission2Key)}";
+        //}
 
         // UI 생성
-        foreach (var kv in missionTextMap)
+        foreach (var kv in tempTextMap)
             CreateMissionEntry(kv);
 
         // 첫 항목만 Title 타입으로 변경
@@ -104,7 +131,7 @@ public class ScMissionList : MonoBehaviour
             missionTexts[0].SetTypeChange(MissionBoxTextCheckType.Title);
     }
 
-    private void CreateMissionEntry(KeyValuePair<string,string> kv)
+    private void CreateMissionEntry(KeyValuePair<string, string> kv)
     {
         var go = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
         var ctrl = go.GetComponent<ScMissionBoxTextCheck>();
