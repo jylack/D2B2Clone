@@ -80,9 +80,9 @@ public class ScMissionList : MonoBehaviour
             string mission3Key = "Ch1_MissionText_3";
 
             missionTextMap[titleKey] = langMgr.GetText(titleKey);
-            missionTextMap[mission1Key] = $"1.{langMgr.GetText(titleKey)}";
-            missionTextMap[mission2Key] = $"2.{langMgr.GetText(titleKey)}";
-            missionTextMap[mission3Key] = $"3.{langMgr.GetText(titleKey)}";
+            missionTextMap[mission1Key] = $"1.{langMgr.GetText(mission1Key)}";
+            missionTextMap[mission2Key] = $"2.{langMgr.GetText(mission2Key)}";
+            missionTextMap[mission3Key] = $"3.{langMgr.GetText(mission3Key)}";
         }
         else if (ChapterPrefix == Chapter.Ch2)
         {
@@ -91,26 +91,26 @@ public class ScMissionList : MonoBehaviour
             string mission2Key = "Ch2_MissionText_2";
 
             missionTextMap[titleKey] = langMgr.GetText(titleKey);
-            missionTextMap[mission1Key] = $"1.{langMgr.GetText(titleKey)}";
-            missionTextMap[mission2Key] = $"2.{langMgr.GetText(titleKey)}";
+            missionTextMap[mission1Key] = $"1.{langMgr.GetText(mission1Key)}";
+            missionTextMap[mission2Key] = $"2.{langMgr.GetText(mission2Key)}";
         }
 
         // UI 생성
         foreach (var kv in missionTextMap)
-            CreateMissionEntry(kv.Key);
+            CreateMissionEntry(kv);
 
         // 첫 항목만 Title 타입으로 변경
         if (missionTexts.Count > 0)
             missionTexts[0].SetTypeChange(MissionBoxTextCheckType.Title);
     }
 
-    private void CreateMissionEntry(string key)
+    private void CreateMissionEntry(KeyValuePair<string,string> kv)
     {
         var go = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
         var ctrl = go.GetComponent<ScMissionBoxTextCheck>();
 
-        ctrl.SetMissionText(key, MissionBoxTextCheckType.Base);
-        go.name = key;
+        ctrl.SetMissionText(kv.Value);
+        go.name = kv.Key;
         missionTexts.Add(ctrl);
     }
 

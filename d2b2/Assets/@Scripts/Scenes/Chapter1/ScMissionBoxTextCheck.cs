@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -12,8 +11,7 @@ public enum MissionBoxTextCheckType
 
 public class ScMissionBoxTextCheck : MonoBehaviour
 {
-
-    private MissionBoxTextCheckType checkType;
+    private MissionBoxTextCheckType checkType = MissionBoxTextCheckType.Base;
     private TextMeshProUGUI tmp
     {
         get => GetComponent<TextMeshProUGUI>();
@@ -25,19 +23,11 @@ public class ScMissionBoxTextCheck : MonoBehaviour
         isCheck = false;
     }
 
-    public void SetMissionText(string key, MissionBoxTextCheckType checkType)
+    public void SetMissionText(string value)
     {
         if (tmp != null)
         {
-            try
-            {
-                tmp.text = Manager.Instance.LanguageMgr.GetText(key);
-                SetTypeChange(checkType);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogException(ex);
-            }
+            tmp.text = value;
         }
         else
         {
