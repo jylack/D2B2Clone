@@ -1157,6 +1157,7 @@ MonoBehaviour:
   ignoreGameObjects:
   - {fileID: 331476747}
   - {fileID: 34692815}
+  - {fileID: 2030409606}
   carPrefabs:
   - {fileID: 7248810694591775484, guid: 39319dae1383ed849a6280d09fb4a192, type: 3}
 --- !u!4 &368752791
@@ -6331,6 +6332,11 @@ PrefabInstance:
       propertyPath: ChapterPrefix
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4194682475488434105, guid: 387918b4db7cc454f882136f6887235d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4966878691010018808, guid: 387918b4db7cc454f882136f6887235d,
         type: 3}
       propertyPath: ChapterPrefix
@@ -6349,7 +6355,7 @@ PrefabInstance:
     - target: {fileID: 4966878692369843960, guid: 387918b4db7cc454f882136f6887235d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.58
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 4966878692369843960, guid: 387918b4db7cc454f882136f6887235d,
         type: 3}
@@ -6406,6 +6412,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GuideMissionListNPC
       objectReference: {fileID: 0}
+    - target: {fileID: 4966878692369843967, guid: 387918b4db7cc454f882136f6887235d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4966878692393992507, guid: 387918b4db7cc454f882136f6887235d,
         type: 3}
       propertyPath: m_SortingOrder
@@ -6431,7 +6442,8 @@ PrefabInstance:
       propertyPath: missionClearTextKey
       value: Chapter2ClearText
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4966878692369843962, guid: 387918b4db7cc454f882136f6887235d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 387918b4db7cc454f882136f6887235d, type: 3}
 --- !u!114 &2030409603 stripped
 MonoBehaviour:
@@ -6454,6 +6466,12 @@ GameObject:
 --- !u!1 &2030409605 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4966878691010018787, guid: 387918b4db7cc454f882136f6887235d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2030409602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2030409606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4194682475488434105, guid: 387918b4db7cc454f882136f6887235d,
     type: 3}
   m_PrefabInstance: {fileID: 2030409602}
   m_PrefabAsset: {fileID: 0}
