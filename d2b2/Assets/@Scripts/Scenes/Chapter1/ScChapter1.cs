@@ -11,9 +11,7 @@ public class ScChapter1 : MonoBehaviour
 {
     private static ScChapter1 instance;
     [SerializeField] private GameObject[] arrowImg;
-    //[SerializeField] private float ImgViewTime = 2f;
     [SerializeField] private int ImgViewTime = 2000;
-    //[SerializeField] private ScTrafficCtrl[] traffic;
     [SerializeField] private ScChapter1_NpcMoveController npc;
 
     public static ScChapter1 Instance => instance;
@@ -64,10 +62,7 @@ public class ScChapter1 : MonoBehaviour
 
     private async UniTask ArrowImageView()
     {
-        //Debug.Log("CurrentSetp : " + CurrentSetp);
         arrowImg[CurrentSetp].SetActive(true);
-        //Debug.Log("arrowImg : " + arrowImg[CurrentSetp].activeSelf);
-        
 
         await UniTask.Delay(ImgViewTime);
 

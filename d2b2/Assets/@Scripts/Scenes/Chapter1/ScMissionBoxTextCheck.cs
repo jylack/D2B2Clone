@@ -22,7 +22,6 @@ public class ScMissionBoxTextCheck : MonoBehaviour
 
     private void Awake()
     {
-        //tmp = GetComponent<TextMeshProUGUI>();
         isCheck = false;
     }
 

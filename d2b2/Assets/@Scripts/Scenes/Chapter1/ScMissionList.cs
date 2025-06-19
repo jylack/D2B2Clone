@@ -63,29 +63,12 @@ public class ScMissionList : MonoBehaviour
 
     private void LoadMissions()
     {
-        //if (Manager.Instance != null)
-            //await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
-            //await new WaitUntil(() => Manager.Instance.LanguageMgr != null);
 
         missionTextMap.Clear();
         missionTexts.Clear();
 
         foreach (Transform child in transform)
             Destroy(child.gameObject);
-
-        // DialogueMap 중에서 prefix_category_* 키만 추출
-        //foreach (var kv in Manager.Instance.LanguageMgr.DialogueMap)
-        //{
-        //    var parts = kv.Key.Split('_');
-
-        //    if (parts.Length > 2 &&
-        //        parts[0] == ChapterPrefix.ToString() &&
-        //        parts[1] == CategoryFilter.ToString())
-        //    {
-        //        string text = parts[2] == "0" ? kv.Value.Text : $"{parts[2]}. {kv.Value.Text}";
-        //        missionTextMap[kv.Key] = text;
-        //    }
-        //}
 
         var langMgr = Manager.Instance.LanguageMgr;
 
@@ -125,24 +108,7 @@ public class ScMissionList : MonoBehaviour
     {
         var go = ResourceManager.InstantiatePrefab("Prefabs/MissionText", transform);
         var ctrl = go.GetComponent<ScMissionBoxTextCheck>();
-        if (go == null)
-        {
-            Debug.Log("여기1");
-        }
-        else
-        {
-            Debug.Log("여기11");
 
-        }
-        if (ctrl == null)
-        {
-            Debug.Log("여기2");
-        }
-        else
-        {
-            Debug.Log("여기22");
-
-        }
         ctrl.SetMissionText(key, MissionBoxTextCheckType.Base);
         go.name = key;
         missionTexts.Add(ctrl);

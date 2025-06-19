@@ -24,13 +24,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     {
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
         Manager.Instance.InputMgr.OnLeftStickMove += OnLeftStickMove;
-
     }
-
-    //private void Update()
-    //{
-    //    IsMove.text = isWalk.ToString();
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,11 +45,6 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-
-            //var temp = other.gameObject.GetComponent<ScRespawn>();
-
-            //Debug.Log("isBlink : " + isBlink);
-            //Debug.Log("isColorRed : " + isColorRed);
 
             if (isColorRed || isBlink)
             {
@@ -147,7 +136,6 @@ public class ScCrossWalkCtrl : MonoBehaviour
 
     public void OnRed()
     {
-        //Debug.Log("OnRed");
         isColorRed = true;
         isBlink = false;
     }
@@ -155,12 +143,10 @@ public class ScCrossWalkCtrl : MonoBehaviour
     public void OnBlink()
     {
         isBlink = true;
-        //Debug.Log("OnBlink");   
     }
 
     public void OnGrean()
     {
-        //Debug.Log("OnGrean");
         isColorRed = false;
         isBlink = false;
     }
