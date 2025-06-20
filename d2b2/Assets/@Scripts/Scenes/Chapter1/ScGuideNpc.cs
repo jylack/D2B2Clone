@@ -1,66 +1,71 @@
 using DG.Tweening;
-using Photon.Pun.Demo.Cockpit;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using TMPro;
 using UnityEngine;
 
 public class ScGuideNpc : MonoBehaviour
 {
-    private Vector3 targetPos;
-    [SerializeField] private float moveTime = 5f;
-    [SerializeField] private float moveDir = 10f;
-    [SerializeField] private TextMeshProUGUI TalkBox;
-    [SerializeField] private float TalkDeliay = 1f;
+    [SerializeField] private GameObject player;
 
-    int index = 0;
+    private Vector3 offset;
+    private Tween moveTween;
+    private bool isMove = false;
 
-    private List<string> TalkArr = new List<string>();
-
-    private void Start()
+    private void Awake()
     {
-        TalkArr.Add("괜찮아. 누구나 실수할 수 있는 거야.");
-        TalkArr.Add("방금 있었던 일이 왜 위험했는지, 같이 살펴보자!");
-        TalkArr.Add("방금 행동이 위험했던 건, 네가 노란선을 지나쳤기 때문이야.");
-        TalkArr.Add("그 선은 멈추라는 표시야. 무시하면 진짜 큰 사고로 이어질 수도 있어.");
-        TalkArr.Add("안전선이 있는 이유는, 운전자들이 우리를 더 쉽게 볼 수 있도록 하기 위해서야.");
-        TalkArr.Add("그리고 혹시라도 너무 앞으로 나가면, 차와 부딪힐 위험이 있기 때문이야.");
-        TalkArr.Add("봐봐, 저렇게 너무 앞으로 나가 있으면…");
-        TalkArr.Add("그럼, 어떻게 해야 안전한지 같이 한번 볼까?");
-        TalkArr.Add("봐봐, 이 친구는 노란선 안쪽에서 잘 기다리고 있어!");
-        TalkArr.Add("이런 식으로 하면, 운전자도 너를 잘 볼 수 있어서 훨씬 더 안전해!");
-        TalkArr.Add("어때? 이제 어떻게 하면 좋은지 알겠지?");
-        TalkArr.Add("다시 한번 도로로 돌아가서 다시 도전하자!");
+        Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
 
-        NpcMove();
+        offset = player.transform.InverseTransformPoint(transform.position);
+        //offset = transform.position - player.transform.position;
+        
+
+    }
+    private void OnDestroy()
+    {
+        Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
     }
 
-    public void NpcMove()
+    private void OnPlayerMoving(bool isMoving)
     {
-        var pos = transform.position;
-        targetPos = pos + (transform.forward * moveDir);
+        isMove = isMoving;
 
-        transform.DOMove(targetPos, moveTime);
-
-        StartCoroutine(talking());
-    }
-
-    private IEnumerator talking()
-    {
-        yield return new WaitForSeconds(moveTime);
-
-        while (index < TalkArr.Count)
+        // NPC가 플레이어의 움직임에 따라 반응하도록 구현
+        if (isMoving)
         {
-            yield return new WaitForSeconds(TalkDeliay);
-            NextTalk();
+            // 플레이어가 움직일 때 NPC가 따라오도록 설정
+            FollowPlayer();
+            
         }
     }
 
-    private void NextTalk()
+
+    private void FollowPlayer()
     {
-        TalkBox.text = TalkArr[index];
-        index++;
+        // 이동 중이면 현재 위치를 시작점으로 새 목표로 다시 계산
+        Vector3 currentPos = transform.position;
+        Vector3 newTarget = player.transform.TransformPoint(offset);
+        //Vector3 newTarget = player.transform.position + offset;
+
+        // 기존 Tween이 있으면 Kill
+        if (moveTween != null && moveTween.IsActive())
+        {
+            moveTween.Kill();
+        }
+
+        float duration = 1f;
+
+        //float distance = Vector3.Distance(currentPos, newTarget);
+        //if (distance < 0.01f) return; // 너무 가까우면 무시
+
+        moveTween = transform.DOMove(newTarget, duration)
+                             .SetEase(Ease.Linear)
+                             .SetAutoKill(true)
+                             .OnComplete(() => 
+                             {
+                                 if (isMove)
+                                 {
+                                     FollowPlayer();
+                                 }
+                             })                          
+                             ;
+                             
     }
 }

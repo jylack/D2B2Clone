@@ -9,7 +9,6 @@ public class FadeSub1Scene : MonoBehaviour
         try
         {
             await UniTask.Delay(1000);
-            Manager.Instance.SceneMgr.OnSceneLoaded();
         }
         catch (Exception ex)
         {
@@ -21,6 +20,6 @@ public class FadeSub1Scene : MonoBehaviour
 
     public void LoadScene()
     {
-        Manager.Instance.SceneMgr.LoadScene("FadeSub2");
+        //Manager.Instance.SceneMgr.LoadScene("FadeSub2");
     }
 }

@@ -42,9 +42,6 @@ public class ScHandUpRegion : MonoBehaviour
             inHandUpRegion = false;
             ExitHandUpRegion();
         }
-        if (handUpMissionClear == true)
-        {
-        }
     }
     public void StopCurrentCor()
     {
@@ -67,7 +64,7 @@ public class ScHandUpRegion : MonoBehaviour
             {
                 StopCurrentCor();
             }
-            UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
+            //UIPlayerHsy.Instance.handUpText.text = leftHandUp.ToString();
         }
         UIPlayerHsy.Instance.DrawHandUpProgress(distance);
     }

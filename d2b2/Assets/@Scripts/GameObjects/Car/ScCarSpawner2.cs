@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
+using Photon.Pun;
 using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Threading;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ScCarSpawner2 : ScObjectBase
@@ -13,20 +16,24 @@ public class ScCarSpawner2 : ScObjectBase
     [SerializeField] private float minMoveSpeed = 1f;
     [SerializeField] private float maxMoveSpeed = 2f;
     [Header("Etc")]
+    [SerializeField] private bool usePhoton;
     [SerializeField] private bool showGizmoLine = true;
     [SerializeField] private float distance = 10f;
     [SerializeField] private Vector3 direction;
     [SerializeField] private GameObject[] ignoreGameObjects;
     [SerializeField] private GameObject[] carPrefabs;
-    
+
 
 
     private async void Start()
     {
         try
         {
+            if (usePhoton && !PhotonNetwork.IsMasterClient)
+                return;
+
             if (startDelay > 0)
-                await UniTask.Delay(startDelay, cancellationToken: DestroyToken);
+                await UniTask.Delay(startDelay, cancellationToken: base.DestroyToken);
 
             RunSpawn().Forget();
         }
@@ -64,16 +71,21 @@ public class ScCarSpawner2 : ScObjectBase
         return UnityEngine.Random.Range(value, value2);
     }
 
-
-
     private async UniTask RunSpawn()
     {
         try
         {
-            while (!DestroyToken.IsCancellationRequested)
+            CancellationToken token;
+
+            if (Manager.Instance.SceneMgr.CurrentScene == ScDefine.ScScene.Ch3Play)
+                token = CancellationTokenSource.CreateLinkedTokenSource(ScCh3PlayService.Instance.TimeUpCts.Token, base.DestroyToken).Token;
+            else
+                token = base.DestroyToken;
+
+            while (!token.IsCancellationRequested)
             {
                 int randomInterval = GetRandomValue(minSpawnIntervalTime, maxSpawnIntervalTime);
-                await UniTask.Delay(randomInterval, cancellationToken: DestroyToken);
+                await UniTask.Delay(randomInterval, cancellationToken: token);
 
                 SpawnRandomCar();
             }
@@ -94,8 +106,16 @@ public class ScCarSpawner2 : ScObjectBase
         int carIndex = GetRandomValue(0, carPrefabs.Length);
         GameObject carPrefab = carPrefabs[carIndex];
 
-        Instantiate(carPrefab, transform)
-            .GetComponent<ScCar>()
-            .Init(moveSpeed, direction, distance, ignoreGameObjects);
+        if (usePhoton)
+        {
+            var param = new object[] { moveSpeed, direction, distance };
+            string prefabName = $"Prefabs/Cars/{carPrefab.name}";
+            PhotonNetwork.Instantiate(prefabName, transform.position, quaternion.identity, 0, param);
+        }
+        else
+        {
+            var car = Instantiate(carPrefab, transform).GetComponent<ScCar>();
+            car.Init(moveSpeed, direction, distance, ignoreGameObjects);
+        }
     }
 }

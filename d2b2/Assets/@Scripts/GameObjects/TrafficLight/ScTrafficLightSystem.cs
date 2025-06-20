@@ -1,18 +1,17 @@
 using Cysharp.Threading.Tasks;
+using Photon.Pun;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 
 public class ScTrafficLightSystem : ScObjectBase
 {
-    private const float IntersectionAreaHeight = 5f;
-
     [SerializeField] private int timeBeforeColorChange = 2000;
     [SerializeField] private int greenDuration = 6000;
     [SerializeField] private int blinkIntervalTime = 500;
-    [SerializeField] private float intersectionAreaSize = 16f;
+    [SerializeField] private bool usePhoton;
 
     [SerializeField]
     [TableList(AlwaysExpanded = true, ShowIndexLabels = true)]
@@ -20,7 +19,7 @@ public class ScTrafficLightSystem : ScObjectBase
 
     private int nextTargetIndex;
     private ScTrafficLightGroup currentTrafficLightGroup;
-    private Vector3 AreaSize => new (intersectionAreaSize, IntersectionAreaHeight, intersectionAreaSize);
+    private CancellationTokenSource updateTrafficLightsCts;
 
 
 
@@ -32,14 +31,24 @@ public class ScTrafficLightSystem : ScObjectBase
         foreach (ScTrafficLightGroup group in trafficLightGroups)
             group.SetLight(ScDefine.ScTrafficLightType.Red);
 
-        Run().Forget();
+        if (usePhoton)
+        {
+            if (PhotonNetwork.IsMasterClient)
+                RunWithPhotonTrafficSignal().Forget();
+        }
+        else
+        {
+            Run().Forget();
+        }
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.blue;
-    //     Gizmos.DrawWireCube(transform.position, AreaSize);
-    // }
+
+
+    public void SetAllLightColors(ScDefine.ScTrafficLightType lightColor)
+    {
+        foreach (ScTrafficLightGroup group in trafficLightGroups)
+            group.SetLight(lightColor);
+    }
 
     public void OnCrosswalkEnter()
     {
@@ -51,51 +60,116 @@ public class ScTrafficLightSystem : ScObjectBase
         print("OnCrosswalkExited");
     }
 
+    public async UniTaskVoid OnUpdateTrafficLight()
+    {
+        try
+        {
+            updateTrafficLightsCts?.Cancel();
+            updateTrafficLightsCts?.Dispose();
+            updateTrafficLightsCts = new CancellationTokenSource();
+            CancellationToken timeUpToken = ScCh3PlayService.Instance.TimeUpCts.Token;
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(updateTrafficLightsCts.Token, timeUpToken, base.DestroyToken);
+
+            WaitThenRaiseGreenBeforeEvent(updateTrafficLightsCts.Token).Forget();
+            await UpdateTrafficLights(linkedCts.Token);
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
+
 
 
     private async UniTask Run()
     {
         try
         {
-            while (!base.DestroyToken.IsCancellationRequested)
+            CancellationToken token = base.DestroyToken;
+
+            while (!token.IsCancellationRequested)
             {
-                // ¿Ã¿¸ Ω≈»£µÓ ±◊∑Ï
-                currentTrafficLightGroup?.SetLight(ScDefine.ScTrafficLightType.Red);
+                await UpdateTrafficLights(token);
+                WaitThenRaiseGreenBeforeEvent(token).Forget();
+            }
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
 
-                // ∫Ø∞Ê ∞£∞›
-                // await UniTask.Delay(intervalTime, cancellationToken: base.DestroyToken);
+    private async UniTask RunWithPhotonTrafficSignal()
+    {
+        try
+        {
+            await UniTask.WaitUntil(() => ScCh3PlayService.Instance != null);
 
-                // ªÁ∞≈∏Æø° ¬˜ ¿÷¥¬¡ˆ √º≈©
-                // while (true)
-                // {
-                //     Collider[] cars = Physics.OverlapBox(transform.position, AreaSize / 2, Quaternion.identity, ScDefine.Layer.CarMask);
-                //
-                //     if (cars.Length > 0)
-                //         await UniTask.Delay(100, cancellationToken: base.DestroyToken);
-                //     else
-                //         break;
-                //
-                //     print("car exists.");
-                // }
+            var token = CancellationTokenSource.CreateLinkedTokenSource(ScCh3PlayService.Instance.TimeUpCts.Token, base.DestroyToken);
 
-                // ¥Ÿ¿Ω Ω≈»£µÓ ±◊∑Ï
-                currentTrafficLightGroup = trafficLightGroups[nextTargetIndex];
-                currentTrafficLightGroup.SetLight(ScDefine.ScTrafficLightType.Green);
-                
-                nextTargetIndex = ++nextTargetIndex % trafficLightGroups.Count;
-                
-                WaitThenRaiseGreenBeforeEvent().Forget();
-                
-                int blinkBeforeTime = greenDuration * 3 / 4;
-                await UniTask.Delay(blinkBeforeTime, cancellationToken: base.DestroyToken);
+            while (!token.IsCancellationRequested)
+            {
+                ScCh3PlayService.Instance.BroadcastUpdateTrafficLights();
 
-                int elapsedTime = blinkBeforeTime;
+                await UniTask.Delay(greenDuration);
+            }
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
+
+    private async UniTask UpdateTrafficLights(CancellationToken token)
+    {
+        try
+        {
+            Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.TrafficLightChanged);
+
+            // Ïù¥Ï†Ñ Ïã†Ìò∏Îì± Í∑∏Î£π
+            currentTrafficLightGroup?.SetLight(ScDefine.ScTrafficLightType.Red);
+
+            // Îã§Ïùå Ïã†Ìò∏Îì± Í∑∏Î£π
+            currentTrafficLightGroup = trafficLightGroups[nextTargetIndex];
+            currentTrafficLightGroup.SetLight(ScDefine.ScTrafficLightType.Green);
+
+            nextTargetIndex = ++nextTargetIndex % trafficLightGroups.Count;
+
+            int blinkBeforeTime = greenDuration * 3 / 4;
+            await UniTask.Delay(blinkBeforeTime, cancellationToken: token);
+
+            int elapsedTime = blinkBeforeTime;
+
+            currentTrafficLightGroup.OnStartGreenLightBlink();
+
+            // ÎÖπÏÉâÎ∂à Ï†êÎ©∏
+            if (usePhoton)
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    currentTrafficLightGroup.InvertColor();
+                    await UniTask.Delay(blinkIntervalTime, cancellationToken: token);
+                }
+            }
+            else
+            {
                 
-                // ≥Ïªˆ∫“ ¡°∏Í
                 while (elapsedTime < greenDuration)
                 {
                     currentTrafficLightGroup.InvertColor();
-                    await UniTask.Delay(blinkIntervalTime, cancellationToken: base.DestroyToken);
+                    await UniTask.Delay(blinkIntervalTime, cancellationToken: token);
                     elapsedTime += blinkIntervalTime;
                 }
             }
@@ -110,11 +184,22 @@ public class ScTrafficLightSystem : ScObjectBase
         }
     }
 
-    private async UniTask WaitThenRaiseGreenBeforeEvent()
+    private async UniTask WaitThenRaiseGreenBeforeEvent(CancellationToken token)
     {
-        await UniTask.Delay(greenDuration - timeBeforeColorChange, cancellationToken: base.DestroyToken);
+        try
+        {
+            await UniTask.Delay(greenDuration - timeBeforeColorChange, cancellationToken: token);
 
-        foreach (ScTrafficLight trafficLight in trafficLightGroups[nextTargetIndex].items)
-            trafficLight.Ready();
+            foreach (ScTrafficLight trafficLight in trafficLightGroups[nextTargetIndex].items)
+                trafficLight.Ready();
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
 }

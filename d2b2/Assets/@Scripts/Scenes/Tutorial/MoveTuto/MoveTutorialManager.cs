@@ -5,26 +5,29 @@ using UnityEngine;
 
 public class MoveTutorialManager : MonoBehaviour
 {
-    [SerializeField] ScGuideInstance guide;
+    [SerializeField] ScCharacter guide;
     [SerializeField] ScNotifyFairy notifyFairy;
     [SerializeField] GameObject walkObjs;
     [SerializeField] GameObject lookAroundObjs;
     [SerializeField] ScLookAroundRegion lookAround;
-    [SerializeField] string sceneName;
+    [SerializeField] ScDefine.ScScene sceneName;
     void Start()
     {
-        guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
+        //guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
     }
 
     public void WalkSuccess()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
         walkObjs.SetActive(false);
         lookAroundObjs.SetActive(true);
         CheckLookAroundComplete().Forget();
+        guide.SetLookAroundAnim();
     }
 
     public void LookAroundSuccess()
     {
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.PositiveNotification);
         Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 

@@ -1,16 +1,13 @@
-﻿using Unity.XR.CoreUtils;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ScPlayer : ScObjectBase
+public class ScPlayer : ScPlayerBase
 {
-    //[SerializeField] private XROrigin xrOrigin;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
     [Header("move")]
     [SerializeField] private ActionBasedContinuousMoveProvider moveProv;
     [SerializeField] private float swingThresholdIntervalTime;
-    [SerializeField] private float moveSpeed;
     [SerializeField] private float swingForwardZPosition;
     [SerializeField] private float swingBackwardZPosition;
     [Header("head")]
@@ -19,24 +16,24 @@ public class ScPlayer : ScObjectBase
     [SerializeField] private float maxHandHeight;
 
     public CharacterController CharacterController => characterController;
-    private AudioSource audioSource;
+    public override Camera MainCamera => mainCamera;
+
     private ScDefine.ScHeadTurn headTurn = ScDefine.ScHeadTurn.Forward;
     private bool isLeftHandUp;
     private bool isRightHandUp;
     private bool isMoving;
-    private bool isleftStickMove;
+    private bool isLeftStickMove;
     private float leftHandForwardTime;
     private float leftHandBackwardTime;
     private float rightHandForwardTime;
     private float rightHandBackwardTime;
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
-
+    
 
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         headTurnThresholdQuaternion = Quaternion.Euler(0f, headTurnThreshold, 0f).y;
 
         Manager.Instance.InputMgr.OnHeadPositionChanged += OnHeadPositionChanged;
@@ -50,16 +47,15 @@ public class ScPlayer : ScObjectBase
     private void Start()
     {
         Manager.Instance.GameMgr.SetPlayer(this);
-        //ResetCamera();
     }
 
     private void Update()
     {
         UpdateHeadTurn();
         UpdateMove();
-
-        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
     }
+
+
 
     private void OnDestroy()
     {
@@ -90,20 +86,15 @@ public class ScPlayer : ScObjectBase
 
 
 
-    public void PlaySound(AudioClip audioClip)
-    {
-        audioSource.PlayOneShot(audioClip);
-    }
-
-
-
     private void UpdateHeadTurn()
     {
         var tempHeadTurn = ScDefine.ScHeadTurn.None;
         //float rotationY = xrOrigin.Camera.transform.localRotation.y;
-        float rotationY = mainCamera.transform.localRotation.y;
-        bool lookingLeft = rotationY < -headTurnThresholdQuaternion;
-        bool lookingRight = rotationY > headTurnThresholdQuaternion;
+        float rotationY = mainCamera.transform.localRotation.eulerAngles.y;
+        if (rotationY > 180f)
+            rotationY -= 360f;
+        bool lookingLeft = rotationY < -headTurnThreshold;
+        bool lookingRight = rotationY > headTurnThreshold;
         if (lookingLeft && headTurn != ScDefine.ScHeadTurn.Left)
         {
             tempHeadTurn = ScDefine.ScHeadTurn.Left;
@@ -122,68 +113,58 @@ public class ScPlayer : ScObjectBase
             headTurn = tempHeadTurn;
             Manager.Instance.GameMgr.RaisePlayerHeadTurnEvent(headTurn);
         }
+
     }
 
     private void UpdateMove()
     {
         isMoving = false;
 
-        if (isleftStickMove)
+        if (isLeftStickMove)
         {
             isMoving = true;
             return;
         }
 
-        // 왼손 체크
-        bool isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
-        bool isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
+        bool isMoveStart;
+        bool isValidSwingIntervalTime;
 
-        if (isMoveStart && isValidSwingIntervalTime)
+        // 왼손 체크
+        if (leftHandForwardTime > 0 && leftHandBackwardTime > 0)
         {
-            MoveForward();
-            return;
+            isMoveStart = Time.time - leftHandForwardTime <= 0.5f;
+            isValidSwingIntervalTime = Mathf.Abs(leftHandForwardTime - leftHandBackwardTime) <= swingThresholdIntervalTime;
+
+            if (isMoveStart && isValidSwingIntervalTime)
+            {
+                MoveForward();
+                return;
+            }
         }
 
         // 오른손 체크
-        isMoveStart = Time.time - rightHandForwardTime <= 0.5f;
-        isValidSwingIntervalTime = Mathf.Abs(rightHandForwardTime - rightHandBackwardTime) <= swingThresholdIntervalTime;
-
-        if (isMoveStart && isValidSwingIntervalTime)
+        if (rightHandForwardTime > 0 && rightHandBackwardTime > 0)
         {
-            MoveForward();
-            return;
+            isMoveStart = Time.time - rightHandForwardTime <= 0.5f;
+            isValidSwingIntervalTime = Mathf.Abs(rightHandForwardTime - rightHandBackwardTime) <= swingThresholdIntervalTime;
+
+            if (isMoveStart && isValidSwingIntervalTime)
+            {
+                MoveForward();
+            }
         }
+
+
     }
 
     private void MoveForward()
     {
-        //if (!Manager.Instance.GameMgr.canMove)
-        //    return;
+        characterController.Move(moveProv.moveSpeed * Time.deltaTime * characterController.transform.forward);
 
-        //moveProv.moveSpeed = move;
-        //Debug.Log("moveFor : " + Manager.Instance.GameMgr.canMove);        
-
-        characterController.Move(moveSpeed * Time.deltaTime * characterController.transform.forward);
-
+        //Debug.Log("isMoving : " + isMoving);
         isMoving = true;
+        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
 
-    }
-
-    public void ResetCamera()
-    {
-        // HMD의 초기 로컬 포지션과 회전 가져오기
-        //if (xrOrigin.Camera != null)
-        //{
-        //    //Vector3 cameraOffset = xrOrigin.Camera.transform.localPosition;
-        //    //Quaternion cameraRotation = xrOrigin.Camera.transform.localRotation;
-
-        //    // 카메라가 위치한 지점 기준으로 XR Origin을 반대로 이동시켜 중앙 정렬
-        //    xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
-        //}
-
-        // 또는 HMD 위치를 기준으로 강제로 위치를 조정하고 싶다면:
-        //xrOrigin.transform.position = Vector3.zero;
-        //xrOrigin.transform.rotation = Quaternion.identity;
     }
 
     // event
@@ -228,6 +209,8 @@ public class ScPlayer : ScObjectBase
 
     private void OnLeftStickMove(bool isStick)
     {
-        isleftStickMove = isStick;
+        isLeftStickMove = isStick;
+        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isStick);
+
     }
 }

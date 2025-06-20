@@ -30,10 +30,10 @@ public class ScRespawn : MonoBehaviour
     private void Start()
     {
         Player = GameObject.Find("Player").GetComponent<ScPlayer>();
-        _currentStep = ScChapter1.Instance.CurrentSetp;
+        _currentStep = ScChapter1.CurrentSetp;
 
         Init(_currentStep);
-        Respawn(false);
+        Respawn();
     }
 
 
@@ -54,19 +54,24 @@ public class ScRespawn : MonoBehaviour
         };
     }
 
-    public void Respawn(bool moveScene)
+    public void Respawn()
     {
+        if(telPos.destinationPosition == Vector3.zero)
+        {
+            Debug.LogError("텔레포트 위치가 설정되지 않았습니다.");
+            return;
+        }
+
         Player.CharacterController.enabled = false;
         //player
         Player.transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
         //xrOrigin
         Player.CharacterController.transform.SetPositionAndRotation(telPos.destinationPosition, telPos.destinationRotation);
 
-        ScChapter1.Instance.lookAroundMissionClear = false;
+        ScChapter1.Instance.LookAroundMissionClear = false;
 
         Player.CharacterController.enabled = true;
 
-        Manager.Instance.GameMgr.canMove = true;
 
     }
 

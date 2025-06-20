@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScCrosswalkGuide : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
+    [SerializeField] private ScCharacter guide;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform dest;
     [SerializeField] private float walkSpeed;
@@ -16,16 +16,20 @@ public class ScCrosswalkGuide : MonoBehaviour
 
     private IEnumerator MoveToDestination()
     {
+        guide.SetRaiseHandAnimation(true);
         transform.LookAt(dest);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
         //여기서 walk 애니메이션 키기
+        guide.SetWalkingAnim();
         while(Vector3.Distance(transform.position, dest.position) > 0.3f)
         {
             yield return null;
             transform.Translate(transform.forward * walkSpeed * Time.deltaTime);
         }
         //여기서 walk 애니메이션 끄기
+        guide.SetRaiseHandAnimation(false);
+        guide.SetIdleAnim();
 
         transform.LookAt(playerTransform);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);

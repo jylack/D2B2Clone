@@ -10,14 +10,8 @@ public class ScSafetyLineCtrl : MonoBehaviour
     Coroutine coroutine = null;
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.gameObject.name);
-        //Debug.Log("layer : " + other.gameObject.layer);
-        //Debug.Log(ScDefine.Layer.PlayerIndex);
-
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-           // Debug.Log("������ ����.");
-
             isSafety = true;
 
             if (coroutine == null)
@@ -32,8 +26,6 @@ public class ScSafetyLineCtrl : MonoBehaviour
         isSafety = false;
         StopAllCoroutines();
         coroutine = null;
-
-        //Debug.Log("������ ���.");
     }
 
     IEnumerator TimeLimit(Collider other)
@@ -43,8 +35,7 @@ public class ScSafetyLineCtrl : MonoBehaviour
 
         if (isSafety)
         {
-            //Debug.Log("Sg01_SafetyLine");
-            ScRespawn.Instance.Respawn(true); 
+            ScRespawn.Instance.Respawn(); 
             Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg01_SafetyLine);
         }
     }

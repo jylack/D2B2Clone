@@ -9,17 +9,19 @@ public class ScTutNameSet : MonoBehaviour
 {
     [SerializeField] private GameObject inputName;
     [SerializeField] private GameObject showName;
+    [SerializeField] private GameObject saveName;
 
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_Text errorText;
     [SerializeField] private TMP_Text successText;
 
     [SerializeField] private TMP_Text nameShowText;
+    [SerializeField] private TMP_Text savedNameText;
 
     private void SetErrorMessage(string msg)
     {
         successText.text = "";
-        errorText.text = msg;
+        errorText.text += "\n" + msg;
     }
 
     private void SetSuccessMessage(string msg)
@@ -30,6 +32,8 @@ public class ScTutNameSet : MonoBehaviour
 
     public void CheckNameValid()
     {
+        successText.text = "";
+        errorText.text = "";
         ScDefine.ScNickNameValidation validation = ScUtils.CheckNickNameValidation(nameInput.text);
 
         if (validation == ScDefine.ScNickNameValidation.Empty)
@@ -62,6 +66,12 @@ public class ScTutNameSet : MonoBehaviour
             return;
         }
 
+        ShowName(nameInput.text);
+    }
+
+    public void SaveName()
+    {
+
         string name = nameInput.text.Trim();
         ScPlayerEntity entity = new ScPlayerEntity
         {
@@ -69,29 +79,39 @@ public class ScTutNameSet : MonoBehaviour
             settings = new ScPlayerSettingsEntity()
         };
         TutorialManager.Instance.playerEntity = entity;
+        Manager.Instance.GameMgr.SetCurrentPlayerInfo(entity);
 
         Manager.Instance.DbMgr.Save(name, entity).Forget();
 
         SetSuccessMessage("생성 성공");
 
-        ShowName(name);
+        inputName.SetActive(false);
+        showName.SetActive(false);
+        saveName.SetActive(true);
+        savedNameText.text = name;
     }
 
-    private void ShowName(string name)
+    public void ShowInput()
+    {
+        inputName.SetActive(true);
+        showName.SetActive(false);
+    }
+
+    public void ShowName(string name)
     {
         inputName.SetActive(false);
         showName.SetActive(true);
 
-        nameShowText.text = $"당신의 이름은\n{name} 입니다";
-
-        ChangeToSetting().Forget();
+        nameShowText.text = name;
     }
 
-
-    async UniTaskVoid ChangeToSetting()
+    public void ToAdmin()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(2));
+        Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Admin);
+    }
 
+    public void ChangeToSetting()
+    {
         TutorialManager.Instance.EnableSetting();
     }
 }

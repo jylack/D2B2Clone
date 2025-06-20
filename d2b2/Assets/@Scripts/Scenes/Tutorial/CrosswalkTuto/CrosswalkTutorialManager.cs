@@ -7,22 +7,22 @@ using UnityEngine;
 
 public class CrosswalkTutorialManager : MonoBehaviour
 {
-    [SerializeField] GameObject clearMessage;
-    [SerializeField] ScGuideInstance guide;
+    [SerializeField] ScTutoClear clearMessage;
+    //[SerializeField] ScGuide guide;
     [SerializeField] ScHandUpRegion handUp;
     [SerializeField] XROrigin playerXR;
     [SerializeField] Transform player;
-    [SerializeField] string sceneName;
+    [SerializeField] ScDefine.ScScene sceneName;
     Vector3 startPos;
     bool missionClear = false;
     void Start()
     {
-        clearMessage.SetActive(false);
-        Debug.Log("Tuto ins " + TutorialManager.Instance.playerEntity);
+        clearMessage.gameObject.SetActive(false);
+        /*Debug.Log("Tuto ins " + TutorialManager.Instance.playerEntity);
         if(TutorialManager.Instance.playerEntity != null)
         {
             guide.InstantiateGuide(TutorialManager.Instance.playerEntity.guideCharacter);
-        }
+        }*/
         startPos = player.position;
         startPos.y = playerXR.GetComponent<CharacterController>().height;
         HandUpChecker().Forget();
@@ -34,7 +34,6 @@ public class CrosswalkTutorialManager : MonoBehaviour
         while (!missionClear)
         {
             Debug.Log("tp player");
-            playerXR.MoveCameraToWorldLocation(startPos);
             await UniTask.WaitUntil(() => handUp.inHandUpRegion);
             Debug.Log("in region");
 
@@ -45,11 +44,17 @@ public class CrosswalkTutorialManager : MonoBehaviour
         }
         TutorialClear();
     }
+    public void HandUpFail()
+    {
+        playerXR.MoveCameraToWorldLocation(startPos);
+        Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.NegativeNotification);
+    }
 
-    private void TutorialClear() 
+    private void TutorialClear()
     {
         Debug.Log("Tuto Wan");
-        clearMessage.SetActive(true);
+        clearMessage.gameObject.SetActive(true);
+        clearMessage.Clear();
     }
 
     public void MoveToTutoStart()

@@ -1,9 +1,10 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class ScChapter1_NpcMoveController : MonoBehaviour
 {
-    [SerializeField] private float moveTime = 5f;
+    [SerializeField] private float moveTime = 4f;
     [SerializeField] private Transform targetTrans;
 
     ScCharacter npc;
@@ -23,11 +24,9 @@ public class ScChapter1_NpcMoveController : MonoBehaviour
     {
         transform.DOMove(targetTrans.position, moveTime).OnComplete(() =>
             {
-                //Debug.Log("NpcMove End");
                 npc.SetAnimation(ScDefine.ScNpcAnimState.Idle);
-                //핸드업 애니메이션 
-                //npc.SetRaiseHandAnimation(ScDefine.ScHandSide.Right);
             });
-
     }
+
+
 }

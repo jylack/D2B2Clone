@@ -7,10 +7,13 @@
 
     public enum ScScene
     {
-        InitSettings = 0,
+        Admin = 0,
         TutorialInitial,
         TutorialMove,
         TutorialCrosswalk,
+        TestTutorialInitial,
+        TestTutorialMove,
+        TestTutorialCrosswalk,
         Ch1Login,
         Ch1Play,        
         Ch2Login,
@@ -25,9 +28,11 @@
         Sg02_LookAround,
         Sg03_HandUp,
         Sg04_TrafficBlink,
-        Sg05_Jaywalking,
+        Sg05_SafeWalk, 
         Sg06_BlindSpot,
-        Sg07_GsCarPrediction
+        Sg07_GsCarPrediction,
+        Sg08_Jaywalking,
+
     }
 
     public enum ScNickNameValidation
@@ -45,18 +50,10 @@
         Left,
         Right
     }
-
-    public enum ScHandSide
-    {
-        None = 0,
-        Left,
-        Right
-    }
     
     public enum ScGuideCharacter
     {
-        None = 0,
-        Character1,
+        Character1 = 0,
         Character2,
         Character3,
         Character4,
@@ -77,5 +74,43 @@
         LookAround,
         StandingUsingPhone,
         WalkingUsingPhone,
+    }
+
+    public enum ScPathPointNextAction
+    {
+        None,
+        Move,
+        Crosswalk,
+        LookAround,
+        DoBadThing,
+        Destroy,
+    }
+
+    public enum ScSound
+    {
+        None,
+        Ok,
+        Cancel,
+        SimpleNotification,
+        
+        TrafficLightChanged,
+        ChapterFinished,
+        CatchSomething,
+        PositiveNotification,
+        NegativeNotification,
+        ChapterMissionClear,
+        CarSkid,
+        Ch2_2_CountDown,
+        Ch2_2_GameStart,
+        Ch2_2_GameEnd,
+    }
+
+    public enum ScLanguage
+    {
+        Ko, // 한국어
+        En, // 영어
+        Fr, // 프랑스어
+        Ru, // 러시아어
+        De, // 독일어
     }
 }

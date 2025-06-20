@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class ScCh3LoginScene : ScSceneBase
+﻿public class ScCh3LoginScene : ScSceneBase
 {
     
 }

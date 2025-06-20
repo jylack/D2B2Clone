@@ -29,7 +29,10 @@ public class ScCharaSelectManager : MonoBehaviour
             var tempDetectMan = args.interactableObject.transform.GetComponent<ScTutCharacter>();
 
             if (tempDetectMan != null)
+            {
                 tempDetectMan.SetOutline(true);
+                tempDetectMan.SetOutlineColor(Color.yellow);
+            }
 
             hover?.SetOutline(false);
             hover = tempDetectMan;
@@ -55,13 +58,13 @@ public class ScCharaSelectManager : MonoBehaviour
         {
             selectCharacter = hover;
             print("trigger on");
+            selectCharacter.SetOutlineColor(Color.red);
             selectCharacter.WalkForward(this);
         }
     }
 
     public void OpenConfirmPopUp()
     {
-        Debug.Log("나오쇼");
         ConfirmPopUp.SetActive(true);
     }
 
@@ -70,7 +73,7 @@ public class ScCharaSelectManager : MonoBehaviour
         TutorialManager.Instance.playerEntity.guideCharacter = selectCharacter.GetCharaId();
         Manager.Instance.DbMgr.Save(TutorialManager.Instance.playerEntity.nickName, TutorialManager.Instance.playerEntity).Forget();
         ConfirmPopUp.SetActive(false);
-        Manager.Instance.SceneMgr.LoadScene(sceneName);
+        //Manager.Instance.SceneMgr.LoadScene(sceneName);
     }
 
     public void CancelSelect()
