@@ -15,6 +15,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
     private void OnEnable()
     {
         Manager.Instance.GameMgr.OnPlayerMoving += OnMoving;
+        Manager.Instance.InputMgr.OnLeftStickMove += OnLeftStickMove;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,9 +50,15 @@ public class ScCheckBoxCtrl : MonoBehaviour
     private void OnDestroy()
     {
         Manager.Instance.GameMgr.OnPlayerMoving -= OnMoving;
+        Manager.Instance.InputMgr.OnLeftStickMove -= OnLeftStickMove;
     }
 
     private void OnMoving(bool isMoving)
+    {
+        isMove = isMoving;
+    }
+
+    private void OnLeftStickMove(bool isMoving)
     {
         isMove = isMoving;
     }
