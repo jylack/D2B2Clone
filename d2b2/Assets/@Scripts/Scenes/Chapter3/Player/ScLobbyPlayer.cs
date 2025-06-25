@@ -41,7 +41,7 @@ public class ScLobbyPlayer : ScObjectBase
             Vector3 lookAtPos = new(playerPos.x, transform.position.y, playerPos.z);
 
             nickNameText.text = NickName;
-            nickNameText.transform.LookAt(lookAtPos);
+            nickNameText.transform.LookAt(-lookAtPos);
             nickNameText.gameObject.SetActive(true);
         }
     }
