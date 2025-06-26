@@ -151,10 +151,12 @@ public class ScPlayer : ScPlayerBase
             if (isMoveStart && isValidSwingIntervalTime)
             {
                 MoveForward();
+                return;
             }
         }
 
-
+        isMoving = false;
+        Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
     }
 
     private void MoveForward()
