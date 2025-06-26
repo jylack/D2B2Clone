@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public void RaisePlayerMovingEvent(bool isMoving)
     {
         OnPlayerMoving?.Invoke(isMoving);
+        //Debug.Log("1. RaisePlayerMovingEvent : " + isMoving);
     }
 
     public void ApplyCurrentSetting()

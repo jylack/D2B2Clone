@@ -71,13 +71,21 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 isHandUp = true;
             }
 
+            //Debug.Log("isWalk : " + isWalk);
+
             if (isWalk == false)
             {
                 if (coroutine == null)
                     coroutine = StartCoroutine(StopMoveTimeLimit(other));
             }
+            else if(isWalk == true && coroutine != null)
+            {
+                Debug.Log("Stop Coroutine");
+                StopCoroutine(coroutine);
+                coroutine = null;
+            }            
 
-            if(Hand.isLeftHandUp == false)
+            if (Hand.isLeftHandUp == false)
             {
                 OnCheckMissionFailed?.Invoke();
                 isHandUp = false;
@@ -127,6 +135,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
     private void OnPlayerMoving(bool isMoving)
     {
         isWalk = isMoving;
+        //Debug.Log("2. OnPlayerMoving : " + isMoving);
     }
 
     private void OnLeftStickMove(bool isStick)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Management;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,27 +38,15 @@ public class InputManager : MonoBehaviour
         inputActions.XRIHead.Rotation.performed += HeadRotation_performed;
         inputActions.XRILeftHand.Position.performed += LeftHandPosition_performed;
         inputActions.XRIRightHand.Position.performed += RightHandPosition_performed;
+
         inputActions.XRIRightHandInteraction.Activate.performed += Select_performed;
         inputActions.XRIRightHandInteraction.Activate.canceled += Select_canceled;
 
         inputActions.XRILeftHandLocomotion.Move.performed += LeftStickMove_performed;
         inputActions.XRILeftHandLocomotion.Move.canceled += LeftStickMove_canceled;
-        //inputActions.XRIRightHandLocomotion.Move.performed += RightStickMove_performed;
-        //inputActions.XRIRightHandLocomotion.Move.canceled += RightStickMove_canceled;
     }
 
-    //우측 스틱 회전시 이벤트 발생
-    //private void RightStickMove_performed(InputAction.CallbackContext obj)
-    //{
-    //    bool stickMoving = obj.ReadValue<Vector2>().sqrMagnitude > 0f;
-    //    OnRightStickMove?.Invoke(stickMoving);
-    //}
-
-    //private void RightStickMove_canceled(InputAction.CallbackContext obj)
-    //{
-    //    OnRightStickMove?.Invoke(false);
-    //}
-
+    
 
     private void LeftStickMove_performed(InputAction.CallbackContext obj)
     {
