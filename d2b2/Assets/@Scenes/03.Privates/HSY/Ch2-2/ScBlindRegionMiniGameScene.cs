@@ -48,7 +48,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         }
         Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         playerScript.isGamePlaying= false;
-        //playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
+        playerPos.transform.position = new Vector3 (-1.39f, 1.96f, 0.054f);
         cameraOffset.transform.rotation = Quaternion.Euler(0, -cameraPos.transform.eulerAngles.y, 0);
         PlayBeforeGame();
     }
