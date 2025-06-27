@@ -11,6 +11,6 @@ public class ScCarAnimation : MonoBehaviour
     {
         transform.DOMoveY(transform.position.y + amplitude, duration)
                  .SetLoops(-1, LoopType.Yoyo)
-                 .SetEase(Ease.InOutSine);
+                 .SetEase(Ease.Linear);
     }
 }
