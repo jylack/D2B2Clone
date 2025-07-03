@@ -48,7 +48,7 @@ public class ScTutCharacter : MonoBehaviour
         Vector3 moved = startPos;
         moved.z -= walkingDist;
         float movingDist = walkingDist / (movingTime / moveTick);
-        //animator.SetBool("Walk", true); 여기서 걷기 애니메이션
+
         while(transform.position.z >= moved.z)
         {
             yield return new WaitForSeconds(moveTick);
@@ -59,7 +59,7 @@ public class ScTutCharacter : MonoBehaviour
                 break;
             }
         }
-        //animator.SetBool("Walk", false); 걷기 애니메이션 종료
+
         selectManager.OpenConfirmPopUp();
     }
 
@@ -72,7 +72,7 @@ public class ScTutCharacter : MonoBehaviour
     {
         Vector3 cur = transform.position;
         float movingDist = (startPos.z - transform.position.z) / (movingTime / moveTick);
-        //animator.SetBool("Walk", true); 여기서 걷기 애니메이션
+
         while (transform.position.z <= startPos.z)
         {
             yield return new WaitForSeconds(moveTick);
@@ -83,7 +83,6 @@ public class ScTutCharacter : MonoBehaviour
                 break;
             }
         }
-        //animator.SetBool("Walk", false); 걷기 애니메이션 종료
     }
 
     public ScDefine.ScGuideCharacter GetCharaId()
