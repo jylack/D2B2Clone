@@ -12,7 +12,6 @@ public class ScStepClear : MonoBehaviour
         {
             OnStepClear?.Invoke();
 
-            //ScChapter1.Instance.CurrentSetp++;
             await ScChapter1.Instance.NextStep();
 
             ScRespawn.Instance.Init(ScChapter1.CurrentSetp);

@@ -85,9 +85,9 @@ public class SoundManager : MonoBehaviour
             case ScDefine.ScSound.NegativeNotification: PlayOneShot(negativeNotification);  break;
             case ScDefine.ScSound.ChapterMissionClear:  PlayOneShot(chapterMissionClear);   break;
             case ScDefine.ScSound.CarSkid:              PlayOneShot(carSkid);               break;
-            case ScDefine.ScSound.Ch2_2_CountDown: PlayOneShot(miniGamecountDown);          break;
-            case ScDefine.ScSound.Ch2_2_GameStart: PlayOneShot(miniGameStart);              break;
-            case ScDefine.ScSound.Ch2_2_GameEnd: PlayOneShot(miniGameEnd);                  break;
+            case ScDefine.ScSound.Ch2_2_CountDown:      PlayOneShot(miniGamecountDown);     break;
+            case ScDefine.ScSound.Ch2_2_GameStart:      PlayOneShot(miniGameStart);         break;
+            case ScDefine.ScSound.Ch2_2_GameEnd:        PlayOneShot(miniGameEnd);           break;
         }
     }
 
@@ -105,8 +105,6 @@ public class SoundManager : MonoBehaviour
     {
         soundBgmSfx.volume = volume;
     }
-
-
 
     private void SetDefaultSettings(AudioSource audioSource)
     {

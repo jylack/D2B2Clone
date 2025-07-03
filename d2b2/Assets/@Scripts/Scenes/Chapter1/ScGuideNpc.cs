@@ -14,7 +14,6 @@ public class ScGuideNpc : MonoBehaviour
         Manager.Instance.GameMgr.OnPlayerMoving += OnPlayerMoving;
 
         offset = player.transform.InverseTransformPoint(transform.position);
-        //offset = transform.position - player.transform.position;
         
 
     }
@@ -23,6 +22,7 @@ public class ScGuideNpc : MonoBehaviour
         Manager.Instance.GameMgr.OnPlayerMoving -= OnPlayerMoving;
     }
 
+    //매니저에서 플레이어가 움직일 때 호출되는 이벤트 핸들러
     private void OnPlayerMoving(bool isMoving)
     {
         isMove = isMoving;
@@ -36,13 +36,12 @@ public class ScGuideNpc : MonoBehaviour
         }
     }
 
-
+    // NPC가 플레이어를 따라가는 메서드
     private void FollowPlayer()
     {
         // 이동 중이면 현재 위치를 시작점으로 새 목표로 다시 계산
         Vector3 currentPos = transform.position;
         Vector3 newTarget = player.transform.TransformPoint(offset);
-        //Vector3 newTarget = player.transform.position + offset;
 
         // 기존 Tween이 있으면 Kill
         if (moveTween != null && moveTween.IsActive())
@@ -52,17 +51,15 @@ public class ScGuideNpc : MonoBehaviour
 
         float duration = 1f;
 
-        //float distance = Vector3.Distance(currentPos, newTarget);
-        //if (distance < 0.01f) return; // 너무 가까우면 무시
-
-        moveTween = transform.DOMove(newTarget, duration)
-                             .SetEase(Ease.Linear)
-                             .SetAutoKill(true)
-                             .OnComplete(() => 
+        // 플레이어의 위치로 NPC를 이동시키는 Tween 생성
+        moveTween = transform.DOMove(newTarget, duration)// DOTween을 사용하여 NPC를 플레이어 위치로 이동
+                             .SetEase(Ease.Linear)// Ease 설정
+                             .SetAutoKill(true)// 자동으로 Tween을 제거
+                             .OnComplete(() => // Tween이 완료되면 호출되는 콜백
                              {
-                                 if (isMove)
+                                 if (isMove)// 플레이어가 여전히 움직이고 있다면
                                  {
-                                     FollowPlayer();
+                                     FollowPlayer();// 계속해서 플레이어를 따라가도록 재귀 호출
                                  }
                              })                          
                              ;

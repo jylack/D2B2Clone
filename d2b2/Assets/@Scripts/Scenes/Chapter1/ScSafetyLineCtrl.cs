@@ -30,7 +30,6 @@ public class ScSafetyLineCtrl : MonoBehaviour
 
     IEnumerator TimeLimit(Collider other)
     {
-
         yield return new WaitForSeconds(limitTime);
 
         if (isSafety)

@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScMissionClearUI : MonoBehaviour
 {
@@ -46,11 +44,11 @@ public class ScMissionClearUI : MonoBehaviour
     }
 
     private async UniTask MissionClearImageFadeOut()
-    {        
+    {
         int waitTime = (int)(missionClearUIDelay * 1000);
 
         await UniTask.Delay(waitTime);
-        
+
         missionClearUI.gameObject.SetActive(true);
     }
 

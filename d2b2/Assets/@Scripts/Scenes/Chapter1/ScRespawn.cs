@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+//챕터1 리스폰 관리 클래스
 public class ScRespawn : MonoBehaviour
 {
     private static ScRespawn instance;
 
     [Header("스폰 위치")]
     [SerializeField] private Transform[] spawnPoint;
-    //[SerializeField] private GameObject Npc;
 
     private ScPlayer Player;
 
@@ -23,7 +23,7 @@ public class ScRespawn : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             instance = this;
     }
 
@@ -56,7 +56,7 @@ public class ScRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        if(telPos.destinationPosition == Vector3.zero)
+        if (telPos.destinationPosition == Vector3.zero)
         {
             Debug.LogError("텔레포트 위치가 설정되지 않았습니다.");
             return;

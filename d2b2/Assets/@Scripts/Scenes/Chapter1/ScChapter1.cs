@@ -1,12 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-
-//public static class Ch1_Step
-//{
-//    public static int CurrentSetp = 0;
-//}
-
+//챕터1 정보관리 클래스
 public class ScChapter1 : MonoBehaviour
 {
     private static ScChapter1 instance;
@@ -15,7 +10,7 @@ public class ScChapter1 : MonoBehaviour
     [SerializeField] private ScChapter1_NpcMoveController npc;
 
     public static ScChapter1 Instance => instance;
-    public static int CurrentSetp = 0;
+    public static int CurrentSetp = 0; //챕터1 현재 스텝 정보
 
     private bool lookAroundMissionClear = false;
     public bool LookAroundMissionClear
@@ -49,6 +44,7 @@ public class ScChapter1 : MonoBehaviour
         }
     }
 
+    //다음 스폰포인트 정보 갱신 및 화살표 이미지 활성화
     public async UniTask NextStep()
     {
         CurrentSetp++;
@@ -60,6 +56,7 @@ public class ScChapter1 : MonoBehaviour
 
     }
 
+    //목표 화살표 이미지 활성화
     private async UniTask ArrowImageView()
     {
         arrowImg[CurrentSetp].SetActive(true);
@@ -67,7 +64,6 @@ public class ScChapter1 : MonoBehaviour
         await UniTask.Delay(ImgViewTime);
 
         arrowImg[CurrentSetp].SetActive(false);
-        
     }
 
 
