@@ -7,7 +7,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
 {
     [SerializeField] private float limitTime = 1f;
     [SerializeField] private TextMeshProUGUI IsMove;
-    [SerializeField] private ScHandUpRegion Hand;
+    [SerializeField] private ScHandUpRegion Hand;//실제 플레이어의 손
 
     [SerializeField] private UnityEvent OnCheckMissionClear;
     [SerializeField] private UnityEvent OnCheckMissionFailed;
@@ -51,12 +51,14 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 ScRespawn.Instance.Init(ScChapter1.CurrentSetp);
                 ScRespawn.Instance.Respawn();
 
+                //신호등이 깜빡이는 경우
                 if (isBlink)
                 {
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg04_TrafficBlink);
                     return;
                 }
 
+                //신호등이 빨간색인 경우
                 if (isColorRed)
                 {
                     Manager.Instance.SceneMgr.LoadScene(ScDefine.ScScene.Sg08_Jaywalking);
@@ -71,12 +73,11 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 isHandUp = true;
             }
 
-            //Debug.Log("isWalk : " + isWalk);
-
+            //이동 멈췄을때
             if (isWalk == false)
             {
                 if (coroutine == null)
-                    coroutine = StartCoroutine(StopMoveTimeLimit(other));
+                    coroutine = StartCoroutine(StopMoveTimeLimit());
             }
             else if(isWalk == true && coroutine != null)
             {
@@ -91,7 +92,7 @@ public class ScCrossWalkCtrl : MonoBehaviour
                 isHandUp = false;
 
                 if (coroutine == null)
-                    coroutine = StartCoroutine(HandDownTimeLimit(other));
+                    coroutine = StartCoroutine(HandDownTimeLimit());
 
             }
         }
@@ -103,8 +104,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
         Manager.Instance.InputMgr.OnLeftStickMove -= OnLeftStickMove;
     }
 
-
-    IEnumerator StopMoveTimeLimit(Collider other)
+    //멈췄을때 시간제한
+    IEnumerator StopMoveTimeLimit()
     {
         yield return new WaitForSeconds(limitTime);
 
@@ -118,7 +119,8 @@ public class ScCrossWalkCtrl : MonoBehaviour
         }
     }
 
-    IEnumerator HandDownTimeLimit(Collider other)
+    //손이 내려갔을때 시간제한
+    IEnumerator HandDownTimeLimit()
     {
         yield return new WaitForSeconds(limitTime);
 
@@ -135,7 +137,6 @@ public class ScCrossWalkCtrl : MonoBehaviour
     private void OnPlayerMoving(bool isMoving)
     {
         isWalk = isMoving;
-        //Debug.Log("2. OnPlayerMoving : " + isMoving);
     }
 
     private void OnLeftStickMove(bool isStick)

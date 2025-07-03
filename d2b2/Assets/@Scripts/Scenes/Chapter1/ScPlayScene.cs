@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ScPlayScene : ScSceneBase
 {
+    //이동가능씬 리스트
     [SerializeField] private List<ScDefine.ScScene> MovingSceneList;
 
     private bool isMovableScene = false;
@@ -15,11 +16,8 @@ public class ScPlayScene : ScSceneBase
         await UniTask.WaitUntil(() => Manager.Instance.SceneMgr != null);
 
         
-
         foreach (var sceneName in MovingSceneList)
         {
-            //Debug.Log($"ScDefine.ScScene: {sceneName}");
-
             if (currentSceneName == Manager.Instance.SceneMgr.GetSceneName(sceneName))
             {
                 isMovableScene = true;
@@ -28,15 +26,13 @@ public class ScPlayScene : ScSceneBase
         }
 
 
-
-        if (!isMovableScene)
+        //이동가능씬인지 판별후 현재 플레이어의 이동속도를 설정해서 이동가능 불가능 씬을 설정해줍니다.
+        if (isMovableScene == false) 
         {
-            //Debug.LogWarning($"Scene {currentSceneName} 이동불가씬");
             Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         }
         else
         {
-            //Debug.Log($"Scene {currentSceneName} 이동가능씬");
             Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(1);
         }
 
@@ -45,7 +41,8 @@ public class ScPlayScene : ScSceneBase
 
     private void Start()
     {
-        if(SceneManager.sceneCount > 1)
+        //임시씬(FadeScene)이 아닌 사용중인 씬의 이름을 가져옵니다.
+        if (SceneManager.sceneCount > 1)
         {
             currentSceneName = SceneManager.GetSceneAt(1).name;            
         }
@@ -53,7 +50,6 @@ public class ScPlayScene : ScSceneBase
         {
             currentSceneName = SceneManager.GetActiveScene().name;
         }
-        //Debug.Log($"현재 씬: {currentSceneName}");
            
         Init().Forget();
     }

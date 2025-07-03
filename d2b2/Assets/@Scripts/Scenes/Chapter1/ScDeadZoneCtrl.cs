@@ -1,10 +1,8 @@
 using UnityEngine;
 
-
+//위험지역 코드
 public class ScDeadZoneCtrl : MonoBehaviour
 {
-
-
     private void OnTriggerEnter(Collider other)
     {
 

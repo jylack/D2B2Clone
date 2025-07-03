@@ -29,7 +29,7 @@ public class ScPlayer : ScPlayerBase
     private float rightHandBackwardTime;
     private Vector3 headPosition;
     private float headTurnThresholdQuaternion;
-    
+
 
 
     private void Awake()
@@ -89,7 +89,6 @@ public class ScPlayer : ScPlayerBase
     private void UpdateHeadTurn()
     {
         var tempHeadTurn = ScDefine.ScHeadTurn.None;
-        //float rotationY = xrOrigin.Camera.transform.localRotation.y;
         float rotationY = mainCamera.transform.localRotation.eulerAngles.y;
         if (rotationY > 180f)
             rotationY -= 360f;
@@ -165,8 +164,6 @@ public class ScPlayer : ScPlayerBase
 
         isMoving = true;
         Manager.Instance.GameMgr.RaisePlayerMovingEvent(isMoving);
-
-        //Debug.Log("3. Move Forward : " + isMoving);
     }
 
     // event
@@ -180,6 +177,7 @@ public class ScPlayer : ScPlayerBase
         bool leftHandUp = pos.y > headPosition.y;
         float temp = pos.y - headPosition.y;
         float distance = Mathf.InverseLerp(-maxHandHeight, maxHandHeight, temp);
+
         Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(leftHandUp, isRightHandUp, distance);
 
         if (pos.y < headPosition.y)
@@ -197,7 +195,6 @@ public class ScPlayer : ScPlayerBase
         if (rightHandUp != isRightHandUp)
         {
             isRightHandUp = rightHandUp;
-            //Manager.Instance.GameMgr.RaisePlayerHandsUpEvent(isLeftHandUp, isRightHandUp, distance);
         }
 
         if (pos.y < headPosition.y)
@@ -213,6 +210,5 @@ public class ScPlayer : ScPlayerBase
     {
         isLeftStickMove = isStick;
         Manager.Instance.GameMgr.RaisePlayerMovingEvent(isStick);
-
     }
 }

@@ -31,7 +31,7 @@ public class ScCheckBoxCtrl : MonoBehaviour
     {
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
-            Debug.Log("4. OnTriggerStay : " + isMove);
+            //Debug.Log("4. OnTriggerStay : " + isMove);
             if (isMove == false && isClearInvoked == false)
             {
                 OnCheckMissionClear?.Invoke();
