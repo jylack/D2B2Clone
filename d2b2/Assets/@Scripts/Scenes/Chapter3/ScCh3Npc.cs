@@ -49,10 +49,12 @@ public class ScCh3Npc : ScObjectBase
         {
             ScDefine.ScPathPointNextAction nextAct;
 
+            // 잘못된 행동하지 않음 and 잘못된 행동 가능 체크 and 잘못된 행동 토큰 개수 체크
             if (currentAction != ScDefine.ScPathPointNextAction.DoBadThing && currentDestinationPoint.CanDoBadThing() && ScCh3NpcService.Instance.DecreaseBadThingToken())
             {
                 nextAct = ScDefine.ScPathPointNextAction.DoBadThing;
             }
+            // 잘못된 행동함 or 횡단보도 건너기
             else if (currentAction == ScDefine.ScPathPointNextAction.DoBadThing || currentAction == ScDefine.ScPathPointNextAction.Crosswalk)
             {
                 nextAct = currentDestinationPoint.GetNextRandomAction(ScDefine.ScPathPointNextAction.Crosswalk);

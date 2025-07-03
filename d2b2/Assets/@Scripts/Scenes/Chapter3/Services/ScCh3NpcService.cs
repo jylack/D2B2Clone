@@ -23,7 +23,7 @@ public class ScCh3NpcService : ScObjectBase
     private int remainNpcCount = 16;
     private int currentNpcCount;
     private int npcIncreasedId;
-    private int badThingTokenCount;
+    private int badThingTokenCount;     // NPC가 나쁜행동을 할 수 있는 개수
     private int badThingTokenGenInterval = 5000;
 
 

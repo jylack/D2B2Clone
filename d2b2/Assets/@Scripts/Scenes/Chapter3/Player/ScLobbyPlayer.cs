@@ -22,6 +22,7 @@ public class ScLobbyPlayer : ScObjectBase
         character.transform.localPosition = Vector3.zero;
         character.transform.localRotation = Quaternion.identity;
 
+        // GameObject가 자신인 경우
         if (PhotonNetwork.LocalPlayer.ActorNumber == ActorNumber)
         {
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -35,6 +36,7 @@ public class ScLobbyPlayer : ScObjectBase
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
+        // GameObject가 다른 유저인 경우
         else
         {
             Vector3 playerPos = Manager.Instance.GameMgr.Player.transform.position;

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+// Assets/Resources/Prefabs/Ch3Player.prefab
+// - Player
 public class ScCh3Player : ScPlayerBase
 {
     [SerializeField] private Camera mainCamera;
@@ -24,7 +26,7 @@ public class ScCh3Player : ScPlayerBase
     }
 
 
-
+    // Ray Interactor GameObject -> XR Ray Interactor Component
     public void OnOutlineHoverEnter(HoverEnterEventArgs args)
     {
         if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))
@@ -38,6 +40,7 @@ public class ScCh3Player : ScPlayerBase
         }
     }
 
+    // Ray Interactor GameObject -> XR Ray Interactor Component
     public void OnOutlineHoverExit(HoverExitEventArgs args)
     {
         if (args.interactableObject.transform.TryGetComponent(out ScCh3Npc npc))

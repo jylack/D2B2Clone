@@ -1,4 +1,3 @@
-using ExitGames.Client.Photon;
 using Newtonsoft.Json;
 using Photon.Pun;
 using Photon.Realtime;
@@ -62,7 +61,7 @@ public partial class ScCh3LobbyService
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
-        
+
         ScLobbyPlayerEntity playerEntity = JsonConvert.DeserializeObject<ScLobbyPlayerEntity>(json);
 
         // response: 방금 접속한 유저 -> 모든 유저 정보 전달

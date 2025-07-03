@@ -1,6 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
+// Assets/Resources/Prefabs/Ch3Player.prefab
 public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private GameObject mainCamera;
@@ -29,6 +30,7 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
     
     private void Start()
     {
+        // GameObject가 자신인 경우
         if (photonView.IsMine)
         {
             player.SetActive(true);
@@ -36,6 +38,7 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
 
             Manager.Instance.GameMgr.SetCurrentPlayerMoveSpeed(0);
         }
+        // GameObject가 다른 유저인 경우
         else
         {
             object[] data = photonView.InstantiationData;
@@ -60,11 +63,13 @@ public class ScPlayerTransformSync : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
+        // GameObject가 자신인 경우, 전송할 정보 저장
         if (photonView.IsMine)
         {
             masterHeadPosition = mainCamera.transform.position;
             masterHeadRotation = mainCamera.transform.rotation;
         }
+        // GameObject가 다른 유저인 경우, 컨트롤러 위치 적용
         else
         {
             if (head != null)
