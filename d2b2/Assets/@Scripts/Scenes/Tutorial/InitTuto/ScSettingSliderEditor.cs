@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+// CustomEditor 적용이 잘 되지않아 사용하지 않음(프리팹 복사본의 수정된 값이 원본 값으로 변함)
 //[CustomEditor(typeof(ScSettingSlider))]
 public class ScSettingSliderEditor// : Editor
 {

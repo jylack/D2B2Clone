@@ -79,7 +79,6 @@ public class ScSettingRotation : MonoBehaviour
 
     public void SnapAmountChange()
     {
-        Debug.Log("va " + snapRot.Value);
         snap.turnAmount = snapRot.Value * 15;
     }
     public void ContinousAmountChange()

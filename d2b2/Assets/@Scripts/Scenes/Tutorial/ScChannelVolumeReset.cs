@@ -10,6 +10,7 @@ public class ScChannelVolumeReset : MonoBehaviour
     [SerializeField] private Volume volume;
     [SerializeField] private bool resetWhenStart;
     private ChannelMixer channelMixer;
+
     private void Awake()
     {
         volume.sharedProfile.TryGet(out channelMixer);
@@ -19,7 +20,7 @@ public class ScChannelVolumeReset : MonoBehaviour
         }
     }
 
-    public void ResetColorVolume()
+    public void ResetColorVolume()//채널믹서 초기로 돌림
     {
         channelMixer.redOutBlueIn.value = 0;
         channelMixer.redOutGreenIn.value = 0;

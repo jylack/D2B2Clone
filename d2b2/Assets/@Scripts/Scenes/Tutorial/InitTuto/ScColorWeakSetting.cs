@@ -33,6 +33,7 @@ public class ScColorWeakSetting : MonoBehaviour
     {
         colors = (VolumeColors)color;
         bool red, green, blue;
+        //ChannelMixer에 각각의 R,G,B 안에 R,G,B 강조를 설정해줘야 함
         switch (colors)
         {
             case VolumeColors.Red:
