@@ -64,27 +64,6 @@ public class ScMirrorPlayerHsy : MonoBehaviour
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.green;
-    //    //Vector3 startPoint = rayInteractor.attachTransform.position;
-    //    Vector3 startPoint = rayInteractor.transform.position;
-    //    Vector3 dir = rayInteractor.attachTransform.forward;
-    //    float distance = lineVisual.lineLength;
-
-    //    Gizmos.DrawLine(startPoint, startPoint + (dir * distance));
-
-    //    if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
-    //    {
-    //        Vector3 mirrorDir = mirrorHit.normal;
-    //        Vector3 targetDir = Vector3.Reflect(dir, mirrorDir);
-
-    //        Vector3 mirrorStartPoint = mirrorHit.point;
-    //        Gizmos.DrawLine(mirrorStartPoint, mirrorStartPoint + (targetDir * distance));
-    //    }
-    //}
-
-
 
     public void OnHoverEnter(HoverEnterEventArgs args)
     {
@@ -124,6 +103,7 @@ public class ScMirrorPlayerHsy : MonoBehaviour
             findChildChildEvent.Invoke(++findChildCount);
         }
     }
+    
     private bool Detect(out RaycastHit hitInfo, int layerMask)
     {
         hitInfo = default;
@@ -131,25 +111,41 @@ public class ScMirrorPlayerHsy : MonoBehaviour
         Vector3 startPoint = rayInteractor.attachTransform.position;
         Vector3 dir = rayInteractor.attachTransform.forward;
         float distance = lineVisual.lineLength;
+        // 거울에 먼저 Raycast
         if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
         {
+            // 거울 컴포넌트 확인
             ScMirror mirror = mirrorHit.collider.GetComponent<ScMirror>();
             if (mirror == null) return false;
 
+            // 거울에 붙은 카메라 확인
             Camera mirrorCamera = mirror.mirrorCamTransform.GetComponent<Camera>();
             if (mirrorCamera == null) return false;
 
+            // 충돌 위치를 거울 로컬 기준으로 변환
             Vector3 mirrorLocalHit = mirrorHit.collider.transform.InverseTransformPoint(mirrorHit.point);
-            Vector2 uv = new Vector2(
+
+            // 로컬 좌표를 Viewport 좌표로 변환
+            Vector2 uv = new Vector2
+            (
                 1f - (mirrorLocalHit.x / mirrorHit.collider.bounds.size.x + 0.5f),
                 mirrorLocalHit.y / mirrorHit.collider.bounds.size.y + 0.5f
             );
 
+            // 거울 카메라 기준으로 반사된 Ray 생성
             Ray reflectedRay = mirrorCamera.ViewportPointToRay(new Vector3(uv.x, uv.y, 0));
             Debug.DrawRay(reflectedRay.origin, reflectedRay.direction * distance, Color.magenta);
-            if (Physics.Raycast(reflectedRay, out hitInfo, distance, layerMask))
+            if (Physics.Raycast(reflectedRay, out hitInfo, distance))
             {
-                return true;
+                if (hitInfo.collider.gameObject.layer == ScDefine.Layer.NpcIndex)
+                {
+                    Debug.Log($"Hit: {hitInfo.collider.gameObject.name}");
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         if (Physics.Raycast(startPoint, dir, out hitInfo, distance, layerMask))
@@ -158,32 +154,4 @@ public class ScMirrorPlayerHsy : MonoBehaviour
         }
         return false;
     }
-    //private bool Detect(out RaycastHit hitInfo, int layerMask)
-    //{
-    //    hitInfo = default;
-    //    //Vector3 startPoint = rayInteractor.attachTransform.position;
-    //    Vector3 startPoint = rayInteractor.attachTransform.position;
-    //    Vector3 dir = rayInteractor.attachTransform.forward;
-    //    float distance = lineVisual.lineLength;
-    //
-    //    if (Physics.Raycast(startPoint, dir, out RaycastHit mirrorHit, distance, ScDefine.Layer.MirrorMask))
-    //    {
-    //        Vector3 mirrorStartPoint = mirrorHit.point;
-    //        Vector3 mirrorDir = mirrorHit.normal;
-    //        Vector3 targetDir = Vector3.Reflect(dir, mirrorDir);
-    //        Debug.DrawRay(mirrorHit.point, mirrorHit.normal * 5f, Color.magenta); // 진짜 법선
-    //        Debug.DrawRay(mirrorHit.point, mirrorHit.transform.forward * 5f, Color.blue);
-    //
-    //        if (Physics.Raycast(mirrorStartPoint, targetDir, out hitInfo, distance))
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    else if (Physics.Raycast(startPoint, dir, out hitInfo, distance, layerMask))
-    //    {
-    //        return true;
-    //    }
-    //
-    //    return false;
-    //}
 }

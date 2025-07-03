@@ -24,7 +24,6 @@ public class ScLookAroundRegion : MonoBehaviour
             checkLookLeft = false;
             checkLookRight = false;
             Manager.Instance.GameMgr.OnPlayerHeadTurn += CheckPlayerHeadTurn;
-
             OnCheckMissionFailed?.Invoke();
         }
     }
@@ -34,16 +33,15 @@ public class ScLookAroundRegion : MonoBehaviour
         if (other.gameObject.layer == ScDefine.Layer.PlayerIndex)
         {
             ExitMissionRegion();
-
         }
     }
     private void OnDestroy()
     {
         ExitMissionRegion();
     }
+    // 좌우 확인 미션 시작
     private void CheckPlayerHeadTurn(ScDefine.ScHeadTurn headDirection)
     {
-        Debug.Log(headDirection);
         if (headDirection == ScDefine.ScHeadTurn.Left && checkLookLeft == false)
         {
             UIPlayerHsy.Instance.OnLookAroundLeftProgress();
@@ -68,7 +66,7 @@ public class ScLookAroundRegion : MonoBehaviour
         }
     }
 
-
+    // 좌우 확인 대기시간 측정 후 미션완료 체크
     private IEnumerator CheckHeadStayTime(ScDefine.ScHeadTurn headDirection)
     {
         float timer = 0f;
@@ -78,27 +76,19 @@ public class ScLookAroundRegion : MonoBehaviour
             UIPlayerHsy.Instance.DrawLookArounProgress(timer, completeTime, headDirection);
             yield return null;
         }
-
         if (headDirection == ScDefine.ScHeadTurn.Left)
         {
             checkLookLeft = true;
-            Debug.Log("왼쪽 완료");
         }
         else
         {
             checkLookRight = true;
             lookAroundMissionClear = true;
-            Debug.Log("오른쪽 완료");
         }
-
         lookCor = null;
-
         if (lookAroundMissionClear)
         {
-            Debug.Log("미션 성공!");
-
-             OnCheckMissionClear?.Invoke();
-
+            OnCheckMissionClear?.Invoke();
             OffAllUI();
         }
     }

@@ -52,25 +52,34 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         cameraOffset.transform.rotation = Quaternion.Euler(0, -cameraPos.transform.eulerAngles.y, 0);
         PlayBeforeGame();
     }
+
+    // 미니게임 시작버튼 On (타임라인 시그널 용)
     public void OngameStartBtn()
     {
         gameStartBtn.SetActive(true);
     }
+
+    // 미니게임 시작버튼 Off (타임라인 시그널 용)
     public void OffgameStartBtn()
     {
         gameStartBtn.SetActive(false);
     }
+
+    // 미니게임 시작 전 타임라인 시작
     public void PlayBeforeGame()
     {
         director.playableAsset = miniGameStartTimeLine;
         director.Play();
     }
 
+    // 미니게임 종료 후 타임라인 시작
     public void PlayAfterGame()
     {
         director.playableAsset = miniGameEndTimeLine;
         director.Play();
     }
+
+
     IEnumerator StartCount()
     {
         UIPlayerHsy.Instance.countDownText.gameObject.SetActive(true);
@@ -90,6 +99,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
             }
             count--;
         }
+        // 미니 게임 시작 후 플레이어 이벤트 활성화, 오브젝트 활성화
         playerScript.isGamePlaying = true;
         UIPlayerHsy.Instance.countDownText.text = "";
         playerScript.ConnectPlayerTriggerEvent();
@@ -97,6 +107,7 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         CreateChildNpc();
         yield return StartCoroutine(TimmerCor());
         Manager.Instance.SoundMgr.PlaySfx(ScDefine.ScSound.Ch2_2_GameEnd);
+        // 종료 후 이벤트 해지, 오브젝트 비활성화
         playNavInfo.SetActive(false);
         playerScript.DisConnectPlayerTriggerEvent();
         playerScript.isGamePlaying = false;
@@ -112,6 +123,8 @@ public class ScBlindRegionMiniGameScene : MonoBehaviour
         StartCoroutine(StartCount());
         OffgameStartBtn();
     }
+
+    // 미니게임 제한시간 체크
     IEnumerator TimmerCor()
     {
         float currentTime = 0;
