@@ -39,3 +39,4 @@ NPC 상호작용부터 안전가이드, CSV 기반 로직, 신호등 시스템�
 - `CSV 데이터 기반` NPC/가이드 구성
 - `Jira 태스크 기반 개발 및 단계별 완료`
 - Unity 애니메이션/이벤트 + 로직 동기 처리
+<img width="1636" height="578" alt="image" src="https://github.com/user-attachments/assets/a449dab1-6620-4b99-a1c3-49c1b712b840" />
